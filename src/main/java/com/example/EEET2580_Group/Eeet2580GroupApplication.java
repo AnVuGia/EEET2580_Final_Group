@@ -8,7 +8,7 @@ public class Eeet2580GroupApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Eeet2580GroupApplication.class, args);
-		String hello = "Hello An";
+		String hello = "Hello A";
 		System.out.println(hello);
 	}
 
