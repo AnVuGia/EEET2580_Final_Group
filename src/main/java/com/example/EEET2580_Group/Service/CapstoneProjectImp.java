@@ -3,6 +3,9 @@ package com.example.EEET2580_Group.Service;
 import com.example.EEET2580_Group.DAO.CapstoneProjectRepository;
 import com.example.EEET2580_Group.Entity.CapstoneProject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,16 +24,17 @@ public class CapstoneProjectImp implements CapstoneProjectService{
     }
 
     @Override
-    public List<CapstoneProjectService> getAllCapstoneProject() {
+    public List<CapstoneProject> getAllCapstoneProject() {
         System.out.println("CapstoneProject found");
-        System.out.println(capstoneProjectRepository.findAll());
-        return null;
+        return List.of((CapstoneProject) capstoneProjectRepository.findAll());
     }
 
     @Override
-    public Optional<CapstoneProjectService> findById(Long id) {
+    public Optional<CapstoneProject> findById(Long id) {
         System.out.println("CapstoneProject found");
-        System.out.println(capstoneProjectRepository.findById(id));
+        CapstoneProject capstoneProject = capstoneProjectRepository.findById(id).get();
+        if (capstoneProject.getId() != null)
+            return Optional.of(capstoneProject);
         return Optional.empty();
     }
 
@@ -38,5 +42,11 @@ public class CapstoneProjectImp implements CapstoneProjectService{
     public void deleteCapstoneProjectById(Long id) {
         capstoneProjectRepository.deleteById(id);
         System.out.println("CapstoneProject deleted");
+    }
+    @Override
+    public
+    Page<CapstoneProject> findPaginated(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        return this.capstoneProjectRepository.findAll(pageable);
     }
 }

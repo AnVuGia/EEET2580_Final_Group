@@ -13,15 +13,30 @@
     <button type="submit">Submit</button>
 </form>
 <div>
-<!--    <form th:action="@{/api/delete}" th:object="${user}" method="POST">-->
-<!--        <button type="submit">Delete</button>-->
-<!--        <span>-->
-<!--        <label>ID:</label>-->
-<!--        <input type ="text" th:field="*{id}"/>-->
-<!--    </span>-->
-<!--    </form>-->
-
+    <form th:action="@{/api/capstoneProject/delete}" th:object="${capstoneProjectDataResponse}" method="POST">
+        <button type="submit">Delete</button>
+        <span>
+        <label>ID:</label>
+        <input type ="text" th:field="*{id}"/>
+    </span>
+    </form>
 </div>
+<div>
+    <form th:action="@{/api/capstoneProject/update}" th:object="${capstoneProjectDataResponse}" method="POST">
+        <button type="submit">Update</button>
+        <span>
+        <label>ID:</label>
+        <input type ="text" th:field="*{id}"/>
+    </span>
+        <span>
+        <label>Name:</label>
+        <input type ="text" th:field="*{name}"/>
+    </span>
+        <span>
+        <label>Description:</label>
+        <input type ="text" th:field="*{description}"/>
+    </span>
+    </form>
 <button>ADD</button>
 </body>
 </html>
