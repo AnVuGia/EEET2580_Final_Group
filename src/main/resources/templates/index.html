@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
+<form th:action="@{/api/capstoneProject/add}" th:object="${capstoneProjectDataResponse}" method="POST">
+    <label for="agi">Agi:</label>
+    <input type="text" id="agi" th:field="*{name}"/>
+    <label for="def">Def:</label>
+    <input type="text" id="def" th:field="*{description}">
+    <button type="submit">Submit</button>
+</form>
+<div>
+<!--    <form th:action="@{/api/delete}" th:object="${user}" method="POST">-->
+<!--        <button type="submit">Delete</button>-->
+<!--        <span>-->
+<!--        <label>ID:</label>-->
+<!--        <input type ="text" th:field="*{id}"/>-->
+<!--    </span>-->
+<!--    </form>-->
+
+</div>
+<button>ADD</button>
+</body>
+</html>
