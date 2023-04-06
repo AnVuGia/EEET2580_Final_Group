@@ -3,9 +3,14 @@ package com.example.EEET2580_Group.Controller;
 import com.example.EEET2580_Group.Entity.CapstoneProject;
 import com.example.EEET2580_Group.Entity.CapstoneProjectResponse;
 import com.example.EEET2580_Group.Service.CapstoneProjectService;
+
+import java.net.http.HttpHeaders;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -37,10 +42,21 @@ public class CapstoneProjectController {
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<?> getAllCapstoneProject(@RequestParam("page") int page,
+    public ResponseEntity<Page<CapstoneProject>> getAllCapstoneProject(@RequestParam("page") int page,
             @RequestParam("size") int size) {
-        Page<CapstoneProject> capstoneProject = capstoneProjectService.findPaginated(page, size);
-        return ResponseEntity.ok(capstoneProject);
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<CapstoneProject> capstoneProjects = capstoneProjectService.findPaginated(pageable);
+        return ResponseEntity.ok(capstoneProjects);
+
+    }
+
+    @GetMapping("/findAll")
+    public ResponseEntity<List<CapstoneProject>> findAllCapstoneProject() {
+        List<CapstoneProject> capstoneProjects = capstoneProjectService.getAllCapstoneProject();
+        return new ResponseEntity<List<CapstoneProject>>(capstoneProjects, org.springframework.http.HttpHeaders.EMPTY,
+                org.springframework.http.HttpStatus.OK);
+
     }
 
 }

@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +31,7 @@ public class CapstoneProjectImp implements CapstoneProjectService {
     @Override
     public List<CapstoneProject> getAllCapstoneProject() {
         System.out.println("CapstoneProject found");
-        return List.of((CapstoneProject) capstoneProjectRepository.findAll());
+        return capstoneProjectRepository.findAll();
     }
 
     @Override
@@ -49,9 +50,11 @@ public class CapstoneProjectImp implements CapstoneProjectService {
     }
 
     @Override
-    public Page<CapstoneProject> findPaginated(int pageNo, int pageSize) {
-        Pageable pageable = PageRequest.of(pageNo, pageSize);
-        return this.capstoneProjectRepository.findAll(pageable);
+    public Page<CapstoneProject> findPaginated(Pageable pageable) {
+
+        Page<CapstoneProject> page = capstoneProjectRepository.findAll(pageable);
+        return page;
+
     }
 
     @Override

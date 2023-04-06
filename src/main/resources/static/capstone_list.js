@@ -1,19 +1,22 @@
 const url = '/capstone';
 
-let currentPage = 1;
+let currentPage = 0;
 let pageSize = 5;
 async function getCapstoneList() {
   const capstoneList = await fetch(
     `${url}/getAll?page=${currentPage}&size=${pageSize}`
   );
-  return capstoneList;
+  //   const capstoneList = await fetch(`${url}/findAll`);
+  const capstoneListJson = await capstoneList.json();
+  console.log(capstoneList);
+  return capstoneListJson;
 }
 async function updateUI() {
   const capstoneList = await getCapstoneList();
   console.log(capstoneList);
-  const capstoneListElement = document.querySelector('#capstone_list');
+  const capstoneListElement = document.querySelector('.capstone_container');
   capstoneListElement.innerHTML = '';
-  capstoneList.forEach((capstone) => {
+  capstoneList.content.forEach((capstone) => {
     const capstoneElement = document.createElement('li');
     capstoneElement.innerHTML = `
         <div class="capstone_container">
@@ -22,8 +25,8 @@ async function updateUI() {
           src="https://via.placeholder.com/300x200.png?text=Item+1"
           alt="Item 1"
         />
-        <h3>${capstone.getName()}</h3>
-        <p>${capstone.getDescription()}</p>
+        <h3>${capstone.name}</h3>
+        <p>${capstone.description}</p>
       </div>
     </div>
         `;
