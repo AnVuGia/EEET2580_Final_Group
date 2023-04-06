@@ -1,0 +1,37 @@
+.capstone_body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f1f1f1;
+}
+.capstone_container {
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.capstone_item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+}
+.capstone_item img {
+  max-width: 100%;
+  height: auto;
+}
+.capstone_item h3 {
+  font-size: 1.5rem;
+  margin: 10px 0;
+}
+.capstone_item p {
+  font-size: 1rem;
+  margin: 10px 0;
+  color: #999;
+}

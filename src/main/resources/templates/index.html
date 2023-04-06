@@ -1,42 +1,44 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
     <title>Index</title>
-</head>
-<body>
-<form th:action="@{/api/capstoneProject/add}" th:object="${capstoneProjectDataResponse}" method="POST">
-    <label for="agi">Agi:</label>
-    <input type="text" id="agi" th:field="*{name}"/>
-    <label for="def">Def:</label>
-    <input type="text" id="def" th:field="*{description}">
-    <button type="submit">Submit</button>
-</form>
-<div>
-    <form th:action="@{/api/capstoneProject/delete}" th:object="${capstoneProjectDataResponse}" method="POST">
-        <button type="submit">Delete</button>
-        <span>
+  </head>
+  <body>
+    <script defer src="index.js"></script>
+    <div>
+      <h2>Create new capstone</h2>
+      <label>Name:</label>
+      <input type="text" id="capstone_name" />
+      <label>Description:</label>
+      <input type="text" id="capstone_des" />
+      <button id="add_capstone_btn">ADD</button>
+    </div>
+    <div>
+      <h3>Delete Capstone</h3>
+      <span>
         <label>ID:</label>
-        <input type ="text" th:field="*{id}"/>
-    </span>
-    </form>
-</div>
-<div>
-    <form th:action="@{/api/capstoneProject/update}" th:object="${capstoneProjectDataResponse}" method="POST">
-        <button type="submit">Update</button>
+        <input type="text" id="delete_capstone_id" />
+        <button id="delete_capstone_btn">Delete</button>
+      </span>
+    </div>
+    <div>
+      <h3>Update Capstone</h3>
+      <div>
         <span>
-        <label>ID:</label>
-        <input type ="text" th:field="*{id}"/>
-    </span>
+          <label>ID:</label>
+          <input type="text" id="update_capstone_id" />
+        </span>
         <span>
-        <label>Name:</label>
-        <input type ="text" th:field="*{name}"/>
-    </span>
+          <label>Name:</label>
+          <input type="text" id="update_capstone_name" />
+        </span>
         <span>
-        <label>Description:</label>
-        <input type ="text" th:field="*{description}"/>
-    </span>
-    </form>
-<button>ADD</button>
-</body>
+          <label>Description:</label>
+          <input type="text" id="update_capstone_des" />
+        </span>
+        <button type="submit" id="update_capstone_btn">Update</button>
+      </div>
+    </div>
+  </body>
 </html>

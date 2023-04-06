@@ -1,10 +1,14 @@
 package com.example.EEET2580_Group.Entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "capstone_project")
 public class CapstoneProject {
     @Id
@@ -15,8 +19,8 @@ public class CapstoneProject {
     @Column(name = "description")
     private String description;
 
-//    private String team;
-//    private String status;
-//    private String date;
-//    private String link;
+    public CapstoneProject(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
 }
