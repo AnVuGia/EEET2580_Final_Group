@@ -5,12 +5,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+//Lombok annotations
 @Data
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
+// JPA annotations
+@Entity
 @Table(name = "capstone_project")
 public class CapstoneProject {
+    // CapstoneProject Entity
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

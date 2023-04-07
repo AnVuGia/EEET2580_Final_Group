@@ -5,6 +5,7 @@ let pageSize = 5;
 let capstoneList = [];
 const nextPageBtn = document.querySelector('#next_page_btn');
 const PrevPageBtn = document.querySelector('#prev_page_btn');
+//function to get the list of capstone projects
 async function getCapstoneList() {
   const endpoint = 'getPaginated';
   capstoneList = await fetch(
@@ -14,6 +15,7 @@ async function getCapstoneList() {
   console.log(capstoneListJson);
   return capstoneListJson;
 }
+//function to update the UI
 async function updateUI() {
   capstoneList = await getCapstoneList();
   console.log(capstoneList);
@@ -42,10 +44,12 @@ async function updateUI() {
     PrevPageBtn.disabled = false;
   }
 }
+//function to go to the next page
 async function nextPage() {
   currentPage++;
   await updateUI();
 }
+//function to go to the previous page
 async function previousPage() {
   currentPage--;
   await updateUI();

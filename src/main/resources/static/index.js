@@ -1,4 +1,5 @@
 const url = '/capstone';
+//function to save the capstone project
 function onSaveCapstone() {
   const capstoneName = document.querySelector('#capstone_name');
   const capstoneDescription = document.querySelector('#capstone_des');
@@ -14,10 +15,12 @@ function onSaveCapstone() {
     body: JSON.stringify(capstoneProject),
   });
 }
+//function to delete the capstone project
 async function deleteCapstone() {
   const capstoneId = document.querySelector('#delete_capstone_id').value;
   await fetch(`${url}/delete?id=${capstoneId}`, { method: 'POST' });
 }
+//function to update the capstone project
 async function updateCapstone() {
   const capstoneId = document.querySelector('#update_capstone_id').value;
   const capstoneName = document.querySelector('#update_capstone_name').value;

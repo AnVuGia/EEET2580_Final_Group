@@ -4,7 +4,6 @@ import com.example.EEET2580_Group.Entity.CapstoneProject;
 import com.example.EEET2580_Group.Entity.CapstoneProjectResponse;
 import com.example.EEET2580_Group.Service.CapstoneProjectService;
 
-import java.net.http.HttpHeaders;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +17,11 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("capstone")
 public class CapstoneProjectController {
+    // Capstone Project related API
     @Autowired
     CapstoneProjectService capstoneProjectService;
 
+    // Add Capstone Project to database
     @PostMapping("/add")
     public String addCapstoneProject(@RequestBody CapstoneProjectResponse capstoneProject) {
         capstoneProjectService.saveCapstoneProject(capstoneProject);
@@ -28,12 +29,14 @@ public class CapstoneProjectController {
         return "index";
     }
 
+    // Delete Capstone Project from database
     @PostMapping("/delete")
     public String deleteCapstoneProject(@RequestParam("id") Long id) {
         capstoneProjectService.deleteCapstoneProjectById(id);
         return "index";
     }
 
+    // Update Capstone Project in database
     @PostMapping("/update")
     public String updateCapstoneProject(@RequestParam("id") Long id,
             @RequestBody CapstoneProjectResponse capstoneProject) {
@@ -41,6 +44,7 @@ public class CapstoneProjectController {
         return "index";
     }
 
+    // Get Capstone Project from database with paagination
     @GetMapping("/getPaginated")
     public ResponseEntity<Page<CapstoneProject>> getAllCapstoneProject(@RequestParam("page") int page,
             @RequestParam("size") int size) {
@@ -51,6 +55,7 @@ public class CapstoneProjectController {
 
     }
 
+    // Get all Capstone Project from database
     @GetMapping("/findAll")
     public ResponseEntity<List<CapstoneProject>> findAllCapstoneProject() {
         List<CapstoneProject> capstoneProjects = capstoneProjectService.getAllCapstoneProject();
