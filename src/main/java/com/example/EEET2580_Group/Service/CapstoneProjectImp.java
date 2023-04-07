@@ -21,8 +21,11 @@ public class CapstoneProjectImp implements CapstoneProjectService {
 
     @Override
     public CapstoneProjectService saveCapstoneProject(CapstoneProjectResponse capstoneProject) {
+        CapstoneProject temCapstoneProject = new CapstoneProject();
+        temCapstoneProject.setProjectTitle(capstoneProject.getTitle());
+        temCapstoneProject.setProjectDescription(capstoneProject.getDescription());
         capstoneProjectRepository
-                .save(new CapstoneProject(capstoneProject.getName(), capstoneProject.getDescription()));
+                .save(temCapstoneProject);
         System.out.println("CapstoneProject saved");
         System.out.println(capstoneProject);
         return null;
@@ -51,7 +54,6 @@ public class CapstoneProjectImp implements CapstoneProjectService {
 
     @Override
     public Page<CapstoneProject> findPaginated(Pageable pageable) {
-
         Page<CapstoneProject> page = capstoneProjectRepository.findAll(pageable);
         return page;
 
@@ -60,8 +62,8 @@ public class CapstoneProjectImp implements CapstoneProjectService {
     @Override
     public void updateCapstoneProjectById(Long id, CapstoneProjectResponse capstoneProject) {
         CapstoneProject capstoneProject1 = capstoneProjectRepository.findById(id).get();
-        capstoneProject1.setName(capstoneProject.getName());
-        capstoneProject1.setDescription(capstoneProject.getDescription());
+        capstoneProject1.setProjectTitle(capstoneProject.getTitle());
+        capstoneProject1.setProjectIntroduction(capstoneProject.getDescription());
         capstoneProjectRepository.save(capstoneProject1);
         System.out.println("CapstoneProject updated");
     }

@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CapstoneProjectResponse {
-    private String name;
+    private String title;
     private String description;
 }

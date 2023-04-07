@@ -24,7 +24,7 @@ public class CapstoneProjectController {
     @PostMapping("/add")
     public String addCapstoneProject(@RequestBody CapstoneProjectResponse capstoneProject) {
         capstoneProjectService.saveCapstoneProject(capstoneProject);
-        System.out.println(capstoneProject.getName() + " " + capstoneProject.getDescription());
+        System.out.println(capstoneProject.getTitle() + " " + capstoneProject.getDescription());
         return "index";
     }
 
@@ -41,7 +41,7 @@ public class CapstoneProjectController {
         return "index";
     }
 
-    @GetMapping("/getAll")
+    @GetMapping("/getPaginated")
     public ResponseEntity<Page<CapstoneProject>> getAllCapstoneProject(@RequestParam("page") int page,
             @RequestParam("size") int size) {
 

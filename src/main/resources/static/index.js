@@ -3,7 +3,7 @@ function onSaveCapstone() {
   const capstoneName = document.querySelector('#capstone_name');
   const capstoneDescription = document.querySelector('#capstone_des');
   const capstoneProject = {
-    name: capstoneName.value,
+    title: capstoneName.value,
     description: capstoneDescription.value,
   };
   fetch(`${url}/add`, {
@@ -26,7 +26,7 @@ async function updateCapstone() {
   ).value;
   const capstoneProject = {
     id: capstoneId,
-    name: capstoneName,
+    title: capstoneName,
     description: capstoneDescription,
   };
   await fetch(`${url}/update?id=${capstoneId}`, {
