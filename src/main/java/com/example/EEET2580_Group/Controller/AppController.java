@@ -16,4 +16,9 @@ public class AppController {
     public String viewMainPage() {
         return "capstone-list";
     }
+    // Controller for the find capstone page
+    @GetMapping("/find-capstone")
+    public String viewFindCapstonePage() {
+        return "find-capstone";
+    }
 }

@@ -64,4 +64,18 @@ public class CapstoneProjectController {
 
     }
 
+    @PostMapping("/findById")
+    public ResponseEntity<CapstoneProject> findCapstoneProjectById(@RequestParam("id") Long id) {
+        CapstoneProject capstoneProject = capstoneProjectService.findById(id).get();
+        return new ResponseEntity<CapstoneProject>(capstoneProject, org.springframework.http.HttpHeaders.EMPTY,
+                org.springframework.http.HttpStatus.OK);
+
+    }
+    @PostMapping("/findByTitle")
+    public ResponseEntity<CapstoneProject> findCapstoneProjectByTitle(@RequestParam("title") String title) {
+        CapstoneProject capstoneProject = capstoneProjectService.findByTitle(title).get();
+        return new ResponseEntity<CapstoneProject>(capstoneProject, org.springframework.http.HttpHeaders.EMPTY,
+                org.springframework.http.HttpStatus.OK);
+
+    }
 }

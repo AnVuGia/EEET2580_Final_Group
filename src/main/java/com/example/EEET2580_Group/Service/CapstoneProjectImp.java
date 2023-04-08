@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-// CapstoneProjectImp implements CapstoneProjectService 
+// CapstoneProjectImp implements CapstoneProjectService
 public class CapstoneProjectImp implements CapstoneProjectService {
     @Autowired
     private CapstoneProjectRepository capstoneProjectRepository;
@@ -65,5 +65,13 @@ public class CapstoneProjectImp implements CapstoneProjectService {
         capstoneProject1.setProjectIntroduction(capstoneProject.getDescription());
         capstoneProjectRepository.save(capstoneProject1);
         System.out.println("CapstoneProject updated");
+    }
+
+    @Override
+    public Optional<CapstoneProject> findByTitle(String title) {
+        CapstoneProject capstoneProject = capstoneProjectRepository.findByProjectTitle(title);
+        if (capstoneProject.getProjectTitle() != null)
+            return Optional.of(capstoneProject);
+        return Optional.empty();
     }
 }

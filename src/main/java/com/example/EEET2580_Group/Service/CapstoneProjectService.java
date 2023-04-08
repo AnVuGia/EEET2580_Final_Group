@@ -28,4 +28,6 @@ public interface CapstoneProjectService {
     // findPaginated returns a page of capstone projects with pagination
     public Page<CapstoneProject> findPaginated(Pageable pageable);
 
+    Optional<CapstoneProject> findByTitle(String title);
+
 }
