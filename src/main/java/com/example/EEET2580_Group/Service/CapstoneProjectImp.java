@@ -55,7 +55,6 @@ public class CapstoneProjectImp implements CapstoneProjectService {
     public Page<CapstoneProject> findPaginated(Pageable pageable) {
         Page<CapstoneProject> page = capstoneProjectRepository.findAll(pageable);
         return page;
-
     }
 
     @Override

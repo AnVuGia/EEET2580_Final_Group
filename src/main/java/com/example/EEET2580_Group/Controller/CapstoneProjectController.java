@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
@@ -49,7 +50,7 @@ public class CapstoneProjectController {
     public ResponseEntity<Page<CapstoneProject>> getAllCapstoneProject(@RequestParam("page") int page,
             @RequestParam("size") int size) {
 
-        Pageable pageable = PageRequest.of(page, size);
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
         Page<CapstoneProject> capstoneProjects = capstoneProjectService.findPaginated(pageable);
         return ResponseEntity.ok(capstoneProjects);
 
@@ -71,6 +72,7 @@ public class CapstoneProjectController {
                 org.springframework.http.HttpStatus.OK);
 
     }
+
     @PostMapping("/findByTitle")
     public ResponseEntity<CapstoneProject> findCapstoneProjectByTitle(@RequestParam("title") String title) {
         CapstoneProject capstoneProject = capstoneProjectService.findByTitle(title).get();
