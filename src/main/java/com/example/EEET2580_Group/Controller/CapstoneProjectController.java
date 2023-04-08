@@ -49,7 +49,8 @@ public class CapstoneProjectController {
     @GetMapping("/getPaginated")
     public ResponseEntity<Page<CapstoneProject>> getAllCapstoneProject(@RequestParam("page") int page,
             @RequestParam("size") int size) {
-
+        // Pageable with page, size and sort (incase don't want to sort, just use
+        // Pageable pageable = PageRequest.of(page,size))
         Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
         Page<CapstoneProject> capstoneProjects = capstoneProjectService.findPaginated(pageable);
         return ResponseEntity.ok(capstoneProjects);
