@@ -1,0 +1,17 @@
+.form{
+    height: 250px;
+    width: 500px;
+}
+.btn-controller:nth-child(1){
+    background-color: var(--green);
+}
+.btn-controller:nth-child(2){
+    background-color: var(--red);
+}
+
+.btn-controller:nth-child(1):hover{
+    background-color: rgba(6, 170, 109, 0.5);
+}
+.btn-controller:nth-child(2):hover{
+    background-color: rgba(254, 0, 0, 0.5);
+}

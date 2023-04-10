@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/login-signup/base.css">
+    <link rel="stylesheet" href="/css/login-signup/sign-up.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Sign up Page</title>
+</head>
+<body>
+    <main>
+        <section class="top">
+            <img src="/images/login-signup/capstone-logo-300px.png" alt="" class="top-image">
+         </section>
+        <div class="form">
+            
+                <div class="sign-up-element">
+                    <input class="form-form-elemment user-name"  type="text" placeholder="User Name" name="uname" required/>
+                        <img src="/images/login-signup/icon-error.svg" alt="" class="error__icon" />
+                    </input>
+                    <p class="error error-uname" aria-live="polite"></p>
+                </div>
+                <div class="sign-up-element">
+                    <input class="form-form-elemment password" type="password" placeholder="Password" name="pass"  required minlength="8"/>
+                    <img src="/images/login-signup/icon-error.svg" alt="" class="error__icon" />
+                    <p class="error error-password" aria-live="polite"></p>
+                </div>
+                <div class="sign-up-element">
+                    <input class="form-form-elemment re-enter-password" type="password" placeholder="Enter Password Again" name="re_enter_pass"  required minlength="8"/>
+                    <img src="/images/login-signup/icon-error.svg" alt="" class="error__icon" />
+                    <p class="error error-re-password" aria-live="polite"></p>
+                </div>
+            
+
+            <div class="controller">
+                <div id ="btn-sign-up" class ="btn-controller">Sign up</div>
+                <div id = "btn-back" class="btn-controller">Back</div>
+            </div>
+        </div>
+        
+        <script defer src="/login-signup/sign-up.js"></script>
+    </main>
+  </body>
+</html>
