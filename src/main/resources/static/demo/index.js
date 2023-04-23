@@ -1,13 +1,14 @@
-const url = '/capstone';
+const url = '/api/capstone-project';
 //function to save the capstone project
 function onSaveCapstone() {
   const capstoneName = document.querySelector('#capstone_name');
   const capstoneDescription = document.querySelector('#capstone_des');
+
   const capstoneProject = {
     title: capstoneName.value,
     description: capstoneDescription.value,
   };
-  fetch(`${url}/add`, {
+  fetch(`${url}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -18,7 +19,7 @@ function onSaveCapstone() {
 //function to delete the capstone project
 async function deleteCapstone() {
   const capstoneId = document.querySelector('#delete_capstone_id').value;
-  await fetch(`${url}/delete?id=${capstoneId}`, { method: 'POST' });
+  await fetch(`${url}?id=${capstoneId}`, { method: 'DELETE' });
 }
 //function to update the capstone project
 async function updateCapstone() {
@@ -32,8 +33,8 @@ async function updateCapstone() {
     title: capstoneName,
     description: capstoneDescription,
   };
-  await fetch(`${url}/update?id=${capstoneId}`, {
-    method: 'POST',
+  await fetch(`${url}?id=${capstoneId}`, {
+    method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
     },

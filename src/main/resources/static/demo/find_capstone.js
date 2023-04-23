@@ -1,10 +1,10 @@
-const url = '/capstone';
+const url = '/api/capstone-project';
 async function getDataById() {
   const itemID = document.querySelector('#capstone-id').value;
   console.log(itemID);
-  const endPoints = '/findById?id=' + itemID;
+  const endPoints = '?id=' + itemID;
   const res = await fetch(`${url}${endPoints}`, {
-    method: 'POST',
+    method: 'GET',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
@@ -17,7 +17,7 @@ async function getDataById() {
 async function getDataByTitle() {
   const itemTitle = document.querySelector('#capstone-title').value;
   console.log(itemTitle);
-  const endPoints = '/findByTitle?title=' + itemTitle;
+  const endPoints = '/title?title=' + itemTitle;
   const res = await fetch(`${url}${endPoints}`, {
     method: 'POST',
     headers: {

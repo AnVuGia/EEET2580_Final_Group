@@ -4,6 +4,7 @@ import com.example.EEET2580_Group.Entity.CapstoneProject;
 import com.example.EEET2580_Group.Entity.CapstoneProjectResponse;
 import com.example.EEET2580_Group.Repository.CapstoneProjectRepository;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,13 +14,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-// CapstoneProjectImp implements CapstoneProjectService
-public class CapstoneProjectImp implements CapstoneProjectService {
+@Transactional
+// CapstoneProjectServiceImp implements CapstoneProjectService
+public class CapstoneProjectServiceImp implements CapstoneProjectService {
     @Autowired
     private CapstoneProjectRepository capstoneProjectRepository;
 
     @Override
-    public CapstoneProjectService saveCapstoneProject(CapstoneProjectResponse capstoneProject) {
+    public void saveCapstoneProject(CapstoneProjectResponse capstoneProject) {
         CapstoneProject temCapstoneProject = new CapstoneProject();
         temCapstoneProject.setProjectTitle(capstoneProject.getTitle());
         temCapstoneProject.setProjectDescription(capstoneProject.getDescription());
@@ -27,7 +29,6 @@ public class CapstoneProjectImp implements CapstoneProjectService {
                 .save(temCapstoneProject);
         System.out.println("CapstoneProject saved");
         System.out.println(capstoneProject);
-        return null;
     }
 
     @Override

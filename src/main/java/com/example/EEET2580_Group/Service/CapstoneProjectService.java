@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public interface CapstoneProjectService {
     // saveCapstoneProject saves a capstone project
-    CapstoneProjectService saveCapstoneProject(CapstoneProjectResponse capstoneProject);
+    void saveCapstoneProject(CapstoneProjectResponse capstoneProject);
 
     // getAllCapstoneProject returns all capstone projects to a list
     List<CapstoneProject> getAllCapstoneProject();

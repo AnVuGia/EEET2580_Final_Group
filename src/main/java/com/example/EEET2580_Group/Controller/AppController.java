@@ -18,17 +18,17 @@ public class AppController {
     }
 
     // Controller for the find capstone page
-    @GetMapping("/find-capstone")
+    @GetMapping("/find-capstone-page")
     public String viewFindCapstonePage() {
         return "find-capstone";
     }
 
-    @GetMapping("/sign-up")
+    @GetMapping("/sign-up-page")
     public String viewSignUpPage() {
         return "sign-up";
     }
 
-    @GetMapping("/sign-in")
+    @GetMapping("/sign-in-page")
     public String viewSignInPage() {
         return "sign-in";
     }

@@ -12,6 +12,5 @@ import org.springframework.stereotype.Repository;
 public interface CapstoneProjectRepository extends JpaRepository<CapstoneProject, Long> {
     // Find all capstone projects and return a page with pagination
     Page<CapstoneProject> findAll(Pageable pageable);
-
     <Optional> CapstoneProject findByProjectTitle(String title);
 }

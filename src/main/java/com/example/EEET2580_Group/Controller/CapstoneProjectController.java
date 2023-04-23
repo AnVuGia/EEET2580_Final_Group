@@ -16,14 +16,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("capstone")
+@RequestMapping("/api")
 public class CapstoneProjectController {
     // Capstone Project related API
     @Autowired
     CapstoneProjectService capstoneProjectService;
 
     // Add Capstone Project to database
-    @PostMapping("/add")
+    @PostMapping("/capstone-project")
     public String addCapstoneProject(@RequestBody CapstoneProjectResponse capstoneProject) {
         capstoneProjectService.saveCapstoneProject(capstoneProject);
         System.out.println(capstoneProject.getTitle() + " " + capstoneProject.getDescription());
@@ -31,14 +31,14 @@ public class CapstoneProjectController {
     }
 
     // Delete Capstone Project from database
-    @PostMapping("/delete")
+    @DeleteMapping("/capstone-project")
     public String deleteCapstoneProject(@RequestParam("id") Long id) {
         capstoneProjectService.deleteCapstoneProjectById(id);
         return "index";
     }
 
     // Update Capstone Project in database
-    @PostMapping("/update")
+    @PutMapping("/capstone-project")
     public String updateCapstoneProject(@RequestParam("id") Long id,
             @RequestBody CapstoneProjectResponse capstoneProject) {
         capstoneProjectService.updateCapstoneProjectById(id, capstoneProject);
@@ -46,7 +46,7 @@ public class CapstoneProjectController {
     }
 
     // Get Capstone Project from database with paagination
-    @GetMapping("/getPaginated")
+    @GetMapping("/capstone-project/all/pagination")
     public ResponseEntity<Page<CapstoneProject>> getAllCapstoneProject(@RequestParam("page") int page,
             @RequestParam("size") int size) {
         // Pageable with page, size and sort (incase don't want to sort, just use
@@ -58,7 +58,7 @@ public class CapstoneProjectController {
     }
 
     // Get all Capstone Project from database
-    @GetMapping("/findAll")
+    @GetMapping("/capstone-project/all")
     public ResponseEntity<List<CapstoneProject>> findAllCapstoneProject() {
         List<CapstoneProject> capstoneProjects = capstoneProjectService.getAllCapstoneProject();
         return new ResponseEntity<List<CapstoneProject>>(capstoneProjects, org.springframework.http.HttpHeaders.EMPTY,
@@ -66,7 +66,7 @@ public class CapstoneProjectController {
 
     }
 
-    @PostMapping("/findById")
+    @GetMapping("/capstone-project/id")
     public ResponseEntity<CapstoneProject> findCapstoneProjectById(@RequestParam("id") Long id) {
         CapstoneProject capstoneProject = capstoneProjectService.findById(id).get();
         return new ResponseEntity<CapstoneProject>(capstoneProject, org.springframework.http.HttpHeaders.EMPTY,
@@ -74,7 +74,7 @@ public class CapstoneProjectController {
 
     }
 
-    @PostMapping("/findByTitle")
+    @GetMapping("/capstone-project/title")
     public ResponseEntity<CapstoneProject> findCapstoneProjectByTitle(@RequestParam("title") String title) {
         CapstoneProject capstoneProject = capstoneProjectService.findByTitle(title).get();
         return new ResponseEntity<CapstoneProject>(capstoneProject, org.springframework.http.HttpHeaders.EMPTY,

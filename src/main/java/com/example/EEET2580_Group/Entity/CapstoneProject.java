@@ -11,18 +11,22 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 // JPA annotations
 @Entity
-@Table(name = "capstone_project")
+@Table(name = "capstone-project")
 public class CapstoneProject {
     // CapstoneProject Entity
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "company_id")
-    private Long companyId;
+    @OneToOne
+    @JoinColumn(name = "company_id")
+    private CompanyAcc company;
 
     @Column(name = "admin_id")
     private Long adminId;
+
+    @Column(name = "supervisor_id")
+    private String supervisor;
 
     @Column(name = "project_title")
     private String projectTitle;
@@ -46,18 +50,13 @@ public class CapstoneProject {
     private String academicBackground;
 
     @Column(name = "no_students")
-    private String noStudents;
+    private int noStudents;
 
     @Column(name = "interview_reqs")
     private String interviewReqs;
 
     @Column(name = "multi_team_allow")
-    private String multiTeamAllow;
+    private Boolean multiTeamAllow;
 
-    @Column(name = "supervisor")
-    private String supervisor;
-
-    @Column(name = "company_email")
-    private String companyEmail;
 
 }
