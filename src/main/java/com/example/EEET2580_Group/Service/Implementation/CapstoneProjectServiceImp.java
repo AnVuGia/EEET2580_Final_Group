@@ -1,4 +1,4 @@
-package com.example.EEET2580_Group.Service;
+package com.example.EEET2580_Group.Service.Implementation;
 
 import com.example.EEET2580_Group.Entity.CapstoneProject;
 import com.example.EEET2580_Group.DTO.CapstoneProjectDto;
@@ -6,6 +6,7 @@ import com.example.EEET2580_Group.Entity.CompanyAcc;
 import com.example.EEET2580_Group.Repository.CapstoneProjectRepository;
 
 import com.example.EEET2580_Group.Repository.CompanyAccRepository;
+import com.example.EEET2580_Group.Service.Interface.CapstoneProjectService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

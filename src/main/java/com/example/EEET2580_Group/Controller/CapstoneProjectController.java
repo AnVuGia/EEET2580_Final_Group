@@ -3,7 +3,7 @@ package com.example.EEET2580_Group.Controller;
 import com.example.EEET2580_Group.DTO.CapstoneProjectDto;
 import com.example.EEET2580_Group.Entity.CapstoneProject;
 import com.example.EEET2580_Group.Entity.CompanyAcc;
-import com.example.EEET2580_Group.Service.CapstoneProjectService;
+import com.example.EEET2580_Group.Service.Interface.CapstoneProjectService;
 
 import java.util.List;
 
@@ -12,8 +12,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

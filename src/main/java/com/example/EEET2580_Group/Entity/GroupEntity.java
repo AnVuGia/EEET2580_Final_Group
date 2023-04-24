@@ -21,6 +21,9 @@ public class GroupEntity {
     @JsonBackReference
     private List<StudentAcc> student;
 
+    @ManyToOne
+    @JoinColumn(name = "supervisor_id")
+    private SupervisorAcc supervisor;
     public void addStudent(StudentAcc studentAcc) {
         student.add(studentAcc);
         studentAcc.setGroup(this);

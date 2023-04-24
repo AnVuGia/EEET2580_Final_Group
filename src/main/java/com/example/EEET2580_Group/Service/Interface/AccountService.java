@@ -1,4 +1,4 @@
-package com.example.EEET2580_Group.Service;
+package com.example.EEET2580_Group.Service.Interface;
 
 import com.example.EEET2580_Group.Entity.Account;
 import org.springframework.stereotype.Service;
