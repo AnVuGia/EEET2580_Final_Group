@@ -1,4 +1,5 @@
 const headerSelect = document.querySelectorAll(".nav-header-item");
+// const searchPage = document.querySelector(".search-section");
 const capstoneInfoSection = document.querySelector(".capstone-project-info");
 const capstoneSearchSection = document.querySelector(".search-section");
 const headerLogo = document.querySelector(".header-logo");
@@ -7,8 +8,6 @@ const modalCancelBtn = document.querySelector("#cancel-btn");
 const modalPage =document.querySelector(".modal"); 
 const disSection = document.querySelector(".display-section");
 var oldTarget = document.querySelector(".active");
-
-
 const numCapstonePerPage = 6;
 
 function headerBar(){
