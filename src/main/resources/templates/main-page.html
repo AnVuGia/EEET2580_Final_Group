@@ -24,24 +24,24 @@
     <main class="main-section">
       <nav class="navbar navbar-expand-md header-container py-4">
         <div class="container-fluid">
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <a class="navbar-brand" href="main-page.html">
-            <img
-              src="images/login-signup/log-170x50.svg"
-              alt=""
-              class="header-log-image"
-            />
-          </a>
+            <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="main-page.html">
+                <img
+                        src="/images/login-signup/log-170x50.svg"
+                        alt=""
+                        class="header-log-image"
+                />
+            </a>
 
           <div
             class="collapse navbar-collapse show"
@@ -98,16 +98,17 @@
         >
           Create Group
         </button>
-      </div>
-      <div class="separator"></div>
-      <div class="container-fluid capstone-project-info" hidden="hidden">
-        <ul class="capstone-list">
-          <div class="capstone-item">
-            <div class="capstone-item-color"></div>
-            <div class="capstone-item-info">
-              <p class="item-name">Machine Learning</p>
-              <p class="course-code">COSC2753</p>
-              <p class="time-enrolled">Semester 1 2023</p>
+    </div>
+    <div class="separator"></div>
+    <div class="container-fluid capstone-project-info" hidden="hidden">
+        <ul class="capstone-list-dashboard">
+            <div class="capstone-item">
+                <div class="capstone-item-color"></div>
+                <div class="capstone-item-info">
+                    <p class="item-name">Machine Learning</p>
+                    <p class="course-code">COSC2753</p>
+                    <p class="time-enrolled">Semester 1 2023</p>
+                </div>
             </div>
           </div>
         </ul>
@@ -215,6 +216,11 @@
                 <option value="group">Search Group</option>
               </select>
             </div>
+            <div class="display-result">
+                <p class="search-no-result"></p>
+                <div class="display-result-list">
+                    <ul class="capstone-list-search">
+                    </ul>
             <input
               type="text"
               class="search-selection-item search-input"
@@ -241,21 +247,6 @@
             >
               <option value="company-option1">Select Company</option>
             </select>
-          </div>
-          <div class="display-result">
-            <p class="search-no-result"></p>
-            <div class="display-result-list">
-              <ul class="capstone-list">
-                <div class="capstone-item">
-                  <div class="capstone-item-color"></div>
-                  <div class="capstone-item-info">
-                    <p class="item-name">Machine Learning</p>
-                    <p class="course-code">COSC2753</p>
-                    <p class="time-enrolled">Semester 1 2023</p>
-                  </div>
-                </div>
-              </ul>
-            </div>
           </div>
         </div>
       </div>
