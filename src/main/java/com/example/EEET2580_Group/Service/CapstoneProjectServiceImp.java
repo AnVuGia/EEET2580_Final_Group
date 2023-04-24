@@ -1,9 +1,12 @@
 package com.example.EEET2580_Group.Service;
 
 import com.example.EEET2580_Group.Entity.CapstoneProject;
-import com.example.EEET2580_Group.Entity.CapstoneProjectResponse;
+import com.example.EEET2580_Group.DTO.CapstoneProjectDto;
+import com.example.EEET2580_Group.Entity.CompanyAcc;
 import com.example.EEET2580_Group.Repository.CapstoneProjectRepository;
 
+import com.example.EEET2580_Group.Repository.CompanyAccRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,22 +15,25 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+// service
 @Service
-// CapstoneProjectImp implements CapstoneProjectService
-public class CapstoneProjectImp implements CapstoneProjectService {
+@Transactional
+// CapstoneProjectServiceImp implements CapstoneProjectService
+public class CapstoneProjectServiceImp implements CapstoneProjectService {
     @Autowired
     private CapstoneProjectRepository capstoneProjectRepository;
+    @Autowired
+    private CompanyAccRepository companyAccRepository;
 
     @Override
-    public CapstoneProjectService saveCapstoneProject(CapstoneProjectResponse capstoneProject) {
+    public void saveCapstoneProject(CapstoneProjectDto capstoneProjectDto) {
+        CompanyAcc companyAcc = companyAccRepository.findById(capstoneProjectDto.getCompany().getId()).get();
+        capstoneProjectDto.setCompany(companyAcc);
         CapstoneProject temCapstoneProject = new CapstoneProject();
-        temCapstoneProject.setProjectTitle(capstoneProject.getTitle());
-        temCapstoneProject.setProjectDescription(capstoneProject.getDescription());
+        temCapstoneProject.setCapstoneProject(capstoneProjectDto);
         capstoneProjectRepository
                 .save(temCapstoneProject);
         System.out.println("CapstoneProject saved");
-        System.out.println(capstoneProject);
-        return null;
     }
 
     @Override
@@ -58,10 +64,9 @@ public class CapstoneProjectImp implements CapstoneProjectService {
     }
 
     @Override
-    public void updateCapstoneProjectById(Long id, CapstoneProjectResponse capstoneProject) {
+    public void updateCapstoneProjectById(Long id, CapstoneProjectDto capstoneProjectDto) {
         CapstoneProject capstoneProject1 = capstoneProjectRepository.findById(id).get();
-        capstoneProject1.setProjectTitle(capstoneProject.getTitle());
-        capstoneProject1.setProjectIntroduction(capstoneProject.getDescription());
+
         capstoneProjectRepository.save(capstoneProject1);
         System.out.println("CapstoneProject updated");
     }

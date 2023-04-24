@@ -7,12 +7,8 @@ const createGroupBtn = document.querySelector(".create-group-btn");
 const modalCancelBtn = document.querySelector("#cancel-btn");
 const modalPage =document.querySelector(".modal"); 
 const disSection = document.querySelector(".display-section");
-
 var oldTarget = document.querySelector(".active");
-// headerLogo.addEventListener("click",function(){
-//     window.location.href = "main-page.html";
-// })
-
+const numCapstonePerPage = 6;
 
 function headerBar(){
     for (var i = 0; i < headerSelect.length;i++)

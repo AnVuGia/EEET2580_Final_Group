@@ -1,5 +1,7 @@
 package com.example.EEET2580_Group.Entity;
 
+import com.example.EEET2580_Group.DTO.CapstoneProjectDto;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,18 +13,23 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 // JPA annotations
 @Entity
-@Table(name = "capstone_project")
+@Table(name = "capstone-project")
 public class CapstoneProject {
     // CapstoneProject Entity
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "company_id")
-    private Long companyId;
+    @ManyToOne
+    @JoinColumn(name = "company_id")
+    @JsonBackReference
+    private CompanyAcc company;
 
     @Column(name = "admin_id")
     private Long adminId;
+
+    @Column(name = "supervisor_id")
+    private String supervisor;
 
     @Column(name = "project_title")
     private String projectTitle;
@@ -46,18 +53,27 @@ public class CapstoneProject {
     private String academicBackground;
 
     @Column(name = "no_students")
-    private String noStudents;
+    private int noStudents;
 
     @Column(name = "interview_reqs")
     private String interviewReqs;
 
     @Column(name = "multi_team_allow")
-    private String multiTeamAllow;
+    private Boolean multiTeamAllow;
 
-    @Column(name = "supervisor")
-    private String supervisor;
-
-    @Column(name = "company_email")
-    private String companyEmail;
-
+    public void setCapstoneProject(CapstoneProjectDto capstoneProjectDto) {
+        this.company = capstoneProjectDto.getCompany();
+        this.adminId = capstoneProjectDto.getAdminId();
+        this.supervisor = capstoneProjectDto.getSupervisor();
+        this.projectTitle = capstoneProjectDto.getProjectTitle();
+        this.projectIntroduction = capstoneProjectDto.getProjectIntroduction();
+        this.projectObjectives = capstoneProjectDto.getProjectObjectives();
+        this.projectSuccessCriteria = capstoneProjectDto.getProjectSuccessCriteria();
+        this.technicalRequirements = capstoneProjectDto.getTechnicalRequirements();
+        this.projectDescription = capstoneProjectDto.getProjectDescription();
+        this.academicBackground = capstoneProjectDto.getAcademicBackground();
+        this.noStudents = capstoneProjectDto.getNoStudents();
+        this.interviewReqs = capstoneProjectDto.getInterviewReqs();
+        this.multiTeamAllow = capstoneProjectDto.getMultiTeamAllow();
+    }
 }

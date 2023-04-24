@@ -1,4 +1,4 @@
-const url = '/capstone';
+const url = '/api/capstone-project';
 
 let currentPage = 0;
 let pageSize = 5;
@@ -7,7 +7,7 @@ const nextPageBtn = document.querySelector('#next_page_btn');
 const PrevPageBtn = document.querySelector('#prev_page_btn');
 //function to get the list of capstone projects
 async function getCapstoneList() {
-  const endpoint = 'getPaginated';
+  const endpoint = 'all';
   capstoneList = await fetch(
     `${url}/${endpoint}?page=${currentPage}&size=${pageSize}`
   );
