@@ -65,7 +65,6 @@ public class CapstoneProjectController {
     public List<CapstoneProject> findAllCapstoneProject() {
         List<CapstoneProject> capstoneProjects = capstoneProjectService.getAllCapstoneProject();
         return capstoneProjects;
-
     }
 
     @GetMapping("/capstone-project/id/{id}")
