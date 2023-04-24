@@ -1,7 +1,7 @@
 package com.example.EEET2580_Group.Controller;
 
+import com.example.EEET2580_Group.DTO.CapstoneProjectDto;
 import com.example.EEET2580_Group.Entity.CapstoneProject;
-import com.example.EEET2580_Group.Entity.CapstoneProjectResponse;
 import com.example.EEET2580_Group.Service.CapstoneProjectService;
 
 import java.util.List;
@@ -24,9 +24,9 @@ public class CapstoneProjectController {
 
     // Add Capstone Project to database
     @PostMapping("/capstone-project")
-    public String addCapstoneProject(@RequestBody CapstoneProjectResponse capstoneProject) {
+    public String addCapstoneProject(@RequestBody CapstoneProjectDto capstoneProject) {
         capstoneProjectService.saveCapstoneProject(capstoneProject);
-        System.out.println(capstoneProject.getTitle() + " " + capstoneProject.getDescription());
+        System.out.println(capstoneProject.getProjectTitle() + " " + capstoneProject.getProjectDescription());
         return "index";
     }
 
@@ -38,20 +38,25 @@ public class CapstoneProjectController {
     }
 
     // Update Capstone Project in database
-    @PutMapping("/capstone-project")
-    public String updateCapstoneProject(@RequestParam("id") Long id,
-            @RequestBody CapstoneProjectResponse capstoneProject) {
+    @PutMapping("/capstone-project/{id}")
+    public String updateCapstoneProject(@PathVariable("id") Long id,
+            @RequestBody CapstoneProjectDto capstoneProject) {
         capstoneProjectService.updateCapstoneProjectById(id, capstoneProject);
         return "index";
     }
 
     // Get Capstone Project from database with paagination
-    @GetMapping("/capstone-project/all/pagination")
-    public ResponseEntity<Page<CapstoneProject>> getAllCapstoneProject(@RequestParam("page") int page,
-            @RequestParam("size") int size) {
+    @GetMapping("/capstone-project/all/{page}/{size}/{sort}")
+    public ResponseEntity<Page<CapstoneProject>> getAllCapstoneProject(@PathVariable("page") int page,
+            @PathVariable("size") int size, @PathVariable("sort") String sort) {
         // Pageable with page, size and sort (incase don't want to sort, just use
         // Pageable pageable = PageRequest.of(page,size))
-        Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
+        Pageable pageable = null;
+        if (sort.equals("desc")) {
+            pageable = PageRequest.of(page, size, Sort.by("id").descending());
+        } else {
+            pageable = PageRequest.of(page, size, Sort.by("id").ascending());
+        }
         Page<CapstoneProject> capstoneProjects = capstoneProjectService.findPaginated(pageable);
         return ResponseEntity.ok(capstoneProjects);
 
@@ -66,16 +71,16 @@ public class CapstoneProjectController {
 
     }
 
-    @GetMapping("/capstone-project/id")
-    public ResponseEntity<CapstoneProject> findCapstoneProjectById(@RequestParam("id") Long id) {
+    @GetMapping("/capstone-project/id/{id}")
+    public ResponseEntity<CapstoneProject> findCapstoneProjectById(@PathVariable("id") Long id) {
         CapstoneProject capstoneProject = capstoneProjectService.findById(id).get();
         return new ResponseEntity<CapstoneProject>(capstoneProject, org.springframework.http.HttpHeaders.EMPTY,
                 org.springframework.http.HttpStatus.OK);
 
     }
 
-    @GetMapping("/capstone-project/title")
-    public ResponseEntity<CapstoneProject> findCapstoneProjectByTitle(@RequestParam("title") String title) {
+    @GetMapping("/capstone-project/title/{title}")
+    public ResponseEntity<CapstoneProject> findCapstoneProjectByTitle(@PathVariable("title") String title) {
         CapstoneProject capstoneProject = capstoneProjectService.findByTitle(title).get();
         return new ResponseEntity<CapstoneProject>(capstoneProject, org.springframework.http.HttpHeaders.EMPTY,
                 org.springframework.http.HttpStatus.OK);

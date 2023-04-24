@@ -31,6 +31,7 @@ public class AccountServiceImp implements AccountService{
     }
     @Override
     public List<Account> getAllAccounts() {
+        System.out.println("getAllAccounts");
         List<Account> accounts = new ArrayList<>();
         accounts.addAll(companyAccRepository.findAll());
         return accounts;

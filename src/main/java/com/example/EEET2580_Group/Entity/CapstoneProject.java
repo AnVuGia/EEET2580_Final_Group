@@ -1,5 +1,7 @@
 package com.example.EEET2580_Group.Entity;
 
+import com.example.EEET2580_Group.DTO.CapstoneProjectDto;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,8 +20,9 @@ public class CapstoneProject {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "company_id")
+    @JsonBackReference
     private CompanyAcc company;
 
     @Column(name = "admin_id")
@@ -58,5 +61,19 @@ public class CapstoneProject {
     @Column(name = "multi_team_allow")
     private Boolean multiTeamAllow;
 
-
+    public void setCapstoneProject(CapstoneProjectDto capstoneProjectDto) {
+        this.company = capstoneProjectDto.getCompany();
+        this.adminId = capstoneProjectDto.getAdminId();
+        this.supervisor = capstoneProjectDto.getSupervisor();
+        this.projectTitle = capstoneProjectDto.getProjectTitle();
+        this.projectIntroduction = capstoneProjectDto.getProjectIntroduction();
+        this.projectObjectives = capstoneProjectDto.getProjectObjectives();
+        this.projectSuccessCriteria = capstoneProjectDto.getProjectSuccessCriteria();
+        this.technicalRequirements = capstoneProjectDto.getTechnicalRequirements();
+        this.projectDescription = capstoneProjectDto.getProjectDescription();
+        this.academicBackground = capstoneProjectDto.getAcademicBackground();
+        this.noStudents = capstoneProjectDto.getNoStudents();
+        this.interviewReqs = capstoneProjectDto.getInterviewReqs();
+        this.multiTeamAllow = capstoneProjectDto.getMultiTeamAllow();
+    }
 }
