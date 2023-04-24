@@ -8,7 +8,10 @@ const modalCancelBtn = document.querySelector('#cancel-btn');
 const modalPage = document.querySelector('.modal');
 const disSection = document.querySelector('.display-section');
 const capstoneListContainer = document.querySelector('.capstone-list');
+const groupListContainer = document.querySelector('.group-list');
 var oldTarget = document.querySelector('.active');
+const groupPageSelector = document.querySelector('#group-info');
+const dashboardSelector = document.querySelector('#dashboard');
 const numCapstonePerPage = 3;
 let page = 0;
 let sort = 'asc';
@@ -26,7 +29,7 @@ function headerBar() {
 function setVisibiltySearchPage(target) {
   if (target.textContent === 'Dashboard') {
     disSection.textContent = 'Dashboard';
-    window.location.href = 'main-page.html';
+    // window.location.href = 'main-page.html';
   }
 
   if (target.textContent === 'Search') {
@@ -47,6 +50,7 @@ createGroupBtn.addEventListener('click', function () {
   modalPage.removeAttribute('hidden');
 });
 async function updateUI(capstoneList) {
+  capstoneListContainer.innerHTML = '';
   console.log('updateUI');
   const capstoneListData = capstoneList.content;
   for (let i = 0; i < capstoneListData.length; i++) {
@@ -81,5 +85,36 @@ function createCapstoneCard(capstone) {
     `;
   return div;
 }
-getCapstoneList();
+//Group page
+function createGroupCard(group) {
+  console.log('createGroupCard');
+  const div = document.createElement('div');
+  div.innerHTML = `
+        <h2>${group.groupName}</h2>
+`;
+  return div;
+}
+async function getGroupList() {
+  const url = `api/group/all`;
+  const groupList = await fetch(url);
+  const groupListJson = await groupList.json();
+  updateGroupUI(groupListJson);
+}
+async function updateGroupUI(groupList) {
+  console.log(groupList);
+  capstoneListContainer.innerHTML = '';
+  console.log('updateGroupUI');
+  for (let i = 0; i < groupList.length; i++) {
+    const group = groupList[i];
+    const groupCard = createGroupCard(group);
+    capstoneListContainer.appendChild(groupCard);
+  }
+}
+groupPageSelector.addEventListener('click', function () {
+  getGroupList();
+});
+dashboardSelector.addEventListener('click', function (event) {
+  getCapstoneList();
+});
+
 headerBar();

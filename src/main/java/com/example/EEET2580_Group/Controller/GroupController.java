@@ -37,7 +37,7 @@ public class GroupController {
         System.out.println("Done");
         return ResponseEntity.ok(groupEntity);
     }
-    @GetMapping("/result")
+    @GetMapping("/all")
     public List<GroupEntity> result() {
         List<GroupEntity> groupEntity = groupService.getAllGroup();
         return groupEntity;
