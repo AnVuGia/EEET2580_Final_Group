@@ -21,4 +21,17 @@ public class AppController {
     public String viewSignInPage()  {
         return "sign-in";
     }
+    @GetMapping("/capstone-info-page")
+    public String viewCapstoneInfoPage() {
+        return "capstone-info";
+    }
+    @GetMapping("/group-list-page")
+    public String viewGroupListPage() {
+        return "group-list";
+    }
+    @GetMapping("/account-page")
+    public String viewAccountPage() {
+        return "account-profile";
+    }
+
 }

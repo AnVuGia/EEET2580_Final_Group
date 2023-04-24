@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/capstone-info.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo"></div>
+            <div class="nav_menu_bar">
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                    <div class="container-fluid">
+                      <a class="navbar-brand" href="#">Web Title</a>
+                      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                      </button>
+                      <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
+                        <div class="navbar-nav">
+                          <a class="nav-link active" id="nav-item1" aria-current="page" href="#">Home</a>
+                          <a class="nav-link" id="nav-item2" href="#">Projects</a>
+                          <a class="nav-link" id="nav-item3" href="#">Groups</a>
+                        </div>
+                      </div>
+                      <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                      </form>
+                    </div>
+                  </nav>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="container-content">
+                <div class="container-capstone-detail">
+                    <div class="capstone-detail">
+                        <div class="capstone-header">
+                            <div class="capstone-header-overview">
+                                <div class="company-logo">
+                                    <img src="images/capstone-info/vng-logo.jpg" alt="company-logo">
+                                </div>
+                                <div class="sub-overview">
+                                    <h2 class="project-title">Enterprise Web Development</h2>
+                                    <a href="https://vng.com.vn/">VNG Corporation</a>
+                                    <div class="sub-overview-container">
+                                        <i class="bi bi-currency-dollar"><span>VND 1.000.000 - 2.000.000/month</span></i>
+                                        <i class="bi bi-geo-alt-fill"><span>VNG Campus, Tân Thuận Đông, District 7, Ho Chi Minh</span></i>
+                                        <i class="bi bi-people-fill"><span>4 - 5 members</span></i>
+                                        <i class="bi bi-hourglass"><span>3 months</span></i>
+                                        <i class="bi bi-calendar"><span>08/05/2023</span></i>    
+                                    </div>
+                                    <div class="button-container">
+                                        <button class="button join-btn" onclick="toggleForm()">JOIN NOW</button>
+                                    </div>
+                                    <div id="joinForm" class="join-form">
+                                        <div class="content">
+                                            <button class="close-btn" onclick="toggleForm()">x</button>
+                                            <h1>Join project!</h1>
+                                            
+                                            <form class="input-field" id="inputField" onsubmit="handleSubmit(event)">
+                                                <input class="input-box" type="text" placeholder="Enter student name" name="name" required>
+                                                <input class="input-box"  type="text" placeholder="Enter Email" name="email" required>
+                                                <input class="input-box"  type="text" placeholder="Enter S-ID" name="s-id" required>
+                                                <input class="input-box" type="tel" placeholder="Enter phone number" name="phone" required>
+                                                <button class="submit-btn">Submit</button>
+                                            </form>
+                                            
+                                            <div id="successMessage" class="success-message">Successfully Submitted!</div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr size="3" noshade="">
+                        <div class="skills-container">
+                            <h3>Skills</h3>
+                            <ul class="skills-list">
+                              <li><span class="skill">HTML</span></li>
+                              <li><span class="skill">CSS</span></li>
+                              <li><span class="skill">Bootstrap</span></li>
+                              <li><span class="skill">Javascript</span></li>
+                              <li><span class="skill">Spring Boot</span></li>
+                            </ul>
+                        </div> 
+                        <div class="capstone-info">
+                            <h2>Capstone Information</h2>
+                            <div class="para info-para">
+                                <p>  
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                </p>
+                                
+                                
+                            </div>
+                        </div>
+                        <div class="capstone-outcome">
+                            <h2>Outcome</h2>
+                            <div class=" para outcome-para">
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                </p>
+                                <ul>
+                                    <li>Lorem ipsum dolor sit amet.</li>
+                                    <li>Consectetur adipiscing elit.</li>
+                                    <li>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
+                                    <li>Ut enim ad minim veniam.</li>
+                                    <li>Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
+                                    <li>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</li>
+                                    <li>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</li>
+
+                                </ul>
+                            </div>
+                        </div> 
+                        <div class="capstone-requirements">
+                            <h2>Requirements</h2>
+                            <div class="para requirement-para">
+                                <ul>
+                                    <li>Lorem ipsum dolor sit amet.</li>
+                                    <li>Consectetur adipiscing elit.</li>
+                                    <li>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
+                                    <li>Ut enim ad minim veniam.</li>
+                                    <li>Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
+                                    <li>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</li>
+                                    <li>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</li>
+                                </ul>
+                            </div>
+                            
+                        </div>                        
+                    </div>  
+                    <div class="report">
+                        <a href="#"><i class="bi bi-flag"><span>Report this project</span></i></a>
+                    </div>
+                      
+                </div>
+                <div class="container-supervisor-detail">
+                    
+                    <div class="supervisor-overview-container">
+                        <a href="#"><h3>Supervisor</h3></a>
+                        <i class="bi bi-person-fill"><span>Supervisor: Thanh Nguyen Ngoc</span></i>
+                        <i class="bi bi-envelope-fill"><span>Email: thanhnguyen@rmit.edu.vn</span></i>
+                        <i class="bi bi-people-fill"><span>Group: 1</span></i>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <script src="script/capstone-info.js"></script>
+
+    <script>
+        function toggleForm() {
+            document.getElementById("joinForm").classList.toggle("active");
+        }
+
+        function handleSubmit(event) {
+            event.preventDefault();
+            const form = document.getElementById("inputField");
+            const successMessage = document.getElementById("successMessage");
+            
+            successMessage.style.display = "block";
+            
+            form.reset();
+
+            setTimeout(() => {
+                successMessage.style.display = "none";
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

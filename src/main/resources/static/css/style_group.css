@@ -1,0 +1,286 @@
+body{
+    background-color: var(--text-color);
+}
+main {
+    height: 100%;
+    width: 100%;
+}
+.header-container{
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    height: var(--header-height);
+    background-color: var(--nude-color);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    z-index: 1;
+}
+.nav-header-list{
+    display: flex;
+    height: calc(var(--header-height) - 10px) ;
+    font-size: 1.4rem;
+    
+}
+.nav-header-item{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    list-style: none;
+    width: 100px;
+    justify-content: center;
+    margin-right: 8px;
+    border-radius: 3px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+.nav-header-item:hover{
+    background-color:var(--text-color);
+}
+.header-logo{
+    height: var(--header-height);
+    width: 170px;
+    cursor: pointer;
+}
+.header-log-image{
+    position: absolute;
+    height: 50px;
+    
+}
+.profile-image{
+    display: none;
+    height: 30px;
+    width: 30px;
+    margin-right: 8px;
+}
+.shaded{
+    background-color: var(--text-color);
+}
+
+/* Search Section */
+.search-section{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+.search-container{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+}
+.search-filter{
+    position: relative;
+    height: 250px;
+    width: 220px;
+    top: 75px;
+    display: flex;
+    flex-direction: column;
+    margin: 0px 10px;
+    border: 1px solid grey;
+    border-radius: 3px;
+    padding: 15px 10px;
+    box-shadow: 0px 0px 2px;
+    
+}
+.search-input{
+    outline: none;
+}
+
+.search-selection-item{
+    margin-top: 10px;
+    height: 35px;
+}
+.display-result{
+    position: relative;
+    top: 75px;
+    border-top: 1px solid grey;
+    border-left: 1px solid grey;
+    flex: 1;
+    box-shadow: 0px 0px 1px;
+}
+.search-selection{
+    outline: none;
+    min-width: 150px;
+}
+.search-filter-heading{
+    font-size: 1.5rem;
+}
+.search-no-result{
+    height: 2rem;
+    font-size: 1.5rem;
+}
+
+/* Capstone information */
+.separator{
+    width: 80%;
+    border: 0.5px solid var(--primary-color);
+    margin: 5px auto;
+}
+.capstone-project-info{
+    position: absolute;
+    margin-top: 10px;
+    top: 50px;
+    height: 55px;
+    width: 100%;
+}
+.capstone-panel{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.capstone-pannel-in,
+.create-group-btn {
+    margin: 0px 8px;
+}
+.capstone-pannel-in{
+    font-size: 2.4rem;
+}
+.capstone-list{
+    margin-top: 15px;
+}
+.capstone-item{
+    margin: 1rem 1rem 1rem 1rem;
+    gap: 1rem;
+    height: 270px;
+    width: 265px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px grey;
+}
+.capstone-item:hover{
+    box-shadow: 0px 0px 5px;
+}
+.capstone-item-color{
+    background-color: #324A4D;
+    height: 145px;
+}
+.item-name{
+    margin: 10px;
+    text-align: start;
+    font-size: 1.4rem;
+}
+.course-code{
+    margin: 10px;
+    text-align: start;
+    font-size: 1.4rem;
+    font-weight: 300;
+}
+.time-enrolled{
+    margin: 10px;
+    text-align: start;
+    font-size: 1.2rem;
+    font-weight: 300;
+}
+.display-result-list{
+    padding: 5px;
+}
+/*  */
+.profile-section{
+    position: absolute;
+    display:flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin-top: 150px;
+    margin-left: 150px;
+}
+.introduction{
+    margin-left: 100px;
+    margin-top: 50px;
+}
+.introduction>h2{
+    margin: 0px;
+    font-family: 'Montserrat',sans-serif;
+    font-size: 35px;
+}
+.introduction>ul{
+    font-family: 'Noto Sans', sans-serif;
+    font-weight: 300;
+    font-size: 200px;
+    list-style: none;
+}
+.profileImg{
+    width: 500px;
+    height: 500px;
+}
+.profile-picture{
+    margin-top: 50px;
+    margin-left: 200px;
+    width: 250px;
+    height: 300px;
+    border-radius: 250px;
+    border: 2px solid black;
+}
+#about-me{
+    margin: 5px;
+    font-family: 'Oswald', sans-serif;
+    font-size:25px;
+}
+#capability{
+    margin: 5px;
+    font-family: 'Oswald', sans-serif;
+    font-size:25px;
+}
+.profile_li{
+    margin: 10px;
+    font-size: 15px;
+    font-family: 'Oswald', sans-serif;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+}
+#about-me, #capability{
+    list-style: none;
+}
+#intro2{
+    margin-top: 50px;
+}
+#intro3{
+    margin-top: 50px;
+}
+.GroupSearchContainer{
+    position: absolute;
+    margin-top: 130px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+#SearchGroupInput{
+    font-size: 0.5rem;
+    height:25px;
+    width: 20%;
+    text-align: center;
+}
+#SearchBtn{
+    font-size: 0.5rem;
+    height:25px;
+    width: 10%;
+    margin-left: 1%;
+}
+#GroupObject{
+    position: relative;
+    width: 1200px;
+    height: 50px;
+    border-radius: 7px;
+    margin-bottom: 20px;
+    border: 1px solid black;
+    font-size: 20px;
+}
+.GroupLists{
+    position: absolute;
+    margin-top: 200px;
+    width: 1400px;
+    height: 900px;
+    padding: 30px 100px;
+   
+}
+.list-group{
+    
+    width: 100%;
+}
+
+.dropdown-menu{
+    width: 100%;
+}
+.btn-group{
+    margin-bottom: 1%;
+}
