@@ -59,7 +59,6 @@ public class CapstoneProjectController {
         }
         Page<CapstoneProject> capstoneProjects = capstoneProjectService.findPaginated(pageable);
         return ResponseEntity.ok(capstoneProjects);
-
     }
 
     // Get all Capstone Project from database

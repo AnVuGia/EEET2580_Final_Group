@@ -1,5 +1,4 @@
 const headerSelect = document.querySelectorAll(".nav-header-item");
-// const searchPage = document.querySelector(".search-section");
 const capstoneInfoSection = document.querySelector(".capstone-project-info");
 const capstoneSearchSection = document.querySelector(".search-section");
 const headerLogo = document.querySelector(".header-logo");
@@ -7,12 +6,10 @@ const createGroupBtn = document.querySelector(".create-group-btn");
 const modalCancelBtn = document.querySelector("#cancel-btn");
 const modalPage =document.querySelector(".modal"); 
 const disSection = document.querySelector(".display-section");
-
 var oldTarget = document.querySelector(".active");
-// headerLogo.addEventListener("click",function(){
-//     window.location.href = "main-page.html";
-// })
 
+
+const numCapstonePerPage = 6;
 
 function headerBar(){
     for (var i = 0; i < headerSelect.length;i++)
