@@ -7,9 +7,10 @@ const createGroupBtn = document.querySelector('.create-group-btn');
 const modalCancelBtn = document.querySelector('#cancel-btn');
 const modalPage = document.querySelector('.modal');
 const disSection = document.querySelector('.display-section');
+const capstoneListContainer = document.querySelector('.capstone-list');
 var oldTarget = document.querySelector('.active');
-const numCapstonePerPage = 6;
-let page = 1;
+const numCapstonePerPage = 3;
+let page = 0;
 let sort = 'asc';
 function headerBar() {
   for (var i = 0; i < headerSelect.length; i++)
@@ -45,13 +46,40 @@ modalCancelBtn.addEventListener('click', function () {
 createGroupBtn.addEventListener('click', function () {
   modalPage.removeAttribute('hidden');
 });
-async function updateUI() {
-  const url = `/capstone-project/all`;
+async function updateUI(capstoneList) {
+  console.log('updateUI');
+  const capstoneListData = capstoneList.content;
+  for (let i = 0; i < capstoneListData.length; i++) {
+    const capstone = capstoneListData[i];
+    const capstoneCard = createCapstoneCard(capstone);
+    capstoneListContainer.appendChild(capstoneCard);
+  }
+  console.log(capstoneListContainer);
+  console.log(capstoneListData);
+}
+async function getCapstoneList() {
+  const url = `api/capstone-project/all`;
   const capstoneList = await fetch(
     `${url}/${page}/${numCapstonePerPage}/${sort}`
   );
   const capstoneListJson = await capstoneList.json();
-  const capstoneListData = capstoneListJson.data;
-  console.log(capstoneListData);
+
+  updateUI(capstoneListJson);
 }
+function createCapstoneCard(capstone) {
+  console.log('createCapstoneCard');
+  const div = document.createElement('div');
+  div.innerHTML = `
+                        <div class="capstone-item">
+                            <div class="capstone-item-color"></div>
+                            <div class="capstone-item-info">
+                                <p class="item-name">${capstone.projectTitle}</p>
+                                <p class="course-code">COSC2753</p>
+                                <p class="time-enrolled">Semester 1 2023</p>
+                            </div>
+                        </div>
+    `;
+  return div;
+}
+getCapstoneList();
 headerBar();
