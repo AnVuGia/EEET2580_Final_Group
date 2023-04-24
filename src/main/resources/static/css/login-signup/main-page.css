@@ -2,19 +2,11 @@ body{
     background-color: var(--text-color);
 }
 main {
-    height: 100%;
     width: 100%;
 }
 .header-container{
-    position: fixed;
-    top: 0px;
-    width: 100%;
-    height: var(--header-height);
+    /* height: var(--header-height); */
     background-color: var(--nude-color);
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    z-index: 1;
 }
 
 
@@ -24,18 +16,15 @@ main {
     font-size: 1.4rem;
     
 }
+.nav-item{
+    width: 120px;
+    height: 40px;
+    border-radius: 5px;
+}
 .nav-header-item{
     width: 100%;
     height: 100%;
-    display: flex;
-    list-style: none;
-    width: 100px;
-    justify-content: center;
-    margin-right: 8px;
-    border-radius: 3px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
+    border-radius: 5px;
 }
 .nav-header-item:hover{
     background-color:var(--text-color);
@@ -46,9 +35,7 @@ main {
     cursor: pointer;
 }
 .header-log-image{
-    position: absolute;
     height: 50px;
-    
 }
 .profile-image{
     display: none;
@@ -62,21 +49,19 @@ main {
 
 /* Search Section */
 .search-section{
-    position: absolute;
+    margin-top: 10px;
     width: 100%;
     height: 100%;
 }
 .search-container{
     width: 100%;
     height: 100%;
-    position: relative;
     display: flex;
 }
 .search-filter{
     position: relative;
-    height: 250px;
-    width: 220px;
-    top: 75px;
+    height: 275px;
+    width: 275px;
     display: flex;
     flex-direction: column;
     margin: 0px 10px;
@@ -90,13 +75,16 @@ main {
     outline: none;
 }
 
+
 .search-selection-item{
     margin-top: 10px;
     height: 35px;
+    width: 100%;
+    font-size: 1.4rem;
 }
 .display-result{
+    height: 100vh;
     position: relative;
-    top: 75px;
     border-top: 1px solid grey;
     border-left: 1px solid grey;
     flex: 1;
@@ -107,7 +95,7 @@ main {
     min-width: 150px;
 }
 .search-filter-heading{
-    font-size: 1.5rem;
+    font-size: 1.7rem;
 }
 .search-no-result{
     height: 2rem;
@@ -118,20 +106,21 @@ main {
 .separator{
     width: 80%;
     border: 0.5px solid var(--primary-color);
-    margin: 5px auto;
+    margin: 10px auto;
 }
 .capstone-project-info{
-    position: absolute;
-    margin-top: 10px;
     top: 50px;
     height: 55px;
     width: 100%;
 }
 .capstone-panel{
+    margin-top: 10px;
+    padding: 0px 8px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
+
 .capstone-pannel-in,
 .create-group-btn {
     margin: 0px 8px;
@@ -176,4 +165,31 @@ main {
 }
 .display-result-list{
     padding: 5px;
+}
+.navbar{
+    font-size: 1.5rem;
+}
+.navbar-toggler-icon {
+    width: 25px;
+    height: 25px;
+}
+.navbar-toggler{
+    width: 45px;
+    height: 35px;
+}
+.announce-list{
+    padding-left: 0px;
+}
+.announce-item{
+    list-style: none;
+}
+.my-filter{
+    display: flex;
+    align-items: center;
+}
+.search-filter-heading{
+   width: 100px;
+   height: 100%;
+   margin-right: 8px;
+   margin-top: 15px;
 }

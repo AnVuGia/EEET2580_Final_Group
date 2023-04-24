@@ -8,7 +8,7 @@ const submit = document.querySelector("#btn-sign-up");
 const back = document.querySelector("#btn-back");
 
 back.addEventListener("click", ()=>{
-    window.location.href = "../pages/sign-in.html";
+    window.location.href = "sign-in.html";
 })
 
 console.log(submit);

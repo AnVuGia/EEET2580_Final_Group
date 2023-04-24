@@ -1,24 +1,7 @@
-.modal__overlay{
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    background-color: rgba(65, 63, 63, 0.5);
-    z-index: 1;
-}
-.modal__body{
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    z-index: 2;
-}
-.group-form{
-    position: relative;
-    background-color: var(--text-color);
-    width: 550px;
-    margin: 0px auto;
-    top: 50%;
-    transform: translateY(-50%);
 
+.modal-content{
+  
+    background-color: var(--text-color);
 }
 .group-form-heading{
     height: 40px;
@@ -37,12 +20,17 @@
 }
 .information-section{
     
-    padding: 15px;
+    padding: 3px 15px;
     display: block;
 }
 .information-section-element{
-    margin-top: 10px;
+    margin-top: 15px;
     display: block;
+    font-size: 1.3rem;
+}
+.modal-select{
+    padding: 0px 8px;
+    font-size: 1.3rem;
 }
 .input-label{
     font-size: 1.4rem;
@@ -54,13 +42,7 @@
     width: 100%;
 }
 .modal-controller{
-    margin-top: 10px;
-    height: 51px;
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    background-color: var(--nude-color);
-    align-items: center;
+    background-color: var(--nude);
 }
 .modal-button-controller{
     margin: 0px 8px;

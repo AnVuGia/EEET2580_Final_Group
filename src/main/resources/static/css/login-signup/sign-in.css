@@ -1,7 +1,4 @@
-.form{
-    height: 250px;
-    width: 500px;
-}
+
 .btn-controller:nth-child(1){
     background-color: var(--green);
 }

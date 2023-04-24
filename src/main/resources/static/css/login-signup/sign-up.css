@@ -1,38 +1,25 @@
 body{
     background-color: var(--nude-color);
     min-height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     font-size: 1.5rem;
 }
 main {
     max-width: 65rem;
-    display: flex;
     flex-direction: column;
     margin: 2rem 2rem;
     height: 100%;
 }
 .top{
-    margin-top: 0px;
-    display: flex;
     justify-content:center;
     align-items: center;
 }
 .top-image{
-    height: 300px;
+    width: 300px;
+    margin-left: auto;
 }
 .form{
-    position: relative;
-    top: -50px;
-    display: flex;
-    flex-direction: column;
     background-color: var(--text-color);
-    height: 350px;
     width: 500px;
-    display: flex;
-    flex-direction: column;
     border-radius: 5px;
 }
 
@@ -40,11 +27,10 @@ main {
     outline: none;
     width: 480px;
     margin: 0px auto;
-    
     padding: 10px;
 }
 .controller{
-    margin-top: 30px;
+    margin: 30px 0;
     display: flex;
     justify-content: space-evenly;
 }

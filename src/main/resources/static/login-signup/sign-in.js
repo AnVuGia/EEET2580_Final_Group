@@ -5,7 +5,7 @@ const passwordEl = document.querySelector(".error-password");
 const signUp = document.querySelector("#btn-sign-up")
 const submit = document.querySelector("#btn-sign-in");
 signUp.addEventListener("click", ()=>{
-    window.location.href = "../pages/sign-up.html"
+    window.location.href = "sign-up.html"
 })
 
 userName.addEventListener("change", () => {
