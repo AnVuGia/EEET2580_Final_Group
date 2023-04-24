@@ -1,6 +1,7 @@
-package com.example.EEET2580_Group.Service;
+package com.example.EEET2580_Group.Service.Implementation;
 
 import com.example.EEET2580_Group.Entity.GroupEntity;
+import com.example.EEET2580_Group.Service.Interface.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

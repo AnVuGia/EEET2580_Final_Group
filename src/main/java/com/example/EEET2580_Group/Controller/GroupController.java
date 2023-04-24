@@ -3,10 +3,9 @@ package com.example.EEET2580_Group.Controller;
 import com.example.EEET2580_Group.Entity.GroupEntity;
 import com.example.EEET2580_Group.Entity.StudentAcc;
 import com.example.EEET2580_Group.Repository.StudentAccRepository;
-import com.example.EEET2580_Group.Service.GroupService;
+import com.example.EEET2580_Group.Service.Interface.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,7 +36,7 @@ public class GroupController {
         System.out.println("Done");
         return ResponseEntity.ok(groupEntity);
     }
-    @GetMapping("/result")
+    @GetMapping("/all")
     public List<GroupEntity> result() {
         List<GroupEntity> groupEntity = groupService.getAllGroup();
         return groupEntity;
