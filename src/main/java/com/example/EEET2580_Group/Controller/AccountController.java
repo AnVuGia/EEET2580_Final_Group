@@ -31,15 +31,31 @@ public class AccountController {
         return account;
     }
     @PostMapping("/{type}/add")
-    public Account addAccount(@RequestBody Account account, @PathVariable String type) {
+    public Account addAccount(@RequestBody Account request, @PathVariable String type) {
+        Account account = new Account();
+        account.setName(request.getName());
+        account.setUsername(request.getUsername());
+        account.setPassword(request.getPassword());
+        account.setEmail(request.getEmail());
+
         if (type.equals("company")) {
-            accountService.saveAccount((CompanyAcc) account);
+            CompanyAcc companyAcc = new CompanyAcc();
+            companyAcc.setAccount(account);
+            accountService.saveAccount(companyAcc);
+            return companyAcc;
         } else if (type.equals("supervisor")) {
-            accountService.saveAccount((SupervisorAcc) account);
+            SupervisorAcc supervisorAcc = new SupervisorAcc();
+            supervisorAcc.setAccount(account);
+            accountService.saveAccount(supervisorAcc);
+            return supervisorAcc;
         } else if (type.equals("student")) {
-            accountService.saveAccount((StudentAcc) account);
+            StudentAcc studentAcc = new StudentAcc();
+            studentAcc.setAccount(account);
+            accountService.saveAccount(studentAcc);
+            return studentAcc;
         }
-        return account;
+        return null; // handle invalid type
     }
+
 
 }

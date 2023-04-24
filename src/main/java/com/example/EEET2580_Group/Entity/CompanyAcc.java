@@ -25,5 +25,12 @@ public class CompanyAcc extends Account {
     @OneToMany(mappedBy = "company")
     @JsonBackReference
     private List<CapstoneProject> capstoneProjects;
+
+    public void setAccount(Account account) {
+        this.username = account.getUsername();
+        this.password = account.getPassword();
+        this.email = account.getEmail();
+        companyName = account.getName();
+    }
 }
 

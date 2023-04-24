@@ -16,4 +16,10 @@ public class SupervisorAcc extends Account{
     @OneToMany
     @JsonBackReference
     private List<GroupEntity> group;
+    public void setAccount(Account account) {
+        this.setUsername(account.getUsername());
+        this.setPassword(account.getPassword());
+        this.setEmail(account.getEmail());
+        this.setName(account.getName());
+    }
 }

@@ -1,10 +1,13 @@
 package com.example.EEET2580_Group.Entity;
 
 import jakarta.persistence.*;
-public abstract class Account {
-    private String name;
-    private String username;
-    private String password;
-    private String email;
+import lombok.Data;
+
+@Data
+public  class Account {
+    protected String name;
+    protected String username;
+    protected String password;
+    protected String email;
 }
 
