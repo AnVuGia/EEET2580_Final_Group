@@ -26,11 +26,18 @@ public class CompanyAcc extends Account {
     @JsonBackReference
     private List<CapstoneProject> capstoneProjects;
 
+    @Column(name = "username")
+    private String username;
+
+    @Column(name = "password")
+    private String password;
+    @Column(name = "email")
+    private String email;
+
     public void setAccount(Account account) {
-        this.username = account.getUsername();
-        this.password = account.getPassword();
-        this.email = account.getEmail();
+        username = account.getUsername();
+        password = account.getPassword();
+        email = account.getEmail();
         companyName = account.getName();
     }
 }
-

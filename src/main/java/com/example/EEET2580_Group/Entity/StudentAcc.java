@@ -18,10 +18,18 @@ public class StudentAcc extends Account{
     @JsonBackReference
     @JoinColumn(name = "group_id")
     private GroupEntity group;
+    
+    @Column(name = "username")
+    private String username;
+    @Column(name = "password")
+    private String password;
+    @Column(name = "email")
+    private String email;
+
     public void setAccount(Account account) {
-        this.setUsername(account.getUsername());
-        this.setPassword(account.getPassword());
-        this.setEmail(account.getEmail());
-        this.setName(account.getName());
+        username = account.getUsername();
+        password = account.getPassword();
+        email = account.getEmail();
+        studentName = account.getName();
     }
 }

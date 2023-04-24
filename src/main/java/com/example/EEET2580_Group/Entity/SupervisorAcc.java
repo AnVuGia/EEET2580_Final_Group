@@ -16,10 +16,19 @@ public class SupervisorAcc extends Account{
     @OneToMany
     @JsonBackReference
     private List<GroupEntity> group;
+    @Column(name = "supervisor_name")
+    private String supervisorName;
+    
+    @Column(name = "username")
+    private String username;
+
+    @Column(name = "password")
+    private String password;
+    @Column(name = "email")
+    private String email;
     public void setAccount(Account account) {
-        this.setUsername(account.getUsername());
-        this.setPassword(account.getPassword());
-        this.setEmail(account.getEmail());
-        this.setName(account.getName());
+        username = account.getUsername();
+        password = account.getPassword();
+        email = account.getEmail();
     }
 }
