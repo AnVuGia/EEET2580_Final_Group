@@ -12,7 +12,6 @@ public class AppController {
     public String viewHomePage() {
         return "index";
     }
-
     // Controller for the capstone_list page
 
     // Controller for the find capstone page
