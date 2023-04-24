@@ -1,5 +1,6 @@
 package com.example.EEET2580_Group.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -17,6 +18,7 @@ public class GroupEntity {
     @Column(name = "group_name")
     private String groupName;
     @OneToMany(mappedBy = "group")
+    @JsonBackReference
     private List<StudentAcc> student;
 
     public void addStudent(StudentAcc studentAcc) {

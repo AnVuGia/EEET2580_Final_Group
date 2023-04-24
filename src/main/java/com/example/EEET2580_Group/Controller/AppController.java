@@ -14,10 +14,6 @@ public class AppController {
     }
 
     // Controller for the capstone_list page
-    @GetMapping("/main")
-    public String viewMainPage() {
-        return "capstone-list";
-    }
 
     // Controller for the find capstone page
     @GetMapping("/find-capstone-page")
@@ -29,9 +25,12 @@ public class AppController {
     public String viewSignUpPage() {
         return "sign-up";
     }
-
+    @GetMapping("/main")
+    public String viewMainPage1() {
+        return "main-page";
+    }
     @GetMapping("/sign-in-page")
-    public String viewSignInPage() {
+    public String viewSignInPage()  {
         return "sign-in";
     }
 }

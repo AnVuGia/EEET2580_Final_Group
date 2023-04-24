@@ -10,8 +10,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+import java.util.List;
+
+@RestController
 @RequestMapping("api/group")
 public class GroupController {
     @Autowired
@@ -35,8 +38,8 @@ public class GroupController {
         return ResponseEntity.ok(groupEntity);
     }
     @GetMapping("/result")
-    public ResponseEntity<GroupEntity> result() {
-        GroupEntity groupEntity = groupService.getAllGroup().get(0);
-        return ResponseEntity.ok(groupEntity);
+    public List<GroupEntity> result() {
+        List<GroupEntity> groupEntity = groupService.getAllGroup();
+        return groupEntity;
     }
 }
