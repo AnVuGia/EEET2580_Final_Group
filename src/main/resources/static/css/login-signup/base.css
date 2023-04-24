@@ -7,7 +7,7 @@
     --red: #FE0000;
     --green: #06AA6D;
    
-    --header-height: 50px;
+    --header-height: 75px;
     
 
   --font: "Poppins", sans-serif;
@@ -28,12 +28,9 @@ html,body {
     font-family: 'Roboto', sans-serif;
 }
 .btn{
-    width: 100px;
-    height: 35px;
+    width: 120px;
+    height: 40px;
     border-radius: 3px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     background-color: var(--primary-color);
     font-size: 1.3rem;
 }
