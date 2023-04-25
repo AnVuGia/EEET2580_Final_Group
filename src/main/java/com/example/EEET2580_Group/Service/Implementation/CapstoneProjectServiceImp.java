@@ -28,7 +28,9 @@ public class CapstoneProjectServiceImp implements CapstoneProjectService {
 
     @Override
     public void saveCapstoneProject(CapstoneProjectDto capstoneProjectDto) {
+
         CompanyAcc companyAcc = companyAccRepository.findById(capstoneProjectDto.getCompany().getId()).get();
+
         capstoneProjectDto.setCompany(companyAcc);
         CapstoneProject temCapstoneProject = new CapstoneProject();
         temCapstoneProject.setCapstoneProject(capstoneProjectDto);
@@ -80,6 +82,7 @@ public class CapstoneProjectServiceImp implements CapstoneProjectService {
         return Optional.empty();
     }
 
+
     @Override
     public Page<CapstoneProject> findByCompanyName(String companyName,Pageable pageable) {
         return capstoneProjectRepository.findByCompanyName(companyName, pageable);
@@ -120,4 +123,11 @@ public class CapstoneProjectServiceImp implements CapstoneProjectService {
     }
 
 
+
+    @Override
+    public List<CapstoneProject> findAllProjectByCompanyName(String companyName) {
+//        CompanyAcc temp = companyAccRepository.findByCompanyName(companyName);
+//        System.out.println(temp.getCompanyName());
+        return capstoneProjectRepository.findAllProjectByCompanyName(companyName);
+    }
 }

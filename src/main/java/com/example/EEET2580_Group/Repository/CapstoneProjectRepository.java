@@ -8,8 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
-
 import java.util.List;
 
 @Repository
@@ -48,5 +46,8 @@ public interface CapstoneProjectRepository extends JpaRepository<CapstoneProject
                                     @Param("companyName") String companyName,
                                     @Param("supervisorName") String supervisorName,
                                     Pageable page);
+
+    @Query("SELECT c FROM CapstoneProject c WHERE c.company.companyName = :company_name")
+    List<CapstoneProject> findAllProjectByCompanyName(@Param(value = "company_name") String company_name);
 
 }

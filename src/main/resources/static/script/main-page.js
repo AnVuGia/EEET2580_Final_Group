@@ -15,9 +15,18 @@ var oldTarget = document.querySelector('.active');
 const numCapstonePerPage = 6;
 
 
-const colorList = ["#BD3C14", "#FF2717","#4554A4","#0B9BE3","#06A3B7","#009688","#009606","#8D9900",
-                    "#FD5D10","#65499D"];
-
+const colorList = [
+  '#BD3C14',
+  '#FF2717',
+  '#4554A4',
+  '#0B9BE3',
+  '#06A3B7',
+  '#009688',
+  '#009606',
+  '#8D9900',
+  '#FD5D10',
+  '#65499D',
+];
 
 let sort = 'asc';
 let currentPage = 0;
@@ -29,6 +38,7 @@ const convertString = function (string){
 headerLogo.addEventListener("click",function(ev){
     window.locaiton.href = "/main";
 })
+
 function headerBar() {
   for (var i = 0; i < headerSelect.length; i++)
     headerSelect[i].addEventListener('click', function (ev) {
@@ -54,7 +64,7 @@ function setVisibiltySearchPage(target) {
     disSection.textContent = 'Dashboard';
     capstoneSearchSection.setAttribute('hidden', 'hidden');
     capstoneInfoSection.removeAttribute('hidden');
-  }else if (target.textContent === 'Announcment') {
+  } else if (target.textContent === 'Announcment') {
     disSection.textContent = 'Recent Announcement';
     // capstoneSearchSection.setAttribute('hidden', 'hidden');
     // capstoneInfoSection.removeAttribute('hidden');
@@ -133,12 +143,14 @@ function createCapstoneCard(capstone) {
     capItem.innerHTML = `  
                             <div style ="background-color: ${!!capstone.capstoneColor?capstone.capstoneColor:"#BD3C14"}" class="capstone-item-color"></div>
                                 <div class="capstone-item-info">
-                                <p class="item-name">${capstone.projectTitle}</p>
+                                <p class="item-name">${
+                                  capstone.projectTitle
+                                }</p>
                                 <p class="course-code">COSC2753</p>
                                 <p class="time-enrolled">Semester 1 2023</p>
                             </div>  
     `;
-    return capItem;
+  return capItem;
 }
 
 //Company Search

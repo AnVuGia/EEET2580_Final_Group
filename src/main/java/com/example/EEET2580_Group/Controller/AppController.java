@@ -7,24 +7,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Controller
 public class AppController {
-    // Controller for the index page
-    @GetMapping("/")
-    public String viewHomePage() {
-        return "index";
-    }
-    // Controller for the capstone_list page
 
-    // Controller for the find capstone page
-    @GetMapping("/find-capstone-page")
-    public String viewFindCapstonePage() {
-        return "find-capstone";
-    }
 
     @GetMapping("/sign-up-page")
     public String viewSignUpPage() {
         return "sign-up";
     }
-    @GetMapping("/main")
+    @GetMapping("/")
     public String viewMainPage1() {
         return "main-page";
     }
@@ -32,4 +21,17 @@ public class AppController {
     public String viewSignInPage()  {
         return "sign-in";
     }
+    @GetMapping("/capstone-info-page")
+    public String viewCapstoneInfoPage() {
+        return "capstone-info";
+    }
+    @GetMapping("/group-list-page")
+    public String viewGroupListPage() {
+        return "group-list";
+    }
+    @GetMapping("/account-page")
+    public String viewAccountPage() {
+        return "account-profile";
+    }
+
 }

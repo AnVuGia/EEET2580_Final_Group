@@ -5,10 +5,11 @@ import com.example.EEET2580_Group.Entity.CapstoneProject;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
+@Service
 public interface CapstoneProjectService {
     // saveCapstoneProject saves a capstone project
     void saveCapstoneProject(CapstoneProjectDto capstoneProject);
@@ -30,11 +31,13 @@ public interface CapstoneProjectService {
 
     Optional<CapstoneProject> findByTitle(String title);
 
-//    Page<CapstoneProject> getCapstoneProjects(String , String , String , String , Pageable );
 
     public Page<CapstoneProject> findBySupervisorName(String supervisorName,Pageable pageable);
     Page<CapstoneProject> findByCompanyName(String companyName, Pageable page);
 
     Page<CapstoneProject> filterAll(String capstoneName, String companyName,String supervisorName, Pageable page);
+
+    List<CapstoneProject> findAllProjectByCompanyName(String companyName);
+
 
 }

@@ -6,7 +6,6 @@ import com.example.EEET2580_Group.Entity.StudentAcc;
 import com.example.EEET2580_Group.Entity.SupervisorAcc;
 import com.example.EEET2580_Group.Service.Interface.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,7 +13,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/account")
 public class AccountController {
-    private String type = "company";
     @Autowired
     private AccountService accountService;
 
@@ -27,7 +25,12 @@ public class AccountController {
 
     @GetMapping("/company/id/{id}")
     Account getAccountById(@PathVariable Long id) {
-        Account account = accountService.getAccountById(id, type);
+        Account account = accountService.getAccountById(id, "company");
+        return account;
+    }
+    @GetMapping("/company/username")
+    public  Account getAccountByUsername(@RequestParam String username) {
+        Account account = accountService.getAccountByUsername(username, "company");
         return account;
     }
     @PostMapping("/{type}/add")
@@ -56,6 +59,22 @@ public class AccountController {
         }
         return null; // handle invalid type
     }
+    //Student Controller
+    @GetMapping("/student/all")
+    List<Account> getAllStudentAccounts() {
+        System.out.println("getAllStudentAccounts in AccountController");
+        List<Account> accounts = accountService.getAllStudentAccounts();
+        return accounts;
+    }
 
-
+    @GetMapping("/student/id/{id}")
+    Account getStudentAccountById(@PathVariable Long id) {
+        Account account = accountService.getAccountById(id, "student");
+        return account;
+    }
+    @GetMapping("/student/username")
+    Account getStudentAccountByUsername(@RequestParam String username) {
+        Account account = accountService.getAccountByUsername(username, "student");
+        return account;
+    }
 }
