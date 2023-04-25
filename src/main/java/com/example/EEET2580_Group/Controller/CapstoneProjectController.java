@@ -87,5 +87,10 @@ public class CapstoneProjectController {
         return capstoneProject.getCompany();
     }
 
+    @GetMapping("/capstone-project/company")
+    public List<CapstoneProject> findCapstoneProjectByCompanyName(@RequestParam(name = "company-name") String companyName) {
+        List<CapstoneProject> capstoneProjects = capstoneProjectService.findAllProjectByCompanyName(companyName);
+        return capstoneProjects;
+    }
 }
 

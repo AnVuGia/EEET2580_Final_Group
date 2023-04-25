@@ -9,4 +9,6 @@ public interface CompanyAccRepository extends JpaRepository<CompanyAcc, Long> {
     @Query("SELECT c FROM CompanyAcc c WHERE c.username = :username")
     CompanyAcc findByUsername(@Param("username") String username);
 
+    @Query("SELECT c FROM CompanyAcc c WHERE c.companyName = :company_name")
+    CompanyAcc findByCompanyName(@Param("company_name") String company_name);
 }

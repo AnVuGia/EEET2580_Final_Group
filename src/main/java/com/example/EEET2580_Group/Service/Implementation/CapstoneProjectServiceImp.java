@@ -81,4 +81,10 @@ public class CapstoneProjectServiceImp implements CapstoneProjectService {
             return Optional.of(capstoneProject);
         return Optional.empty();
     }
+    @Override
+    public List<CapstoneProject> findAllProjectByCompanyName(String companyName) {
+//        CompanyAcc temp = companyAccRepository.findByCompanyName(companyName);
+//        System.out.println(temp.getCompanyName());
+        return capstoneProjectRepository.findAllProjectByCompanyName(companyName);
+    }
 }

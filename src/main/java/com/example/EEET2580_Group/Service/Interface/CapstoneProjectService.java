@@ -31,4 +31,6 @@ public interface CapstoneProjectService {
 
     Optional<CapstoneProject> findByTitle(String title);
 
+    List<CapstoneProject> findAllProjectByCompanyName(String companyName);
+
 }
