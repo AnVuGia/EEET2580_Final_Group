@@ -1,6 +1,6 @@
 package com.example.EEET2580_Group.Entity;
-
 import com.example.EEET2580_Group.DTO.CapstoneProjectDto;
+import com.example.EEET2580_Group.Utils.Utility;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -28,8 +28,10 @@ public class CapstoneProject {
     @Column(name = "admin_id")
     private Long adminId;
 
-    @Column(name = "supervisor_id")
-    private String supervisor;
+    @ManyToOne
+    @JoinColumn(name = "supervisor_id")
+    @JsonBackReference
+    private SupervisorAcc supervisor;
 
     @Column(name = "project_title")
     private String projectTitle;
@@ -61,6 +63,9 @@ public class CapstoneProject {
     @Column(name = "multi_team_allow")
     private Boolean multiTeamAllow;
 
+    @Column(name = "capstone_color")
+    private String capstoneColor;
+
     public void setCapstoneProject(CapstoneProjectDto capstoneProjectDto) {
         this.company = capstoneProjectDto.getCompany();
         this.adminId = capstoneProjectDto.getAdminId();
@@ -75,5 +80,7 @@ public class CapstoneProject {
         this.noStudents = capstoneProjectDto.getNoStudents();
         this.interviewReqs = capstoneProjectDto.getInterviewReqs();
         this.multiTeamAllow = capstoneProjectDto.getMultiTeamAllow();
+        this.capstoneColor = Utility.returnColor();
     }
+
 }

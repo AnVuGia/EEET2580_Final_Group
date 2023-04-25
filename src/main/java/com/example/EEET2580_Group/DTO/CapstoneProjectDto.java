@@ -2,6 +2,7 @@ package com.example.EEET2580_Group.DTO;
 
 import com.example.EEET2580_Group.Entity.CapstoneProject;
 import com.example.EEET2580_Group.Entity.CompanyAcc;
+import com.example.EEET2580_Group.Entity.SupervisorAcc;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,8 @@ public class CapstoneProjectDto {
     // CapstoneProjectDto Entity for the capstone project (unfinished)
     private CompanyAcc company;
     private Long adminId;
-    private String supervisor;
+
+    private SupervisorAcc supervisor;
     private String projectTitle;
     private String projectIntroduction;
     private String projectObjectives;

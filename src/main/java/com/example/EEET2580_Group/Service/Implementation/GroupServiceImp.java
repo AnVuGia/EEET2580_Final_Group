@@ -3,6 +3,8 @@ package com.example.EEET2580_Group.Service.Implementation;
 import com.example.EEET2580_Group.Entity.GroupEntity;
 import com.example.EEET2580_Group.Service.Interface.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.EEET2580_Group.Repository.GroupRepository;
@@ -22,8 +24,16 @@ public class GroupServiceImp implements GroupService {
         groupRepository.save(groupEntity);
     }
 
+//    @Override
+//    public List<GroupEntity> getAllGroup() {
+//        return groupRepository.findAll();
+//    }
+
     @Override
-    public List<GroupEntity> getAllGroup() {
-        return groupRepository.findAll();
+    public Page<GroupEntity> getAllGroup(String groupName, Pageable page) {
+        return groupName.isEmpty()?groupRepository.findAll(page):
+                                    groupRepository.findByGroupName(groupName,page);
     }
+
+
 }

@@ -31,6 +31,13 @@ public interface CapstoneProjectService {
 
     Optional<CapstoneProject> findByTitle(String title);
 
+
+    public Page<CapstoneProject> findBySupervisorName(String supervisorName,Pageable pageable);
+    Page<CapstoneProject> findByCompanyName(String companyName, Pageable page);
+
+    Page<CapstoneProject> filterAll(String capstoneName, String companyName,String supervisorName, Pageable page);
+
     List<CapstoneProject> findAllProjectByCompanyName(String companyName);
+
 
 }

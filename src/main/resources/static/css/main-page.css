@@ -89,6 +89,11 @@ main {
     border-left: 1px solid grey;
     flex: 1;
     box-shadow: 0px 0px 1px;
+    
+}
+.display-result-search{
+    display: flex;
+    flex-wrap: wrap;
 }
 .search-selection{
     outline: none;
@@ -200,4 +205,109 @@ main {
 }
 .capstone-item{
     list-style: none;
+}
+
+/* pagination */
+
+.pagination{
+    margin-top: 20px;
+}
+.page-item{
+   
+    text-align: center;
+    width: 50px;
+    margin: 0px 10px;
+    
+}
+.page-item:hover{
+    cursor: pointer;
+}
+.page-link{
+    border-radius: 3px;
+    background-color: var(--light-brown-color);
+    color: var(--dark-color);
+}
+.pagination-container{
+   display: flex;
+   justify-content: center;
+}
+
+
+/* Group Card */
+
+.card {
+    border: none;
+    border-radius: 10px
+}
+
+.c-details span {
+    font-weight: 300;
+    font-size: 13px
+}
+
+.icon {
+    width: 50px;
+    height: 50px;
+    background-color: #eee;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 39px
+}
+
+.progress {
+    height: 10px;
+    border-radius: 10px
+}
+
+.progress div {
+    background-color: red
+}
+
+.text1 {
+    font-size: 14px;
+    font-weight: 600
+}
+
+.text2 {
+    color: #a5aec0
+}
+
+.join-group-btn {
+    border: none;
+    padding: 10px 20px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    letter-spacing: 1px;
+    background-color: rgb(1, 126, 183);
+    color: white;
+    border: 2px solid rgb(1, 126, 183);
+}
+
+.join-group-btn:hover {
+    background-color: #0056b3;
+  }
+
+
+/* company card */
+
+.logo img {
+    width: 50px;
+    height: 50px;
+    background-color: #eee;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 39px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px;
+}
+
+
+.sub-overview i span {
+    margin-left: 5px;
+    font-size: 16px;
+    font-style: normal;
 }

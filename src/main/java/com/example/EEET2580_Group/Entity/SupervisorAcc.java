@@ -14,10 +14,16 @@ public class SupervisorAcc extends Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "supervisor_id")
     private Long id;
+
     @OneToMany
     @JsonBackReference
     @JoinColumn(name = "group_id")
     private List<GroupEntity> group;
+
+    @OneToMany (mappedBy = "supervisor")
+    @JsonBackReference
+    private List<CapstoneProject> capstoneProjectList;
+
     @Column(name = "supervisor_name")
     private String supervisorName;
 

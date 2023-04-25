@@ -1,14 +1,22 @@
 package com.example.EEET2580_Group.Repository;
 
 import com.example.EEET2580_Group.Entity.CompanyAcc;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+@Repository
 public interface CompanyAccRepository extends JpaRepository<CompanyAcc, Long> {
+
+    @Query("SELECT c FROM CompanyAcc c ORDER BY c.companyName ASC ")
+    Page<CompanyAcc> findAll(Pageable page);
+
+    @Query("SELECT c FROM CompanyAcc c WHERE c.companyName LIKE %:companyName%")
+    Page<CompanyAcc> findByCompanyName(@Param("companyName") String companyName, Pageable page);
+
     @Query("SELECT c FROM CompanyAcc c WHERE c.username = :username")
     CompanyAcc findByUsername(@Param("username") String username);
 
-    @Query("SELECT c FROM CompanyAcc c WHERE c.companyName = :company_name")
-    CompanyAcc findByCompanyName(@Param("company_name") String company_name);
 }

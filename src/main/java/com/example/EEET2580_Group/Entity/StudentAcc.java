@@ -18,7 +18,6 @@ public class StudentAcc extends Account{
     @JsonBackReference
     @JoinColumn(name = "group_id")
     private GroupEntity group;
-    
     @Column(name = "username")
     private String username;
     @Column(name = "password")

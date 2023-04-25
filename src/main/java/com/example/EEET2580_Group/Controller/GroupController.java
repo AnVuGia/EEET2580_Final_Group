@@ -5,11 +5,12 @@ import com.example.EEET2580_Group.Entity.StudentAcc;
 import com.example.EEET2580_Group.Repository.StudentAccRepository;
 import com.example.EEET2580_Group.Service.Interface.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -36,9 +37,17 @@ public class GroupController {
         System.out.println("Done");
         return ResponseEntity.ok(groupEntity);
     }
-    @GetMapping("/all")
-    public List<GroupEntity> result() {
-        List<GroupEntity> groupEntity = groupService.getAllGroup();
-        return groupEntity;
+    @GetMapping("/search")
+    public Page<GroupEntity> getAllGroup (@RequestParam(name = "group_name",defaultValue = "") String groupName,
+                                    @RequestParam(name = "page",defaultValue = "0") String page,
+                                    @RequestParam(name = "size",defaultValue = "6") String size,
+                                    @RequestParam(name = "sort",defaultValue = "asc") String sort){
+        Pageable pageable = null;
+        if (sort.equals("desc")) {
+            pageable = PageRequest.of(Integer.parseInt(page), Integer.parseInt(size), Sort.by("id").descending());
+        } else {
+            pageable = PageRequest.of(Integer.parseInt(page), Integer.parseInt(size), Sort.by("id").ascending());
+        }
+        return groupService.getAllGroup(groupName, pageable);
     }
 }

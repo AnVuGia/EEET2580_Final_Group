@@ -43,23 +43,6 @@ public class CapstoneProjectController {
         capstoneProjectService.updateCapstoneProjectById(id, capstoneProject);
     }
 
-    // Get Capstone Project from database with paagination
-    @GetMapping("/capstone-project/all/{page}/{size}/{sort}")
-    public Page<CapstoneProject> getAllCapstoneProject(@PathVariable("page") int page,
-                                                       @PathVariable("size") int size, @PathVariable("sort") String sort) {
-        // Pageable with page, size and sort (incase don't want to sort, just use
-        // Pageable pageable = PageRequest.of(page,size))
-        Pageable pageable = null;
-        if (sort.equals("desc")) {
-            pageable = PageRequest.of(page, size, Sort.by("id").descending());
-        } else {
-            pageable = PageRequest.of(page, size, Sort.by("id").ascending());
-        }
-        Page<CapstoneProject> capstoneProjects = capstoneProjectService.findPaginated(pageable);
-        return capstoneProjects;
-
-    }
-
     // Get all Capstone Project from database
     @GetMapping("/capstone-project/all")
     public List<CapstoneProject> findAllCapstoneProject() {
@@ -71,13 +54,48 @@ public class CapstoneProjectController {
     public CapstoneProject findCapstoneProjectById(@PathVariable("id") Long id) {
         CapstoneProject capstoneProject = capstoneProjectService.findById(id).get();
         return capstoneProject;
-
     }
 
     @GetMapping("/capstone-project/title/{title}")
     public CapstoneProject findCapstoneProjectByTitle(@PathVariable("title") String title) {
         CapstoneProject capstoneProject = capstoneProjectService.findByTitle(title).get();
         return capstoneProject;
+    }
+
+    @GetMapping("/capstone-project/company_name")
+    public Page<CapstoneProject> findByCompanyName(@RequestParam(name = "company_name",defaultValue = "") String companyName,
+                                                   @RequestParam(name = "page",defaultValue = "0") String page,
+                                                   @RequestParam(name = "size",defaultValue = "6") String size,
+                                                   @RequestParam(name = "sort",defaultValue = "asc") String sort){
+
+        Pageable pageable = null;
+        if (sort.equals("desc")) {
+            pageable = PageRequest.of(Integer.parseInt(page), Integer.parseInt(size), Sort.by("id").descending());
+        } else {
+            pageable = PageRequest.of(Integer.parseInt(page), Integer.parseInt(size), Sort.by("id").ascending());
+        }
+
+        return capstoneProjectService.findByCompanyName(companyName,pageable);
+    }
+    @GetMapping("/capstone-project/search")
+    public Page<CapstoneProject> filterAll(@RequestParam(name = "capstone_name",defaultValue = "") String capstoneName,
+                                           @RequestParam(name = "company_name",defaultValue = "") String companyName,
+                                           @RequestParam(name = "supervisor_name",defaultValue = "") String supervisorName,
+                                           @RequestParam(name = "page",defaultValue = "0") String page,
+                                           @RequestParam(name = "size",defaultValue = "6") String size,
+                                           @RequestParam(name = "sort",defaultValue = "asc") String sort){
+
+        Pageable pageable = null;
+        if (sort.equals("desc")) {
+            pageable = PageRequest.of(Integer.parseInt(page), Integer.parseInt(size), Sort.by("id").descending());
+        } else {
+            pageable = PageRequest.of(Integer.parseInt(page), Integer.parseInt(size), Sort.by("id").ascending());
+        }
+//        if (companyName.isEmpty()) System.out.println("companyName is empty");
+        if (capstoneName.isEmpty()&&companyName.isEmpty()&&supervisorName.isEmpty()) {
+            return capstoneProjectService.findPaginated(pageable);
+        }
+        return capstoneProjectService.filterAll(capstoneName,companyName,supervisorName,pageable);
     }
 
     //testing
