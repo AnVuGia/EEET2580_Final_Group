@@ -79,4 +79,45 @@ public class CapstoneProjectServiceImp implements CapstoneProjectService {
             return Optional.of(capstoneProject);
         return Optional.empty();
     }
+
+    @Override
+    public Page<CapstoneProject> findByCompanyName(String companyName,Pageable pageable) {
+        return capstoneProjectRepository.findByCompanyName(companyName, pageable);
+    }
+
+    @Override
+    public Page<CapstoneProject> findBySupervisorName(String supervisorName,Pageable pageable) {
+        System.out.println(supervisorName);
+        return capstoneProjectRepository.findBySupervisorName(supervisorName, pageable);
+    }
+
+    @Override
+    public Page<CapstoneProject> filterAll(String capstoneName, String companyName,String supervisorName, Pageable page){
+
+        if (!capstoneName.isEmpty() && !companyName.isEmpty() && !supervisorName.isEmpty()) {
+            System.out.println(1);
+            return capstoneProjectRepository.filterAll(capstoneName, companyName, supervisorName, page);
+        }else if (!capstoneName.isEmpty() &&!companyName.isEmpty()){
+            System.out.println(2);
+            return capstoneProjectRepository.findByCapstoneNameAndCompanyName(capstoneName,companyName,page);
+        }else if (!companyName.isEmpty() &&!supervisorName.isEmpty()){
+            System.out.println(3);
+            return capstoneProjectRepository.findByCompanyNameAndSupervisorName(companyName,supervisorName,page);
+        }else if (!capstoneName.isEmpty() &&!supervisorName.isEmpty()){
+            System.out.println(4);
+            return capstoneProjectRepository.findByCapstoneNameAndSupervisorName(capstoneName,supervisorName,page);
+        }else if (!capstoneName.isEmpty() ) {
+            System.out.println("find capstoneName only");
+            return capstoneProjectRepository.findByCapstoneName(capstoneName, page);
+        }else if (!companyName.isEmpty()){
+            System.out.println("find companyName only");
+            return capstoneProjectRepository.findByCompanyName(companyName,page);
+        }else if (!supervisorName.isEmpty()){
+            System.out.println("find supervisorName only");
+            return capstoneProjectRepository.findBySupervisorName(supervisorName,page);
+        }
+        return null;
+    }
+
+
 }

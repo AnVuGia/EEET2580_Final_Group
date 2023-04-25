@@ -34,7 +34,6 @@ public class AccountServiceImp implements AccountService {
             studentAccRepository.save((StudentAcc) account);
         }
     }
-
     @Override
     public Account getAccountById(Long id, String type) {
         if (type.equals("company")) {
