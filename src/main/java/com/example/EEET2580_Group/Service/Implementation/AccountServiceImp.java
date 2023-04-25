@@ -55,4 +55,37 @@ public class AccountServiceImp implements AccountService {
         accounts.addAll(studentAccRepository.findAll());
         return accounts;
     }
+    @Override
+    public List<Account> getAllStudentAccounts() {
+        System.out.println("getAllStudentAccounts");
+        List<Account> accounts = new ArrayList<>();
+        accounts.addAll(studentAccRepository.findAll());
+        return accounts;
+    }
+    @Override
+    public List<Account> getAllSupervisorAccounts() {
+        System.out.println("getAllSupervisorAccounts");
+        List<Account> accounts = new ArrayList<>();
+        accounts.addAll(supervisorAccRepository.findAll());
+        return accounts;
+    }
+    @Override
+    public List<Account> getAllCompanyAccounts() {
+        System.out.println("getAllCompanyAccounts");
+        List<Account> accounts = new ArrayList<>();
+        accounts.addAll(companyAccRepository.findAll());
+        return accounts;
+    }
+    @Override
+    public Account getAccountByUsername(String username, String type) {
+        if (type.equals("company")) {
+            return companyAccRepository.findByUsername(username);
+        } else if (type.equals("supervisor")) {
+            return supervisorAccRepository.findByUsername(username);
+        } else if (type.equals("student")) {
+            return studentAccRepository.findByUsername(username);
+        }
+        return null;
+    }
+
 }

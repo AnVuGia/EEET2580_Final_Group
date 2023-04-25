@@ -28,7 +28,9 @@ public class CapstoneProjectServiceImp implements CapstoneProjectService {
 
     @Override
     public void saveCapstoneProject(CapstoneProjectDto capstoneProjectDto) {
+
         CompanyAcc companyAcc = companyAccRepository.findById(capstoneProjectDto.getCompany().getId()).get();
+
         capstoneProjectDto.setCompany(companyAcc);
         CapstoneProject temCapstoneProject = new CapstoneProject();
         temCapstoneProject.setCapstoneProject(capstoneProjectDto);
