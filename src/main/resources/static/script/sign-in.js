@@ -4,6 +4,8 @@ const password = document.querySelector('.password');
 const passwordEl = document.querySelector('.error-password');
 const signUp = document.querySelector('#btn-sign-up');
 const submit = document.querySelector('#btn-sign-in');
+const role = document.querySelector('#sign-in-role');
+
 signUp.addEventListener('click', () => {
   window.location.href = 'sign-up.html';
 });
@@ -31,24 +33,33 @@ password.addEventListener('change', () => {
 // FORM VALIDATION WHEN USER PRESSES SUBMIT //
 
 submit.addEventListener('click', (event) => {
+  let cnt = 0;
   if (!userName.validity.valid) {
     event.preventDefault();
     userNameError();
+    cnt++;
   }
 
   if (!password.validity.valid) {
     event.preventDefault();
     passwordError();
+    cnt++;
   }
-  onSignIn();
+  if(cnt == 0){
+    if(role.value == "Student"){
+      onSignInStudent(userName.value,password.value );
+    }else if(role.value == "Company"){
+      onSignInCompany(userName.value,password.value );
+    }else if(role.value == "Supervisor"){
+      onSignInSupervisor(userName.value,password.value );
+    }
+  }
+
 });
-async function onSignIn() {
+async function onSignInStudent(username,password) {
   console.log('sign in');
-  const data = {
-    username: 'test',
-    password: '12345',
-  };
-  const endpoint = '?username=' + data.username;
+
+  const endpoint = '?username=' + username;
   const response = await fetch(`/api/account/student/username${endpoint}`, {
     method: 'GET',
     headers: {
@@ -56,8 +67,9 @@ async function onSignIn() {
     },
   });
   const dataResponse = await response.json();
-  if (dataResponse.password === data.password) {
+  if (dataResponse.password === password) {
     sessionStorage.setItem('role', 'student');
+    console.log('success');
   } else {
     console.log('fail');
   }
@@ -65,6 +77,57 @@ async function onSignIn() {
   sessionStorage.setItem('user', JSON.stringify(dataResponse));
   // const dataJson = sessionStorage.getItem('user').;
 }
+
+async function onSignInCompany(username,password) {
+  console.log('sign in');
+
+  const endpoint = '?username=' + username;
+  const response = await fetch(`/api/account/company/username${endpoint}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  const dataResponse = await response.json();
+  if (dataResponse.password === password) {
+    sessionStorage.setItem('role', 'company');
+    console.log('success');
+  } else {
+    console.log('fail');
+  }
+
+  sessionStorage.setItem('user', JSON.stringify(dataResponse));
+  // const dataJson = sessionStorage.getItem('user').;
+}
+
+async function onSignInSupervisor(username,password) {
+  console.log('sign in');
+
+  const endpoint = '?username=' + username;
+  const response = await fetch(`/api/account/supervisor/username${endpoint}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  const dataResponse = await response.json();
+  if (dataResponse.password === password) {
+    sessionStorage.setItem('role', 'supervisor');
+    console.log('success');
+  } else {
+    console.log('fail');
+  }
+
+  sessionStorage.setItem('user', JSON.stringify(dataResponse));
+  // const dataJson = sessionStorage.getItem('user').;
+}
+
+
+
+
+
+
+
 // FORM VALIDATION FORMULAS //
 
 function userNameError() {
