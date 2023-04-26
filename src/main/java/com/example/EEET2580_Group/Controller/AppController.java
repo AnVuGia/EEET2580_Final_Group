@@ -37,4 +37,12 @@ public class AppController {
     public String viewRolePage() {
         return "role-page";
     }
+    @GetMapping("/company-profile")
+    public String viewCompanyProfilePage() {
+        return "company-profile";
+    }
+    @GetMapping("/create-capstone")
+    public String viewCreateCapstonePage() {
+        return "create-capstone";
+    }
 }

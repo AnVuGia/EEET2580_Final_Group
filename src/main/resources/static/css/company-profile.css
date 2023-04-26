@@ -1,0 +1,80 @@
+.container {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+}
+
+.company-banner img {
+    width: 100%;
+    height: auto;
+}
+
+.company-header {
+    max-width: 1000px;
+    margin: 0px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+    box-sizing: border-box;
+    align-items: start;
+}
+
+.company-logo {
+    grid-column: 1;
+    display: flex;
+    box-sizing: border-box;
+    justify-content: center;
+    
+}
+
+.company-logo img {
+    width: 60%;
+    height: 60%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.company-overview {
+    grid-column: 2/span 3;
+    display: block;
+    box-sizing: border-box;
+}
+
+.company-name {
+    margin-top: 0;
+}
+
+.sub-overview {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    grid-gap: 5px;
+    box-sizing: border-box;
+    word-break: break-word;    
+}
+
+.sub-overview i span {
+    margin-left: 10px; 
+    font-size: 16px;
+    font-style: normal;
+}
+
+.sub-overview i span a {
+    color: rgb(1, 126, 183);
+    background-color: transparent;
+    text-decoration: none;
+}
+
+.company-information {
+    margin-top: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
+    text-align: justify;
+}
+.introduction {
+    margin-top: 20px;
+}

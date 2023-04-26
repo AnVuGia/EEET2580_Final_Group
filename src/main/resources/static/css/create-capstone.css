@@ -1,0 +1,90 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+#capstone-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.input,
+textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.input[type="file"] {
+    font-size: 14px;
+}
+
+input::placeholder {
+    font-style: italic;
+  }
+
+textarea {
+    resize: vertical;
+    min-height: 150px;
+}
+
+.button {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.add-skill-btn {
+    margin-top: 10px;
+    width: 5%;
+    background-color: #2c3e50;
+    color: white;
+}
+
+.add-skill-btn:hover {
+    background-color: #1a2530;
+}
+
+.submit {
+    text-align: center;
+}
+
+.submit-btn {
+    letter-spacing: 1px;
+    width: 20%;
+    background-color: rgb(1, 126, 183);
+    color: #fff;
+    justify-self: center;
+}
+
+
+
