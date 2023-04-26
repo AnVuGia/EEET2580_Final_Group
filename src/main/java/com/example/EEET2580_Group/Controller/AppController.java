@@ -33,5 +33,8 @@ public class AppController {
     public String viewAccountPage() {
         return "account-profile";
     }
-
+    @GetMapping("/role")
+    public String viewRolePage() {
+        return "role-page";
+    }
 }

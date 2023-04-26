@@ -73,7 +73,7 @@ public class AccountController {
         return account;
     }
     @GetMapping("/student/username")
-    Account getStudentAccountByUsername(@RequestParam String username) {
+    Account getStudentAccountByUsername(@RequestParam(name = "username") String username) {
         Account account = accountService.getAccountByUsername(username, "student");
         return account;
     }

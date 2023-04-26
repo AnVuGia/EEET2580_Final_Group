@@ -1,28 +1,28 @@
-const userName = document.querySelector(".user-name");
-const userNameEl = document.querySelector(".error-uname");
-const password = document.querySelector(".password");
-const passwordEl = document.querySelector(".error-password");
-const signUp = document.querySelector("#btn-sign-up")
-const submit = document.querySelector("#btn-sign-in");
-signUp.addEventListener("click", ()=>{
-    window.location.href = "sign-up.html"
-})
+const userName = document.querySelector('.user-name');
+const userNameEl = document.querySelector('.error-uname');
+const password = document.querySelector('.password');
+const passwordEl = document.querySelector('.error-password');
+const signUp = document.querySelector('#btn-sign-up');
+const submit = document.querySelector('#btn-sign-in');
+signUp.addEventListener('click', () => {
+  window.location.href = 'sign-up.html';
+});
 
-userName.addEventListener("change", () => {
+userName.addEventListener('change', () => {
   if (userName.validity.valid) {
-    userName.textContent = "";
-    userNameEl.textContent ="";
-    userName.classList.remove("invalid");
+    userName.textContent = '';
+    userNameEl.textContent = '';
+    userName.classList.remove('invalid');
   } else {
     userNameError();
   }
 });
 
-password.addEventListener("change", () => {
+password.addEventListener('change', () => {
   if (password.validity.valid) {
-    password.textContent = "";
-    passwordEl.textContent ="";
-    password.classList.remove("invalid");
+    password.textContent = '';
+    passwordEl.textContent = '';
+    password.classList.remove('invalid');
   } else {
     passwordError();
   }
@@ -30,8 +30,7 @@ password.addEventListener("change", () => {
 
 // FORM VALIDATION WHEN USER PRESSES SUBMIT //
 
-submit.addEventListener("click", (event) => {
-
+submit.addEventListener('click', (event) => {
   if (!userName.validity.valid) {
     event.preventDefault();
     userNameError();
@@ -41,27 +40,49 @@ submit.addEventListener("click", (event) => {
     event.preventDefault();
     passwordError();
   }
- 
+  onSignIn();
 });
+async function onSignIn() {
+  console.log('sign in');
+  const data = {
+    username: 'test',
+    password: '12345',
+  };
+  const endpoint = '?username=' + data.username;
+  const response = await fetch(`/api/account/student/username${endpoint}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  const dataResponse = await response.json();
+  if (dataResponse.password === data.password) {
+    sessionStorage.setItem('role', 'student');
+  } else {
+    console.log('fail');
+  }
 
+  sessionStorage.setItem('user', JSON.stringify(dataResponse));
+  // const dataJson = sessionStorage.getItem('user').;
+}
 // FORM VALIDATION FORMULAS //
 
 function userNameError() {
-    if (userName.validity.valueMissing) {
-        userNameEl.textContent = "User Name cannot be empty";
-        userName.classList.add("invalid");
-        userName.placeholder = "";
-    }
+  if (userName.validity.valueMissing) {
+    userNameEl.textContent = 'User Name cannot be empty';
+    userName.classList.add('invalid');
+    userName.placeholder = '';
+  }
 }
 function passwordError() {
   if (password.validity.valueMissing || password.validity.tooShort) {
-    password.classList.add("invalid");
-    password.placeholder = "";
+    password.classList.add('invalid');
+    password.placeholder = '';
   }
 
   if (password.validity.valueMissing) {
-    passwordEl.textContent = "Password cannot be empty";
+    passwordEl.textContent = 'Password cannot be empty';
   } else if (password.validity.tooShort) {
-    passwordEl.textContent = "Password should be at least 8 characters";
+    passwordEl.textContent = 'Password should be at least 8 characters';
   }
 }
