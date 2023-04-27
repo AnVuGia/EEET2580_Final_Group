@@ -61,21 +61,18 @@ submit.addEventListener('click', (event) => {
     event.preventDefault();
     reEnterPasswordError();
   }
-  if(cnt == 0){
-
-    if(role.value =="Student"){
-      onStudentSubmit(userName.value,password.value);
-    }else if(role.value =="Company"){
-      onCompanySubmit(userName.value,password.value);
-    }else if(role.value =="Supervisor"){
-      onSupervisorSubmit(userName.value,password.value);
+  if (cnt == 0) {
+    if (role.value == 'Student') {
+      onStudentSubmit(userName.value, password.value);
+    } else if (role.value == 'Company') {
+      onCompanySubmit(userName.value, password.value);
+    } else if (role.value == 'Supervisor') {
+      onSupervisorSubmit(userName.value, password.value);
     }
   }
-  
 });
 
-
-async function onStudentSubmit(userName,password) {
+async function onStudentSubmit(userName, password) {
   console.log('onStudentSubmit');
   const userData = {
     username: userName,
@@ -92,13 +89,13 @@ async function onStudentSubmit(userName,password) {
   });
 }
 
-async function onCompanySubmit(userName,password) {
+async function onCompanySubmit(userName, password) {
   console.log('onCompanySubmit');
   const userData = {
     username: userName,
     password: password,
-    company_name :'test company',
-//    company_description: 'test',
+    name: 'test company',
+    //    company_description: 'test',
     email: 'user1@gmial.com 2',
   };
   const res = await fetch('/api/account/company/add', {
@@ -110,7 +107,7 @@ async function onCompanySubmit(userName,password) {
   });
 }
 
-async function onSupervisorSubmit(userName,password) {
+async function onSupervisorSubmit(userName, password) {
   console.log('onStudentSubmit');
   const userData = {
     username: userName,
@@ -127,7 +124,6 @@ async function onSupervisorSubmit(userName,password) {
     body: JSON.stringify(userData),
   });
 }
-
 
 // FORM VALIDATION FORMULAS //
 
