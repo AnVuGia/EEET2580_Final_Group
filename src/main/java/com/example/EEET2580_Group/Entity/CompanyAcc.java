@@ -35,6 +35,9 @@ public class CompanyAcc extends Account {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "profile_image")
+    private Long profileImage;
+
     public void setAccount(Account account) {
         username = account.getUsername();
         password = account.getPassword();

@@ -66,6 +66,12 @@ public class CapstoneProject {
     @Column(name = "capstone_color")
     private String capstoneColor;
 
+    @Column(name = "capstone_status")
+    private boolean capstoneStatus;
+
+    @Column(name = "capstone_image")
+    private Long imageId;
+
     public void setCapstoneProject(CapstoneProjectDto capstoneProjectDto) {
         this.company = capstoneProjectDto.getCompany();
         this.adminId = capstoneProjectDto.getAdminId();

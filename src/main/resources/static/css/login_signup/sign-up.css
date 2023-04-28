@@ -94,3 +94,7 @@ input:focus.invalid {
   margin: 15px auto;
   position: relative;
 }
+#sign-up-role {
+  padding: 5px;
+  margin: 5px 5px 5px 5px;
+}
