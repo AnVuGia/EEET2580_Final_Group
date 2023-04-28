@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,12 +23,12 @@ public class CapstoneProjectController {
     CapstoneProjectService capstoneProjectService;
 
     // Add Capstone Project to database
-    @PostMapping("/capstone-project")
-    public void addCapstoneProject(@RequestBody CapstoneProjectDto capstoneProject) {
-        capstoneProjectService.saveCapstoneProject(capstoneProject);
-        System.out.println(capstoneProject.getProjectTitle() + " " + capstoneProject.getProjectDescription());
+        @PostMapping("/capstone-project/add")
+        public void addCapstoneProject(@RequestBody CapstoneProjectDto capstoneProject) {
+            capstoneProjectService.saveCapstoneProject(capstoneProject);
+            System.out.println(capstoneProject.getProjectTitle() + " " + capstoneProject.getProjectDescription());
 
-    }
+        }
 
     // Delete Capstone Project from database
     @DeleteMapping("/capstone-project")

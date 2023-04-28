@@ -13,23 +13,23 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CapstoneProjectDto {
     // CapstoneProjectDto Entity for the capstone project (unfinished)
-    private CompanyAcc company;
-    private Long adminId;
+        private CompanyAcc company;
 
-    private SupervisorAcc supervisor;
-    private String projectTitle;
-    private String projectIntroduction;
-    private String projectObjectives;
-    private String projectSuccessCriteria;
-    private String technicalRequirements;
-    private String projectDescription;
-    private String academicBackground;
-    private int noStudents;
-    private String interviewReqs;
-    private Boolean multiTeamAllow;
+        private SupervisorAcc supervisor;
+        private String projectTitle;
+        private String projectIntroduction;
+        private String projectObjectives;
+        private String projectSuccessCriteria;
+        private String technicalRequirements;
+        private String projectDescription;
+        private String academicBackground;
+        private int noStudents;
+        private String interviewReqs;
+        private Boolean multiTeamAllow;
+        private String capstoneStatus;
+        private Long imageId;
     public void setCapstoneProjectResponse(CapstoneProject capstoneProject){
         this.company = capstoneProject.getCompany();
-        this.adminId = capstoneProject.getAdminId();
         this.supervisor = capstoneProject.getSupervisor();
         this.projectTitle = capstoneProject.getProjectTitle();
         this.projectIntroduction = capstoneProject.getProjectIntroduction();
@@ -41,5 +41,7 @@ public class CapstoneProjectDto {
         this.noStudents = capstoneProject.getNoStudents();
         this.interviewReqs = capstoneProject.getInterviewReqs();
         this.multiTeamAllow = capstoneProject.getMultiTeamAllow();
+        this.capstoneStatus = capstoneProject.getCapstoneStatus();
+        this.imageId = capstoneProject.getImageId();
     }
 }

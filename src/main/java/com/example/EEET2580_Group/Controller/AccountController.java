@@ -77,5 +77,16 @@ public class AccountController {
         Account account = accountService.getAccountByUsername(username, "student");
         return account;
     }
-
+    //supervisor Controller
+    @GetMapping("/supervisor/all")
+    List<Account> getAllSupervisorAccounts() {
+        System.out.println("getAllSupervisorAccounts in AccountController");
+        List<Account> accounts = accountService.getAllSupervisorAccounts();
+        return accounts;
+    }
+    @GetMapping("/supervisor/id/{id}")
+    Account getSupervisorAccountById(@PathVariable Long id) {
+        Account account = accountService.getAccountById(id, "supervisor");
+        return account;
+    }
 }

@@ -3,9 +3,11 @@ package com.example.EEET2580_Group.Service.Implementation;
 import com.example.EEET2580_Group.Entity.CapstoneProject;
 import com.example.EEET2580_Group.DTO.CapstoneProjectDto;
 import com.example.EEET2580_Group.Entity.CompanyAcc;
+import com.example.EEET2580_Group.Entity.SupervisorAcc;
 import com.example.EEET2580_Group.Repository.CapstoneProjectRepository;
 
 import com.example.EEET2580_Group.Repository.CompanyAccRepository;
+import com.example.EEET2580_Group.Repository.SupervisorAccRepository;
 import com.example.EEET2580_Group.Service.Interface.CapstoneProjectService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +27,16 @@ public class CapstoneProjectServiceImp implements CapstoneProjectService {
     private CapstoneProjectRepository capstoneProjectRepository;
     @Autowired
     private CompanyAccRepository companyAccRepository;
+    @Autowired
+    private SupervisorAccRepository supervisorAccRepository;
 
     @Override
     public void saveCapstoneProject(CapstoneProjectDto capstoneProjectDto) {
 
         CompanyAcc companyAcc = companyAccRepository.findById(capstoneProjectDto.getCompany().getId()).get();
-
+        SupervisorAcc supervisorAcc = supervisorAccRepository.findById(capstoneProjectDto.getSupervisor().getId()).get();
         capstoneProjectDto.setCompany(companyAcc);
+        capstoneProjectDto.setSupervisor(supervisorAcc);
         CapstoneProject temCapstoneProject = new CapstoneProject();
         temCapstoneProject.setCapstoneProject(capstoneProjectDto);
         capstoneProjectRepository

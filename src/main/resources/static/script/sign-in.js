@@ -45,18 +45,17 @@ submit.addEventListener('click', (event) => {
     passwordError();
     cnt++;
   }
-  if(cnt == 0){
-    if(role.value == "Student"){
-      onSignInStudent(userName.value,password.value );
-    }else if(role.value == "Company"){
-      onSignInCompany(userName.value,password.value );
-    }else if(role.value == "Supervisor"){
-      onSignInSupervisor(userName.value,password.value );
+  if (cnt == 0) {
+    if (role.value == 'Student') {
+      onSignInStudent(userName.value, password.value);
+    } else if (role.value == 'Company') {
+      onSignInCompany(userName.value, password.value);
+    } else if (role.value == 'Supervisor') {
+      onSignInSupervisor(userName.value, password.value);
     }
   }
-
 });
-async function onSignInStudent(username,password) {
+async function onSignInStudent(username, password) {
   console.log('sign in');
 
   const endpoint = '?username=' + username;
@@ -68,17 +67,17 @@ async function onSignInStudent(username,password) {
   });
   const dataResponse = await response.json();
   if (dataResponse.password === password) {
-    sessionStorage.setItem('role', 'student');
+    setCookiesForRole('student');
     console.log('success');
   } else {
     console.log('fail');
   }
 
-  sessionStorage.setItem('user', JSON.stringify(dataResponse));
+  setCookiesForUser(dataResponse);
   // const dataJson = sessionStorage.getItem('user').;
 }
 
-async function onSignInCompany(username,password) {
+async function onSignInCompany(username, password) {
   console.log('sign in');
 
   const endpoint = '?username=' + username;
@@ -90,17 +89,17 @@ async function onSignInCompany(username,password) {
   });
   const dataResponse = await response.json();
   if (dataResponse.password === password) {
-    sessionStorage.setItem('role', 'company');
+    setCookiesForRole('company');
     console.log('success');
   } else {
     console.log('fail');
   }
 
-  sessionStorage.setItem('user', JSON.stringify(dataResponse));
+  setCookiesForUser(dataResponse);
   // const dataJson = sessionStorage.getItem('user').;
 }
 
-async function onSignInSupervisor(username,password) {
+async function onSignInSupervisor(username, password) {
   console.log('sign in');
 
   const endpoint = '?username=' + username;
@@ -112,22 +111,23 @@ async function onSignInSupervisor(username,password) {
   });
   const dataResponse = await response.json();
   if (dataResponse.password === password) {
-    sessionStorage.setItem('role', 'supervisor');
+    setCookiesForRole('supervisor');
     console.log('success');
   } else {
     console.log('fail');
   }
 
-  sessionStorage.setItem('user', JSON.stringify(dataResponse));
+  setCookiesForUser(dataResponse);
   // const dataJson = sessionStorage.getItem('user').;
 }
 
-
-
-
-
-
-
+function setCookiesForUser(user) {
+  const encodedUser = JSON.stringify(user);
+  document.cookie = `user=${encodeURIComponent(encodedUser)}; path=/`;
+}
+function setCookiesForRole(role) {
+  document.cookie = `role=${encodeURIComponent(role)}; path=/`;
+}
 // FORM VALIDATION FORMULAS //
 
 function userNameError() {

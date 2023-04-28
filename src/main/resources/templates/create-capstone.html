@@ -70,12 +70,12 @@
       <div class="container">
         <h1>Capstone Project Form</h1>
         <div class="form-group">
-          <form
+          <!-- <form
             method="POST"
             enctype="multipart/form-data"
             id="logo-form"
             action="/api/images"
-          >
+          > -->
             <label for="logo">Company logo</label>
             <input
               name="file"
@@ -84,7 +84,7 @@
               accept="image/*"
               required
             />
-          </form>
+          <!-- </form> -->
         </div>
         <form action="" id="capstone-form">
           <div class="form-group">
@@ -108,31 +108,26 @@
           </div>
 
           <div class="form-group">
-            <label for="company-website">Company Website</label>
+            <label for="interview-req">Interview Requirements</label>
             <input
               type="url"
-              id="company-website"
-              placeholder="Ex. https://vng.com.vn/"
+              id="interview-req"
+              placeholder="Yes/No"
               required
             />
           </div>
 
           <div class="form-group">
-            <label for="support-fee">Support Fee</label>
-            <input
-              type="text"
-              id="support-fee"
-              placeholder="Ex. 1.000.000 - 2.000.000"
-              required
-            />
+            <label for="multi-team">Allow Multiteam?</label>
+            <input type="text" id="multi-team" placeholder="Yes/No" required />
           </div>
 
           <div class="form-group">
-            <label for="company-location">Company Location</label>
+            <label for="company-location">Academic Background</label>
             <input
               type="text"
               id="company-location"
-              placeholder="Ex. VNG Campus, Tân Thuận Đông, District 7, Ho Chi Minh"
+              placeholder="BH120, BP162,..."
               required
             />
           </div>
@@ -142,7 +137,7 @@
             <input type="text" id="members" placeholder="Ex. 4-5" required />
           </div>
 
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label for="period">Period Length of the Project (months)</label>
             <input type="number" id="period" placeholder="Ex. 3" required />
           </div>
@@ -155,9 +150,9 @@
               placeholder="Ex. 05/08/2023"
               required
             />
-          </div>
+          </div> -->
 
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label for="skill">Skills</label>
             <div id="skills-container">
               <input
@@ -170,11 +165,19 @@
             <button class="button add-skill-btn" type="button">
               <i class="bi bi-plus-circle"></i>
             </button>
-          </div>
-
+          </div> -->
           <div class="form-group">
-            <label for="capstone-info">Capstone Information</label>
-            <textarea id="capstone-info" required></textarea>
+            <label for="criteria">Success Criteria</label>
+            <input
+              type="text"
+              id="criteria"
+              placeholder="Ex. Criteria"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="capstone-description">Capstone Description</label>
+            <textarea id="capstone-description" required></textarea>
           </div>
 
           <div class="form-group">
@@ -183,28 +186,17 @@
           </div>
 
           <div class="form-group">
-            <label for="capstone-requirements">Requirements</label>
+            <label for="capstone-requirements">Skill Requirements</label>
             <textarea id="capstone-requirements" required></textarea>
           </div>
 
           <div class="form-group">
-            <label for="supervisor-url">Supervisor URL</label>
-            <input
-              type="url"
-              id="supervisor-url"
-              placeholder="Ex. URL of Supervisor's profile"
-              required
-            />
-          </div>
-
-          <div class="form-group">
             <label for="supervisor">Supervisor Name</label>
-            <input
-              type="text"
-              id="supervisor"
-              placeholder="Ex. Thanh Nguyen Ngoc"
-              required
-            />
+            <select id="supervisor-select">
+              <option value="1">Thanh Nguyen</option>
+              <option value="2">Huy Nguyen</option>
+              <option value="3">Huy Nguyen</option>
+            </select>
           </div>
 
           <div class="form-group">
@@ -217,7 +209,7 @@
             />
           </div>
 
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label for="supervisor-group">Supervisor's Group</label>
             <input
               type="text"
@@ -225,7 +217,7 @@
               placeholder="Ex. 1"
               required
             />
-          </div>
+          </div> -->
 
           <div class="submit">
             <button class="button submit-btn" type="submit">SUBMIT</button>
