@@ -45,4 +45,8 @@ public class AppController {
     public String viewCreateCapstonePage() {
         return "create-capstone";
     }
+    @GetMapping("/edit-capstone")
+    public String viewEditCapstonePage() {
+        return "edit-capstone";
+    }
 }
