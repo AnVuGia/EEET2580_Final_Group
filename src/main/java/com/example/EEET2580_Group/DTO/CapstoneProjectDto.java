@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class CapstoneProjectDto {
     // CapstoneProjectDto Entity for the capstone project (unfinished)
     private CompanyAcc company;
-    private Long adminId;
+    //private Long adminId;
 
     private SupervisorAcc supervisor;
     private String projectTitle;
@@ -29,7 +29,7 @@ public class CapstoneProjectDto {
     private Boolean multiTeamAllow;
     public void setCapstoneProjectResponse(CapstoneProject capstoneProject){
         this.company = capstoneProject.getCompany();
-        this.adminId = capstoneProject.getAdminId();
+        //this.adminId = capstoneProject.getAdminId();
         this.supervisor = capstoneProject.getSupervisor();
         this.projectTitle = capstoneProject.getProjectTitle();
         this.projectIntroduction = capstoneProject.getProjectIntroduction();

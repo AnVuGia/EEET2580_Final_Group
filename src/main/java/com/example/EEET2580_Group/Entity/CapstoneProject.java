@@ -25,8 +25,8 @@ public class CapstoneProject {
     @JsonBackReference
     private CompanyAcc company;
 
-    @Column(name = "admin_id")
-    private Long adminId;
+    //@Column(name = "admin_id")
+    //private Long adminId;
 
     @ManyToOne
     @JoinColumn(name = "supervisor_id")
@@ -68,7 +68,7 @@ public class CapstoneProject {
 
     public void setCapstoneProject(CapstoneProjectDto capstoneProjectDto) {
         this.company = capstoneProjectDto.getCompany();
-        this.adminId = capstoneProjectDto.getAdminId();
+        //this.adminId = capstoneProjectDto.getAdminId();
         this.supervisor = capstoneProjectDto.getSupervisor();
         this.projectTitle = capstoneProjectDto.getProjectTitle();
         this.projectIntroduction = capstoneProjectDto.getProjectIntroduction();
