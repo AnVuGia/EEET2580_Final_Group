@@ -1,9 +1,16 @@
-
 const displayPendingList = document.querySelector(".request-capstone")
-
+const approvedButton = document.querySelector("#approve-btn");
+const rejectButton = document.querySelector("#reject-btn");
+function extractNumberFromString(str) {
+    const match = str.match(/\d+/);
+    if (match) {
+      return parseInt(match[0], 10);
+    }
+    return null;
+}
 
 async function getRequestList() {
-
+    console.log("getRequestList");
     displayResult.innerHTML = `
     <div >
     <span class="">Loading...</span>
@@ -57,7 +64,7 @@ function createRequestCapstoneCard(capstone) {
     
     cardButton.setAttribute("id",`${capstone.id}`);
     cardButton.addEventListener("click", async function(ev){
-
+        sessionStorage.setItem("more-info", JSON.stringify(extractNumberFromString(ev.target.id)));
         console.log("click on item title");
         console.log(ev.target);
         let url = `api/capstone-project/id/${ev.target.id}`;
@@ -77,12 +84,40 @@ function createRequestCapstoneCard(capstone) {
 }
 
 
-
 const updateModal = function (capstone){
     console.log("update modal");
     const div = document.querySelector(".information-section");
     div.innerHTML =`<p>Capstone Project name: ${capstone.projectTitle} </p>`
 }
 
+approvedButton.addEventListener('click',async function(ev){
+    let id = JSON.parse(sessionStorage.getItem("more-info"));
+    await setCapstoneStatus(id,"approved");
+    await getRequestList();
+})
+rejectButton.addEventListener('click',async function(ev){
+    let id = JSON.parse(sessionStorage.getItem("more-info"));
+    await setCapstoneStatus(id,"reject");
+    await getRequestList();
+})
+const setCapstoneStatus = async function (id, status){
+    let url = `/api/capstone-project/id/${id}`;
+    let reponse = await fetch(url);
+    let capstone = await reponse.json();
+    
+    url = `api/capstone-project/${capstone.id}`;
+    capstone.capstoneStatus = status;
+    try {
+        const response = await fetch(url, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(capstone)
+        });
+      } catch (error) {
+        console.error(error);
+    }
+}
 
 getRequestList();
