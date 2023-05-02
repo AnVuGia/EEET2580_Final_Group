@@ -11,7 +11,8 @@ import java.util.List;
 
 @Data
 @Entity
-
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "company_acc")
 public class CompanyAcc extends Account {
     @Id
@@ -19,7 +20,7 @@ public class CompanyAcc extends Account {
     @Column(name = "company_id")
     private Long id;
     @Column(name = "company_name")
-    private String companyName;
+    private String name;
     @Column(name = "company_description")
     private String companyDescription;
     
@@ -35,10 +36,15 @@ public class CompanyAcc extends Account {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "role")
+    private String role;
+
+
     public void setAccount(Account account) {
         username = account.getUsername();
         password = account.getPassword();
         email = account.getEmail();
-        companyName = account.getName();
+        name = account.getName();
+        role = "company";
     }
 }

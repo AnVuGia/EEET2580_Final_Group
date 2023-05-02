@@ -13,41 +13,60 @@ import java.util.List;
 @Repository
 // CapstoneProjectRepository is a JPA repository
 public interface CapstoneProjectRepository extends JpaRepository<CapstoneProject, Long> {
-    // Find all capstone projects and return a page with pagination
-    Page<CapstoneProject> findAll(Pageable pageable);
+    enum Status{
+        PENDING,
+        APPROVED,
+        REJECT
+    }
+    Status currentStatus = null;
+    String status[] = {"pending","approved","reject"};
+
     <Optional> CapstoneProject findByProjectTitle(String title);
 
-    @Query("SELECT c FROM CapstoneProject c WHERE c.company.companyName = :companyName")
-    Page<CapstoneProject> findByCompanyName (@Param("companyName") String companyName, Pageable page);
+    @Query("SELECT c FROM CapstoneProject c WHERE c.capstoneStatus = :status")
+    Page<CapstoneProject> findByStatus (@Param("status") String status,Pageable page);
 
-    @Query("SELECT c FROM CapstoneProject c WHERE c.supervisor.supervisorName = :supervisorName")
-    Page<CapstoneProject> findBySupervisorName (@Param("supervisorName") String supervisorName, Pageable page);
+    @Query("SELECT c FROM CapstoneProject c WHERE c.company.name = :companyName AND c.capstoneStatus = :status")
+    Page<CapstoneProject> findByCompanyName (@Param("companyName") String companyName,
+                                             @Param("status") String status,
+                                             Pageable page);
 
-    @Query("SELECT c FROM CapstoneProject c WHERE c.projectTitle LIKE %:capstoneName%")
-    Page<CapstoneProject> findByCapstoneName (@Param("capstoneName") String capstoneName, Pageable page);
+    @Query("SELECT c FROM CapstoneProject c WHERE c.supervisor.name = :supervisorName AND c.capstoneStatus = :status")
+    Page<CapstoneProject> findBySupervisorName (@Param("supervisorName") String supervisorName,
+                                                @Param("status") String status,
+                                                Pageable page);
 
-    @Query("SELECT c FROM CapstoneProject c WHERE c.projectTitle = :capstoneName AND c.company.companyName = :companyName")
+    @Query("SELECT c FROM CapstoneProject c WHERE c.projectTitle LIKE %:capstoneName% AND c.capstoneStatus = :status")
+    Page<CapstoneProject> findByCapstoneName (@Param("capstoneName") String capstoneName,
+                                              @Param("status") String status,
+                                              Pageable page);
+
+    @Query("SELECT c FROM CapstoneProject c WHERE c.projectTitle = :capstoneName AND c.company.name = :companyName AND c.capstoneStatus = :status")
     Page<CapstoneProject> findByCapstoneNameAndCompanyName (@Param("capstoneName") String capstoneName,
                                                             @Param("companyName") String companyName,
+                                                            @Param("status") String status,
                                                             Pageable page);
 
-    @Query("SELECT c FROM CapstoneProject c WHERE c.company.companyName = :companyName AND c.supervisor.supervisorName = :supervisorName")
-    Page<CapstoneProject> findByCompanyNameAndSupervisorName (@Param("companyName") String companyName,
-                                                            @Param("supervisorName") String supervisorName,
-                                                            Pageable page);
+    @Query("SELECT c FROM CapstoneProject c WHERE c.company.name = :companyName AND c.supervisor.name = :supervisorName AND c.capstoneStatus = :status")
+    Page<CapstoneProject> findByCompanyNameAndSupervisorName (  @Param("companyName") String companyName,
+                                                                @Param("supervisorName") String supervisorName,
+                                                                @Param("status") String status,
+                                                                Pageable page);
 
-    @Query("SELECT c FROM CapstoneProject c WHERE c.projectTitle = :capstoneName AND c.supervisor.supervisorName = :supervisorName")
-    Page<CapstoneProject> findByCapstoneNameAndSupervisorName (@Param("capstoneName") String capstoneName,
-                                                            @Param("supervisorName") String supervisorName,
-                                                            Pageable page);
+    @Query("SELECT c FROM CapstoneProject c WHERE c.projectTitle = :capstoneName AND c.supervisor.name = :supervisorName AND c.capstoneStatus = :status")
+    Page<CapstoneProject> findByCapstoneNameAndSupervisorName ( @Param("capstoneName") String capstoneName,
+                                                                @Param("supervisorName") String supervisorName,
+                                                                @Param("status") String status,
+                                                                Pageable page);
 
-    @Query("SELECT c FROM CapstoneProject c WHERE c.supervisor.supervisorName = :supervisorName AND  c.company.companyName = :companyName AND c.projectTitle = :capstoneName")
+    @Query("SELECT c FROM CapstoneProject c WHERE c.supervisor.name = :supervisorName AND  c.company.name = :companyName AND c.projectTitle = :capstoneName AND c.capstoneStatus = :status")
     Page<CapstoneProject> filterAll ( @Param("capstoneName") String capstoneName,
-                                    @Param("companyName") String companyName,
-                                    @Param("supervisorName") String supervisorName,
-                                    Pageable page);
+                                      @Param("companyName") String companyName,
+                                      @Param("supervisorName") String supervisorName,
+                                      @Param("status") String status, Pageable page);
 
-    @Query("SELECT c FROM CapstoneProject c WHERE c.company.companyName = :company_name")
-    List<CapstoneProject> findAllProjectByCompanyName(@Param(value = "company_name") String company_name);
+    @Query("SELECT c FROM CapstoneProject c WHERE c.company.name = :company_name AND c.capstoneStatus = :status")
+    List<CapstoneProject> findAllProjectByCompanyName(@Param("company_name") String company_name,
+                                                      @Param("status") String status);
 
 }

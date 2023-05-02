@@ -12,6 +12,9 @@ import java.util.Optional;
 @Service
 public interface CapstoneProjectService {
     // saveCapstoneProject saves a capstone project
+
+    CapstoneProject createCapstoneEntity(CapstoneProjectDto capstoneProject);
+
     void saveCapstoneProject(CapstoneProjectDto capstoneProject);
 
     // getAllCapstoneProject returns all capstone projects to a list
@@ -31,13 +34,14 @@ public interface CapstoneProjectService {
 
     Optional<CapstoneProject> findByTitle(String title);
 
-
-    public Page<CapstoneProject> findBySupervisorName(String supervisorName,Pageable pageable);
+    public Page<CapstoneProject> findBySupervisorName(String supervisorName, String status,Pageable pageable);
     Page<CapstoneProject> findByCompanyName(String companyName, Pageable page);
 
     Page<CapstoneProject> filterAll(String capstoneName, String companyName,String supervisorName, Pageable page);
 
-    List<CapstoneProject> findAllProjectByCompanyName(String companyName);
+    List<CapstoneProject> findAllProjectByCompanyName(String companyName, String status);
+
+    Page<CapstoneProject> findAllPendingCapstone(Pageable pageable);
 
 
 }

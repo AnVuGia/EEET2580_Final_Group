@@ -9,7 +9,7 @@ const back = document.querySelector('#btn-back');
 const role = document.querySelector('#sign-up-role');
 
 back.addEventListener('click', () => {
-  window.location.href = 'sign-in.html';
+  window.location.href = 'sign-in-page';
 });
 
 console.log(submit);

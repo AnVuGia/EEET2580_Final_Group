@@ -1,17 +1,28 @@
 package com.example.EEET2580_Group.Entity;
 import com.example.EEET2580_Group.DTO.CapstoneProjectDto;
+import com.example.EEET2580_Group.Repository.SupervisorAccRepository;
+import com.example.EEET2580_Group.Service.Interface.AccountService;
 import com.example.EEET2580_Group.Utils.Utility;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.FluentQuery;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Function;
 
 //Lombok annotations
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-// JPA annotations
 @Entity
 @Table(name = "capstone-project")
 public class CapstoneProject {
@@ -24,9 +35,6 @@ public class CapstoneProject {
     @JoinColumn(name = "company_id")
     @JsonBackReference
     private CompanyAcc company;
-
-    @Column(name = "admin_id")
-    private Long adminId;
 
     @ManyToOne
     @JoinColumn(name = "supervisor_id")
@@ -66,21 +74,53 @@ public class CapstoneProject {
     @Column(name = "capstone_color")
     private String capstoneColor;
 
-    public void setCapstoneProject(CapstoneProjectDto capstoneProjectDto) {
-        this.company = capstoneProjectDto.getCompany();
-        this.adminId = capstoneProjectDto.getAdminId();
-        this.supervisor = capstoneProjectDto.getSupervisor();
-        this.projectTitle = capstoneProjectDto.getProjectTitle();
-        this.projectIntroduction = capstoneProjectDto.getProjectIntroduction();
-        this.projectObjectives = capstoneProjectDto.getProjectObjectives();
-        this.projectSuccessCriteria = capstoneProjectDto.getProjectSuccessCriteria();
-        this.technicalRequirements = capstoneProjectDto.getTechnicalRequirements();
-        this.projectDescription = capstoneProjectDto.getProjectDescription();
-        this.academicBackground = capstoneProjectDto.getAcademicBackground();
-        this.noStudents = capstoneProjectDto.getNoStudents();
-        this.interviewReqs = capstoneProjectDto.getInterviewReqs();
-        this.multiTeamAllow = capstoneProjectDto.getMultiTeamAllow();
+    @Column(name = "capstone_status")
+    private String capstoneStatus;
+
+    public CapstoneProject(CompanyAcc company,
+                           SupervisorAcc supervisor,
+                           String projectTitle,
+                           String projectIntroduction,
+                           String projectObjectives,
+                           String projectSuccessCriteria,
+                           String technicalRequirements,
+                           String projectDescription,
+                           String academicBackground,
+                           int noStudents,
+                           String interviewReqs,
+                           Boolean multiTeamAllow,
+                           String capstoneStatus) {
+        this.company = company;
+        this.supervisor = supervisor;
+        this.projectTitle = projectTitle;
+        this.projectIntroduction = projectIntroduction;
+        this.projectObjectives = projectObjectives;
+        this.projectSuccessCriteria = projectSuccessCriteria;
+        this.technicalRequirements = technicalRequirements;
+        this.projectDescription = projectDescription;
+        this.academicBackground = academicBackground;
+        this.noStudents = noStudents;
+        this.interviewReqs = interviewReqs;
+        this.multiTeamAllow = multiTeamAllow;
         this.capstoneColor = Utility.returnColor();
+        this.capstoneStatus = capstoneStatus;
     }
+
+//    public void setCapstoneProject(CapstoneProject capstoneProjectDto) {
+//        this.company = capstoneProjectDto.getCompany();
+//        this.supervisor = capstoneProjectDto.getSupervisor();
+//        this.projectTitle = capstoneProjectDto.getProjectTitle();
+//        this.projectIntroduction = capstoneProjectDto.getProjectIntroduction();
+//        this.projectObjectives = capstoneProjectDto.getProjectObjectives();
+//        this.projectSuccessCriteria = capstoneProjectDto.getProjectSuccessCriteria();
+//        this.technicalRequirements = capstoneProjectDto.getTechnicalRequirements();
+//        this.projectDescription = capstoneProjectDto.getProjectDescription();
+//        this.academicBackground = capstoneProjectDto.getAcademicBackground();
+//        this.noStudents = capstoneProjectDto.getNoStudents();
+//        this.interviewReqs = capstoneProjectDto.getInterviewReqs();
+//        this.multiTeamAllow = capstoneProjectDto.getMultiTeamAllow();
+//        this.capstoneColor = Utility.returnColor();
+//        this.capstoneStatus = capstoneProjectDto.getCapstoneStatus();
+//    }
 
 }
