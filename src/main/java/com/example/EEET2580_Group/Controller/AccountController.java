@@ -5,10 +5,12 @@ import com.example.EEET2580_Group.Entity.CompanyAcc;
 import com.example.EEET2580_Group.Entity.StudentAcc;
 import com.example.EEET2580_Group.Entity.SupervisorAcc;
 import com.example.EEET2580_Group.Service.Interface.AccountService;
+import com.example.EEET2580_Group.Service.Interface.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 
 @RestController
 @RequestMapping("/api/account")
@@ -16,20 +18,20 @@ public class AccountController {
     @Autowired
     private AccountService accountService;
 
-    @GetMapping("/company/all")
+    @GetMapping("/companies")
     List<Account> getAllAccounts() {
         System.out.println("getAllAccounts in AccountController");
         List<Account> accounts = accountService.getAllAccounts();
         return accounts;
     }
 
-    @GetMapping("/company/id/{id}")
+    @GetMapping("/company/{id}")
     Account getAccountById(@PathVariable Long id) {
         Account account = accountService.getAccountById(id, "company");
         return account;
     }
-    @GetMapping("/company/username")
-    public  Account getAccountByUsername(@RequestParam String username) {
+    @GetMapping("/company/{username}")
+    public  Account getAccountByUsername(@PathVariable String username) {
         Account account = accountService.getAccountByUsername(username, "company");
         return account;
     }
@@ -40,6 +42,11 @@ public class AccountController {
         account.setUsername(request.getUsername());
         account.setPassword(request.getPassword());
         account.setEmail(request.getEmail());
+
+        if(!accountService.isValidUsername(request.getUsername())){
+            System.out.println("user name is already taken");
+            return null;
+        }
 
         if (type.equals("company")) {
             CompanyAcc companyAcc = new CompanyAcc();
@@ -60,20 +67,20 @@ public class AccountController {
         return null; // handle invalid type
     }
     //Student Controller
-    @GetMapping("/student/all")
+    @GetMapping("/students")
     List<Account> getAllStudentAccounts() {
         System.out.println("getAllStudentAccounts in AccountController");
         List<Account> accounts = accountService.getAllStudentAccounts();
         return accounts;
     }
 
-    @GetMapping("/student/id/{id}")
+    @GetMapping("/student/{id}")
     Account getStudentAccountById(@PathVariable Long id) {
         Account account = accountService.getAccountById(id, "student");
         return account;
     }
-    @GetMapping("/student/username")
-    Account getStudentAccountByUsername(@RequestParam(name = "username") String username) {
+    @GetMapping("/student/{username}")
+    Account getStudentAccountByUsername(@PathVariable String username) {
         Account account = accountService.getAccountByUsername(username, "student");
         return account;
     }

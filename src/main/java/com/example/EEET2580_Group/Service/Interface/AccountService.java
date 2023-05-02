@@ -15,4 +15,7 @@ public interface AccountService {
     List<Account> getAllSupervisorAccounts();
     List<Account> getAllCompanyAccounts();
     Account getAccountByUsername(String username, String type);
+
+    boolean isValidUsername(String username);
+
 }

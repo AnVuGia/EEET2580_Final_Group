@@ -7,7 +7,7 @@ const submit = document.querySelector('#btn-sign-in');
 const role = document.querySelector('#sign-in-role');
 
 signUp.addEventListener('click', () => {
-  window.location.href = 'sign-up.html';
+  window.location.href = 'sign-up-page';
 });
 
 userName.addEventListener('change', () => {
@@ -45,86 +45,36 @@ submit.addEventListener('click', (event) => {
     passwordError();
     cnt++;
   }
-  if(cnt == 0){
-    if(role.value == "Student"){
-      onSignInStudent(userName.value,password.value );
-    }else if(role.value == "Company"){
-      onSignInCompany(userName.value,password.value );
-    }else if(role.value == "Supervisor"){
-      onSignInSupervisor(userName.value,password.value );
-    }
-  }
-
+  authenticate(userName.value,password.value)
 });
-async function onSignInStudent(username,password) {
+
+async function authenticate(username, password){
   console.log('sign in');
 
-  const endpoint = '?username=' + username;
-  const response = await fetch(`/api/account/student/username${endpoint}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-  const dataResponse = await response.json();
-  if (dataResponse.password === password) {
-    sessionStorage.setItem('role', 'student');
-    console.log('success');
-  } else {
-    console.log('fail');
+  const response = await fetch(`/authenticate?username=${username}&password=${password}`);
+  const result = await response.json();
+  // console.log(response);
+  
+  if (!!result){
+    console.log("Invalid user name or password");
   }
 
-  sessionStorage.setItem('user', JSON.stringify(dataResponse));
-  // const dataJson = sessionStorage.getItem('user').;
-}
-
-async function onSignInCompany(username,password) {
-  console.log('sign in');
-
-  const endpoint = '?username=' + username;
-  const response = await fetch(`/api/account/company/username${endpoint}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-  const dataResponse = await response.json();
-  if (dataResponse.password === password) {
-    sessionStorage.setItem('role', 'company');
-    console.log('success');
-  } else {
-    console.log('fail');
+  if (result.role === "admin"){
+    window.location.href = "/admin"
+    sessionStorage.setItem('role', JSON.stringify("admin"));
+  }else if (result.role === "student"){
+    window.location.href = "/student"
+    sessionStorage.setItem('role', JSON.stringify("student"));
+  }if (result.role === "company"){
+    window.location.href = "/company"
+    sessionStorage.setItem('role', JSON.stringify("company"));
+  }if (result.role === "supervisor"){
+    window.location.href = "/supervisor"
+    sessionStorage.setItem('role', JSON.stringify("supervisor"));
   }
-
-  sessionStorage.setItem('user', JSON.stringify(dataResponse));
-  // const dataJson = sessionStorage.getItem('user').;
+  sessionStorage.setItem('user', JSON.stringify(result));
+  
 }
-
-async function onSignInSupervisor(username,password) {
-  console.log('sign in');
-
-  const endpoint = '?username=' + username;
-  const response = await fetch(`/api/account/supervisor/username${endpoint}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-  const dataResponse = await response.json();
-  if (dataResponse.password === password) {
-    sessionStorage.setItem('role', 'supervisor');
-    console.log('success');
-  } else {
-    console.log('fail');
-  }
-
-  sessionStorage.setItem('user', JSON.stringify(dataResponse));
-  // const dataJson = sessionStorage.getItem('user').;
-}
-
-
-
-
 
 
 
