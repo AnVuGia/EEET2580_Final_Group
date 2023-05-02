@@ -23,7 +23,7 @@ public interface CapstoneProjectRepository extends JpaRepository<CapstoneProject
 
     <Optional> CapstoneProject findByProjectTitle(String title);
 
-    @Query("SELECT c FROM CapstoneProject c WHERE c.capstoneStatus = :status")
+    @Query("SELECT c FROM CapstoneProject c WHERE c.capstoneStatus = :status ORDER BY c.projectTitle ASC")
     Page<CapstoneProject> findByStatus (@Param("status") String status,Pageable page);
 
     @Query("SELECT c FROM CapstoneProject c WHERE c.company.name = :companyName AND c.capstoneStatus = :status")
