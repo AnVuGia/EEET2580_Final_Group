@@ -22,7 +22,7 @@ public interface CompanyAccRepository extends JpaRepository<CompanyAcc, Long> {
     CompanyAcc findByUsername(@Param("username") String username);
 
     @Query("SELECT c FROM CompanyAcc c WHERE c.username = :username AND c.password = :password ")
-    StudentAcc findByUsernameAndPassword(@Param("username") String username,
+    CompanyAcc findByUsernameAndPassword(@Param("username") String username,
                                          @Param("password") String password);
 
 }
