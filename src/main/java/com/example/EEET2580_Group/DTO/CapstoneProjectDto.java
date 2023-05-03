@@ -26,6 +26,8 @@ public class CapstoneProjectDto {
     private Boolean multiTeamAllow;
     private String capstoneStatus;
     private String capstoneColor;
+
+    private Long imageId;
     public CapstoneProjectDto(CapstoneProject capstoneProject){
         this.id = capstoneProject.getId();
         this.company = new CompanyAccDto(capstoneProject.getCompany());

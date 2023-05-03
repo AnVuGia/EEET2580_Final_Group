@@ -77,6 +77,8 @@ public class CapstoneProject {
     @Column(name = "capstone_status")
     private String capstoneStatus;
 
+    @Column(name = "capstone_image")
+    private Long imageId;
     public CapstoneProject(CompanyAcc company,
                            SupervisorAcc supervisor,
                            String projectTitle,
@@ -89,7 +91,8 @@ public class CapstoneProject {
                            int noStudents,
                            String interviewReqs,
                            Boolean multiTeamAllow,
-                           String capstoneStatus) {
+                           String capstoneStatus,
+                           Long imageId) {
         this.company = company;
         this.supervisor = supervisor;
         this.projectTitle = projectTitle;
@@ -104,6 +107,7 @@ public class CapstoneProject {
         this.multiTeamAllow = multiTeamAllow;
         this.capstoneColor = Utility.returnColor();
         this.capstoneStatus = capstoneStatus;
+        this.imageId = imageId;
     }
 
 //    public void setCapstoneProject(CapstoneProject capstoneProjectDto) {

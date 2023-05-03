@@ -27,7 +27,6 @@ public class CapstoneProjectController {
     public void addCapstoneProject(@RequestBody CapstoneProjectDto capstoneProject) {
         capstoneProjectService.saveCapstoneProject(capstoneProject);
         System.out.println(capstoneProject.getProjectTitle() + " " + capstoneProject.getProjectDescription());
-
     }
 
     // Delete Capstone Project from database

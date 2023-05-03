@@ -48,7 +48,8 @@ public class CapstoneProjectServiceImp implements CapstoneProjectService {
                                     capstoneProject.getNoStudents(),
                                     capstoneProject.getInterviewReqs(),
                                     capstoneProject.getMultiTeamAllow(),
-                                    capstoneProject.getCapstoneStatus());
+                                    capstoneProject.getCapstoneStatus(),
+                                    capstoneProject.getImageId());
     }
 
     public void updateCapstone(CapstoneProject oldCapstone, CapstoneProjectDto newCapstone){
@@ -68,6 +69,7 @@ public class CapstoneProjectServiceImp implements CapstoneProjectService {
         oldCapstone.setInterviewReqs(newCapstone.getInterviewReqs());
         oldCapstone.setMultiTeamAllow(newCapstone.getMultiTeamAllow());
         oldCapstone.setCapstoneStatus(newCapstone.getCapstoneStatus());
+        oldCapstone.setImageId(newCapstone.getImageId());
     }
 
     @Override
