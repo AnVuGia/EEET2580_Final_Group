@@ -115,7 +115,6 @@
               </div>
             </div>
           </div>
-         
         </div>
         <div class="capstone-panel">
           <div class="capstone-pannel-in m-auto m-md-0 display-section">
@@ -145,14 +144,14 @@
         aria-labelledby="staticBackdropLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
           <div class="modal-content">
             <div class="modal-header">
               <h1
                 class="modal-title fs-2 group-form-heading"
                 id="staticBackdropLabel"
               >
-                New Student Group
+                Create New Capstone Project
               </h1>
               <button
                 type="button"
@@ -173,35 +172,138 @@
               </p>
               <div class="information-section">
                 <label for="" class="information-section-element input-label"
-                  >Group Name</label
+                  >Capstone image</label
+                >
+                <input
+                  type="file"
+                  id="logo"
+                  accept="image/*"
+                  required
+                  class="information-section-element input-modal"
+                />
+                <label
+                  for="capstone-title"
+                  class="information-section-element input-label"
+                  >Capstone Project Title</label
+                >
+                <input
+                  type="text"
+                  id="capstone-title"
+                  placeholder="Ex. Enterprise Web Development"
+                  required
+                  class="information-section-element input-modal"
+                />
+
+                <label
+                  for="capstone-intro"
+                  class="information-section-element input-label"
+                  >Project Introduction</label
                 >
                 <input
                   type="text"
                   class="information-section-element input-modal"
+                  id="introduction"
+                  placeholder="Ex. the project is about..."
+                  required
                 />
                 <label for="" class="information-section-element input-label"
-                  >Joining</label
+                  >Interview Requirements</label
                 >
-                <select
-                  name=""
-                  id=""
-                  class="information-section-element modal-select"
+                <input
+                  type="text"
+                  class="information-section-element input-modal"
+                  id="interview-req"
+                  placeholder="Yes/No"
+                  required
+                />
+                <label
+                  for="multi-team"
+                  class="information-section-element input-label"
+                  >Allow Multiteam?</label
                 >
-                  <option value="free" class="seletion-option">
-                    Course members are free to join
-                  </option>
-                  <option value="invite" class="seletion-option">
-                    Membership by invitation
-                  </option>
+                <select id="multi-team" class="modal-select">
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
                 </select>
-                <label for="" class="information-section-element input-label"
-                  >Invite student</label
+                <label
+                  for="academic-background"
+                  class="information-section-element input-label"
+                  >Academic Background</label
                 >
                 <input
                   type="text"
                   class="information-section-element input-modal"
-                  placeholder="Search"
+                  id="academic-background"
+                  placeholder="BH120, BP162,..."
+                  required
                 />
+                <label
+                  for="members"
+                  class="information-section-element input-label"
+                  >Number of Members in a Group</label
+                >
+                <input
+                  type="number"
+                  class="information-section-element input-modal"
+                  id="members"
+                  placeholder="Ex. 4-5"
+                  required
+                />
+                <label
+                  for="success-criteria"
+                  class="information-section-element input-label"
+                  >Success criteria</label
+                >
+                <input
+                  type="text"
+                  class="information-section-element input-modal"
+                  id="success-criteria"
+                  placeholder="Ex. none"
+                  required
+                />
+                <label
+                  for="capstone-description"
+                  class="information-section-element input-label"
+                  >Capstone Description</label
+                >
+                <textarea
+                  type="text"
+                  class="information-section-textarea input-modal"
+                  id="capstone-description"
+                  required
+                ></textarea>
+                <label
+                  for="capstone-requirements"
+                  class="information-section-element input-label"
+                  >Capstone Requirements</label
+                >
+                <textarea
+                  type="text"
+                  class="information-section-textarea input-modal"
+                  id="capstone-requirements"
+                  required
+                ></textarea>
+                <label
+                  for="capstone-skill"
+                  class="information-section-element input-label"
+                  >Skill Requirements</label
+                >
+                <textarea
+                  type="text"
+                  class="information-section-textarea input-modal"
+                  id="capstone-skill"
+                  required
+                ></textarea>
+                <label
+                  for="supervisor-select"
+                  class="information-section-element input-label"
+                  >Supervisor Name</label
+                >
+                <select id="supervisor-select" class="modal-select">
+                  <option value="1">Thanh Nguyen</option>
+                  <option value="2">Huy Nguyen</option>
+                  <option value="3">Huy Nguyen</option>
+                </select>
               </div>
             </div>
             <div class="modal-footer">
