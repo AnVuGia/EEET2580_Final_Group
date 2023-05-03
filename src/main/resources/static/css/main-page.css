@@ -11,7 +11,7 @@ main {
   /* height: var(--header-height); */
   background-color: var(--nude-color);
 }
-
+/* navbar section */
 .nav-header-list {
   display: flex;
   height: calc(var(--header-height) - 10px);
@@ -46,6 +46,45 @@ main {
 }
 .shaded {
   background-color: var(--text-color);
+}
+.img-thumbnail{
+    position: relative;
+}
+.img-thumbnail:hover{
+    cursor: pointer;
+}
+#profile-controller{
+    
+    position: absolute;
+    width: 200px;
+    background-color: #D0CFD0;
+    top: 65px;
+    right: 25px;
+    z-index: 1;
+}
+.profile-list{
+    border-radius: 5px;
+    padding: 0px 0px;
+    margin: 0px;
+}
+.profile-list-item{
+    
+    height: 100%;
+    width: 100%;
+    list-style: none;
+    padding: 8px 8px;
+}
+.profile-list-item:hover{
+    cursor: pointer;
+    background-color: rgba(115, 115, 115, 0.6);
+}
+.profile-list-item:nth-child(1){
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+.profile-list-item:nth-child(2){
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 
 /* Search Section */

@@ -11,7 +11,7 @@ const supervisorEmail = document.querySelector('#supervisor-email');
 
 
 async function fetchCapstoneProject() {
-    const capstoneResponse = await fetch(`http://localhost:8000/api/capstone-project/id/${projectId}`);
+    const capstoneResponse = await fetch(`api/capstone-project/id/${projectId}`);
     let capstoneData = await capstoneResponse.json();
 
     capstoneTitle.value = capstoneData.projectTitle;
