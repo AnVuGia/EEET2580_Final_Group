@@ -204,7 +204,15 @@ main {
 }
 
 /* pagination */
-
+.fixed-pagination {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
 .pagination {
   margin-top: 20px;
 }
