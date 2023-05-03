@@ -206,24 +206,33 @@
                   placeholder="Ex. the project is about..."
                   required
                 />
-                <label for="" class="information-section-element input-label"
-                  >Interview Requirements</label
+                <label
+                  for="capstone-objectives"
+                  class="information-section-element input-label"
+                  >Project Objectives</label
                 >
                 <input
                   type="text"
                   class="information-section-element input-modal"
-                  id="interview-req"
-                  placeholder="Yes/No"
+                  id="capstone-objectives"
+                  placeholder="Ex. the project objectives are..."
                   required
                 />
+                <label for="" class="information-section-element input-label"
+                  >Interview Requirements</label
+                >
+                <select id="interview-reqs" class="modal-select">
+                  <option selected value="true">Yes</option>
+                  <option value="false">No</option>
+                </select>
                 <label
                   for="multi-team"
                   class="information-section-element input-label"
                   >Allow Multiteam?</label
                 >
                 <select id="multi-team" class="modal-select">
-                  <option value="yes">Yes</option>
-                  <option value="no">No</option>
+                  <option selected value="true">Yes</option>
+                  <option value="false">No</option>
                 </select>
                 <label
                   for="academic-background"
@@ -238,14 +247,14 @@
                   required
                 />
                 <label
-                  for="members"
+                  for="no-students"
                   class="information-section-element input-label"
                   >Number of Members in a Group</label
                 >
                 <input
                   type="number"
                   class="information-section-element input-modal"
-                  id="members"
+                  id="no-students"
                   placeholder="Ex. 4-5"
                   required
                 />

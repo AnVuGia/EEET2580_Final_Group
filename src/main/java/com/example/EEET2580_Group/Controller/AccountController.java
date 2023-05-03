@@ -54,7 +54,7 @@ public class AccountController {
         Account account = accountService.getAccountById(id, "company");
         return account;
     }
-    @GetMapping("/company/{username}")
+    @GetMapping("/company/username/{username}")
     public  Account getAccountByUsername(@PathVariable String username) {
         Account account = accountService.getAccountByUsername(username, "company");
         return account;
@@ -107,6 +107,12 @@ public class AccountController {
     Account getStudentAccountByUsername(@PathVariable String username) {
         Account account = accountService.getAccountByUsername(username, "student");
         return account;
+    }
+    @GetMapping("/supervisor/all")
+    List<SupervisorAcc> getAllSupervisorAccounts() {
+        System.out.println("getAllSupervisorAccounts in AccountController");
+        List<SupervisorAcc> accounts = accountService.getAllSupervisorAccounts();
+        return accounts;
     }
 
 }

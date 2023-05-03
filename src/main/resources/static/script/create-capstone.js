@@ -7,6 +7,9 @@ async function updateUI() {}
 
 async function setCapstoneImage(capstoneProject) {
   const fileInput = document.querySelector('#logo');
+  if (fileInput.files.length === 0) {
+    return capstoneProject;
+  }
   const formData = new FormData();
 
   formData.append('file', fileInput.files[0]);
@@ -24,35 +27,35 @@ async function setCapstoneImage(capstoneProject) {
 async function setCapstoneProject() {
   const capstoneProject = {
     company: {
-      id: 1,
+      username: currUser.username,
     },
     supervisor: {
-      id: 5,
+      username: supervisorSelect.value,
     },
-    projectTitle: 'My Capstone Project',
-    projectIntroduction: 'This is my capstone project.',
-    projectObjectives: 'My project objectives.',
-    projectSuccessCriteria: 'My project success criteria.',
-    technicalRequirements: 'My technical requirements.',
-    projectDescription: 'My project description.',
-    academicBackground: 'My academic background.',
-    noStudents: 2,
-    interviewReqs: 'My interview requirements.',
-    multiTeamAllow: true,
+    projectTitle: document.querySelector('#capstone-title').value,
+    projectIntroduction: document.querySelector('#introduction').value,
+    projectObjectives: document.querySelector('#capstone-objectives').value,
+    projectSuccessCriteria: document.querySelector('#success-criteria').value,
+    technicalRequirements: document.querySelector('#capstone-requirements')
+      .value,
+    projectDescription: document.querySelector('#capstone-description').value,
+    academicBackground: document.querySelector('#academic-background').value,
+    noStudents: document.querySelector('#no-students').value,
+    interviewReqs: document.querySelector('#interview-reqs').value,
+    multiTeamAllow: document.querySelector('#multi-team').value,
     capstoneStatus: 'pending',
     imageId: '',
   };
   const res = await setCapstoneImage(capstoneProject);
   const resJson = JSON.stringify(res);
   console.log(resJson);
-  const response = await fetch('/api/capstone-project', {
+  await fetch('/api/capstone-project', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: resJson,
   });
-  console.log(response);
 }
 async function getSupervisors() {
   supervisorSelect.innerHTML = '';
@@ -61,7 +64,7 @@ async function getSupervisors() {
   console.log(supervisors);
   supervisors.forEach((supervisor) => {
     const option = document.createElement('option');
-    option.value = supervisor.name;
+    option.value = supervisor.username;
     option.innerHTML = `${supervisor.name} - ${supervisor.email}`;
     supervisorSelect.appendChild(option);
   });
