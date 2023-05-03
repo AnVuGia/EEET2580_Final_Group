@@ -71,7 +71,8 @@ async function getCapstoneList(
   size,
   sort
 ) {
-  displayResult.innerHTML = `<div class="loader"></div>`;
+  displayResult.innerHTML ="";
+  displayResult.appendChild(createSpinningAnimation());
   const pagination = document.querySelector('.pagination');
   pagination.innerHTML = '';
 
@@ -147,7 +148,8 @@ async function updateCapstoneListUI(capstoneListData) {
 async function getCompanyList(companyName, page, size, sort) {
   const url = `api/company/search?`;
 
-  displayResult.innerHTML = `<div class="loader"></div>`;
+  displayResult.innerHTML ="";
+  displayResult.appendChild(createSpinningAnimation());
   const pagination = document.querySelector('.pagination');
   pagination.innerHTML = '';
 
@@ -224,7 +226,8 @@ function createCompanyCard(companyInfo) {
 async function getGroupList(groupName, page, size, sort) {
   const url = `api/group/search?`;
 
-  displayResult.innerHTML = `<div class="loader"></div>`;
+  displayResult.innerHTML ="";
+  displayResult.appendChild(createSpinningAnimation());
   const pagination = document.querySelector('.pagination');
   pagination.innerHTML = '';
 

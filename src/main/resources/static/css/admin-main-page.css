@@ -1,0 +1,23 @@
+.request-capstone{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.modal-button-admin:hover{
+    cursor: pointer;
+}
+.modal-button-admin:nth-child(1){
+    background-color: var(--nude-color);
+}
+.modal-button-admin:nth-child(2){
+    background-color: var(--green);
+}
+.modal-button-admin:nth-child(3){
+    background-color: var(--red);
+}
+.card-button{
+    background-color: var(--text-color);
+}
+.card-button:hover{
+    cursor: pointer;
+}
