@@ -156,5 +156,32 @@ public class CapstoneProjectController {
             return capstoneProjects;
         }
     }
+    @GetMapping("/capstone-project/supervisor")
+    Page<CapstoneProject> getAllSupervisedCapstone(@RequestParam String name,
+                                                   @RequestParam(name = "page", defaultValue = "0") String page,
+                                                   @RequestParam(name = "size", defaultValue = "3") String size,
+                                                   @RequestParam(name = "sort", defaultValue = "asc") String sort) {
+        Pageable pageable = null;
+        if (sort.equals("desc")) {
+            pageable = PageRequest.of(Integer.parseInt(page), Integer.parseInt(size), Sort.by("id").descending());
+        } else {
+            pageable = PageRequest.of(Integer.parseInt(page), Integer.parseInt(size), Sort.by("id").ascending());
+        }
+        return capstoneProjectService.findBySupervisorName(name, "approved", pageable);
+    }
+    @GetMapping("/capstone-project/{status}")
+    Page<CapstoneProject> getAllCapstoneByStatus(@PathVariable String status,
+                                                 @RequestParam(name = "page", defaultValue = "0") String page,
+                                                 @RequestParam(name = "size", defaultValue = "3") String size,
+                                                 @RequestParam(name = "sort", defaultValue = "asc") String sort) {
+        Pageable pageable = null;
+        if (sort.equals("desc")) {
+            pageable = PageRequest.of(Integer.parseInt(page), Integer.parseInt(size), Sort.by("id").descending());
+        } else {
+            pageable = PageRequest.of(Integer.parseInt(page), Integer.parseInt(size), Sort.by("id").ascending());
+        }
+        return capstoneProjectService.findAllByCapstoneStatus(status, pageable);
+    }
+
 }
 

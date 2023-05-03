@@ -25,8 +25,7 @@ public class StudentAcc extends Account{
     @Column(name = "email")
     private String email;
 
-    @Column(name = "role")
-    private String role;
+
 
 
     public void setAccount(Account account) {
@@ -34,6 +33,5 @@ public class StudentAcc extends Account{
         password = account.getPassword();
         email = account.getEmail();
         studentName = account.getName();
-        role = "student";
     }
 }

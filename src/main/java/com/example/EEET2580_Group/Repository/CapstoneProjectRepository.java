@@ -73,4 +73,5 @@ public interface CapstoneProjectRepository extends JpaRepository<CapstoneProject
     Page<CapstoneProject> findByCompanyNameAndStatus(@Param("company_name") String company_name,
                                                          @Param("status") String status,
                                                          Pageable page);
+
 }
