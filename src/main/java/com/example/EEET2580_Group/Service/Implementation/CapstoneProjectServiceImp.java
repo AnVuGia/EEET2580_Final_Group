@@ -23,6 +23,7 @@ import java.util.Optional;
 @Service
 @Transactional
 // CapstoneProjectServiceImp implements CapstoneProjectService
+
 public class CapstoneProjectServiceImp implements CapstoneProjectService {
     @Autowired
     private CapstoneProjectRepository capstoneProjectRepository;
@@ -197,4 +198,10 @@ public class CapstoneProjectServiceImp implements CapstoneProjectService {
     public Page<CapstoneProject> findAllRejectedCapstoneByCompanyName(String companyName,Pageable pageable) {
                return capstoneProjectRepository.findByCompanyNameAndStatus(companyName, "rejected", pageable);
            }
+
+    @Override
+    public Page<CapstoneProject> findAllByCapstoneStatus(String status, Pageable pageable) {
+        return capstoneProjectRepository.findByStatus(status,pageable);
+    }
+
 }

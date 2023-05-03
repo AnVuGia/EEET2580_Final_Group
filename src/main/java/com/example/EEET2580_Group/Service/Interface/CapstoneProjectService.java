@@ -53,4 +53,6 @@ public interface CapstoneProjectService {
 
     Page<CapstoneProject> findAllRejectedCapstoneByCompanyName(String companyName, Pageable pageable);
 
+    Page<CapstoneProject> findAllByCapstoneStatus(String status, Pageable pageable);
+
 }

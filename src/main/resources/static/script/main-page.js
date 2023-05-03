@@ -71,11 +71,7 @@ async function getCapstoneList(
   size,
   sort
 ) {
-  displayResult.innerHTML = `
-    <div >
-    <span class="">Loading...</span>
-    </div>
-    `;
+  displayResult.innerHTML = `<div class="loader"></div>`;
   const pagination = document.querySelector('.pagination');
   pagination.innerHTML = '';
 
@@ -151,11 +147,7 @@ async function updateCapstoneListUI(capstoneListData) {
 async function getCompanyList(companyName, page, size, sort) {
   const url = `api/company/search?`;
 
-  displayResult.innerHTML = `
-    <div >
-    <span class="">Loading...</span>
-    </div>
-    `;
+  displayResult.innerHTML = `<div class="loader"></div>`;
   const pagination = document.querySelector('.pagination');
   pagination.innerHTML = '';
 
@@ -200,13 +192,14 @@ function createCompanyCard(companyInfo) {
   const div = document.createElement('div');
   div.classList.add('card');
   div.classList.add('p-3');
-  div.classList.add('mb-2');
+  div.classList.add('mb-3');
+  div.classList.add('mt-3');
   div.innerHTML = `
             <img class="company-banner" src="images/BANNER-01.png" alt="company-banner">
             <div class="d-flex justify-content-between mt-2">
                 <div class="d-flex flex-row align-items-center">
                     <div class="logo"> 
-                       
+                       <img src="" alt="company-logo">
                     </div>
                     <div class="ms-2 c-details">
                         <h5 class="company-title">${companyInfo.companyName}</h5> <span>1 days ago</span>
@@ -216,12 +209,11 @@ function createCompanyCard(companyInfo) {
             <div class="mt-2">
                 <div class="mt-2">
                     <div class="sub-overview">
-                        <i class="bi bi-briefcase"> <span><span>Information Technology and Services</span></span></i>
+                        <i class="bi bi-briefcase"> <span><span>Company Sub Overview</span></span></i>
                     </div>
                 </div>
                 <div class="mt-2">
-                    <a href="" class="btn btn-outline-success btn-sm">Read More</a>
-                    <a href="" class="btn btn-outline-danger btn-sm"><i class="bi bi-heart-fill"></i></a>
+                    <button class="btn read-more">Read more</button>
                 </div>
             </div>
     `;
@@ -232,11 +224,7 @@ function createCompanyCard(companyInfo) {
 async function getGroupList(groupName, page, size, sort) {
   const url = `api/group/search?`;
 
-  displayResult.innerHTML = `
-    <div >
-    <span class="">Loading...</span>
-    </div>
-    `;
+  displayResult.innerHTML = `<div class="loader"></div>`;
   const pagination = document.querySelector('.pagination');
   pagination.innerHTML = '';
 
@@ -281,7 +269,8 @@ function createGroupCard(groupInfo) {
   const div = document.createElement('div');
   div.classList.add('card');
   div.classList.add('p-3');
-  div.classList.add('mb-2');
+  div.classList.add('mb-3');
+  div.classList.add('mt-3');
   div.innerHTML = `
             <div class="d-flex justify-content-between">
                 <div class="d-flex flex-row align-items-center">
@@ -386,6 +375,27 @@ const superVisorSelection = document.querySelector('#supervior-selection');
 const companySelection = document.querySelector('#company-selection');
 const searchInput = document.querySelector('.search-input');
 
+//Handle the collapsible filter
+function handleCollapsibleFilter() {
+  searchSelection.addEventListener('change', function() {
+    const selectedOption = this.value;
+
+    if (selectedOption === 'group' || selectedOption === 'company') {
+      searchInput.style.display = 'block';
+      superVisorSelection.style.display = 'none';
+      companySelection.style.display = 'none';
+    } else if (selectedOption === 'capstone') {
+      searchInput.style.display = 'block';
+      superVisorSelection.style.display = 'block';
+      companySelection.style.display = 'block';
+    }
+  });
+}
+
+// Call the function to enable the filter behavior
+handleCollapsibleFilter();
+
+
 searchSelection.addEventListener('change', function () {
   onFiltered();
 });
@@ -430,6 +440,7 @@ const updateCompanyList = async function () {
     companySelection.appendChild(option);
   }
 };
+
 
 updateCompanyList();
 updateSupervisorList();

@@ -120,34 +120,7 @@ async function updateRejectSectionUI() {
   createPagination(rejectSectionPage, rejectSectionEl, updateRejectSectionUI);
   rejectSectionEl.removeChild(spinner3);
 }
-function createPagination(sectionObj, sectionEl, updateSectionUI) {
-  if (sectionObj.totalPages <= 1) {
-    return;
-  }
-  const paginationEl = document.createElement('div');
-  paginationEl.className = 'pagination';
-  const prevBtn = document.createElement('button');
-  prevBtn.className = 'prev-next-btn';
-  prevBtn.innerHTML = 'Prev';
-  const nextBtn = document.createElement('button');
-  nextBtn.className = 'prev-next-btn';
-  nextBtn.innerHTML = 'Next';
-  paginationEl.appendChild(prevBtn);
-  paginationEl.appendChild(nextBtn);
-  sectionEl.appendChild(paginationEl);
-  prevBtn.addEventListener('click', () => {
-    if (sectionObj.currPage > 0) {
-      sectionObj.currPage -= 1;
-      updateSectionUI();
-    }
-  });
-  nextBtn.addEventListener('click', () => {
-    if (sectionObj.currPage < sectionObj.totalPages - 1) {
-      sectionObj.currPage += 1;
-      updateSectionUI();
-    }
-  });
-}
+
 async function updateUI() {
   updatePendingSectionUI();
   updateApproveSectionUI();
