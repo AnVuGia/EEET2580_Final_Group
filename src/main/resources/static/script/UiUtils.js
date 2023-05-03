@@ -18,3 +18,9 @@ function createSpinningAnimation() {
   spinningEl.classList.add('loading-spinner');
   return spinningEl;
 }
+function displayWelcomMessage(){
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    const greetingText = document.querySelector(".welcome-message");
+    greetingText.textContent = `Welcome, ${user.name}!`;
+}
+displayWelcomMessage();

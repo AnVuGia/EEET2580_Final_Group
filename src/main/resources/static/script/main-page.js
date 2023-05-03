@@ -7,6 +7,7 @@ const createGroupBtn = document.querySelector('.create-group-btn');
 const disSection = document.querySelector('.display-section');
 const displayResult = document.querySelector('.display-result-search');
 const groupListContainer = document.querySelector('.group-list');
+const profileController = document.querySelectorAll(".profile-list-item");
 var oldTarget = document.querySelector('.active');
 
 let sort = 'asc';
@@ -22,6 +23,18 @@ headerLogo.addEventListener('click', function (ev) {
   const currView = JSON.parse(role);
   window.location.href = `/${currView}`;
 });
+
+function listenProfileBehave(){
+    for (var i  = 0; i < profileController.length;i++){
+        profileController[i].addEventListener("click",function(ev){
+            if(ev.target.textContent ==="Log out"){
+                window.location.href = "/sign-in-page"
+            }else if (profileController[i].textContent === "Account Information"){
+                //to be filled
+            }
+        });
+    }
+}
 
 function headerBar() {
   for (var i = 0; i < headerSelect.length; i++)
@@ -43,9 +56,6 @@ function setVisibiltySearchPage(target) {
     disSection.textContent = 'Dashboard';
     capstoneSearchSection.setAttribute('hidden', 'hidden');
     dashboardView.removeAttribute('hidden');
-    const role = sessionStorage.getItem('role');
-    const currView = JSON.parse(role);
-    window.location.href = `/${currView}`;
   } else if (target.textContent === 'Announcment') {
     disSection.textContent = 'Recent Announcement';
   } else if (target.textContent === 'Group Info') {
@@ -424,5 +434,5 @@ const updateCompanyList = async function () {
 updateCompanyList();
 updateSupervisorList();
 searchSelection.dispatchEvent(new Event('change'));
-// onFiltered();
+listenProfileBehave();
 
