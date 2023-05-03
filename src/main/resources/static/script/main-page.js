@@ -365,6 +365,27 @@ const superVisorSelection = document.querySelector('#supervior-selection');
 const companySelection = document.querySelector('#company-selection');
 const searchInput = document.querySelector('.search-input');
 
+//Handle the collapsible filter
+function handleCollapsibleFilter() {
+  searchSelection.addEventListener('change', function() {
+    const selectedOption = this.value;
+
+    if (selectedOption === 'group' || selectedOption === 'company') {
+      searchInput.style.display = 'block';
+      superVisorSelection.style.display = 'none';
+      companySelection.style.display = 'none';
+    } else if (selectedOption === 'capstone') {
+      searchInput.style.display = 'block';
+      superVisorSelection.style.display = 'block';
+      companySelection.style.display = 'block';
+    }
+  });
+}
+
+// Call the function to enable the filter behavior
+handleCollapsibleFilter();
+
+
 searchSelection.addEventListener('change', function () {
   onFiltered();
 });
@@ -409,6 +430,7 @@ const updateCompanyList = async function () {
     companySelection.appendChild(option);
   }
 };
+
 
 updateCompanyList();
 updateSupervisorList();
