@@ -7,7 +7,7 @@ const submit = document.querySelector('#btn-sign-in');
 const role = document.querySelector('#sign-in-role');
 
 signUp.addEventListener('click', () => {
-  window.location.href = 'sign-up.html';
+  window.location.href = 'sign-up-page';
 });
 
 userName.addEventListener('change', () => {
@@ -45,88 +45,35 @@ submit.addEventListener('click', (event) => {
     passwordError();
     cnt++;
   }
-  if (cnt == 0) {
-    if (role.value == 'Student') {
-      onSignInStudent(userName.value, password.value);
-    } else if (role.value == 'Company') {
-      onSignInCompany(userName.value, password.value);
-    } else if (role.value == 'Supervisor') {
-      onSignInSupervisor(userName.value, password.value);
-    }
-  }
+  authenticate(userName.value,password.value)
 });
-async function onSignInStudent(username, password) {
+
+async function authenticate(username, password){
   console.log('sign in');
 
-  const endpoint = '?username=' + username;
-  const response = await fetch(`/api/account/student/username${endpoint}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-  const dataResponse = await response.json();
-  if (dataResponse.password === password) {
-    setCookiesForRole('student');
-    console.log('success');
-  } else {
-    console.log('fail');
+  const response = await fetch(`/authenticate?username=${username}&password=${password}`);
+  const result = await response.json();
+  console.log(result);
+  
+  if (!result){
+    console.log("Invalid user name or password");
   }
 
-  setCookiesForUser(dataResponse);
-  // const dataJson = sessionStorage.getItem('user').;
-}
-
-async function onSignInCompany(username, password) {
-  console.log('sign in');
-
-  const endpoint = '?username=' + username;
-  const response = await fetch(`/api/account/company/username${endpoint}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-  const dataResponse = await response.json();
-  if (dataResponse.password === password) {
-    setCookiesForRole('company');
-    console.log('success');
-  } else {
-    console.log('fail');
+  if (result.role === "admin"){
+    window.location.href = "/admin"
+    sessionStorage.setItem('role', JSON.stringify("admin"));
+  }else if (result.role === "student"){
+    window.location.href = "/student"
+    sessionStorage.setItem('role', JSON.stringify("student"));
+  }if (result.role === "company"){
+    window.location.href = "/company"
+    sessionStorage.setItem('role', JSON.stringify("company"));
+  }if (result.role === "supervisor"){
+    window.location.href = "/supervisor"
+    sessionStorage.setItem('role', JSON.stringify("supervisor"));
   }
-
-  setCookiesForUser(dataResponse);
-  // const dataJson = sessionStorage.getItem('user').;
-}
-
-async function onSignInSupervisor(username, password) {
-  console.log('sign in');
-
-  const endpoint = '?username=' + username;
-  const response = await fetch(`/api/account/supervisor/username${endpoint}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-  const dataResponse = await response.json();
-  if (dataResponse.password === password) {
-    setCookiesForRole('supervisor');
-    console.log('success');
-  } else {
-    console.log('fail');
-  }
-
-  setCookiesForUser(dataResponse);
-  // const dataJson = sessionStorage.getItem('user').;
-}
-
-function setCookiesForUser(user) {
-  const encodedUser = JSON.stringify(user);
-  document.cookie = `user=${encodeURIComponent(encodedUser)}; path=/`;
-}
-function setCookiesForRole(role) {
-  document.cookie = `role=${encodeURIComponent(role)}; path=/`;
+  sessionStorage.setItem('user', JSON.stringify(result));
+  
 }
 // FORM VALIDATION FORMULAS //
 

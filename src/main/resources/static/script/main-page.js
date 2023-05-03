@@ -1,32 +1,14 @@
 const headerSelect = document.querySelectorAll('.nav-header-item');
-// const searchPage = document.querySelector(".search-section");
-const capstoneInfoSection = document.querySelector('.capstone-project-info');
+const dashboardView = document.querySelector(".dashboard-view");
+const capstoneInfoSection = document.querySelector('.nav-header-item');
 const capstoneSearchSection = document.querySelector('.search-section');
 const headerLogo = document.querySelector('.navbar-brand');
 const createGroupBtn = document.querySelector('.create-group-btn');
-const modalCancelBtn = document.querySelector('#cancel-btn');
-const modalPage = document.querySelector('.modal');
 const disSection = document.querySelector('.display-section');
 const displayResult = document.querySelector('.display-result-search');
 const groupListContainer = document.querySelector('.group-list');
 var oldTarget = document.querySelector('.active');
-// const groupPageSelector = document.querySelector('#group-info');
-// const dashboardSelector = document.querySelector('#dashboard');
-const numCapstonePerPage = 6;
 
-
-const colorList = [
-  '#BD3C14',
-  '#FF2717',
-  '#4554A4',
-  '#0B9BE3',
-  '#06A3B7',
-  '#009688',
-  '#009606',
-  '#8D9900',
-  '#FD5D10',
-  '#65499D',
-];
 
 let sort = 'asc';
 let currentPage = 0;
@@ -36,7 +18,10 @@ const convertString = function (string){
 }
 
 headerLogo.addEventListener("click",function(ev){
-    window.locaiton.href = "/main";
+    ev.preventDefault();
+    const role= sessionStorage.getItem("role");
+    const currView = JSON.parse(role);
+    window.location.href = `/${currView}`;
 })
 
 function headerBar() {
@@ -51,36 +36,27 @@ function headerBar() {
 }
 headerBar();
 function setVisibiltySearchPage(target) {
-  if (target.textContent === 'Dashboard') {
-    disSection.textContent = 'Dashboard';
-    window.location.href = '/main';
-  }
-
   if (target.textContent === 'Search') {
     disSection.textContent = 'Search';
-    capstoneInfoSection.setAttribute('hidden', 'hidden');
+    dashboardView.setAttribute('hidden', 'hidden');
     capstoneSearchSection.removeAttribute('hidden');
   } else if (target.textContent === 'Dashboard') {
     disSection.textContent = 'Dashboard';
     capstoneSearchSection.setAttribute('hidden', 'hidden');
-    capstoneInfoSection.removeAttribute('hidden');
+    dashboardView.removeAttribute('hidden');
+    const role= sessionStorage.getItem("role");
+    const currView = JSON.parse(role);
+    window.location.href = `/${currView}`;
   } else if (target.textContent === 'Announcment') {
     disSection.textContent = 'Recent Announcement';
-    // capstoneSearchSection.setAttribute('hidden', 'hidden');
-    // capstoneInfoSection.removeAttribute('hidden');
+  } else if (target.textContent === "Group Info"){
+    disSection.textContent = 'Group Info';
   }
 }
 
-modalCancelBtn.addEventListener('click', function () {
-  modalPage.setAttribute('hidden', 'hidden');
-});
-createGroupBtn.addEventListener('click', function () {
-  modalPage.removeAttribute('hidden');
-});
-
 async function getCapstoneList(capstone_name, company_name,supervisor_name,page,size,sort) {
 
-    console.log("getCapstoneList");
+    
 
     displayResult.innerHTML = `
     <div >
@@ -90,7 +66,7 @@ async function getCapstoneList(capstone_name, company_name,supervisor_name,page,
     const pagination = document.querySelector('.pagination');
     pagination.innerHTML = ''
 
-    const url = `api/capstone-project/search?`;
+    const url = `api/approved-capstone-projects?`;
     
   
     //if the param contains space, join them with %20
@@ -116,19 +92,14 @@ async function getCapstoneList(capstone_name, company_name,supervisor_name,page,
     }
    
     let endpoint = url + temp;
-    // console.log(endpoint);
     response = await fetch(endpoint);
     result = await response.json();
-    updateCapstoneListUI(result.content);
+    await updateCapstoneListUI(result.content);
     await displayPagination(result);
 }
 
 async function updateCapstoneListUI(capstoneListData) {
 
-    console.log('updateUI');
-    
-    console.log(capstoneListData);
-    // console.log(capstoneListData);
     displayResult.innerHTML ="";
     for (let i = 0; i < capstoneListData.length; i++) {
         const capstone = capstoneListData[i];
@@ -141,14 +112,12 @@ function createCapstoneCard(capstone) {
     const capItem = document.createElement('div');
     capItem.classList.add("capstone-item");
     capItem.innerHTML = `  
-                            <div style ="background-color: ${!!capstone.capstoneColor?capstone.capstoneColor:"#BD3C14"}" class="capstone-item-color"></div>
-                                <div class="capstone-item-info">
-                                <p class="item-name">${
-                                  capstone.projectTitle
-                                }</p>
-                                <p class="course-code">COSC2753</p>
-                                <p class="time-enrolled">Semester 1 2023</p>
-                            </div>  
+        <div style ="background-color: ${!!capstone.capstoneColor?capstone.capstoneColor:"#BD3C14"}" class="capstone-item-color"></div>
+            <div class="capstone-item-info">
+            <p class="item-name">${capstone.projectTitle}</p>
+            <p class="course-code">COSC2753</p>
+            <p class="time-enrolled">Semester 1 2023</p>
+        </div>  
     `;
   return capItem;
 }
@@ -185,14 +154,12 @@ async function getCompanyList(companyName, page, size, sort) {
     }
    
     let endpoint = url + temp;
-    // console.log(endpoint);
     response = await fetch(endpoint);
     result = await response.json();
     updateCompanyUI(result.content);
     await displayPagination(result);
 }
 async function updateCompanyUI(companyList) {
-    console.log(companyList);
     displayResult.innerHTML = '';
     for (let i = 0; i < companyList.length; i++) {
         const company = companyList[i];
@@ -201,7 +168,6 @@ async function updateCompanyUI(companyList) {
     }
 }
 function createCompanyCard(companyInfo) {
-    console.log('createGroupCard');
     const div = document.createElement('div');
     div.classList.add("card");
     div.classList.add("p-3");
@@ -267,16 +233,13 @@ async function getGroupList(groupName, page, size, sort) {
     }
    
     let endpoint = url + temp;
-    // console.log(endpoint);
     response = await fetch(endpoint);
     result = await response.json();
     updateGroupUI(result.content);
     await displayPagination(result);
 }
 async function updateGroupUI(groupList) {
-    console.log(groupList);
     displayResult.innerHTML = '';
-    console.log('updateGroupUI');
     for (let i = 0; i < groupList.length; i++) {
         const group = groupList[i];
         const groupCard = createGroupCard(group);
@@ -284,7 +247,6 @@ async function updateGroupUI(groupList) {
     }
 }
 function createGroupCard(groupInfo) {
-    console.log('createGroupCard');
     const div = document.createElement('div');
     div.classList.add("card");
     div.classList.add("p-3");
@@ -316,8 +278,7 @@ function createGroupCard(groupInfo) {
     return div;
 }
   
-const displayPagination = async function (pageable) {
-    console.log("display pagination");
+const    displayPagination = async function (pageable) {
     const pagination = document.querySelector(".pagination");
     pagination.innerHTML = `<li class="page-item">
     <a class="page-link" href="#" aria-label="Previous">
@@ -349,7 +310,6 @@ const displayPagination = async function (pageable) {
                 updateCompany(currentPage);
             } 
         })
-        console.log("append pagi list");
         page.appendChild(pageLink);
         pagination.appendChild(page);
     }
@@ -361,7 +321,6 @@ const displayPagination = async function (pageable) {
 }
 
 const updateCapstone =  async function (curPage){
-    console.log("updateCapstone");
     const supervisor_name = superVisorSelection.value === "all" ? undefined : superVisorSelection.value;
     const company_name = companySelection.value === "all" ? undefined : companySelection.value;
     await getCapstoneList(searchInput.value,company_name,supervisor_name,curPage);
@@ -393,57 +352,49 @@ const companySelection = document.querySelector("#company-selection");
 const searchInput = document.querySelector(".search-input");
 
 searchSelection.addEventListener("change", function(){
-    console.log("inside searchSelection")
     onFiltered()
 } );
 
 superVisorSelection.addEventListener("change", function(){
-    console.log("inside superVisorSelection")
     onFiltered()
 } );
 companySelection.addEventListener("change", function(){
-    console.log("inside superVisorSelection")
     onFiltered()
 } );
 searchInput.addEventListener("keyup", function(){
-    console.log("inside superVisorSelection")
     onFiltered();
 } );
 
 const updateSupervisorList = async function (){
-    let endpoint = "api/supervisor"
+    
+    let endpoint = "api/account/supervisors"
     superVisorSelection.innerHTML = `<option value="all">Select Supervisor</option>`;
 
     const response = await fetch(endpoint);
     const result = await response.json();
 
-    console.log(result);
-
     for (var i = 0; i< result.length;i++){
         const option = document.createElement("option");
-        option.textContent = result[i].supervisorName;
-        option.value = result[i].supervisorName;
+        option.textContent = result[i].name;
+        option.value = result[i].name;
         superVisorSelection.appendChild(option);
     }
 }
 
 
 const updateCompanyList = async function (){
-    // console.trace();
 
     companySelection.innerHTML ='<option value="all">Select Company</option>';
 
-    let endpoint = "api/company"
+    let endpoint = "api/account/companies"
 
     const response = await fetch(endpoint);
     const result = await response.json();
 
-    console.log(result);
-
     for (var i = 0; i< result.length;i++){
         const option = document.createElement("option");
-        option.textContent = result[i].companyName;
-        option.value = result[i].companyName;
+        option.textContent = result[i].name;
+        option.value = result[i].name;
         companySelection.appendChild(option);
     }
 }

@@ -1,8 +1,6 @@
 package com.example.EEET2580_Group.DTO;
 
 import com.example.EEET2580_Group.Entity.CapstoneProject;
-import com.example.EEET2580_Group.Entity.CompanyAcc;
-import com.example.EEET2580_Group.Entity.SupervisorAcc;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,9 +11,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CapstoneProjectDto {
     // CapstoneProjectDto Entity for the capstone project (unfinished)
-        private CompanyAcc company;
 
-        private SupervisorAcc supervisor;
+         private Long id;
+        private CompanyAccDto company;
+        private AccountDto supervisor;
         private String projectTitle;
         private String projectIntroduction;
         private String projectObjectives;
@@ -28,9 +27,11 @@ public class CapstoneProjectDto {
         private Boolean multiTeamAllow;
         private String capstoneStatus;
         private Long imageId;
-    public void setCapstoneProjectResponse(CapstoneProject capstoneProject){
-        this.company = capstoneProject.getCompany();
-        this.supervisor = capstoneProject.getSupervisor();
+        
+    public CapstoneProjectDto(CapstoneProject capstoneProject){
+        this.id = capstoneProject.getId();
+        this.company = new CompanyAccDto(capstoneProject.getCompany());
+        this.supervisor = new AccountDto(capstoneProject.getSupervisor());
         this.projectTitle = capstoneProject.getProjectTitle();
         this.projectIntroduction = capstoneProject.getProjectIntroduction();
         this.projectObjectives = capstoneProject.getProjectObjectives();
@@ -43,5 +44,7 @@ public class CapstoneProjectDto {
         this.multiTeamAllow = capstoneProject.getMultiTeamAllow();
         this.capstoneStatus = capstoneProject.getCapstoneStatus();
         this.imageId = capstoneProject.getImageId();
+        this.capstoneColor = capstoneProject.getCapstoneColor();
+
     }
 }

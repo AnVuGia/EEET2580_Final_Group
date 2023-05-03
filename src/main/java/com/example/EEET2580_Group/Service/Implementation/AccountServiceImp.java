@@ -1,9 +1,7 @@
 package com.example.EEET2580_Group.Service.Implementation;
 
-import com.example.EEET2580_Group.Entity.Account;
-import com.example.EEET2580_Group.Entity.CompanyAcc;
-import com.example.EEET2580_Group.Entity.StudentAcc;
-import com.example.EEET2580_Group.Entity.SupervisorAcc;
+import com.example.EEET2580_Group.Entity.*;
+import com.example.EEET2580_Group.Repository.AdminAccRepository;
 import com.example.EEET2580_Group.Repository.CompanyAccRepository;
 import com.example.EEET2580_Group.Repository.StudentAccRepository;
 import com.example.EEET2580_Group.Repository.SupervisorAccRepository;
@@ -24,6 +22,9 @@ public class AccountServiceImp implements AccountService {
     private SupervisorAccRepository supervisorAccRepository;
     @Autowired
     private StudentAccRepository studentAccRepository;
+    @Autowired
+    private AdminAccRepository adminAccRepository;
+
     @Override
     public void saveAccount(Account account) {
         if (account instanceof CompanyAcc) {
@@ -32,6 +33,8 @@ public class AccountServiceImp implements AccountService {
             supervisorAccRepository.save((SupervisorAcc) account);
         } else if (account instanceof StudentAcc) {
             studentAccRepository.save((StudentAcc) account);
+        }else if (account instanceof AdminAcc) {
+            adminAccRepository.save((AdminAcc) account);
         }
     }
     @Override
@@ -42,6 +45,8 @@ public class AccountServiceImp implements AccountService {
             return supervisorAccRepository.findById(id).get();
         } else if (type.equals("student")) {
             return studentAccRepository.findById(id).get();
+        }   else if (type.equals("admin")) {
+            return adminAccRepository.findById(id).get();
         }
         return null;
     }
@@ -52,26 +57,27 @@ public class AccountServiceImp implements AccountService {
         accounts.addAll(companyAccRepository.findAll());
         accounts.addAll(supervisorAccRepository.findAll());
         accounts.addAll(studentAccRepository.findAll());
+        accounts.addAll(adminAccRepository.findAll());
         return accounts;
     }
     @Override
-    public List<Account> getAllStudentAccounts() {
+    public List<StudentAcc> getAllStudentAccounts() {
         System.out.println("getAllStudentAccounts");
-        List<Account> accounts = new ArrayList<>();
+        List<StudentAcc> accounts = new ArrayList<>();
         accounts.addAll(studentAccRepository.findAll());
         return accounts;
     }
     @Override
-    public List<Account> getAllSupervisorAccounts() {
+    public List<SupervisorAcc> getAllSupervisorAccounts() {
         System.out.println("getAllSupervisorAccounts");
-        List<Account> accounts = new ArrayList<>();
+        List<SupervisorAcc> accounts = new ArrayList<>();
         accounts.addAll(supervisorAccRepository.findAll());
         return accounts;
     }
     @Override
-    public List<Account> getAllCompanyAccounts() {
+    public List<CompanyAcc> getAllCompanyAccounts() {
         System.out.println("getAllCompanyAccounts");
-        List<Account> accounts = new ArrayList<>();
+        List<CompanyAcc> accounts = new ArrayList<>();
         accounts.addAll(companyAccRepository.findAll());
         return accounts;
     }
@@ -86,5 +92,15 @@ public class AccountServiceImp implements AccountService {
         }
         return null;
     }
+
+    @Override
+    public boolean isValidUsername(String username){
+        if (studentAccRepository.findByUsername(username)!=null
+        || companyAccRepository.findByUsername(username)!=null
+        || supervisorAccRepository.findByUsername(username)!=null)
+            return false;
+        return true;
+    }
+
 
 }
