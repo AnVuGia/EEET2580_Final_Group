@@ -36,8 +36,7 @@ public class CompanyAcc extends Account {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "role")
-    private String role;
+
 
 
     public void setAccount(Account account) {
@@ -45,6 +44,5 @@ public class CompanyAcc extends Account {
         password = account.getPassword();
         email = account.getEmail();
         name = account.getName();
-        role = "company";
     }
 }
