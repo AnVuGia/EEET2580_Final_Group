@@ -10,10 +10,6 @@ import com.example.EEET2580_Group.Repository.CapstoneProjectRepository;
 import com.example.EEET2580_Group.Repository.CompanyAccRepository;
 import com.example.EEET2580_Group.Repository.SupervisorAccRepository;
 import com.example.EEET2580_Group.Service.Interface.CapstoneProjectService;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -166,8 +162,6 @@ public class CapstoneProjectServiceImp implements CapstoneProjectService {
 
     @Override
     public List<CapstoneProject> findAllProjectByCompanyName(String companyName, String status) {
-//        CompanyAcc temp = companyAccRepository.findByCompanyName(companyName);
-//        System.out.println(temp.getCompanyName());
         return capstoneProjectRepository.findAllProjectByCompanyName(companyName,status);
     }
 
@@ -177,4 +171,28 @@ public class CapstoneProjectServiceImp implements CapstoneProjectService {
     public Page<CapstoneProject> findAllPendingCapstone(Pageable pageable){
         return capstoneProjectRepository.findByStatus("pending",pageable);
     }
+
+    @Override
+    public Page<CapstoneProject> findAllApprovedCapstone(Pageable pageable){
+        return capstoneProjectRepository.findByStatus("approved",pageable);
+    }
+
+    @Override
+    public Page<CapstoneProject> findAllRejectedCapstone(Pageable pageable){
+        return capstoneProjectRepository.findByStatus("rejected",pageable);
+    }
+
+       @Override
+    public Page<CapstoneProject> findAllPendingCapstoneByCompanyName(String companyName,Pageable pageable) {
+           return capstoneProjectRepository.findByCompanyNameAndStatus(companyName, "pending", pageable);
+       }
+       @Override
+    public Page<CapstoneProject> findAllApprovedCapstoneByCompanyName(String companyName,Pageable pageable) {
+             return capstoneProjectRepository.findByCompanyNameAndStatus(companyName, "approved", pageable);
+         }
+
+           @Override
+    public Page<CapstoneProject> findAllRejectedCapstoneByCompanyName(String companyName,Pageable pageable) {
+               return capstoneProjectRepository.findByCompanyNameAndStatus(companyName, "rejected", pageable);
+           }
 }

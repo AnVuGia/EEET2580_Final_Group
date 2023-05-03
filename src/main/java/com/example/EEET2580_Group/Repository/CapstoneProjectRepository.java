@@ -69,4 +69,8 @@ public interface CapstoneProjectRepository extends JpaRepository<CapstoneProject
     List<CapstoneProject> findAllProjectByCompanyName(@Param("company_name") String company_name,
                                                       @Param("status") String status);
 
+    @Query("SELECT c FROM CapstoneProject c WHERE c.company.name = :company_name AND c.capstoneStatus = :status")
+    Page<CapstoneProject> findByCompanyNameAndStatus(@Param("company_name") String company_name,
+                                                         @Param("status") String status,
+                                                         Pageable page);
 }

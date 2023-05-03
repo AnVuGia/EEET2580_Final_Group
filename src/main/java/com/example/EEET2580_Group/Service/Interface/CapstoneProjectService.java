@@ -43,5 +43,14 @@ public interface CapstoneProjectService {
 
     Page<CapstoneProject> findAllPendingCapstone(Pageable pageable);
 
+    Page<CapstoneProject> findAllApprovedCapstone(Pageable pageable);
+
+    Page<CapstoneProject> findAllRejectedCapstone(Pageable pageable);
+
+    Page<CapstoneProject> findAllPendingCapstoneByCompanyName(String companyName, Pageable pageable);
+
+    Page<CapstoneProject> findAllApprovedCapstoneByCompanyName(String companyName, Pageable pageable);
+
+    Page<CapstoneProject> findAllRejectedCapstoneByCompanyName(String companyName, Pageable pageable);
 
 }
