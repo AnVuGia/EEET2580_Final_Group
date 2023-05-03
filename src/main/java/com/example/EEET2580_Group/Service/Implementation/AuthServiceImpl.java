@@ -24,7 +24,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public String authenticate(String username, String password) {
         Account searchedAcc = this.getAuthUser(username,password);
-
+        System.out.println(searchedAcc.toString());
        if (searchedAcc instanceof AdminAcc) {
             return "admin-main-page";
        }else if (searchedAcc instanceof StudentAcc){

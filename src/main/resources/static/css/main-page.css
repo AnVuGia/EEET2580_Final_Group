@@ -2,7 +2,10 @@ body{
     background-color: var(--text-color);
 }
 main {
+    height: 100vh;
     width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 .header-container{
     /* height: var(--header-height); */
@@ -115,10 +118,10 @@ main {
 }
 .capstone-project-info{
     top: 50px;
-    height: 55px;
-    width: 100%;
+   
 }
 .capstone-panel{
+    position: relative;
     margin-top: 10px;
     padding: 0px 8px;
     display: flex;

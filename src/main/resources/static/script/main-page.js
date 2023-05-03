@@ -367,7 +367,7 @@ searchInput.addEventListener("keyup", function(){
 
 const updateSupervisorList = async function (){
     
-    let endpoint = "api/supervisor"
+    let endpoint = "api/account/supervisors"
     superVisorSelection.innerHTML = `<option value="all">Select Supervisor</option>`;
 
     const response = await fetch(endpoint);
@@ -375,8 +375,8 @@ const updateSupervisorList = async function (){
 
     for (var i = 0; i< result.length;i++){
         const option = document.createElement("option");
-        option.textContent = result[i].supervisorName;
-        option.value = result[i].supervisorName;
+        option.textContent = result[i].name;
+        option.value = result[i].name;
         superVisorSelection.appendChild(option);
     }
 }
@@ -386,15 +386,15 @@ const updateCompanyList = async function (){
 
     companySelection.innerHTML ='<option value="all">Select Company</option>';
 
-    let endpoint = "api/company"
+    let endpoint = "api/account/companies"
 
     const response = await fetch(endpoint);
     const result = await response.json();
 
     for (var i = 0; i< result.length;i++){
         const option = document.createElement("option");
-        option.textContent = result[i].companyName;
-        option.value = result[i].companyName;
+        option.textContent = result[i].name;
+        option.value = result[i].name;
         companySelection.appendChild(option);
     }
 }

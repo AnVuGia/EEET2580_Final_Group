@@ -1,5 +1,8 @@
 package com.example.EEET2580_Group.Controller;
 
+import com.example.EEET2580_Group.DTO.AccountDto;
+import com.example.EEET2580_Group.DTO.CapstoneProjectDto;
+import com.example.EEET2580_Group.DTO.CompanyAccDto;
 import com.example.EEET2580_Group.Entity.Account;
 import com.example.EEET2580_Group.Entity.CompanyAcc;
 import com.example.EEET2580_Group.Entity.StudentAcc;
@@ -10,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -18,12 +22,32 @@ public class AccountController {
     @Autowired
     private AccountService accountService;
 
+
     @GetMapping("/companies")
-    List<Account> getAllAccounts() {
+    List<CompanyAccDto> getAllCompanies() {
         System.out.println("getAllAccounts in AccountController");
-        List<Account> accounts = accountService.getAllAccounts();
-        return accounts;
+        List<CompanyAcc> companies = accountService.getAllCompanyAccounts();
+        List<CompanyAccDto> dtoConvert = companies.stream()
+                .map(account -> new CompanyAccDto(account)).collect(Collectors.toList());
+        return dtoConvert;
     }
+    @GetMapping("/supervisors")
+    List<AccountDto> getAllSupervisor() {
+        System.out.println("getAllAccounts in AccountController");
+        List<SupervisorAcc> supervisors = accountService.getAllSupervisorAccounts();
+        List<AccountDto> dtoConvert = supervisors.stream()
+                .map(account -> new AccountDto(account)).collect(Collectors.toList());
+        return dtoConvert;
+    }
+    @GetMapping("/students")
+    List<AccountDto> getAllStudents() {
+        System.out.println("getAllAccounts in AccountController");
+        List<StudentAcc> students = accountService.getAllStudentAccounts();
+        List<AccountDto> dtoConvert = students.stream()
+                .map(account -> new AccountDto(account)).collect(Collectors.toList());
+        return dtoConvert;
+    }
+
 
     @GetMapping("/company/{id}")
     Account getAccountById(@PathVariable Long id) {
@@ -67,12 +91,12 @@ public class AccountController {
         return null; // handle invalid type
     }
     //Student Controller
-    @GetMapping("/students")
-    List<Account> getAllStudentAccounts() {
-        System.out.println("getAllStudentAccounts in AccountController");
-        List<Account> accounts = accountService.getAllStudentAccounts();
-        return accounts;
-    }
+//    @GetMapping("/students")
+//    List<StudentAcc> getAllStudentAccounts() {
+//        System.out.println("getAllStudentAccounts in AccountController");
+//        List<StudentAcc> accounts = accountService.getAllStudentAccounts();
+//        return accounts;
+//    }
 
     @GetMapping("/student/{id}")
     Account getStudentAccountById(@PathVariable Long id) {

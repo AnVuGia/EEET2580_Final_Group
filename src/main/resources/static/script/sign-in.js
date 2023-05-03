@@ -53,9 +53,9 @@ async function authenticate(username, password){
 
   const response = await fetch(`/authenticate?username=${username}&password=${password}`);
   const result = await response.json();
-  // console.log(response);
+  console.log(result);
   
-  if (!!result){
+  if (!result){
     console.log("Invalid user name or password");
   }
 
