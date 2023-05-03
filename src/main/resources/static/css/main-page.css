@@ -231,6 +231,7 @@ main {
 .card {
   border: none;
   border-radius: 10px;
+  margin-left: 10px;
 }
 
 .c-details span {
@@ -303,6 +304,26 @@ main {
   font-style: normal;
 }
 
+.btn {
+  border: 2px solid black;
+  background-color: white;
+  color: black;
+  padding: 5px 2px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+/* Green */
+.read-more {
+  border-color: #04AA6D;
+  color: green;
+}
+
+.read-more:hover {
+  background-color: #04AA6D;
+  color: white;
+}
+
 .nav-header-item:hover {
   cursor: pointer;
 }
@@ -318,6 +339,7 @@ main {
   font-size: 16px;
 }
 
+/* loading */
 .loader {
   border: 4px solid #f3f3f3; /* Light grey */
   border-top: 4px solid #3498db; /* Blue */

@@ -182,13 +182,14 @@ function createCompanyCard(companyInfo) {
   const div = document.createElement('div');
   div.classList.add('card');
   div.classList.add('p-3');
-  div.classList.add('mb-2');
+  div.classList.add('mb-3');
+  div.classList.add('mt-3');
   div.innerHTML = `
             <img class="company-banner" src="images/BANNER-01.png" alt="company-banner">
             <div class="d-flex justify-content-between mt-2">
                 <div class="d-flex flex-row align-items-center">
                     <div class="logo"> 
-                       
+                       <img src="" alt="company-logo">
                     </div>
                     <div class="ms-2 c-details">
                         <h5 class="company-title">${companyInfo.companyName}</h5> <span>1 days ago</span>
@@ -198,12 +199,11 @@ function createCompanyCard(companyInfo) {
             <div class="mt-2">
                 <div class="mt-2">
                     <div class="sub-overview">
-                        <i class="bi bi-briefcase"> <span><span>Information Technology and Services</span></span></i>
+                        <i class="bi bi-briefcase"> <span><span>Company Sub Overview</span></span></i>
                     </div>
                 </div>
                 <div class="mt-2">
-                    <a href="" class="btn btn-outline-success btn-sm">Read More</a>
-                    <a href="" class="btn btn-outline-danger btn-sm"><i class="bi bi-heart-fill"></i></a>
+                    <button class="btn read-more">Read more</button>
                 </div>
             </div>
     `;
@@ -259,7 +259,8 @@ function createGroupCard(groupInfo) {
   const div = document.createElement('div');
   div.classList.add('card');
   div.classList.add('p-3');
-  div.classList.add('mb-2');
+  div.classList.add('mb-3');
+  div.classList.add('mt-3');
   div.innerHTML = `
             <div class="d-flex justify-content-between">
                 <div class="d-flex flex-row align-items-center">
