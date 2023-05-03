@@ -136,11 +136,14 @@ public class CapstoneProjectController {
                                                              @PathVariable String companyName,
                                                              @RequestParam(name = "page", defaultValue = "0") String page, @RequestParam(name = "size", defaultValue = "3") String size) {
         Pageable pageable = PageRequest.of(Integer.parseInt(page), Integer.parseInt(size));
+
         if (status.equals("pending")) {
+
             Page<CapstoneProject> capstoneProjects =
                     capstoneProjectService.findAllPendingCapstoneByCompanyName(companyName, pageable);
             return capstoneProjects;
         } else if (status.equals("approved")) {
+
             Page<CapstoneProject> capstoneProjects = capstoneProjectService.findAllApprovedCapstoneByCompanyName(companyName,
                     pageable);
             return capstoneProjects;

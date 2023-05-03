@@ -1,40 +1,60 @@
-:root{
-    --primary-color: #697184; /*106,112,132 */
-    --text-color: #F2F1EF; /*242,241,239 */
-    --dark-color: #413F3D; /*65,63,61 */
-    --light-brown-color: #B1A6A4; /*177,166,164 */
-    --nude-color: #D8CFD0;
-    --red: #FE0000;
-    --green: #06AA6D;
-   
-    --header-height: 75px;
-    
+:root {
+  --primary-color: #697184; /*106,112,132 */
+  --text-color: #f2f1ef; /*242,241,239 */
+  --dark-color: #413f3d; /*65,63,61 */
+  --light-brown-color: #b1a6a4; /*177,166,164 */
+  --nude-color: #d8cfd0;
+  --red: #fe0000;
+  --green: #06aa6d;
 
-  --font: "Poppins", sans-serif;
+  --header-height: 75px;
+
+  --font: 'Poppins', sans-serif;
   --fw-1: 400;
   --fw-2: 500;
   --fw-3: 600;
   --fw-4: 700;
 }
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-html,body {
-    height: 100%;
-    font-size: 62.5%;
-    font-family: 'Roboto', sans-serif;
+html,
+body {
+  height: 100%;
+  font-size: 62.5%;
+  font-family: 'Roboto', sans-serif;
 }
-.btn{
-    width: 120px;
-    height: 40px;
-    border-radius: 3px;
-    background-color: var(--primary-color);
-    font-size: 1.3rem;
+.btn {
+  width: 120px;
+  height: 40px;
+  border-radius: 3px;
+  background-color: var(--primary-color);
+  font-size: 1.3rem;
 }
-.btn:hover{
-    background-color: rgba(105, 113, 132, 0.6);
-    cursor: pointer;
+.btn:hover {
+  background-color: rgba(105, 113, 132, 0.6);
+  cursor: pointer;
+}
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  margin-top: auto;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 50%;
+  border: 3px solid #ccc;
+  border-top-color: #333;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

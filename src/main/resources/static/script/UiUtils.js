@@ -1,4 +1,3 @@
-
 function createCapstoneCard(capstone) {
   const capItem = document.createElement('div');
   capItem.classList.add('capstone-item');
@@ -13,4 +12,9 @@ function createCapstoneCard(capstone) {
         </div>  
     `;
   return capItem;
+}
+function createSpinningAnimation() {
+  const spinningEl = document.createElement('div');
+  spinningEl.classList.add('loading-spinner');
+  return spinningEl;
 }
