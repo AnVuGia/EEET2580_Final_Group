@@ -1,4 +1,4 @@
-const displayPendingList = document.querySelector(".request-capstone")
+const displayPendingList = document.querySelector(".row")
 const approvedButton = document.querySelector("#approve-btn");
 const rejectButton = document.querySelector("#reject-btn");
 function extractNumberFromString(str) {
@@ -11,11 +11,7 @@ function extractNumberFromString(str) {
 
 async function getRequestList() {
     console.log("getRequestList");
-    displayResult.innerHTML = `
-    <div >
-    <span class="">Loading...</span>
-    </div>
-    `
+    displayPendingList.appendChild(createSpinningAnimation());
     const pagination = document.querySelector('.pagination');
     pagination.innerHTML = ''
 
@@ -43,6 +39,8 @@ async function updateRequestUI(capstoneListData) {
 function createRequestCapstoneCard(capstone) {
     const capItem = document.createElement('div');
     capItem.classList.add("capstone-item");
+    capItem.classList.add("col-lg-6");
+    capItem.classList.add("col-md-12");
    
     capItem.innerHTML += `<div style ="background-color: ${capstone.capstoneColor}" class="capstone-item-color"></div>`;
 
@@ -56,7 +54,7 @@ function createRequestCapstoneCard(capstone) {
     itemInfo.appendChild(itemName);
     
     const cardButton = document.createElement("button");
-    cardButton.classList.add("btn", "btn-primary", "card-button");
+    cardButton.classList.add("btn", "btn-primary", "card-button", "mb-2", "mx-auto");
     cardButton.setAttribute("data-bs-target", "#staticBackdrop");
     cardButton.setAttribute("data-bs-toggle", "modal");
     cardButton.setAttribute("type", "button");
