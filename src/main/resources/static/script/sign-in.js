@@ -72,11 +72,8 @@ async function authenticate(username, password){
     window.location.href = "/supervisor"
     sessionStorage.setItem('role', JSON.stringify("supervisor"));
   }
-  sessionStorage.setItem('user', JSON.stringify(result));
-  
+  sessionStorage.setItem('user', JSON.stringify(result));  
 }
-
-
 
 // FORM VALIDATION FORMULAS //
 
