@@ -7,8 +7,9 @@ const createGroupBtn = document.querySelector('.create-group-btn');
 const disSection = document.querySelector('.display-section');
 const displayResult = document.querySelector('.display-result-search');
 const groupListContainer = document.querySelector('.group-list');
+const studentCapstoneModal = document.querySelector('#student-capstone-modal');
 var oldTarget = document.querySelector('.active');
-
+const role = sessionStorage.getItem('role');
 let sort = 'asc';
 let currentPage = 0;
 const convertString = function (string) {
@@ -18,7 +19,6 @@ const convertString = function (string) {
 
 headerLogo.addEventListener('click', function (ev) {
   ev.preventDefault();
-  const role = sessionStorage.getItem('role');
   const currView = JSON.parse(role);
   window.location.href = `/${currView}`;
 });
@@ -125,17 +125,22 @@ async function getCapstoneList(
   await updateCapstoneListUI(result.content);
   await displayPagination(result);
 }
-
+//set modal here later
 async function updateCapstoneListUI(capstoneListData) {
   displayResult.innerHTML = '';
   for (let i = 0; i < capstoneListData.length; i++) {
     const capstone = capstoneListData[i];
     const capstoneCard = createCapstoneCard(capstone);
+    capstoneCard.addEventListener('click', async function (ev) {
+      ev.preventDefault();
+      capstoneCard.setAttribute('data-bs-toggle', 'modal');
+      capstoneCard.setAttribute('data-bs-target', '#student-capstone-modal');
+      updateCapstoneModal(capstone);
+    });
+
     displayResult.appendChild(capstoneCard);
   }
 }
-
-
 
 //Company Search
 async function getCompanyList(companyName, page, size, sort) {
@@ -420,9 +425,12 @@ const updateCompanyList = async function () {
     companySelection.appendChild(option);
   }
 };
-
+async function updateCapstoneModal(capstone) {
+  //   const capstoneTitleEl = document.querySelector('#capstone-title');
+  //   capstoneTitleEl.textContent = capstone.projectTitle;
+  console.log(capstone);
+}
 updateCompanyList();
 updateSupervisorList();
 searchSelection.dispatchEvent(new Event('change'));
 // onFiltered();
-
