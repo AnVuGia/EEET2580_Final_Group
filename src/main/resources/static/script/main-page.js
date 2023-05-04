@@ -10,8 +10,8 @@ const groupListContainer = document.querySelector('.group-list');
 
 const studentCapstoneModal = document.querySelector('#student-capstone-modal');
 
-const profileController = document.querySelectorAll(".profile-list-item");
-
+const profileController = document.querySelectorAll('.profile-list-item');
+let capstoneListImage = {};
 var oldTarget = document.querySelector('.active');
 const role = sessionStorage.getItem('role');
 let sort = 'asc';
@@ -27,16 +27,33 @@ headerLogo.addEventListener('click', function (ev) {
   window.location.href = `/${currView}`;
 });
 
-function listenProfileBehave(){
-    for (var i  = 0; i < profileController.length;i++){
-        profileController[i].addEventListener("click",function(ev){
-            if(ev.target.textContent ==="Log out"){
-                window.location.href = "/sign-in-page"
-            }else if (profileController[i].textContent === "Account Information"){
-                //to be filled
-            }
-        });
-    }
+function listenProfileBehave() {
+  for (var i = 0; i < profileController.length; i++) {
+    profileController[i].addEventListener('click', function (ev) {
+      if (ev.target.textContent === 'Log out') {
+        window.location.href = '/sign-in-page';
+      } else if (profileController[i].textContent === 'Account Information') {
+        //to be filled
+      }
+    });
+  }
+}
+async function getImage(capstone) {
+  if (capstone.imageId === null) {
+    return;
+  }
+  const url = `api/images/${capstone.imageId}`;
+  const response = await fetch(url);
+  const blob = await response.blob();
+  const imgURL = URL.createObjectURL(blob);
+  return imgURL;
+}
+async function getAllImage(capstoneList) {
+  for (let i = 0; i < capstoneList.length; i++) {
+    const capstone = capstoneList[i];
+    const imgURL = await getImage(capstone);
+    capstoneListImage[capstone.id] = imgURL;
+  }
 }
 
 function headerBar() {
@@ -74,7 +91,7 @@ async function getCapstoneList(
   size,
   sort
 ) {
-  displayResult.innerHTML ="";
+  displayResult.innerHTML = '';
   displayResult.appendChild(createSpinningAnimation());
   const pagination = document.querySelector('.pagination');
   pagination.innerHTML = '';
@@ -137,6 +154,7 @@ async function getCapstoneList(
 }
 //set modal here later
 async function updateCapstoneListUI(capstoneListData) {
+  getAllImage(capstoneListData);
   displayResult.innerHTML = '';
   for (let i = 0; i < capstoneListData.length; i++) {
     const capstone = capstoneListData[i];
@@ -156,7 +174,7 @@ async function updateCapstoneListUI(capstoneListData) {
 async function getCompanyList(companyName, page, size, sort) {
   const url = `api/company/search?`;
 
-  displayResult.innerHTML ="";
+  displayResult.innerHTML = '';
   displayResult.appendChild(createSpinningAnimation());
   const pagination = document.querySelector('.pagination');
   pagination.innerHTML = '';
@@ -234,7 +252,7 @@ function createCompanyCard(companyInfo) {
 async function getGroupList(groupName, page, size, sort) {
   const url = `api/group/search?`;
 
-  displayResult.innerHTML ="";
+  displayResult.innerHTML = '';
   displayResult.appendChild(createSpinningAnimation());
   const pagination = document.querySelector('.pagination');
   pagination.innerHTML = '';
@@ -388,7 +406,7 @@ const searchInput = document.querySelector('.search-input');
 
 //Handle the collapsible filter
 function handleCollapsibleFilter() {
-  searchSelection.addEventListener('change', function() {
+  searchSelection.addEventListener('change', function () {
     const selectedOption = this.value;
 
     if (selectedOption === 'group' || selectedOption === 'company') {
@@ -405,7 +423,6 @@ function handleCollapsibleFilter() {
 
 // Call the function to enable the filter behavior
 handleCollapsibleFilter();
-
 
 searchSelection.addEventListener('change', function () {
   onFiltered();
@@ -453,18 +470,54 @@ const updateCompanyList = async function () {
 };
 
 async function updateCapstoneModal(capstone) {
-  //   const capstoneTitleEl = document.querySelector('#capstone-title');
-  //   capstoneTitleEl.textContent = capstone.projectTitle;
+  const capstoneDescriptionEl = document.querySelector(
+    '#capstone-description-p'
+  );
+  const capstoneOutcomEl = document.querySelector('#capstone-outcome-p');
+  const capstoneRequirementsEl = document.querySelector(
+    '#capstone-requirement-p'
+  );
+  const capstoneCriteriaEl = document.querySelector('#success-criteria-p');
+  const capstoneNoStudentEl = document.querySelector('#no-students-i');
+  const capstoneIntroductionEl = document.querySelector(
+    '#capstone-introduction-i'
+  );
+  const academicBackgroundEl = document.querySelector(
+    '#academic-background-h3'
+  );
+  const supervisorNameEl = document.querySelector('#supervisor-name');
+  const supervisorMailEl = document.querySelector('#supervisor-mail');
+  const groupNumberEl = document.querySelector('#group-number');
+  const companyNameEl = document.querySelector('#company-name-a');
+  const capstoneTitleEl = document.querySelector('#capstone-title-h2');
+  const companyProfilePicEl = document.querySelector('#company-profile-pic');
+  companyProfilePicEl.innerHTML = '';
+  if (capstoneListImage[capstone.id]) {
+    companyProfilePicEl.innerHTML = `<img src="${
+      capstoneListImage[capstone.id]
+    }" alt="company profile picture" />`;
+  } else {
+    companyProfilePicEl.innerHTML = `<img src="https://via.placeholder.com/150" alt="company profile picture" />`;
+  }
+  capstoneDescriptionEl.textContent = capstone.projectDescription;
+  capstoneOutcomEl.textContent = capstone.projectObjectives;
+  capstoneRequirementsEl.textContent = capstone.technicalRequirements;
+  capstoneCriteriaEl.textContent = capstone.projectSuccessCriteria;
+  capstoneNoStudentEl.innerHTML = `<span>${capstone.noStudents} member(s)</span>`;
+  capstoneIntroductionEl.innerHTML = `<span>${capstone.projectIntroduction}</span>`;
+  academicBackgroundEl.textContent = capstone.academicBackground;
+  supervisorNameEl.innerHTML = `<span>Name: ${capstone.supervisor.name}</span>`;
+  supervisorMailEl.innerHTML = `<span>Email: ${capstone.supervisor.email}</span>`;
+  companyNameEl.textContent = capstone.company.name;
+  capstoneTitleEl.textContent = capstone.projectTitle;
+
   console.log(capstone);
 }
 
 searchSelection.dispatchEvent(new Event('change'));
 // onFiltered();
 
-
-
 updateCompanyList();
 updateSupervisorList();
 searchSelection.dispatchEvent(new Event('change'));
 listenProfileBehave();
-

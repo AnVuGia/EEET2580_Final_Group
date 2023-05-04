@@ -44,5 +44,6 @@ public class CapstoneProjectDto {
         this.multiTeamAllow = capstoneProject.getMultiTeamAllow();
         this.capstoneStatus = capstoneProject.getCapstoneStatus();
         this.capstoneColor = capstoneProject.getCapstoneColor();
+        this.imageId = capstoneProject.getImageId();
     }
 }
