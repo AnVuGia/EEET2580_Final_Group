@@ -54,11 +54,11 @@ public class CapstoneProjectServiceImp implements CapstoneProjectService {
     }
 
     public void updateCapstone(CapstoneProject oldCapstone, CapstoneProjectDto newCapstone){
-        System.out.println("INside update capstone");
-        CompanyAcc companyAcc = companyAccRepository.findByUsername(newCapstone.getCompany().getUsername());
-        SupervisorAcc superVisorAcc = supervisorAccRepository.findByUsername(newCapstone.getSupervisor().getUsername());
-        oldCapstone.setCompany(companyAcc);
-        oldCapstone.setSupervisor(superVisorAcc);
+        System.out.println("Inside update capstone");
+        //CompanyAcc companyAcc = companyAccRepository.findByUsername(newCapstone.getCompany().getUsername());
+        //SupervisorAcc superVisorAcc = supervisorAccRepository.findByUsername(newCapstone.getSupervisor().getUsername());
+        //oldCapstone.setCompany(companyAcc);
+        //oldCapstone.setSupervisor(superVisorAcc);
         oldCapstone.setProjectTitle(newCapstone.getProjectTitle());
         oldCapstone.setProjectIntroduction(newCapstone.getProjectIntroduction());
         oldCapstone.setProjectObjectives(newCapstone.getProjectObjectives());
