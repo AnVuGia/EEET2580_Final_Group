@@ -74,7 +74,7 @@ function createEditCapstoneForm(capstone) {
   form.classList.add('edit-form');
   form.innerHTML = `
     <h3>Edit Capstone Project</h3>
-    <div class="capstone-infomation">
+    <div class="capstone-information">
         <label for="project-image">Capstone Image</label>
         <input type="file" id="project-image" accept="image/*" />
 
@@ -110,9 +110,22 @@ function createEditCapstoneForm(capstone) {
         
         <label for="project-requirements">Capstone Requirements</label>
         <textarea type="text" id="project-requirements">${capstone.technicalRequirements}</textarea>
+        
+        <label for="supervisor-name">Company Name</label>
+        <input type="text" id="supervisor-name" value="${capstone.supervisor.name}"/>
+        
+        <input type="hidden" id="supervisor-id" name="supervisor-id" value="${capstone.supervisor.id}"/>
+        
+        <label for="company-name">Company Name</label>
+        <input type="text" id="company-name" value="${capstone.company.name}"/>
+        
+        <input type="hidden" id="company-id" name="company-id" value="${capstone.company.id}"/>
+        <input type="hidden" id="company-username" name="company-username" value="${capstone.company.username}"/>
 
         <button type="submit">Save</button>
         <button type="button" class="close-button">Close</button>
+        
+        
     </div>
   `;
   editFormContainer.appendChild(form);
@@ -142,6 +155,16 @@ function createEditCapstoneForm(capstone) {
 
 async function updateCapstoneProject(capstoneID) {
   const updatedCapstoneData = {
+    company: {
+      name: document.querySelector('#company-name').value,
+      id: document.querySelector('#company-id').value,
+      username: document.querySelector('#company-username').value
+    },
+    supervisor: {
+      name: document.querySelector('#supervisor-name').value,
+      id: document.querySelector('#supervisor-id').value,
+      username: currUser.username
+    },
     projectTitle: document.querySelector('#project-title').value,
     projectIntroduction: document.querySelector('#project-introduction').value,
     projectObjectives: document.querySelector('#project-objectives').value,
@@ -174,5 +197,7 @@ async function updateCapstoneProject(capstoneID) {
   } catch (error) {
     console.error('Error updating capstone project:', error);
   }
+
+  console.log(updatedCapstoneData);
 }
 
