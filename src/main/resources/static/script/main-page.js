@@ -154,7 +154,6 @@ async function getCapstoneList(
 }
 //set modal here later
 async function updateCapstoneListUI(capstoneListData) {
-  getAllImage(capstoneListData);
   displayResult.innerHTML = '';
   for (let i = 0; i < capstoneListData.length; i++) {
     const capstone = capstoneListData[i];
