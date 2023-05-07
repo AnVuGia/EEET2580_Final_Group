@@ -35,8 +35,7 @@ public class SupervisorAcc extends Account {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "role")
-    private String role;
+
 
 
     public void setAccount(Account account) {
@@ -44,7 +43,7 @@ public class SupervisorAcc extends Account {
         username = account.getUsername();
         password = account.getPassword();
         email = account.getEmail();
-        role = "supervisor";
+
 
     }
 }
