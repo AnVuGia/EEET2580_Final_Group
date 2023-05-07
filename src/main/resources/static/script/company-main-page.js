@@ -60,12 +60,17 @@ async function updateApproveSectionUI() {
   } else {
     data.forEach((capstone) => {
       const capItem = createCapstoneCard(capstone);
-      approveSectionEl.appendChild(capItem);
+      const capContainer = document.createElement('div');
+      capContainer.classList.add('grid-item');
+      capContainer.appendChild(capItem);
+      approveSectionEl.appendChild(capContainer);
     });
     approveSectionPage.totalPages = approveCapstoneProject.totalPages;
+    const approvePagination = document.querySelector('#approve-pagination');
+    approvePagination.innerHTML = '';
     createPagination(
       approveSectionPage,
-      approveSectionEl,
+      approvePagination,
       updateApproveSectionUI
     );
   }
@@ -87,7 +92,10 @@ async function updatePendingSectionUI() {
   } else {
     data.forEach((capstone) => {
       const capItem = createCapstoneCard(capstone);
-      pendingSectionEl.appendChild(capItem);
+      const capContainer = document.createElement('div');
+      capContainer.classList.add('grid-item');
+      capContainer.appendChild(capItem);
+      pendingSectionEl.appendChild(capContainer);
     });
   }
   pendingSectionPage.totalPages = pendingCapstoneProject.totalPages;
@@ -113,7 +121,10 @@ async function updateRejectSectionUI() {
   } else {
     data.forEach((capstone) => {
       const capItem = createCapstoneCard(capstone);
-      rejectSectionEl.appendChild(capItem);
+      const capContainer = document.createElement('div');
+      capContainer.classList.add('grid-item');
+      capContainer.appendChild(capItem);
+      rejectSectionEl.appendChild(capContainer);
     });
   }
   rejectSectionPage.totalPages = rejectCapstoneProject.totalPages;

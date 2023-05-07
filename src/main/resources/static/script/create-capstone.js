@@ -4,24 +4,61 @@ const submitBtn = document.querySelector('#submit-btn');
 const supervisorSelect = document.querySelector('#supervisor-select');
 
 async function updateUI() {}
-
+function dataURItoBlob(dataURI) {
+  const byteString = atob(dataURI.split(',')[1]);
+  const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+  const ab = new ArrayBuffer(byteString.length);
+  const ia = new Uint8Array(ab);
+  for (let i = 0; i < byteString.length; i++) {
+    ia[i] = byteString.charCodeAt(i);
+  }
+  return new Blob([ab], { type: mimeString });
+}
 async function setCapstoneImage(capstoneProject) {
   const fileInput = document.querySelector('#logo');
   if (fileInput.files.length === 0) {
     return capstoneProject;
   }
-  const formData = new FormData();
 
-  formData.append('file', fileInput.files[0]);
+  console.log('change');
+  const file = fileInput.files[0];
+  const reader = new FileReader();
 
-  let response = await fetch('/api/images', {
-    method: 'POST',
-    body: formData,
-  });
-  response = await response.json();
-  console.log(response);
-  capstoneProject.imageId = response.id;
-  console.log('save image');
+  reader.onload = () => {
+    const image = new Image();
+
+    image.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = image.width;
+      canvas.height = image.height;
+      const context = canvas.getContext('2d');
+      context.drawImage(image, 0, 0);
+      const compressedImageData = canvas.toDataURL('image/jpeg', 0.5);
+      console.log(compressedImageData);
+      const formData = new FormData();
+      formData.append('file', dataURItoBlob(compressedImageData));
+
+      fetch('/api/images', {
+        method: 'POST',
+        body: formData,
+      })
+        .then((response) => {
+          console.log('Image uploaded successfully.');
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+          capstoneProject.imageId = data.id;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+
+    image.src = reader.result;
+  };
+
+  reader.readAsDataURL(file);
   return capstoneProject;
 }
 async function setCapstoneProject() {
@@ -69,17 +106,9 @@ async function getSupervisors() {
     supervisorSelect.appendChild(option);
   });
 }
-// async function onChangeSupervisor() {
-//   const supervisorId = supervisorSelect.value;
-//   const response = await fetch(`/api/account/supervisor/id/${supervisorId}`);
-//   const supervisor = await response.json();
-//   supervisorEmail.value = supervisor.email;
-//   console.log(supervisor);
-// }
 
 submitBtn.addEventListener('click', async (event) => {
   event.preventDefault();
   await setCapstoneProject();
 });
 getSupervisors();
-// supervisorSelect.addEventListener('change', onChangeSupervisor);
