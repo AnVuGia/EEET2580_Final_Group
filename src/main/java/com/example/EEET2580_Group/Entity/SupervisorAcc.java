@@ -36,6 +36,7 @@ public class SupervisorAcc extends Account {
     private String email;
 
 
+
     @Column(name = "contact")
     private Long contact;
 
@@ -45,6 +46,7 @@ public class SupervisorAcc extends Account {
         password = account.getPassword();
         email = account.getEmail();
     
+
 
     }
 }

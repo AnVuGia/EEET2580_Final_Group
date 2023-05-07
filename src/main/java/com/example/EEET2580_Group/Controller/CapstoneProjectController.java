@@ -157,7 +157,7 @@ public class CapstoneProjectController {
         }
     }
     @GetMapping("/capstone-project/supervisor")
-    Page<CapstoneProject> getAllSupervisedCapstone(@RequestParam String name,
+    public Page<CapstoneProjectDto> getAllSupervisedCapstone(@RequestParam String name,
                                                    @RequestParam(name = "page", defaultValue = "0") String page,
                                                    @RequestParam(name = "size", defaultValue = "3") String size,
                                                    @RequestParam(name = "sort", defaultValue = "asc") String sort) {
@@ -167,7 +167,11 @@ public class CapstoneProjectController {
         } else {
             pageable = PageRequest.of(Integer.parseInt(page), Integer.parseInt(size), Sort.by("id").ascending());
         }
-        return capstoneProjectService.findBySupervisorName(name, "approved", pageable);
+
+        Page<CapstoneProject> result = capstoneProjectService.findBySupervisorName(name,"approved", pageable);
+        Page<CapstoneProjectDto> dtoConvert = result.map(object -> new CapstoneProjectDto(object));
+
+        return dtoConvert;
     }
     @GetMapping("/capstone-project/{status}")
     Page<CapstoneProject> getAllCapstoneByStatus(@PathVariable String status,

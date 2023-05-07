@@ -20,7 +20,7 @@ public class StudentAcc extends Account{
     private Long id;
     @Column(name = "student_name")
     private String studentName;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     @JoinColumn(name = "group_id")
     private GroupEntity group;

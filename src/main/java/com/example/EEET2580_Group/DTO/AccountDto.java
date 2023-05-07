@@ -13,11 +13,13 @@ public class AccountDto {
     private String username;
     private String email;
     private String role;
+    private Long id;
 
     public AccountDto(Account account){
         this.name = account.getName();
         this.username = account.getUsername();
         this.email = account.getEmail();
+        this.id = account.getId();
 
         if (account instanceof CompanyAcc){
             this.role = "company";
