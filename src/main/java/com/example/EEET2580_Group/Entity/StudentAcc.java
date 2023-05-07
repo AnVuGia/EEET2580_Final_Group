@@ -13,7 +13,7 @@ public class StudentAcc extends Account{
     @Column(name = "student_id")
     private Long id;
     @Column(name = "student_name")
-    private String studentName;
+    private String name;
     @ManyToOne
     @JsonBackReference
     @JoinColumn(name = "group_id")
@@ -25,13 +25,10 @@ public class StudentAcc extends Account{
     @Column(name = "email")
     private String email;
 
-
-
-
     public void setAccount(Account account) {
         username = account.getUsername();
         password = account.getPassword();
         email = account.getEmail();
-        studentName = account.getName();
+        name = account.getName();
     }
 }

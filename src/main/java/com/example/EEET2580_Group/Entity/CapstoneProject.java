@@ -110,21 +110,5 @@ public class CapstoneProject {
         this.imageId = imageId;
     }
 
-//    public void setCapstoneProject(CapstoneProject capstoneProjectDto) {
-//        this.company = capstoneProjectDto.getCompany();
-//        this.supervisor = capstoneProjectDto.getSupervisor();
-//        this.projectTitle = capstoneProjectDto.getProjectTitle();
-//        this.projectIntroduction = capstoneProjectDto.getProjectIntroduction();
-//        this.projectObjectives = capstoneProjectDto.getProjectObjectives();
-//        this.projectSuccessCriteria = capstoneProjectDto.getProjectSuccessCriteria();
-//        this.technicalRequirements = capstoneProjectDto.getTechnicalRequirements();
-//        this.projectDescription = capstoneProjectDto.getProjectDescription();
-//        this.academicBackground = capstoneProjectDto.getAcademicBackground();
-//        this.noStudents = capstoneProjectDto.getNoStudents();
-//        this.interviewReqs = capstoneProjectDto.getInterviewReqs();
-//        this.multiTeamAllow = capstoneProjectDto.getMultiTeamAllow();
-//        this.capstoneColor = Utility.returnColor();
-//        this.capstoneStatus = capstoneProjectDto.getCapstoneStatus();
-//    }
 
 }

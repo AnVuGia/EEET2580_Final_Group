@@ -17,20 +17,13 @@ public class GroupEntity {
     private Long id;
     @Column(name = "group_name")
     private String groupName;
+
     @OneToMany(mappedBy = "group")
     @JsonBackReference
-    private List<StudentAcc> student;
+    private List<StudentAcc> studentAccList;
 
-    @ManyToOne
-    @JoinColumn(name = "supervisor_id")
-    @JsonBackReference
-    private SupervisorAcc supervisor;
-    
-    public void addStudent(StudentAcc studentAcc) {
-        student.add(studentAcc);
-        studentAcc.setGroup(this);
-    }
-    public GroupEntity(){
-        student = new ArrayList<>();
-    }
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "capstone_id", referencedColumnName = "id")
+    private CapstoneProject capstoneId;
+
 }

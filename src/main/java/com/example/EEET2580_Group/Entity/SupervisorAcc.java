@@ -23,7 +23,6 @@ public class SupervisorAcc extends Account {
     @OneToMany (mappedBy = "supervisor")
     @JsonBackReference
     private List<CapstoneProject> capstoneProjectList;
-
     @Column(name = "supervisor_name")
     private String name;
 
@@ -35,16 +34,10 @@ public class SupervisorAcc extends Account {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "role")
-    private String role;
-
-
     public void setAccount(Account account) {
         name = account.getName();
         username = account.getUsername();
         password = account.getPassword();
         email = account.getEmail();
-        role = "supervisor";
-
     }
 }

@@ -34,6 +34,9 @@ public class GroupServiceImp implements GroupService {
         return groupName.isEmpty()?groupRepository.findAll(page):
                                     groupRepository.findByGroupName(groupName,page);
     }
-
+    @Override
+    public GroupEntity findGroupById(Long id){
+        return this.groupRepository.findById(id).get();
+    }
 
 }

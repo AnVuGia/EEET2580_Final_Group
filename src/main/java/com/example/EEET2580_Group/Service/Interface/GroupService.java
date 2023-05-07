@@ -10,4 +10,6 @@ import java.util.List;
 public interface GroupService {
     void saveGroup(GroupEntity groupEntity);
     Page<GroupEntity> getAllGroup(String groupName, Pageable page);
+
+    GroupEntity findGroupById(Long id);
 }
