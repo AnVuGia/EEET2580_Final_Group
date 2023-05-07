@@ -99,9 +99,11 @@ async function updatePendingSectionUI() {
     });
   }
   pendingSectionPage.totalPages = pendingCapstoneProject.totalPages;
+  const pendingPagination = document.querySelector('#pending-pagination');
+  pendingPagination.innerHTML = '';
   createPagination(
     pendingSectionPage,
-    pendingSectionEl,
+    pendingPagination,
     updatePendingSectionUI
   );
   pendingSectionEl.removeChild(spinner2);
@@ -128,7 +130,9 @@ async function updateRejectSectionUI() {
     });
   }
   rejectSectionPage.totalPages = rejectCapstoneProject.totalPages;
-  createPagination(rejectSectionPage, rejectSectionEl, updateRejectSectionUI);
+  const rejectPagination = document.querySelector('#reject-pagination');
+  rejectPagination.innerHTML = '';
+  createPagination(rejectSectionPage, rejectPagination, updateRejectSectionUI);
   rejectSectionEl.removeChild(spinner3);
 }
 

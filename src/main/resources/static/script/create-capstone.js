@@ -29,10 +29,10 @@ async function setCapstoneImage(capstoneProject) {
 
     image.onload = () => {
       const canvas = document.createElement('canvas');
-      canvas.width = image.width;
-      canvas.height = image.height;
+      canvas.width = 300;
+      canvas.height = 300;
       const context = canvas.getContext('2d');
-      context.drawImage(image, 0, 0);
+      context.drawImage(image, 0, 0, 300, 300);
       const compressedImageData = canvas.toDataURL('image/jpeg', 0.5);
       console.log(compressedImageData);
       const formData = new FormData();
@@ -49,7 +49,26 @@ async function setCapstoneImage(capstoneProject) {
         .then((data) => {
           console.log(data);
           capstoneProject.imageId = data.id;
+          console.log(capstoneProject);
+          return capstoneProject;
         })
+        .then((capstoneProject) => {
+          fetch('/api/capstone-project', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(capstoneProject),
+          })
+            .then((response) => {
+              console.log('Capstone project created successfully.');
+            })
+            .then((data) => {
+              console.log(data);
+              window.location.href = 'company-main-page.html';
+            });
+        })
+
         .catch((error) => {
           console.error(error);
         });
@@ -84,15 +103,8 @@ async function setCapstoneProject() {
     imageId: '',
   };
   const res = await setCapstoneImage(capstoneProject);
-  const resJson = JSON.stringify(res);
-  console.log(resJson);
-  await fetch('/api/capstone-project', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: resJson,
-  });
+
+
 }
 async function getSupervisors() {
   supervisorSelect.innerHTML = '';

@@ -48,17 +48,17 @@ async function getImage(capstone) {
   }
   const url = `api/images/${capstone.imageId}`;
   const response = await fetch(url);
-  const blob = await response.blob();
-  const imgURL = URL.createObjectURL(blob);
-  return imgURL;
+  // const blob = await response.blob();
+  // const imgURL = URL.createObjectURL(blob);
+  return response.url;
 }
-async function getAllImage(capstoneList) {
-  for (let i = 0; i < capstoneList.length; i++) {
-    const capstone = capstoneList[i];
-    const imgURL = await getImage(capstone);
-    capstoneListImage[capstone.id] = imgURL;
-  }
-}
+// async function getAllImage(capstoneList) {
+//   for (let i = 0; i < capstoneList.length; i++) {
+//     const capstone = capstoneList[i];
+//     const imgURL = await getImage(capstone);
+//     capstoneListImage[capstone.id] = imgURL;
+//   }
+// }
 
 function headerBar() {
   for (var i = 0; i < headerSelect.length; i++)
@@ -496,13 +496,16 @@ async function updateCapstoneModal(capstone) {
   const capstoneTitleEl = document.querySelector('#capstone-title-h2');
   const companyProfilePicEl = document.querySelector('#company-profile-pic');
   companyProfilePicEl.innerHTML = '';
-  if (capstoneListImage[capstone.id]) {
-    companyProfilePicEl.innerHTML = `<img src="${
-      capstoneListImage[capstone.id]
-    }" alt="company profile picture" />`;
+  if (capstone.imageId !== null) {
+    const src = await getImage(capstone);
+    companyProfilePicEl.innerHTML = `<img src="${src}" alt="company profile picture" />`;
   } else {
     companyProfilePicEl.innerHTML = `<img src="https://via.placeholder.com/150" alt="company profile picture" />`;
   }
+  while (companyProfilePicEl.innerHTML === '') {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+  }
+
   capstoneDescriptionEl.textContent = capstone.projectDescription;
   capstoneOutcomEl.textContent = capstone.projectObjectives;
   capstoneRequirementsEl.textContent = capstone.technicalRequirements;
