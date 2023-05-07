@@ -7,8 +7,20 @@ const createGroupBtn = document.querySelector('.create-group-btn');
 const disSection = document.querySelector('.display-section');
 const displayResult = document.querySelector('.display-result-search');
 const groupListContainer = document.querySelector('.group-list');
-
-const studentCapstoneModal = document.querySelector('#student-capstone-modal');
+const loadingModal = new bootstrap.Modal(
+  document.getElementById('loading-modal'),
+  {
+    keyboard: false,
+    backdrop: 'static',
+  }
+);
+const studentCapstoneModal = new bootstrap.Modal(
+  document.getElementById('student-capstone-modal'),
+  {
+    keyboard: false,
+    backdrop: 'static',
+  }
+);
 
 const profileController = document.querySelectorAll('.profile-list-item');
 const capstonePageInfo = {
@@ -164,9 +176,7 @@ async function updateCapstoneListUI(capstoneListData) {
     const capstoneCard = createCapstoneCard(capstone);
     capstoneCard.addEventListener('click', async function (ev) {
       ev.preventDefault();
-      capstoneCard.setAttribute('data-bs-toggle', 'modal');
-      capstoneCard.setAttribute('data-bs-target', '#student-capstone-modal');
-      updateCapstoneModal(capstone);
+      await updateCapstoneModal(capstone);
     });
 
     displayResult.appendChild(capstoneCard);
@@ -474,6 +484,7 @@ const updateCompanyList = async function () {
 };
 
 async function updateCapstoneModal(capstone) {
+  loadingModal.show();
   const capstoneDescriptionEl = document.querySelector(
     '#capstone-description-p'
   );
@@ -502,10 +513,11 @@ async function updateCapstoneModal(capstone) {
   } else {
     companyProfilePicEl.innerHTML = `<img src="https://via.placeholder.com/150" alt="company profile picture" />`;
   }
-  while (companyProfilePicEl.innerHTML === '') {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-  }
+  studentCapstoneModal.hide();
 
+  while (companyProfilePicEl.innerHTML === '') {}
+  loadingModal.hide();
+  studentCapstoneModal.show();
   capstoneDescriptionEl.textContent = capstone.projectDescription;
   capstoneOutcomEl.textContent = capstone.projectObjectives;
   capstoneRequirementsEl.textContent = capstone.technicalRequirements;
