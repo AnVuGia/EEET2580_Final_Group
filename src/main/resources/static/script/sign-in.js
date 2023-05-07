@@ -6,6 +6,11 @@ const signUp = document.querySelector('#btn-sign-up');
 const submit = document.querySelector('#btn-sign-in');
 const role = document.querySelector('#sign-in-role');
 const alertModal = new bootstrap.Modal(document.querySelector('#alertModal'));
+const alertModalEl = document.querySelector('#alertModal');
+alertModalEl.addEventListener('hidden.bs.modal', () => {
+  userName.value = '';
+  password.value = '';
+});
 signUp.addEventListener('click', () => {
   window.location.href = 'sign-up-page';
 });
