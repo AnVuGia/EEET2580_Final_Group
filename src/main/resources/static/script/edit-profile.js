@@ -52,8 +52,34 @@ function LoadData(result2) {
     LoadModal(result2);
 }
 
+function DeleteAllSkills() {
+    const modalUl = document.querySelector('#ModalCapability');
+
+    while (modalUl.firstChild) {
+        modalUl.removeChild(modalUl.firstChild);
+    }
+    const Capabilityul = document.querySelector('#capability');
+
+    while (Capabilityul.firstChild) {
+        Capabilityul.removeChild(Capabilityul.firstChild);
+    }
+}
+async function RewriteAllSkills(){
+    const endpoint = user.username;
+    console.log(endpoint);
+    const responsee = await fetch(`/api/account/student/username/${endpoint}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+    const result2 = await responsee.json();
+    LoadSkills(result2);
+    LoadModal(result2);
+}
+
 function LoadSkills(result2) {
-    const Capabilityul = document.getElementById("capability");
+    const Capabilityul = document.getElementById('capability');
     for (let i = 0; i < result2.skills.length; i++) {
         const li = document.createElement("li");
         li.textContent = result2.skills[i];
@@ -68,17 +94,33 @@ function LoadModal(result2) {
     const Modalcontact = document.getElementById('NewContact');
     const Modalemail = document.getElementById('NewEmail');
 
-    Modalname.value  = result2.studentName;
-    Modalmajor.value  = result2.major;
-    Modalcontact.value  = result2.contact;
-    Modalemail.value  = result2.email;
+    Modalname.value = result2.studentName;
+    Modalmajor.value = result2.major;
+    Modalcontact.value = result2.contact;
+    Modalemail.value = result2.email;
+    const ul = document.querySelector('#capability');
+    const li = ul.querySelectorAll('li');
+    const liCount = ul.querySelectorAll('li').length;
 
-    const modalUl = document.getElementById('ModalCapability');
+    const modalUl = document.querySelector('#ModalCapability');
+    const ModalLi = modalUl.getElementsByTagName('li');
 
-    for (let i = 0; i < result2.skills.length; i++) {
-        const li = document.createElement("li");
-        li.textContent = result2.skills[i];
-        modalUl.appendChild(li);
+    for (let i = ModalLi.length - 1; i >= 0; i--) {
+        modalUl.removeChild(ModalLi[i]);
+    }
+
+    for (let i = 0; i < liCount; i++) {
+        const skill = li[i].textContent;
+        const modalLi = document.createElement('li');
+        modalLi.textContent = skill;
+        modalLi.className = 'list-group-item'
+        const DelteBtn = document.createElement('Button');
+        DelteBtn.id = 'deleteBtn'
+        DelteBtn.classList.add("btn", "btn-danger");
+        DelteBtn.innerHTML = "Delete";
+        DelteBtn.addEventListener('click', DeleteSkill(skill));
+        modalLi.appendChild(DelteBtn);
+        modalUl.appendChild(modalLi);
     }
 }
 
@@ -105,30 +147,7 @@ SaveBib.addEventListener('click', () => {
 })
 
 EditBtn.addEventListener('click', () => {
-    const ul = document.querySelector('#capability');
-    const li = ul.querySelectorAll('li');
-    const liCount = ul.querySelectorAll('li').length;
-
-    const modalUl = document.querySelector('#ModalCapability');
-    const ModalLi = modalUl.getElementsByTagName('li');
-
-    for (let i = ModalLi.length - 1; i >= 0; i--) {
-        modalUl.removeChild(ModalLi[i]);
-    }
-
-    for (let i = 0; i < liCount; i++) {
-        const skill = li[i].textContent;
-        const modalLi = document.createElement('li');
-        modalLi.textContent = skill;
-        modalLi.className = 'list-group-item'
-        const DelteBtn = document.createElement('Button');
-        DelteBtn.id = 'deleteBtn'
-        DelteBtn.classList.add("btn", "btn-danger");
-        DelteBtn.innerHTML = "Delete";
-        DelteBtn.addEventListener('click', DeleteSkill(skill));
-        modalLi.appendChild(DelteBtn);
-        modalUl.appendChild(modalLi);
-    }
+   
 })
 
 function DeleteSkill(skill) {
@@ -238,7 +257,7 @@ async function UpdateStudentSkills() {
 
 
     const StudentNewSkills = {
-        skills : NewSkills
+        skills: NewSkills
     };
 
     try {
@@ -251,7 +270,9 @@ async function UpdateStudentSkills() {
         });
 
         if (response.ok) {
-            
+            DeleteAllSkills();
+            RewriteAllSkills();
+
         } else {
             console.error('Error updating capstone project. Response status:', response.status);
         }
