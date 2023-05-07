@@ -7,13 +7,19 @@ const major = document.getElementById('profile_major');
 const contact = document.getElementById('profile_contact');
 const email = document.getElementById('profile_email');
 // const gorup= document.getElementById('profile_group');
+const session = sessionStorage.getItem('user');
+const user = JSON.parse(session);
+
+
 let StudentName;
 let StudentMajor;
 let StudentContact;
 let StudentEmail;
 
 async function ViewAll() {
-    const endpoint = "hbtest";
+
+    const endpoint = user.username;
+    console.log(endpoint);
     const responsee = await fetch(`/api/account/student/username/${endpoint}`, {
         method: 'GET',
         headers: {
@@ -22,27 +28,8 @@ async function ViewAll() {
     });
     const result2 = await responsee.json();
     console.log(result2);
+    console.log("user id ", user.id);
     LoadData(result2);
-
-    const responsee3 = await fetch(`/api/account/company/username/company`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
-    const result3 = await responsee3.json();
-    console.log(result3);
-    
-    const responsee4 = await fetch(`/api/account/supervisor/username/thanh123`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
-    const result4 = await responsee4.json();
-    console.log(result4);
-
-
 }
 
 function LoadData(result2) {
@@ -60,6 +47,39 @@ function LoadData(result2) {
     major.innerHTML = StudentMajor;
     contact.innerHTML = StudentContact;
     email.innerHTML = StudentEmail;
+
+    LoadSkills(result2);
+    LoadModal(result2);
+}
+
+function LoadSkills(result2) {
+    const Capabilityul = document.getElementById("capability");
+    for (let i = 0; i < result2.skills.length; i++) {
+        const li = document.createElement("li");
+        li.textContent = result2.skills[i];
+        Capabilityul.appendChild(li);
+    }
+}
+
+function LoadModal(result2) {
+    console.log("Load Modal");
+    const Modalname = document.getElementById('NewName');
+    const Modalmajor = document.getElementById('NewMajor');
+    const Modalcontact = document.getElementById('NewContact');
+    const Modalemail = document.getElementById('NewEmail');
+
+    Modalname.value  = result2.studentName;
+    Modalmajor.value  = result2.major;
+    Modalcontact.value  = result2.contact;
+    Modalemail.value  = result2.email;
+
+    const modalUl = document.getElementById('ModalCapability');
+
+    for (let i = 0; i < result2.skills.length; i++) {
+        const li = document.createElement("li");
+        li.textContent = result2.skills[i];
+        modalUl.appendChild(li);
+    }
 }
 
 CapabilityCreateBtn.addEventListener('click', () => {
@@ -74,8 +94,6 @@ CapabilityCreateBtn.addEventListener('click', () => {
         ul.appendChild(newli);
         reloadSkills();
     }
-
-
 })
 
 SaveBib.addEventListener('click', () => {
@@ -85,6 +103,7 @@ SaveBib.addEventListener('click', () => {
         Bib.innerHTML = newBib;
     }
 })
+
 EditBtn.addEventListener('click', () => {
     const ul = document.querySelector('#capability');
     const li = ul.querySelectorAll('li');
@@ -125,8 +144,8 @@ function DeleteSkill(skill) {
             }
         }
         reloadSkills();
-
     }
+
 }
 function reloadSkills() {
     const ul = document.querySelector('#capability');
@@ -154,30 +173,94 @@ function reloadSkills() {
 
 }
 SaveChangeBtn.addEventListener('click', () => {
+    UpdateStudentPersona(user.id);
+    UpdateStudentSkills();
+
+});
+
+async function UpdateStudentPersona(studentID) {
 
     const profile_name = document.getElementById('profile_name');
     const profile_major = document.getElementById('profile_major');
     const profile_contact = document.getElementById('profile_contact');
     const profile_email = document.getElementById('profile_email');
 
-    let NewName = document.getElementById('NewName').value;
-    let NewMajor = document.getElementById('NewMajor').value;
-    let NewContact = document.getElementById('NewContact').value;
-    let NewEmail = document.getElementById('NewEmail').value;
+    NewName = document.getElementById('NewName').value;
+    NewMajor = document.getElementById('NewMajor').value;
+    NewContact = document.getElementById('NewContact').value;
+    NewEmail = document.getElementById('NewEmail').value;
 
-    if (NewName != "") {
-        profile_name.innerHTML = NewName;
+    const newStudentPersona = {
+        studentName: NewName,
+        email: NewEmail,
+        major: NewMajor,
+        contact: NewContact
+    };
+
+    try {
+        const response = await fetch(`/api/student/update/${studentID}/persona`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newStudentPersona),
+        });
+
+        if (response.ok) {
+            console.log('Capstone project updated successfully');
+            profile_name.innerHTML = NewName;
+            profile_major.innerHTML = NewMajor;
+            profile_contact.innerHTML = NewContact;
+            profile_email.innerHTML = NewEmail;
+        } else {
+            console.error('Error updating capstone project. Response status:', response.status);
+        }
+    } catch (error) {
+        console.error('Error updating capstone project:', error);
     }
-    if (NewMajor != "") {
-        profile_major.innerHTML = NewMajor;
+}
+
+
+
+async function UpdateStudentSkills() {
+    const modalUl = document.getElementById('ModalCapability');
+    const numLi = modalUl.childElementCount;
+    let NewSkills = [];
+
+    for (let i = 0; i < numLi; i++) {
+        const li = modalUl.children[i];
+        const text = li.textContent.trim();
+        const deleteIndex = text.indexOf('Delete');
+        const skill = text.substring(0, deleteIndex).trim();
+        NewSkills.push(skill);
     }
-    if (NewContact != "") {
-        profile_contact.innerHTML = NewContact;
+    console.log(NewSkills);
+
+
+    const StudentNewSkills = {
+        skills : NewSkills
+    };
+
+    try {
+        const response = await fetch(`/api/student/update/${user.id}/skills`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(StudentNewSkills),
+        });
+
+        if (response.ok) {
+            
+        } else {
+            console.error('Error updating capstone project. Response status:', response.status);
+        }
+    } catch (error) {
+        console.error('Error updating capstone project:', error);
     }
-    if (NewEmail != "") {
-        profile_email.innerHTML = NewEmail;
-    }
-});
+}
+
+
 
 ViewAll();
 
