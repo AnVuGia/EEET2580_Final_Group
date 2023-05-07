@@ -1,0 +1,17 @@
+.company-pending-list,
+.company-approved-list,
+.company-rejected-list {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 10px;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+}
+.grid-item {
+  display: flex;
+  justify-content: center; /* aligns child horizontally */
+  align-items: center; /* aligns child vertically */
+  height: 300px; /* height of parent div */
+}

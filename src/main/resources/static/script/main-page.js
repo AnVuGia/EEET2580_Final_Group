@@ -11,7 +11,11 @@ const groupListContainer = document.querySelector('.group-list');
 const studentCapstoneModal = document.querySelector('#student-capstone-modal');
 
 const profileController = document.querySelectorAll('.profile-list-item');
-let capstoneListImage = {};
+const capstonePageInfo = {
+  currPage: 0,
+  totalPages: 0,
+  currSize: 5,
+};
 var oldTarget = document.querySelector('.active');
 const role = sessionStorage.getItem('role');
 let sort = 'asc';
@@ -166,6 +170,7 @@ async function updateCapstoneListUI(capstoneListData) {
     });
 
     displayResult.appendChild(capstoneCard);
+    // createPagination(capstonePageInfo, displayResult, updateCapstoneListUI);
   }
 }
 
