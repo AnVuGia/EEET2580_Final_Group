@@ -48,7 +48,7 @@ public class CompanyController {
         return companyService.getAllCompany(companyName, pageable);
     }
 
-    @PutMapping(value = "/company/update/{id}")
+    @PutMapping(value = "/update/{id}")
     public void updateCompany(@PathVariable Long id,
                               @RequestBody CompanyAccDto companyAccDto){
 

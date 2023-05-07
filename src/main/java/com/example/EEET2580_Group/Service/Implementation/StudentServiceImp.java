@@ -15,21 +15,46 @@ public class StudentServiceImp implements StudentService {
     @Autowired
     private StudentAccRepository studentAccRepository;
 
-    public void updateStudent(StudentAcc oldStudent, StudentDto newStudent){
+    public void updateStudentPersona(StudentAcc oldStudent, StudentDto newStudent){
         System.out.println("INside update student");
         oldStudent.setStudentName(newStudent.getStudentName());
         oldStudent.setContact(newStudent.getContact());
         oldStudent.setEmail(newStudent.getEmail());
         oldStudent.setMajor(newStudent.getMajor());
-        oldStudent.setSkills(newStudent.getSkills());
-
+//        oldStudent.setSkills(newStudent.getSkills());
         //image, bib, group
     }
 
+    public void updateStudentSkill(StudentAcc oldStudent, StudentDto newStudent){
+        System.out.println("INside update student");
+        oldStudent.setSkills(newStudent.getSkills());
+    }
+
+    public void updateStudentBib(StudentAcc oldStudent, StudentDto newStudent){
+        System.out.println("INside update student");
+//        oldStudent.setBib(newStudent.getBib());
+    }
+
     @Override
-    public void updateStudentinfoById(Long id, StudentDto studentDto) {
+    public void updateStudentPersonaById(Long id, StudentDto studentDto) {
         StudentAcc studentToUpdate = studentAccRepository.findById(id).get();
-        this.updateStudent(studentToUpdate,studentDto);
+        this.updateStudentPersona(studentToUpdate,studentDto);
+        studentAccRepository.save(studentToUpdate);
+        System.out.println("Student updated");
+    }
+
+    @Override
+    public void updateStudentSkillsById(Long id, StudentDto studentDto) {
+        StudentAcc studentToUpdate = studentAccRepository.findById(id).get();
+        this.updateStudentSkill(studentToUpdate,studentDto);
+        studentAccRepository.save(studentToUpdate);
+        System.out.println("Student updated");
+    }
+
+    @Override
+    public void updateStudentBibById(Long id, StudentDto studentDto) {
+        StudentAcc studentToUpdate = studentAccRepository.findById(id).get();
+        this.updateStudentBib(studentToUpdate,studentDto);
         studentAccRepository.save(studentToUpdate);
         System.out.println("Student updated");
     }

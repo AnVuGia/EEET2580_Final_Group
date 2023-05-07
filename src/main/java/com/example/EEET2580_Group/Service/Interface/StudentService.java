@@ -7,5 +7,9 @@ import org.springframework.stereotype.Service;
 @Service
 public interface StudentService {
 
-    void updateStudentinfoById(Long id, StudentDto studentDto);
+    void updateStudentPersonaById(Long id, StudentDto studentDto);
+
+    void updateStudentSkillsById(Long id, StudentDto studentDto);
+
+    void updateStudentBibById(Long id, StudentDto studentDto);
 }
