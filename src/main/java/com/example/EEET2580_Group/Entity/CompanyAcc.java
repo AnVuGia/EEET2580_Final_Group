@@ -13,6 +13,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+
 @Table(name = "company_acc")
 public class CompanyAcc extends Account {
     @Id
@@ -36,8 +37,8 @@ public class CompanyAcc extends Account {
     @Column(name = "email")
     private String email;
 
-
-
+    @Column(name = "contact")
+    private Long contact;
 
     public void setAccount(Account account) {
         username = account.getUsername();

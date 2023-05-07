@@ -20,14 +20,13 @@ public class AdminAcc extends Account {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "role")
-    private String role;
+
 
 
     public void setAccount(Account account) {
         name = account.getName();
         username = account.getUsername();
         password = account.getPassword();
-        role = "admin";
+
     }
 }

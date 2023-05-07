@@ -2,9 +2,15 @@ package com.example.EEET2580_Group.Entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "student_acc")
 public class StudentAcc extends Account{
@@ -24,10 +30,15 @@ public class StudentAcc extends Account{
     private String password;
     @Column(name = "email")
     private String email;
-
-
-
-
+    @Column(name = "skills", columnDefinition = "text[]")
+    private List<String> skills;
+    @Column(name = "major")
+    private String major;
+    @Column(name = "contact")
+    private Long contact;
+    public List<String> getSkills() {
+        return this.skills;
+    }
     public void setAccount(Account account) {
         username = account.getUsername();
         password = account.getPassword();

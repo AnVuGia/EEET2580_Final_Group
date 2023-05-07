@@ -35,16 +35,16 @@ public class SupervisorAcc extends Account {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "role")
-    private String role;
 
+    @Column(name = "contact")
+    private Long contact;
 
     public void setAccount(Account account) {
         name = account.getName();
         username = account.getUsername();
         password = account.getPassword();
         email = account.getEmail();
-        role = "supervisor";
+    
 
     }
 }

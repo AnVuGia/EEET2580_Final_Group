@@ -57,4 +57,9 @@ public class AppController {
     public String viewEditCapstonePage() {
         return "edit-capstone";
     }
+    @GetMapping("/edit-company-profile")
+    public String viewCompanyEditProfile() {
+        return "company-edit-profile";
+    }
+
 }

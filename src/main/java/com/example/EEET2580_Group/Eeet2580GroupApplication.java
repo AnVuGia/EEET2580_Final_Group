@@ -8,8 +8,6 @@ public class Eeet2580GroupApplication {
   
 //test
     public static void main(String[] args) {
-
-
         SpringApplication.run(Eeet2580GroupApplication.class, args);
     }
 }

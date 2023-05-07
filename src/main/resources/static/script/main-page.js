@@ -32,8 +32,20 @@ function listenProfileBehave() {
     profileController[i].addEventListener('click', function (ev) {
       if (ev.target.textContent === 'Log out') {
         window.location.href = '/sign-in-page';
-      } else if (profileController[i].textContent === 'Account Information') {
-        //to be filled
+      } else if (ev.target.textContent === 'Account Information') {
+
+        const Role = JSON.parse(role);
+
+        if(Role == "student"){
+          window.location.href = '/account-page';
+
+        }else if(Role == "company"){
+          window.location.href = '/edit-company-profile';
+
+        }
+        
+        
+
       }
     });
   }
