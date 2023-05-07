@@ -53,11 +53,7 @@ function LoadData(result2) {
 }
 
 function DeleteAllSkills() {
-    const modalUl = document.querySelector('#ModalCapability');
-
-    while (modalUl.firstChild) {
-        modalUl.removeChild(modalUl.firstChild);
-    }
+    
     const Capabilityul = document.querySelector('#capability');
 
     while (Capabilityul.firstChild) {
@@ -75,7 +71,7 @@ async function RewriteAllSkills(){
     });
     const result2 = await responsee.json();
     LoadSkills(result2);
-    LoadModal(result2);
+    
 }
 
 function LoadSkills(result2) {
