@@ -36,7 +36,8 @@ public class CompanyAcc extends Account {
     @Column(name = "email")
     private String email;
 
-
+    @Column(name = "contact")
+    private Long contact;
 
 
     public void setAccount(Account account) {

@@ -98,12 +98,12 @@ public class AccountController {
 //        return accounts;
 //    }
 
-    @GetMapping("/student/{id}")
+    @GetMapping("/student/id/{id}")
     Account getStudentAccountById(@PathVariable Long id) {
         Account account = accountService.getAccountById(id, "student");
         return account;
     }
-    @GetMapping("/student/{username}")
+    @GetMapping("/student/username/{username}")
     Account getStudentAccountByUsername(@PathVariable String username) {
         Account account = accountService.getAccountByUsername(username, "student");
         return account;

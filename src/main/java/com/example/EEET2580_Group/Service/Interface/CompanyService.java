@@ -1,5 +1,6 @@
 package com.example.EEET2580_Group.Service.Interface;
 
+import com.example.EEET2580_Group.DTO.CompanyAccDto;
 import com.example.EEET2580_Group.Entity.CompanyAcc;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,4 +15,7 @@ public interface CompanyService {
     Page<CompanyAcc> getAllCompany (String companyName, Pageable page);
 
     List<CompanyAcc> findAll();
+
+
+    void updateCompanyById(Long id, CompanyAccDto companyAccDto);
 }

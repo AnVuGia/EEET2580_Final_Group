@@ -1,5 +1,6 @@
 package com.example.EEET2580_Group.Service.Implementation;
 
+import com.example.EEET2580_Group.DTO.CompanyAccDto;
 import com.example.EEET2580_Group.Entity.CompanyAcc;
 import com.example.EEET2580_Group.Repository.CompanyAccRepository;
 import com.example.EEET2580_Group.Service.Interface.CompanyService;
@@ -16,7 +17,13 @@ import java.util.List;
 public class CompanyServiceImple implements CompanyService {
     @Autowired
     CompanyAccRepository companyAccRepository;
-
+    public void updateCompany(CompanyAcc oldCompany, CompanyAccDto newCompany){
+        System.out.println("INside update student");
+        oldCompany.setName(newCompany.getName());
+        oldCompany.setContact(newCompany.getContact());
+        oldCompany.setEmail(newCompany.getEmail());
+        oldCompany.setCompanyDescription(newCompany.getCompanyDescription());
+    }
     @Override
     public Page<CompanyAcc> getAllCompany(String companyName, Pageable page) {
         return companyName.isEmpty()?companyAccRepository.findAll(page):
@@ -27,5 +34,13 @@ public class CompanyServiceImple implements CompanyService {
     @Override
     public List<CompanyAcc> findAll() {
         return companyAccRepository.findAll();
+    }
+
+    @Override
+    public void updateCompanyById(Long id, CompanyAccDto companyAccDto) {
+        CompanyAcc companyAccToUpdate = companyAccRepository.findById(id).get();
+        this.updateCompany(companyAccToUpdate,companyAccDto);
+        companyAccRepository.save(companyAccToUpdate);
+        System.out.println("Student updated");
     }
 }
