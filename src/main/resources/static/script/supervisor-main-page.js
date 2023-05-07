@@ -74,6 +74,15 @@ function createEditCapstoneForm(capstone) {
   form.classList.add('edit-form');
   form.innerHTML = `
     <h3>Edit Capstone Project</h3>
+    <p>
+        Groups are a good place to collaborate on projects or to figure
+        out schedules for study sessions and the like. Every group gets
+        a calendar, a wiki, discussions, and a little bit of space to
+        store files. Groups can collaborate on documents, or even
+        schedule web conferences. It's really like a mini-course where
+        you can work with a smaller number of students on a more focused
+        project.
+    </p>
     <div class="capstone-information">
         <label for="project-image">Capstone Image</label>
         <input type="file" id="project-image" accept="image/*" />
