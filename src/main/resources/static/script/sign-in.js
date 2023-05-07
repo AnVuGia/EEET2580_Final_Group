@@ -57,30 +57,29 @@ async function authenticate(username, password) {
   console.log(response);
   try {
     const result = await response.json();
+    console.log(result);
+    if (result.role === 'admin') {
+      window.location.href = '/admin';
+      sessionStorage.setItem('role', JSON.stringify('admin'));
+    } else if (result.role === 'student') {
+      window.location.href = '/student';
+      sessionStorage.setItem('role', JSON.stringify('student'));
+    }
+    if (result.role === 'company') {
+      window.location.href = '/company';
+      sessionStorage.setItem('role', JSON.stringify('company'));
+    }
+    if (result.role === 'supervisor') {
+      window.location.href = '/supervisor';
+      sessionStorage.setItem('role', JSON.stringify('supervisor'));
+    }
+    sessionStorage.setItem('user', JSON.stringify(result));
   } catch (error) {
     console.log('Wrong username or password');
     console.log(alertModal);
     alertModal.show();
     return;
   }
-
-  console.log(result);
-  if (result.role === 'admin') {
-    window.location.href = '/admin';
-    sessionStorage.setItem('role', JSON.stringify('admin'));
-  } else if (result.role === 'student') {
-    window.location.href = '/student';
-    sessionStorage.setItem('role', JSON.stringify('student'));
-  }
-  if (result.role === 'company') {
-    window.location.href = '/company';
-    sessionStorage.setItem('role', JSON.stringify('company'));
-  }
-  if (result.role === 'supervisor') {
-    window.location.href = '/supervisor';
-    sessionStorage.setItem('role', JSON.stringify('supervisor'));
-  }
-  sessionStorage.setItem('user', JSON.stringify(result));
 }
 
 // FORM VALIDATION FORMULAS //
