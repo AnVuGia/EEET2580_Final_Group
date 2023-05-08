@@ -77,3 +77,11 @@ function createPagination(sectionObj, sectionEl, updateSectionUI) {
   paginationEl.appendChild(ulEl);
   sectionEl.appendChild(paginationEl);
 }
+async function getImage(imageId) {
+  if (imageId === null) {
+    return;
+  }
+  const url = `api/images/${imageId}`;
+  const response = await fetch(url);
+  return response.url;
+}
