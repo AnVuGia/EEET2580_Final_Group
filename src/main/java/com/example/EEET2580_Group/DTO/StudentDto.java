@@ -25,7 +25,7 @@ public class StudentDto {
 
     public StudentDto(StudentAcc studentAcc){
         this.id = studentAcc.getId();
-        this.studentName = studentAcc.getStudentName();
+        this.studentName = studentAcc.getName();
 //    this.group = studentAcc.getGroup();
         this.username = studentAcc.getUsername();
         this.password = studentAcc.getPassword();

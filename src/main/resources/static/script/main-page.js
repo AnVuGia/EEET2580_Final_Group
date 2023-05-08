@@ -7,7 +7,7 @@ const createGroupBtn = document.querySelector('.create-group-btn');
 const disSection = document.querySelector('.display-section');
 const displayResult = document.querySelector('.display-result-search');
 const groupListContainer = document.querySelector('.group-list');
-
+const groupInfoContainer = document.querySelector('.group-info-section');
 const role = sessionStorage.getItem('role');
 
 const loadingModal = new bootstrap.Modal(
@@ -26,7 +26,6 @@ function configureUser() {
     }
   );
 }
-
 
 configureUser();
 const profileController = document.querySelectorAll('.profile-list-item');
