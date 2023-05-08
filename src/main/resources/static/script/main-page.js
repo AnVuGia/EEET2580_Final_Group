@@ -17,17 +17,14 @@ const loadingModal = new bootstrap.Modal(
     backdrop: 'static',
   }
 );
-function configureUser() {
-  studentCapstoneModal = new bootstrap.Modal(
-    document.getElementById('student-capstone-modal'),
-    {
-      keyboard: false,
-      backdrop: 'static',
-    }
-  );
-}
+studentCapstoneModal = new bootstrap.Modal(
+  document.getElementById('student-capstone-modal'),
+  {
+    keyboard: false,
+    backdrop: 'static',
+  }
+);
 
-configureUser();
 const profileController = document.querySelectorAll('.profile-list-item');
 const capstonePageInfo = {
   currPage: 0,
@@ -64,14 +61,6 @@ function listenProfileBehave() {
       }
     });
   }
-}
-async function getImage(capstone) {
-  if (capstone.imageId === null) {
-    return;
-  }
-  const url = `api/images/${capstone.imageId}`;
-  const response = await fetch(url);
-  return response.url;
 }
 
 function headerBar() {
@@ -515,7 +504,7 @@ async function updateCapstoneModal(capstone) {
   const companyProfilePicEl = document.querySelector('#company-profile-pic');
   companyProfilePicEl.innerHTML = '';
   if (capstone.imageId !== null) {
-    const src = await getImage(capstone);
+    const src = await getImage(capstone.imageId);
     companyProfilePicEl.innerHTML = `<img src="${src}" alt="company profile picture" />`;
   } else {
     companyProfilePicEl.innerHTML = `<img src="https://via.placeholder.com/150" alt="company profile picture" />`;
