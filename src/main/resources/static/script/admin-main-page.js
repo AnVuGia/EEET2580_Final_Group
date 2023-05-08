@@ -1,7 +1,12 @@
 const displayPendingList = document.querySelector('.row');
 const approvedButton = document.querySelector('#approve-btn');
 const rejectButton = document.querySelector('#reject-btn');
-const loadingSpinner = document.querySelector('.loading-spinner');
+const paginationEl = document.querySelector('#ad-pag');
+const pageInfo = {
+  currPage: 0,
+  currSize: 3,
+  totalPages: 0,
+};
 function extractNumberFromString(str) {
   const match = str.match(/\d+/);
   if (match) {
@@ -10,30 +15,36 @@ function extractNumberFromString(str) {
   return null;
 }
 
-async function getRequestList() {
+async function getRequestList(page, size) {
   console.log('getRequestList');
-  displayPendingList.appendChild(createSpinningAnimation());
+
   const pagination = document.querySelector('.pagination');
   pagination.innerHTML = '';
 
-  const endpoint = `api/pending-capstone-projects`;
+  const endpoint = `api/pending-capstone-projects?page=${page}&size=${size}`;
   response = await fetch(endpoint);
   result = await response.json();
 
-  console.log(result);
-
-  updateRequestUI(result.content);
-  // await displayPagination(result);
+  return result;
 }
 
-async function updateRequestUI(capstoneListData) {
-  // console.log(capstoneListData);
+async function updateRequestUI() {
   displayPendingList.innerHTML = '';
-  for (let i = 0; i < capstoneListData.length; i++) {
-    const capstone = capstoneListData[i];
+  displayPendingList.appendChild(createSpinningAnimation());
+  const capstoneListData = await getRequestList(
+    pageInfo.currPage,
+    pageInfo.currSize
+  );
+  displayPendingList.innerHTML = '';
+  const capstoneListDataContent = capstoneListData.content;
+  for (let i = 0; i < capstoneListDataContent.length; i++) {
+    const capstone = capstoneListDataContent[i];
     const capstoneCard = createRequestCapstoneCard(capstone);
     displayPendingList.appendChild(capstoneCard);
   }
+  pageInfo.totalPages = capstoneListData.totalPages;
+  paginationEl.innerHTML = '';
+  createPagination(pageInfo, paginationEl, updateRequestUI);
 }
 
 function createRequestCapstoneCard(capstone) {
@@ -76,8 +87,8 @@ function createRequestCapstoneCard(capstone) {
     updateModal(data);
   });
 
-  itemInfo.innerHTML += ` <p class="course-code">COSC2753</p>
-                            <p class="time-enrolled">Semester 1 2023</p>`;
+  itemInfo.innerHTML += ` <p class="course-code">${capstone.company.name}</p>
+                            <p class="time-enrolled">${capstone.supervisor.name}</p>`;
 
   itemInfo.appendChild(cardButton);
 
@@ -92,9 +103,9 @@ const updateModal = async function (capstone) {
   if (capstone.projectImage == null) {
     imageURL = 'images/login-signup/capstone-logo.png';
   } else {
-    loadingSpinner.style.display = 'block';
+    loadingSpinner.show();
     imageURL = await getImage(capstone.projectImage);
-    loadingSpinner.style.display = 'none';
+    loadingSpinner.hide();
   }
   const div = document.querySelector('.information-section');
   div.innerHTML = `<div class="information-section">
@@ -252,12 +263,12 @@ const updateModal = async function (capstone) {
 approvedButton.addEventListener('click', async function (ev) {
   let id = JSON.parse(sessionStorage.getItem('more-info'));
   await setCapstoneStatus(id, 'approved');
-  await getRequestList();
+  await getRequestList(pageInfo.currPage, pageInfo.currSize);
 });
 rejectButton.addEventListener('click', async function (ev) {
   let id = JSON.parse(sessionStorage.getItem('more-info'));
   await setCapstoneStatus(id, 'reject');
-  await getRequestList();
+  await getRequestList(pageInfo.currPage, pageInfo.currSize);
 });
 const setCapstoneStatus = async function (id, status) {
   let url = `/api/capstone-project/id/${id}`;
@@ -279,4 +290,4 @@ const setCapstoneStatus = async function (id, status) {
   }
 };
 
-getRequestList();
+updateRequestUI();
