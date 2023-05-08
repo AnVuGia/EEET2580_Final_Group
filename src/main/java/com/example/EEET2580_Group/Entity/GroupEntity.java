@@ -1,16 +1,20 @@
 package com.example.EEET2580_Group.Entity;
 
+import com.example.EEET2580_Group.DTO.GroupDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @Entity
+@NoArgsConstructor
 @Table(name = "student-group")
-public class GroupEntity {
+public class
+GroupEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "group_id")
@@ -25,5 +29,10 @@ public class GroupEntity {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "capstone_id", referencedColumnName = "id")
     private CapstoneProject capstoneId;
+
+
+    public GroupEntity (GroupDto groupDto){
+        this.groupName = groupDto.getGroupName();
+    }
 
 }

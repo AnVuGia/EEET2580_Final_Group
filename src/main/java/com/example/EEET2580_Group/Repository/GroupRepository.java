@@ -14,6 +14,9 @@ public interface GroupRepository extends JpaRepository<GroupEntity, Long> {
     @Query("SELECT g FROM GroupEntity g ORDER BY g.groupName ASC ")
     Page<GroupEntity> findAll(Pageable page);
 
+    @Query("SELECT g FROM GroupEntity g WHERE g.id = (SELECT MAX(g2.id) FROM GroupEntity g2)")
+    GroupEntity getLatestGroupEntity();
+
     @Query("SELECT g FROM GroupEntity g WHERE g.groupName LIKE %:groupName%")
     Page<GroupEntity> findByGroupName(@Param("groupName") String groupName, Pageable page);
 }

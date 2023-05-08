@@ -357,7 +357,6 @@ main {
   background-color: white;
   color: black;
   padding: 5px 2px;
-  font-size: 12px;
   cursor: pointer;
 }
 
@@ -448,7 +447,7 @@ main {
   margin-bottom: 0px;
 }
 .member-list{
-  margin-top: 15px;
+  margin: 15px 0;
   display: flex;
   justify-content: space-evenly;
 }

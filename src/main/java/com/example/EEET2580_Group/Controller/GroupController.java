@@ -26,22 +26,16 @@ public class GroupController {
     private GroupService groupService;
     @Autowired
     private StudentAccRepository studentAccRepository;
-//    @PostMapping("/test")
-//    public ResponseEntity<GroupEntity> test() {
-//        GroupEntity groupEntity = new GroupEntity();
-//        groupEntity.setGroupName("Group 1");
-//        StudentAcc studentAcc1 = new StudentAcc();
-//        studentAcc1.setStudentName("Student 1");
-//        StudentAcc studentAcc2 = new StudentAcc();
-//        studentAcc2.setStudentName("Student 2");
-//        groupEntity.addStudent(studentAcc1);
-//        groupEntity.addStudent(studentAcc2);
-//        groupService.saveGroup(groupEntity);
-//        studentAccRepository.save(studentAcc1);
-//        studentAccRepository.save(studentAcc2);
-//        System.out.println("Done");
-//        return ResponseEntity.ok(groupEntity);
-//    }
+
+    @PutMapping()
+    public void udpateGroup (@RequestBody GroupDto groupDto ){
+        this.groupService.updateGroup(groupDto);
+    }
+
+    @PostMapping()
+    public void addGroup (@RequestBody GroupDto groupDto ){
+        this.groupService.saveGroup(groupDto);
+    }
     @GetMapping("/search")
     public Page<GroupEntity> getAllGroup (@RequestParam(name = "group_name",defaultValue = "") String groupName,
                                     @RequestParam(name = "page",defaultValue = "0") String page,

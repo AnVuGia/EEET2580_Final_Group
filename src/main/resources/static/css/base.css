@@ -50,7 +50,9 @@ body {
   border-top-color: #333;
   animation: spin 1s ease-in-out infinite;
 }
-
+.lock-cursor {
+  cursor: url(../images/capstone-info/lock.svg), auto !important;
+}
 @keyframes spin {
   from {
     transform: rotate(0deg);

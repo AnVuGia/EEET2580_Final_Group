@@ -1,5 +1,6 @@
 package com.example.EEET2580_Group.Entity;
 
+import com.example.EEET2580_Group.DTO.StudentAccDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -31,4 +32,5 @@ public class StudentAcc extends Account{
         email = account.getEmail();
         name = account.getName();
     }
+
 }

@@ -24,6 +24,13 @@ public class AccountController {
     private AccountService accountService;
 
 
+//    @PutMapping("/student")
+//    void updateAccount(@RequestBody StudentAccDto accountDto) {
+//        StudentAcc student = new StudentAcc();
+//        student
+//        this.accountService.saveAccount(new StudentAcc(accountDto));
+//    }
+
     @GetMapping("/companies")
     List<CompanyAccDto> getAllCompanies() {
         System.out.println("getAllAccounts in AccountController");
@@ -91,18 +98,11 @@ public class AccountController {
         }
         return null; // handle invalid type
     }
-    //Student Controller
-//    @GetMapping("/students")
-//    List<StudentAcc> getAllStudentAccounts() {
-//        System.out.println("getAllStudentAccounts in AccountController");
-//        List<StudentAcc> accounts = accountService.getAllStudentAccounts();
-//        return accounts;
-//    }
 
     @GetMapping("/student/id/{id}")
-    Account getStudentAccountById(@PathVariable Long id) {
+    StudentAccDto getStudentAccountById(@PathVariable Long id) {
         Account account = accountService.getAccountById(id, "student");
-        return account;
+        return new StudentAccDto((StudentAcc)account);
     }
     @GetMapping("/student/username/{username}")
     Account getStudentAccountByUsername(@PathVariable String username) {

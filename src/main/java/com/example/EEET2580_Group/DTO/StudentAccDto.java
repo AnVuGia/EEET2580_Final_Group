@@ -11,4 +11,5 @@ public class StudentAccDto extends AccountDto{
     public StudentAccDto(StudentAcc account){
         super(account);
     }
+
 }
