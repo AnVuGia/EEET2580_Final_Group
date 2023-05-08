@@ -101,6 +101,7 @@ function headerBar() {
 }
 headerBar();
 function setVisibiltySearchPage(target) {
+  const user  = JSON.parse(sessionStorage.getItem("user"));
   if (target.textContent === 'Search') {
     disSection.textContent = 'Search';
     dashboardView.setAttribute('hidden', 'hidden');
@@ -110,7 +111,16 @@ function setVisibiltySearchPage(target) {
    
     capstoneSearchSection.removeAttribute('hidden');
   } else if (target.textContent === 'Dashboard') {
-    disSection.textContent = 'Dashboard';
+    
+    if (user.role === "admin"){
+      disSection.textContent = "Request Capstone List";
+    }else if (user.role === "company"){
+      disSection.textContent = "Pending Capstone List";
+    }else if (user.role === "student"){
+      disSection.textContent = "Dashboard";
+    }else if (user.role === "supevisor"){
+      disSection.textContent = "Supervised Capstone List";
+    }
     capstoneSearchSection.setAttribute('hidden', 'hidden');
     if (JSON.parse(sessionStorage.getItem("user")).role === "student"){
       groupInfoContainer.setAttribute('hidden', 'hidden');
@@ -274,21 +284,20 @@ function createCompanyCard(companyInfo) {
   div.classList.add('mb-3');
   div.classList.add('mt-3');
   div.innerHTML = `
-            <img class="company-banner" src="images/BANNER-01.png" alt="company-banner">
+
+            <i class="company-banner fas fa-pennant"></i>
             <div class="d-flex justify-content-between mt-2">
                 <div class="d-flex flex-row align-items-center">
-                    <div class="logo"> 
-                       <img src="" alt="company-logo">
-                    </div>
+                <div class="icon"><i class="fas fa-building"></i></div>
                     <div class="ms-2 c-details">
-                        <h5 class="company-title">${companyInfo.companyName}</h5> <span>1 days ago</span>
+                        <h5 class="company-title">${companyInfo.name}</h5> <span>1 days ago</span>
                     </div>
                 </div>
             </div>
             <div class="mt-2">
                 <div class="mt-2">
                     <div class="sub-overview">
-                        <i class="bi bi-briefcase"> <span><span>Company Sub Overview</span></span></i>
+                        <i class="bi bi-briefcase"> <span><span>Contact Info: ${!!companyInfo.email?companyInfo.email:"N/A"}</span></span></i>
                     </div>
                 </div>
                 <div class="mt-2">
@@ -359,23 +368,24 @@ function createGroupCard(groupInfo) {
   div.innerHTML = `
             <div class="d-flex justify-content-between">
                 <div class="d-flex flex-row align-items-center">
-                    <div class="icon"> <i class="bi bi-people"></i> </div>
+                    <div class="icon"><i class="fas fa-users"></i> </div>
                     <div class="ms-2 c-details">
-                        <h5 class="mb-0">${groupInfo.groupName}</h5> <span>1 days ago</span>
+                        <h5 class="mb-0">${groupInfo.groupName}</h5>
                     </div>
                 </div>
             </div>
             <div class="mt-3">
-                <h3 class="heading">Enterprise Web Development</h3>
+                <h3 class="heading">Capstone: ${!!groupInfo.capstone?groupInfo.capstone.projectTitle:"Have not register for Capstone"}</h3>
+                <h4 class="heading">Supervisor: ${!!groupInfo.capstone?groupInfo.capstone.supervisor.name:"Have not register for Capstone"}</h4>
                 <div class="mt-3">
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="3" aria-valuemin="0" aria-valuemax="5"></div>
+                        <div class="progress-bar" role="progressbar" style="width: ${groupInfo.studentList.length/4*100}%" aria-valuenow="${groupInfo.studentList.length}" aria-valuemin="0" aria-valuemax="4"></div>
                     </div>
                     <div class="mt-3"> 
-                        <span class="text1">3 Applied <span class="text2">of 5</span></span> 
+                        <span class="text1"> ${groupInfo.studentList.length} Applied <span class="text2">of 4</span></span> 
                     </div>
                     <div class="mt-3">
-                        <button class="join-group-btn">JOIN</button>
+                        <button class="btn join-group-btn">JOIN</button>
                     </div>
                 </div>
             </div>

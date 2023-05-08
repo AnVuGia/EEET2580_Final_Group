@@ -36,7 +36,8 @@ body {
   font-size: 1.5rem;
 }
 .btn:hover {
-  background-color: rgba(105, 113, 132, 0.6);
+  background-color: var(--grey);
+  color: black;
   cursor: pointer;
 }
 .loading-spinner {
