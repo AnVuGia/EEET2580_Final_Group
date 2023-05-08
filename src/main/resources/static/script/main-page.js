@@ -7,6 +7,7 @@ const createGroupBtn = document.querySelector('.create-group-btn');
 const disSection = document.querySelector('.display-section');
 const displayResult = document.querySelector('.display-result-search');
 const groupListContainer = document.querySelector('.group-list');
+
 const groupInfoContainer = document.querySelector('.group-info-section');
 const role = sessionStorage.getItem('role');
 
@@ -78,12 +79,17 @@ function setVisibiltySearchPage(target) {
   if (target.textContent === 'Search') {
     disSection.textContent = 'Search';
     dashboardView.setAttribute('hidden', 'hidden');
-    groupInfoContainer.setAttribute('hidden', 'hidden');
+    if (JSON.parse(sessionStorage.getItem("user")).role === "student"){
+       groupInfoContainer.setAttribute('hidden', 'hidden');
+    }
+   
     capstoneSearchSection.removeAttribute('hidden');
   } else if (target.textContent === 'Dashboard') {
     disSection.textContent = 'Dashboard';
     capstoneSearchSection.setAttribute('hidden', 'hidden');
-    groupInfoContainer.setAttribute('hidden', 'hidden');
+    if (JSON.parse(sessionStorage.getItem("user")).role === "student"){
+      groupInfoContainer.setAttribute('hidden', 'hidden');
+   }
     dashboardView.removeAttribute('hidden');
   } else if (target.textContent === 'Announcment') {
     disSection.textContent = 'Recent Announcement';
@@ -170,12 +176,18 @@ async function updateCapstoneListUI(capstoneListData) {
   for (let i = 0; i < capstoneListData.length; i++) {
     const capstone = capstoneListData[i];
     const capstoneCard = createCapstoneCard(capstone);
+
+    const capContainer = document.createElement('div');
+    capContainer.classList.add('col-xl-4', 'col-md-6','col-md-12');
+    capContainer.appendChild(capstoneCard);
+    
+
     capstoneCard.addEventListener('click', async function (ev) {
       ev.preventDefault();
       await updateCapstoneModal(capstone);
     });
 
-    displayResult.appendChild(capstoneCard);
+    displayResult.appendChild(capContainer);
     // createPagination(capstonePageInfo, displayResult, updateCapstoneListUI);
   }
 }
@@ -223,7 +235,11 @@ async function updateCompanyUI(companyList) {
   for (let i = 0; i < companyList.length; i++) {
     const company = companyList[i];
     const companyCard = createCompanyCard(company);
-    displayResult.appendChild(companyCard);
+
+    const compContainer = document.createElement('div');
+    compContainer.classList.add('col-xl-4', 'col-md-6','col-md-12');
+    compContainer.appendChild(companyCard);
+    displayResult.appendChild(compContainer);
   }
 }
 function createCompanyCard(companyInfo) {
@@ -301,7 +317,12 @@ async function updateGroupUI(groupList) {
   for (let i = 0; i < groupList.length; i++) {
     const group = groupList[i];
     const groupCard = createGroupCard(group);
-    displayResult.appendChild(groupCard);
+
+    const groupContainer = document.createElement('div');
+    groupContainer.classList.add('col-xl-4', 'col-md-6','col-md-12');
+    groupContainer.appendChild(groupCard);
+
+    displayResult.appendChild(groupContainer);
   }
 }
 function createGroupCard(groupInfo) {
@@ -339,12 +360,9 @@ function createGroupCard(groupInfo) {
 
 const displayPagination = async function (pageable) {
   const pagination = document.querySelector('.pagination');
-  pagination.innerHTML = `<li class="page-item">
-    <a class="page-link" href="#" aria-label="Previous">
-      <span aria-hidden="true">&laquo;</span>
-    </a>
-  </li>`;
-
+  console.trace();
+  pagination.innerHTML ="";
+  console.log("display pagination");
   let maxPage = pageable.totalPages;
 
   for (let i = 0; i < maxPage; i++) {
@@ -352,8 +370,7 @@ const displayPagination = async function (pageable) {
     page.className = 'page-item';
 
     const pageLink = document.createElement('div');
-
-    pageLink.className = 'page-link';
+    pageLink.classList.add('page-link');
     pageLink.textContent = i + 1;
     pageLink.addEventListener('click', (e) => {
       const page = Number.parseInt(e.target.textContent) - 1;
@@ -370,11 +387,6 @@ const displayPagination = async function (pageable) {
     page.appendChild(pageLink);
     pagination.appendChild(page);
   }
-  pagination.innerHTML += `<li class="page-item">
-    <a class="page-link" href="#" aria-label="Next">
-      <span aria-hidden="true">&raquo;</span>
-    </a>
-     </li>`;
 };
 
 const updateCapstone = async function (curPage) {
@@ -396,16 +408,17 @@ const updateCompany = async function (curPage) {
   await getCompanyList(searchInput.value, curPage);
 };
 const onFiltered = async function () {
-  console.trace();
-
   if (searchSelection.value === 'capstone') {
     searchInput.placeholder = 'Please enter Capstone Name';
+    filterContainer.removeAttribute("style");
     await updateCapstone(0);
   } else if (searchSelection.value === 'group') {
     searchInput.placeholder = 'Please enter Group Name';
+    filterContainer.setAttribute("style","height: 125px")
     await updateGroup(0);
   } else if (searchSelection.value === 'company') {
     searchInput.placeholder = 'Please enter Company Name';
+    filterContainer.setAttribute("style","height: 125px")
     await updateCompany(0);
   }
 };
@@ -418,7 +431,6 @@ const searchInput = document.querySelector('.search-input');
 function handleCollapsibleFilter() {
   searchSelection.addEventListener('change', function () {
     const selectedOption = this.value;
-
     if (selectedOption === 'group' || selectedOption === 'company') {
       searchInput.style.display = 'block';
       superVisorSelection.style.display = 'none';
@@ -435,6 +447,7 @@ function handleCollapsibleFilter() {
 handleCollapsibleFilter();
 
 searchSelection.addEventListener('change', function () {
+  searchInput.value = "";
   onFiltered();
 });
 
