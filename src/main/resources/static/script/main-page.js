@@ -11,20 +11,20 @@ const groupListContainer = document.querySelector('.group-list');
 const groupInfoContainer = document.querySelector('.group-info-section');
 const role = sessionStorage.getItem('role');
 
-const loadingModal = new bootstrap.Modal(
-  document.getElementById('loading-modal'),
-  {
-    keyboard: false,
-    backdrop: 'static',
-  }
-);
-studentCapstoneModal = new bootstrap.Modal(
-  document.getElementById('student-capstone-modal'),
-  {
-    keyboard: false,
-    backdrop: 'static',
-  }
-);
+// const loadingModal = new bootstrap.Modal(
+//   document.getElementById('loading-modal'),
+//   {
+//     keyboard: false,
+//     backdrop: 'static',
+//   }
+// );
+// studentCapstoneModal = new bootstrap.Modal(
+//   document.getElementById('student-capstone-modal'),
+//   {
+//     keyboard: false,
+//     backdrop: 'static',
+//   }
+// );
 
 const profileController = document.querySelectorAll('.profile-list-item');
 const capstonePageInfo = {
@@ -418,17 +418,25 @@ const updateCompany = async function (curPage) {
   await getCompanyList(searchInput.value, curPage);
 };
 const onFiltered = async function () {
+  let user = JSON.parse(sessionStorage.getItem("user"));
   if (searchSelection.value === 'capstone') {
     searchInput.placeholder = 'Please enter Capstone Name';
-    filterContainer.removeAttribute("style");
+
+    if (user.role ==="student"){
+      filterContainer.removeAttribute("style");
+    }
     await updateCapstone(0);
   } else if (searchSelection.value === 'group') {
     searchInput.placeholder = 'Please enter Group Name';
-    filterContainer.setAttribute("style","height: 125px")
+    if (user.role ==="student"){
+      filterContainer.setAttribute("style","height: 125px");
+    }
     await updateGroup(0);
   } else if (searchSelection.value === 'company') {
     searchInput.placeholder = 'Please enter Company Name';
-    filterContainer.setAttribute("style","height: 125px")
+    if (user.role ==="student"){
+      filterContainer.setAttribute("style","height: 125px");
+    }
     await updateCompany(0);
   }
 };
