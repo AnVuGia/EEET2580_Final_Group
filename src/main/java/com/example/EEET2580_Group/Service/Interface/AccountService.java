@@ -1,5 +1,6 @@
 package com.example.EEET2580_Group.Service.Interface;
 
+import com.example.EEET2580_Group.DTO.AccountDto;
 import com.example.EEET2580_Group.Entity.Account;
 import com.example.EEET2580_Group.Entity.CompanyAcc;
 import com.example.EEET2580_Group.Entity.StudentAcc;

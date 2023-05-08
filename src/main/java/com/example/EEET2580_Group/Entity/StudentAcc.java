@@ -1,5 +1,6 @@
 package com.example.EEET2580_Group.Entity;
 
+import com.example.EEET2580_Group.DTO.StudentAccDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -19,7 +20,7 @@ public class StudentAcc extends Account{
     @Column(name = "student_id")
     private Long id;
     @Column(name = "student_name")
-    private String studentName;
+    private String name;
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     @JoinColumn(name = "group_id")
@@ -39,10 +40,12 @@ public class StudentAcc extends Account{
     public List<String> getSkills() {
         return this.skills;
     }
+
     public void setAccount(Account account) {
         username = account.getUsername();
         password = account.getPassword();
         email = account.getEmail();
-        studentName = account.getName();
+        name = account.getName();
     }
+
 }

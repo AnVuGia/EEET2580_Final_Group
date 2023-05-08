@@ -3,6 +3,7 @@ package com.example.EEET2580_Group.Controller;
 import com.example.EEET2580_Group.DTO.AccountDto;
 import com.example.EEET2580_Group.DTO.CapstoneProjectDto;
 import com.example.EEET2580_Group.DTO.CompanyAccDto;
+import com.example.EEET2580_Group.DTO.StudentAccDto;
 import com.example.EEET2580_Group.Entity.Account;
 import com.example.EEET2580_Group.Entity.CompanyAcc;
 import com.example.EEET2580_Group.Entity.StudentAcc;
@@ -40,11 +41,11 @@ public class AccountController {
     }
 
     @GetMapping("/students")
-    List<AccountDto> getAllStudents() {
+    List<StudentAccDto> getAllStudents() {
         System.out.println("getAllAccounts in AccountController");
         List<StudentAcc> students = accountService.getAllStudentAccounts();
-        List<AccountDto> dtoConvert = students.stream()
-                .map(account -> new AccountDto(account)).collect(Collectors.toList());
+        List<StudentAccDto> dtoConvert = students.stream()
+                .map(account -> new StudentAccDto(account)).collect(Collectors.toList());
         return dtoConvert;
     }
 
@@ -91,20 +92,12 @@ public class AccountController {
         }
         return null; // handle invalid type
     }
-    // Student Controller
-    // @GetMapping("/students")
-    // List<StudentAcc> getAllStudentAccounts() {
-    // System.out.println("getAllStudentAccounts in AccountController");
-    // List<StudentAcc> accounts = accountService.getAllStudentAccounts();
-    // return accounts;
-    // }
 
     @GetMapping("/student/id/{id}")
-    Account getStudentAccountById(@PathVariable Long id) {
+    StudentAccDto getStudentAccountById(@PathVariable Long id) {
         Account account = accountService.getAccountById(id, "student");
-        return account;
+        return new StudentAccDto((StudentAcc)account);
     }
-
     @GetMapping("/student/username/{username}")
     Account getStudentAccountByUsername(@PathVariable String username) {
         Account account = accountService.getAccountByUsername(username, "student");
