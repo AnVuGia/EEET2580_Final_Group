@@ -7,6 +7,7 @@ const createGroupBtn = document.querySelector('.create-group-btn');
 const disSection = document.querySelector('.display-section');
 const displayResult = document.querySelector('.display-result-search');
 const groupListContainer = document.querySelector('.group-list');
+
 const role = sessionStorage.getItem('role');
 
 const loadingModal = new bootstrap.Modal(
@@ -25,6 +26,7 @@ function configureUser() {
     }
   );
 }
+
 
 configureUser();
 const profileController = document.querySelectorAll('.profile-list-item');
@@ -88,15 +90,20 @@ function setVisibiltySearchPage(target) {
   if (target.textContent === 'Search') {
     disSection.textContent = 'Search';
     dashboardView.setAttribute('hidden', 'hidden');
+    groupInfoContainer.setAttribute('hidden', 'hidden');
     capstoneSearchSection.removeAttribute('hidden');
   } else if (target.textContent === 'Dashboard') {
     disSection.textContent = 'Dashboard';
     capstoneSearchSection.setAttribute('hidden', 'hidden');
+    groupInfoContainer.setAttribute('hidden', 'hidden');
     dashboardView.removeAttribute('hidden');
   } else if (target.textContent === 'Announcment') {
     disSection.textContent = 'Recent Announcement';
   } else if (target.textContent === 'Group Info') {
     disSection.textContent = 'Group Info';
+    capstoneSearchSection.setAttribute('hidden', 'hidden');
+    dashboardView.setAttribute('hidden', 'hidden');
+    groupInfoContainer.removeAttribute('hidden');
   }
 }
 

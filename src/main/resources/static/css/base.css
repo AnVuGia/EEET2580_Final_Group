@@ -6,6 +6,7 @@
   --nude-color: #d8cfd0;
   --red: #fe0000;
   --green: #06aa6d;
+  --grey: #a5a2a2;
 
   --header-height: 75px;
 
@@ -32,7 +33,7 @@ body {
   height: 40px;
   border-radius: 3px;
   background-color: var(--primary-color);
-  font-size: 1.3rem;
+  font-size: 1.5rem;
 }
 .btn:hover {
   background-color: rgba(105, 113, 132, 0.6);
@@ -49,7 +50,9 @@ body {
   border-top-color: #333;
   animation: spin 1s ease-in-out infinite;
 }
-
+.lock-cursor {
+  cursor: url(../images/capstone-info/lock.svg), auto !important;
+}
 @keyframes spin {
   from {
     transform: rotate(0deg);
