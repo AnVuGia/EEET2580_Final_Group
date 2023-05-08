@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/main-page.css" />
     <link rel="stylesheet" href="css/modal.css" />
     <link rel="stylesheet" href="css/edit-capstone.css" />
+    <link rel="stylesheet" href="css/capstone-info.css" />
     <link rel="stylesheet" href="css/supervisor-main-page.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -198,10 +199,204 @@
           </li>
         </ul>
       </div>
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="loading-modal"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="loading-modal"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="loading-modal">Loading</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div class="loading-spinner"></div>
+            </div>
+            <div class="modal-footer"></div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="modal fade"
+        id="student-capstone-modal"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="student-capstone-modal"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-scrollable modal-fullscreen">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1
+                class="modal-title fs-2 group-form-heading"
+                id="student-capstone-modal"
+              >
+                Capstone Project Info
+              </h1>
+              <button
+                type="button"
+                class="btn-close fs-5 me-1"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div class="container">
+                <div class="container-content">
+                  <div class="container-capstone-detail">
+                    <div class="capstone-detail">
+                      <div class="capstone-header">
+                        <div class="capstone-header-overview">
+                          <div id="company-profile-pic" class="company-logo">
+                            <img
+                              src="images/capstone-info/vng-logo.jpg"
+                              alt="company-logo"
+                            />
+                          </div>
+                          <div class="sub-overview">
+                            <h2 id="capstone-title-h2" class="project-title">
+                              Enterprise Web Development
+                            </h2>
+                            <a id="company-name-a" href="https://vng.com.vn/"
+                              >VNG Corporation</a
+                            >
+                            <div class="sub-overview-container">
+                              <i id="no-students-i" class="bi bi-people-fill"
+                                ><span>4 - 5 members</span></i
+                              >
+                              <i
+                                id="capstone-introduction-i"
+                                class="bi bi-people-fill"
+                                ><span>introduction</span></i
+                              >
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <hr size="3" noshade="" />
+                      <div class="skills-container">
+                        <h3>Academic Background</h3>
+                        <p id="academic-background-h3"></p>
+                        <!-- <ul class="skills-list">
+                              <li><span class="skill">HTML</span></li>
+                              <li><span class="skill">CSS</span></li>
+                              <li><span class="skill">Bootstrap</span></li>
+                              <li><span class="skill">Javascript</span></li>
+                              <li><span class="skill">Spring Boot</span></li>
+                            </ul> -->
+                      </div>
+                      <div class="capstone-info">
+                        <h2>Capstone Description</h2>
+                        <div class="para info-para">
+                          <p id="capstone-description-p">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit, sed do eiusmod tempor incididunt ut labore et
+                            dolore magna aliqua. Ut enim ad minim veniam, quis
+                            nostrud exercitation ullamco laboris nisi ut aliquip
+                            ex ea commodo consequat. Duis aute irure dolor in
+                            reprehenderit in voluptate velit esse cillum dolore
+                            eu fugiat nulla pariatur. Excepteur sint occaecat
+                            cupidatat non proident, sunt in culpa qui officia
+                            deserunt mollit anim id est laborum.
+                          </p>
+                        </div>
+                      </div>
+                      <div class="capstone-outcome">
+                        <h2>Outcome</h2>
+                        <div class="para outcome-para">
+                          <p id="capstone-outcome-p">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit, sed do eiusmod tempor incididunt ut labore et
+                            dolore magna aliqua. Ut enim ad minim veniam, quis
+                            nostrud exercitation ullamco laboris nisi ut aliquip
+                            ex ea commodo consequat. Duis aute irure dolor in
+                            reprehenderit in voluptate velit esse cillum dolore
+                            eu fugiat nulla pariatur. Excepteur sint occaecat
+                            cupidatat non proident, sunt in culpa qui officia
+                            deserunt mollit anim id est laborum.
+                          </p>
+                        </div>
+                      </div>
+                      <div class="capstone-requirements">
+                        <h2>Requirements</h2>
+                        <div class="para requirement-para">
+                          <p id="capstone-requirement-p">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit, sed do eiusmod tempor incididunt ut labore et
+                            dolore magna aliqua. Ut enim ad minim veniam, quis
+                            nostrud exercitation ullamco laboris nisi ut aliquip
+                            ex ea commodo consequat. Duis aute irure dolor in
+                            reprehenderit in voluptate velit esse cillum dolore
+                            eu fugiat nulla pariatur. Excepteur sint occaecat
+                            cupidatat non proident, sunt in culpa qui officia
+                            deserunt mollit anim id est laborum.
+                          </p>
+                        </div>
+                      </div>
+                      <div id="success-criteria" class="capstone-requirements">
+                        <h2>Success Criteria</h2>
+                        <div class="para requirement-para">
+                          <p id="success-criteria-p">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit, sed do eiusmod tempor incididunt ut labore et
+                            dolore magna aliqua. Ut enim ad minim veniam, quis
+                            nostrud exercitation ullamco laboris nisi ut aliquip
+                            ex ea commodo consequat. Duis aute irure dolor in
+                            reprehenderit in voluptate velit esse cillum dolore
+                            eu fugiat nulla pariatur. Excepteur sint occaecat
+                            cupidatat non proident, sunt in culpa qui officia
+                            deserunt mollit anim id est laborum.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="container-supervisor-detail">
+                    <div class="supervisor-overview-container">
+                      <a href="#"><h3>Supervisor</h3></a>
+                      <i id="supervisor-name" class="bi bi-person-fill"
+                        ><span>Supervisor: Thanh Nguyen Ngoc</span></i
+                      >
+                      <i id="supervisor-mail" class="bi bi-envelope-fill"
+                        ><span>Email: thanhnguyen@rmit.edu.vn</span></i
+                      >
+                      <i id="group-number" class="bi bi-people-fill"
+                        ><span>Group: 1</span></i
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                id="cancel-btn"
+                type="button"
+                class="btn modal-button-controller"
+                data-bs-dismiss="modal"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
-    <script src="script/UiUtils.js"></script>
-    <script src="script/main-page.js"></script>
-    <script src="script/supervisor-main-page.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script/UiUtils.js"></script>
+    <script src="script/supervisor-main-page.js"></script>
+    <script src="script/main-page.js"></script>
   </body>
 </html>
