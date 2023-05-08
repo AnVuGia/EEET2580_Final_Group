@@ -8,13 +8,13 @@ const superviseCapstoneSection = {
   totalPages: 0,
 };
 
+
 async function getCapstoneList(page, size) {
   console.log(currUser.name);
   const endpoint = `api/capstone-project/supervisor?name=${currUser.name}&page=${page}&size=${size}`;
   const response = await fetch(endpoint);
   const result = await response.json();
   console.log(result);
-  //await updateCapstoneListUI(result.content);
   return result;
 }
 
@@ -37,6 +37,7 @@ async function updateUI() {
   createPagination(superviseCapstoneSection, paginationSection, updateUI);
 
   console.log('Capstone list from server:', capstoneList);
+
 }
 updateUI();
 
@@ -75,23 +76,26 @@ function createCapstoneCardWithEditButton(capstone) {
   return capItem;
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  const closeModalBtn = document.querySelector("#close-modal-btn");
+function closeModal() {
+  document.addEventListener("DOMContentLoaded", () => {
+    const closeModalBtn = document.querySelector("#close-modal-btn");
 
-  closeModalBtn.addEventListener("click", () => {
-    const studentCapstoneModal = new bootstrap.Modal(document.querySelector("#student-capstone-modal"));
-    studentCapstoneModal.hide();
+    closeModalBtn.addEventListener("click", () => {
+      const studentCapstoneModal = new bootstrap.Modal(document.querySelector("#student-capstone-modal"));
+      studentCapstoneModal.hide();
 
-    // Add this line to remove the 'modal-open' class from the body
-    document.body.classList.remove("modal-open");
-    // Add this line to remove the 'modal-backdrop' element
-    const backdrop = document.querySelector(".modal-backdrop");
-    if (backdrop) {
-      backdrop.remove();
-    }
+      // Add this line to remove the 'modal-open' class from the body
+      document.body.classList.remove("modal-open");
+      // Add this line to remove the 'modal-backdrop' element
+      const backdrop = document.querySelector(".modal-backdrop");
+      if (backdrop) {
+        backdrop.remove();
+      }
+    });
   });
-});
+}
 
+closeModal();
 
 function createEditCapstoneForm(capstone) {
   // Create a form container element
@@ -214,9 +218,12 @@ function createEditCapstoneForm(capstone) {
     event.preventDefault();
 
     // Update the capstone data and close the form
-    await updateCapstoneProject(capstone.id);
+    const updateSuccess = await updateCapstoneProject(capstone.id);
 
-    document.body.removeChild(editFormContainer);
+    if (updateSuccess) {
+      updateUI();
+      document.body.removeChild(editFormContainer);
+    }
   });
 
   return editFormContainer;
@@ -262,31 +269,176 @@ async function updateCapstoneProject(capstoneID) {
 
     if (response.ok) {
       console.log('Capstone project updated successfully');
-      updateUI();
+      return true;
     } else {
       console.error(
         'Error updating capstone project. Response status:',
         response.status
+      );
+      return false;
+    }
+  } catch (error) {
+    console.error('Error updating capstone project:', error);
+    return false;
+  }
+
+  console.log(updatedCapstoneData);
+}
+
+
+//This part is for edit supervisor profile
+const supervisorName = document.querySelector('#profile-supervisor-name');
+const supervisorBio = document.querySelector('#profile-supervisor-bio');
+const supervisorEmail = document.querySelector('#profile-supervisor-email');
+const supervisorContact = document.querySelector('#profile-supervisor-contact');
+
+function updateProfileUI(updatedProfile) {
+  supervisorName.textContent = updatedProfile.name;
+  supervisorBio.textContent = updatedProfile.bio;
+  supervisorEmail.textContent = updatedProfile.email;
+  supervisorContact.textContent = updatedProfile.contact;
+}
+
+async function getSupervisorProfile() {
+  const endpoint = `api/account/supervisor/username/${currUser.username}`;
+  const response = await fetch(endpoint);
+  const result = await response.json();
+  console.log(result);
+
+  supervisorName.textContent = result.name;
+  supervisorBio.textContent = result.bio;
+  supervisorEmail.textContent = result.email;
+  supervisorContact.textContent = result.contact;
+
+  return result;
+}
+
+async function displayProfile() {
+  const capstonePanel = document.querySelector('.capstone-panel');
+  const profileController = document.querySelector('.profile-controller');
+  const profileSection = document.querySelector('.profile-section');
+  const closeProfileBtn = document.querySelector('#close-profile-section-btn');
+  const editProfileBtn = document.querySelector('#edit-profile-button');
+
+// Add a click event listener to the list item
+  profileController.addEventListener('click', (event) => {
+    if (event.target.classList.contains('profile-list-item')) {
+      // Toggle the hidden attribute on the profile section element
+      profileSection.hidden = !profileSection.hidden;
+
+      // Toggle the hidden attribute on the pagination section and capstone container elements
+      paginationSection.style.display = 'none';
+      capstoneContainer.style.display = 'none';
+      capstonePanel.style.display = 'none';
+    }
+  });
+
+  closeProfileBtn.addEventListener('click', () => {
+    profileSection.hidden = true;
+    paginationSection.style.display = 'block';
+    capstoneContainer.style.display = 'flex';
+    capstonePanel.style.display = 'flex';
+
+  });
+
+  const supervisor = await getSupervisorProfile();
+
+  editProfileBtn.addEventListener('click', () => {
+    const editForm = createEditProfileForm(supervisor);
+    document.body.appendChild(editForm);
+  });
+}
+
+function createEditProfileForm(supervisor) {
+  // Create a form container element
+  const editProfileFormContainer = document.createElement('div');
+  editProfileFormContainer.classList.add('edit-form-container');
+
+  // Create the form overlay element
+  const formOverlay = document.createElement('div');
+  formOverlay.classList.add('form-overlay');
+  editProfileFormContainer.appendChild(formOverlay);
+
+  // Create the form element
+  const form = document.createElement('form');
+  form.classList.add('edit-form');
+  form.innerHTML = `
+    <h3>Edit Profile</h3>
+    
+    <div class="profile-information">
+        <label for="profile-image">Profile Image</label>
+        <input type="file" id="profile-image" accept="image/*" />
+        
+        <label for="sup-profile-name"> Supervisor Name</label>
+        <input type="text" id="sup-profile-name" value="${supervisor.name}"/>
+
+        <label for="sup-profile-bio">Supervisor Bio</label>
+        <input type="text" id="sup-profile-bio" value="${supervisor.bio}"/>
+        
+        <label for="sup-profile-email">Supervisor Email</label>
+        <input type="text" id="sup-profile-email" value="${supervisor.email}"/>
+        
+        <label for="sup-profile-contact">Supervisor Contact</label>
+        <input type="text" id="sup-profile-contact" value="${supervisor.contact}"/>
+
+        <button type="submit">Save</button>
+        <button type="button" class="close-button">Close</button> 
+    </div>
+  `;
+  editProfileFormContainer.appendChild(form);
+
+  // Close button functionality
+  const closeButton = form.querySelector('.close-button');
+  closeButton.addEventListener('click', () => {
+    document.body.removeChild(editProfileFormContainer);
+  });
+
+  // Handle form submission
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    // Update the capstone data and close the form
+      await updateProfile(supervisor.id);
+
+    document.body.removeChild(editProfileFormContainer);
+  });
+
+  return editProfileFormContainer;
+}
+
+async function updateProfile(supervisorID) {
+  const updatedProfileSupervisor = {
+    name: document.querySelector('#sup-profile-name').value,
+    bio: document.querySelector('#sup-profile-bio').value,
+    email: document.querySelector('#sup-profile-email').value,
+    contact: document.querySelector('#sup-profile-contact').value
+  };
+
+  try {
+    const response = await fetch(`/api/supervisor/update-profile/${supervisorID}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedProfileSupervisor),
+    });
+
+    if (response.ok) {
+      console.log('Capstone project updated successfully');
+      updateProfileUI(updatedProfileSupervisor)
+    } else {
+      console.error(
+          'Error updating capstone project. Response status:',
+          response.status
       );
     }
   } catch (error) {
     console.error('Error updating capstone project:', error);
   }
 
-  console.log(updatedCapstoneData);
+  console.log(updatedProfileSupervisor);
 }
 
-async function updateCapstoneListUI(capstoneListData) {
-  displayResult.innerHTML = '';
-  for (let i = 0; i < capstoneListData.length; i++) {
-    const capstone = capstoneListData[i];
-    const capstoneCard = createCapstoneCardWithEditButton(capstone);
-    capstoneCard.addEventListener('click', async function (ev) {
-      ev.preventDefault();
-      await updateCapstoneModal(capstone);
-    });
 
-    displayResult.appendChild(capstoneCard);
-    // createPagination(capstonePageInfo, displayResult, updateCapstoneListUI);
-  }
-}
+getSupervisorProfile();
+displayProfile();
