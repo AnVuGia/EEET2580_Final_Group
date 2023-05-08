@@ -7,25 +7,24 @@ const createGroupBtn = document.querySelector('.create-group-btn');
 const disSection = document.querySelector('.display-section');
 const displayResult = document.querySelector('.display-result-search');
 const groupListContainer = document.querySelector('.group-list');
-const groupInfoContainer = document.querySelector(".group-info-section");
-const filterContainer = document.querySelector(".search-filter");
 
+const groupInfoContainer = document.querySelector('.group-info-section');
+const role = sessionStorage.getItem('role');
 
-// const studentCapstoneModal = document.querySelector('#student-capstone-modal');
-// const loadingModal = new bootstrap.Modal(
-//   document.getElementById('loading-modal'),
-//   {
-//     keyboard: false,
-//     backdrop: 'static',
-//   }
-// );
-// studentCapstoneModal = new bootstrap.Modal(
-//   document.getElementById('student-capstone-modal'),
-//   {
-//     keyboard: false,
-//     backdrop: 'static',
-//   }
-// );
+const loadingModal = new bootstrap.Modal(
+  document.getElementById('loading-modal'),
+  {
+    keyboard: false,
+    backdrop: 'static',
+  }
+);
+studentCapstoneModal = new bootstrap.Modal(
+  document.getElementById('student-capstone-modal'),
+  {
+    keyboard: false,
+    backdrop: 'static',
+  }
+);
 
 const profileController = document.querySelectorAll('.profile-list-item');
 const capstonePageInfo = {
@@ -34,7 +33,6 @@ const capstonePageInfo = {
   currSize: 5,
 };
 var oldTarget = document.querySelector('.active');
-const role = sessionStorage.getItem('role');
 let sort = 'asc';
 let currentPage = 0;
 const convertString = function (string) {
@@ -54,40 +52,17 @@ function listenProfileBehave() {
       if (ev.target.textContent === 'Log out') {
         window.location.href = '/sign-in-page';
       } else if (ev.target.textContent === 'Account Information') {
-
         const Role = JSON.parse(role);
 
-        if(Role == "student"){
+        if (Role == 'student') {
           window.location.href = '/account-page';
-
-        }else if(Role == "company"){
+        } else if (Role == 'company') {
           window.location.href = '/edit-company-profile';
-
         }
-        
-        
-
       }
     });
   }
 }
-async function getImage(capstone) {
-  if (capstone.imageId === null) {
-    return;
-  }
-  const url = `api/images/${capstone.imageId}`;
-  const response = await fetch(url);
-  // const blob = await response.blob();
-  // const imgURL = URL.createObjectURL(blob);
-  return response.url;
-}
-// async function getAllImage(capstoneList) {
-//   for (let i = 0; i < capstoneList.length; i++) {
-//     const capstone = capstoneList[i];
-//     const imgURL = await getImage(capstone);
-//     capstoneListImage[capstone.id] = imgURL;
-//   }
-// }
 
 function headerBar() {
   for (var i = 0; i < headerSelect.length; i++)
@@ -542,7 +517,7 @@ async function updateCapstoneModal(capstone) {
   const companyProfilePicEl = document.querySelector('#company-profile-pic');
   companyProfilePicEl.innerHTML = '';
   if (capstone.imageId !== null) {
-    const src = await getImage(capstone);
+    const src = await getImage(capstone.imageId);
     companyProfilePicEl.innerHTML = `<img src="${src}" alt="company profile picture" />`;
   } else {
     companyProfilePicEl.innerHTML = `<img src="https://via.placeholder.com/150" alt="company profile picture" />`;
