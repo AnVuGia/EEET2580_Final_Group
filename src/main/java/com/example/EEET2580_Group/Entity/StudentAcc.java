@@ -3,9 +3,15 @@ package com.example.EEET2580_Group.Entity;
 import com.example.EEET2580_Group.DTO.StudentAccDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "student_acc")
 public class StudentAcc extends Account{
@@ -15,7 +21,7 @@ public class StudentAcc extends Account{
     private Long id;
     @Column(name = "student_name")
     private String name;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     @JoinColumn(name = "group_id")
     private GroupEntity group;
@@ -25,6 +31,15 @@ public class StudentAcc extends Account{
     private String password;
     @Column(name = "email")
     private String email;
+    @Column(name = "skills", columnDefinition = "text[]")
+    private List<String> skills;
+    @Column(name = "major")
+    private String major;
+    @Column(name = "contact")
+    private Long contact;
+    public List<String> getSkills() {
+        return this.skills;
+    }
 
     public void setAccount(Account account) {
         username = account.getUsername();

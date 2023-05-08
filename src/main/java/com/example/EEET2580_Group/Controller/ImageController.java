@@ -27,6 +27,7 @@ public class ImageController {
         image.setName(file.getOriginalFilename());
         image.setData(file.getBytes());
         imageRepository.save(image);
+        System.out.println("Image saved");
         return image;
     }
 

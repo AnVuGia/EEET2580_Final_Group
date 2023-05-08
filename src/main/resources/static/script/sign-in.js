@@ -5,7 +5,12 @@ const passwordEl = document.querySelector('.error-password');
 const signUp = document.querySelector('#btn-sign-up');
 const submit = document.querySelector('#btn-sign-in');
 const role = document.querySelector('#sign-in-role');
-
+const alertModal = new bootstrap.Modal(document.querySelector('#alertModal'));
+const alertModalEl = document.querySelector('#alertModal');
+alertModalEl.addEventListener('hidden.bs.modal', () => {
+  userName.value = '';
+  password.value = '';
+});
 signUp.addEventListener('click', () => {
   window.location.href = 'sign-up-page';
 });
@@ -45,34 +50,41 @@ submit.addEventListener('click', (event) => {
     passwordError();
     cnt++;
   }
-  authenticate(userName.value,password.value)
+  authenticate(userName.value, password.value);
 });
 
-async function authenticate(username, password){
+async function authenticate(username, password) {
   console.log('sign in');
 
-  const response = await fetch(`/authenticate?username=${username}&password=${password}`);
-  const result = await response.json();
-  console.log(result);
-  
-  if (!result){
-    console.log("Invalid user name or password");
+  const response = await fetch(
+    `/authenticate?username=${username}&password=${password}`
+  );
+  console.log(response);
+  try {
+    const result = await response.json();
+    console.log(result);
+    if (result.role === 'admin') {
+      window.location.href = '/admin';
+      sessionStorage.setItem('role', JSON.stringify('admin'));
+    } else if (result.role === 'student') {
+      window.location.href = '/student';
+      sessionStorage.setItem('role', JSON.stringify('student'));
+    }
+    if (result.role === 'company') {
+      window.location.href = '/company';
+      sessionStorage.setItem('role', JSON.stringify('company'));
+    }
+    if (result.role === 'supervisor') {
+      window.location.href = '/supervisor';
+      sessionStorage.setItem('role', JSON.stringify('supervisor'));
+    }
+    sessionStorage.setItem('user', JSON.stringify(result));
+  } catch (error) {
+    console.log('Wrong username or password');
+    console.log(alertModal);
+    alertModal.show();
+    return;
   }
-
-  if (result.role === "admin"){
-    window.location.href = "/admin"
-    sessionStorage.setItem('role', JSON.stringify("admin"));
-  }else if (result.role === "student"){
-    window.location.href = "/student"
-    sessionStorage.setItem('role', JSON.stringify("student"));
-  }if (result.role === "company"){
-    window.location.href = "/company"
-    sessionStorage.setItem('role', JSON.stringify("company"));
-  }if (result.role === "supervisor"){
-    window.location.href = "/supervisor"
-    sessionStorage.setItem('role', JSON.stringify("supervisor"));
-  }
-  sessionStorage.setItem('user', JSON.stringify(result));  
 }
 
 // FORM VALIDATION FORMULAS //

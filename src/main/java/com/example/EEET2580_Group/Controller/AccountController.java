@@ -16,20 +16,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 @RestController
 @RequestMapping("/api/account")
 public class AccountController {
     @Autowired
     private AccountService accountService;
-
-
-//    @PutMapping("/student")
-//    void updateAccount(@RequestBody StudentAccDto accountDto) {
-//        StudentAcc student = new StudentAcc();
-//        student
-//        this.accountService.saveAccount(new StudentAcc(accountDto));
-//    }
 
     @GetMapping("/companies")
     List<CompanyAccDto> getAllCompanies() {
@@ -39,6 +30,7 @@ public class AccountController {
                 .map(account -> new CompanyAccDto(account)).collect(Collectors.toList());
         return dtoConvert;
     }
+
     @GetMapping("/supervisors")
     List<AccountDto> getAllSupervisor() {
         System.out.println("getAllAccounts in AccountController");
@@ -47,6 +39,7 @@ public class AccountController {
                 .map(account -> new AccountDto(account)).collect(Collectors.toList());
         return dtoConvert;
     }
+
     @GetMapping("/students")
     List<StudentAccDto> getAllStudents() {
         System.out.println("getAllAccounts in AccountController");
@@ -56,17 +49,18 @@ public class AccountController {
         return dtoConvert;
     }
 
-
     @GetMapping("/company/{id}")
     Account getAccountById(@PathVariable Long id) {
         Account account = accountService.getAccountById(id, "company");
         return account;
     }
+
     @GetMapping("/company/username/{username}")
-    public  Account getAccountByUsername(@PathVariable String username) {
+    public Account getAccountByUsername(@PathVariable String username) {
         Account account = accountService.getAccountByUsername(username, "company");
         return account;
     }
+
     @PostMapping("/{type}/add")
     public Account addAccount(@RequestBody Account request, @PathVariable String type) {
         Account account = new Account();
@@ -75,7 +69,7 @@ public class AccountController {
         account.setPassword(request.getPassword());
         account.setEmail(request.getEmail());
 
-        if(!accountService.isValidUsername(request.getUsername())){
+        if (!accountService.isValidUsername(request.getUsername())) {
             System.out.println("user name is already taken");
             return null;
         }
@@ -109,11 +103,18 @@ public class AccountController {
         Account account = accountService.getAccountByUsername(username, "student");
         return account;
     }
+
     @GetMapping("/supervisor/all")
     List<SupervisorAcc> getAllSupervisorAccounts() {
         System.out.println("getAllSupervisorAccounts in AccountController");
         List<SupervisorAcc> accounts = accountService.getAllSupervisorAccounts();
         return accounts;
+    }
+
+    @GetMapping("/supervisor/username/{username}")
+    Account getSupervisorAccountByUsername(@PathVariable String username) {
+        Account account = accountService.getAccountByUsername(username, "supervisor");
+        return account;
     }
 
 }

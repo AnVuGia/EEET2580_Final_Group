@@ -19,10 +19,10 @@ function createSpinningAnimation() {
   return spinningEl;
 }
 
-function displayWelcomMessage(){
-    const user = JSON.parse(sessionStorage.getItem("user"));
-    const greetingText = document.querySelector(".welcome-message");
-    greetingText.textContent = `Welcome, ${user.name}!`;
+function displayWelcomMessage() {
+  const user = JSON.parse(sessionStorage.getItem('user'));
+  const greetingText = document.querySelector('.welcome-message');
+  greetingText.textContent = `Welcome, ${user.name}!`;
 }
 displayWelcomMessage();
 
@@ -31,26 +31,29 @@ function createPagination(sectionObj, sectionEl, updateSectionUI) {
     return;
   }
   const paginationEl = document.createElement('div');
-  paginationEl.className = 'pagination';
+  paginationEl.className = 'd-flex justify-content-center';
   const prevBtn = document.createElement('button');
-  prevBtn.className = 'prev-next-btn';
-  prevBtn.innerHTML = 'Prev';
+  prevBtn.className = 'page-item';
+  prevBtn.innerHTML = `<a class = "page-link">Prev</a>`;
   const nextBtn = document.createElement('button');
-  nextBtn.className = 'prev-next-btn';
-  nextBtn.innerHTML = 'Next';
+  nextBtn.className = 'page-item';
+  nextBtn.innerHTML = `<a class = "page-link">Next</a>`;
   paginationEl.appendChild(prevBtn);
   paginationEl.appendChild(nextBtn);
   sectionEl.appendChild(paginationEl);
   prevBtn.addEventListener('click', () => {
     if (sectionObj.currPage > 0) {
       sectionObj.currPage -= 1;
+      console.log(sectionObj.currPage);
       updateSectionUI();
     }
   });
   nextBtn.addEventListener('click', () => {
     if (sectionObj.currPage < sectionObj.totalPages - 1) {
       sectionObj.currPage += 1;
+      console.log(sectionObj.currPage);
       updateSectionUI();
     }
   });
 }
+

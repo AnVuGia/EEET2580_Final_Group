@@ -10,9 +10,27 @@ const groupListContainer = document.querySelector('.group-list');
 const groupInfoContainer = document.querySelector(".group-info-section");
 
 const studentCapstoneModal = document.querySelector('#student-capstone-modal');
+const loadingModal = new bootstrap.Modal(
+  document.getElementById('loading-modal'),
+  {
+    keyboard: false,
+    backdrop: 'static',
+  }
+);
+const studentCapstoneModal = new bootstrap.Modal(
+  document.getElementById('student-capstone-modal'),
+  {
+    keyboard: false,
+    backdrop: 'static',
+  }
+);
 
 const profileController = document.querySelectorAll('.profile-list-item');
-let capstoneListImage = {};
+const capstonePageInfo = {
+  currPage: 0,
+  totalPages: 0,
+  currSize: 5,
+};
 var oldTarget = document.querySelector('.active');
 const role = sessionStorage.getItem('role');
 let sort = 'asc';
@@ -33,8 +51,20 @@ function listenProfileBehave() {
     profileController[i].addEventListener('click', function (ev) {
       if (ev.target.textContent === 'Log out') {
         window.location.href = '/sign-in-page';
-      } else if (profileController[i].textContent === 'Account Information') {
-        //to be filled
+      } else if (ev.target.textContent === 'Account Information') {
+
+        const Role = JSON.parse(role);
+
+        if(Role == "student"){
+          window.location.href = '/account-page';
+
+        }else if(Role == "company"){
+          window.location.href = '/edit-company-profile';
+
+        }
+        
+        
+
       }
     });
   }
@@ -45,17 +75,17 @@ async function getImage(capstone) {
   }
   const url = `api/images/${capstone.imageId}`;
   const response = await fetch(url);
-  const blob = await response.blob();
-  const imgURL = URL.createObjectURL(blob);
-  return imgURL;
+  // const blob = await response.blob();
+  // const imgURL = URL.createObjectURL(blob);
+  return response.url;
 }
-async function getAllImage(capstoneList) {
-  for (let i = 0; i < capstoneList.length; i++) {
-    const capstone = capstoneList[i];
-    const imgURL = await getImage(capstone);
-    capstoneListImage[capstone.id] = imgURL;
-  }
-}
+// async function getAllImage(capstoneList) {
+//   for (let i = 0; i < capstoneList.length; i++) {
+//     const capstone = capstoneList[i];
+//     const imgURL = await getImage(capstone);
+//     capstoneListImage[capstone.id] = imgURL;
+//   }
+// }
 
 function headerBar() {
   for (var i = 0; i < headerSelect.length; i++)
@@ -160,19 +190,17 @@ async function getCapstoneList(
 }
 //set modal here later
 async function updateCapstoneListUI(capstoneListData) {
-  getAllImage(capstoneListData);
   displayResult.innerHTML = '';
   for (let i = 0; i < capstoneListData.length; i++) {
     const capstone = capstoneListData[i];
     const capstoneCard = createCapstoneCard(capstone);
     capstoneCard.addEventListener('click', async function (ev) {
       ev.preventDefault();
-      capstoneCard.setAttribute('data-bs-toggle', 'modal');
-      capstoneCard.setAttribute('data-bs-target', '#student-capstone-modal');
-      updateCapstoneModal(capstone);
+      await updateCapstoneModal(capstone);
     });
 
     displayResult.appendChild(capstoneCard);
+    // createPagination(capstonePageInfo, displayResult, updateCapstoneListUI);
   }
 }
 
@@ -476,6 +504,7 @@ const updateCompanyList = async function () {
 };
 
 async function updateCapstoneModal(capstone) {
+  loadingModal.show();
   const capstoneDescriptionEl = document.querySelector(
     '#capstone-description-p'
   );
@@ -498,13 +527,17 @@ async function updateCapstoneModal(capstone) {
   const capstoneTitleEl = document.querySelector('#capstone-title-h2');
   const companyProfilePicEl = document.querySelector('#company-profile-pic');
   companyProfilePicEl.innerHTML = '';
-  if (capstoneListImage[capstone.id]) {
-    companyProfilePicEl.innerHTML = `<img src="${
-      capstoneListImage[capstone.id]
-    }" alt="company profile picture" />`;
+  if (capstone.imageId !== null) {
+    const src = await getImage(capstone);
+    companyProfilePicEl.innerHTML = `<img src="${src}" alt="company profile picture" />`;
   } else {
     companyProfilePicEl.innerHTML = `<img src="https://via.placeholder.com/150" alt="company profile picture" />`;
   }
+  studentCapstoneModal.hide();
+
+  while (companyProfilePicEl.innerHTML === '') {}
+  loadingModal.hide();
+  studentCapstoneModal.show();
   capstoneDescriptionEl.textContent = capstone.projectDescription;
   capstoneOutcomEl.textContent = capstone.projectObjectives;
   capstoneRequirementsEl.textContent = capstone.technicalRequirements;
