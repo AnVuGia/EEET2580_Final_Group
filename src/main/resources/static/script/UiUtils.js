@@ -56,3 +56,4 @@ function createPagination(sectionObj, sectionEl, updateSectionUI) {
     }
   });
 }
+
