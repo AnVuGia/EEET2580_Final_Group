@@ -11,20 +11,21 @@ const groupListContainer = document.querySelector('.group-list');
 const groupInfoContainer = document.querySelector('.group-info-section');
 const role = sessionStorage.getItem('role');
 
-// const loadingModal = new bootstrap.Modal(
-//   document.getElementById('loading-modal'),
-//   {
-//     keyboard: false,
-//     backdrop: 'static',
-//   }
-// );
-// studentCapstoneModal = new bootstrap.Modal(
-//   document.getElementById('student-capstone-modal'),
-//   {
-//     keyboard: false,
-//     backdrop: 'static',
-//   }
-// );
+const loadingModal = new bootstrap.Modal(
+  document.getElementById('loading-modal'),
+  {
+    keyboard: false,
+    backdrop: 'static',
+  }
+);
+
+studentCapstoneModal = new bootstrap.Modal(
+  document.getElementById('student-capstone-modal'),
+  {
+    keyboard: false,
+    backdrop: 'static',
+  }
+);
 
 const profileController = document.querySelectorAll('.profile-list-item');
 const capstonePageInfo = {
@@ -76,30 +77,29 @@ function headerBar() {
 }
 headerBar();
 function setVisibiltySearchPage(target) {
-  const user  = JSON.parse(sessionStorage.getItem("user"));
+  const user = JSON.parse(sessionStorage.getItem('user'));
   if (target.textContent === 'Search') {
     disSection.textContent = 'Search';
     dashboardView.setAttribute('hidden', 'hidden');
-    if (JSON.parse(sessionStorage.getItem("user")).role === "student"){
-       groupInfoContainer.setAttribute('hidden', 'hidden');
+    if (JSON.parse(sessionStorage.getItem('user')).role === 'student') {
+      groupInfoContainer.setAttribute('hidden', 'hidden');
     }
-   
+
     capstoneSearchSection.removeAttribute('hidden');
   } else if (target.textContent === 'Dashboard') {
-    
-    if (user.role === "admin"){
-      disSection.textContent = "Request Capstone List";
-    }else if (user.role === "company"){
-      disSection.textContent = "Pending Capstone List";
-    }else if (user.role === "student"){
-      disSection.textContent = "Dashboard";
-    }else if (user.role === "supevisor"){
-      disSection.textContent = "Supervised Capstone List";
+    if (user.role === 'admin') {
+      disSection.textContent = 'Request Capstone List';
+    } else if (user.role === 'company') {
+      disSection.textContent = 'Pending Capstone List';
+    } else if (user.role === 'student') {
+      disSection.textContent = 'Dashboard';
+    } else if (user.role === 'supevisor') {
+      disSection.textContent = 'Supervised Capstone List';
     }
     capstoneSearchSection.setAttribute('hidden', 'hidden');
-    if (JSON.parse(sessionStorage.getItem("user")).role === "student"){
+    if (JSON.parse(sessionStorage.getItem('user')).role === 'student') {
       groupInfoContainer.setAttribute('hidden', 'hidden');
-   }
+    }
     dashboardView.removeAttribute('hidden');
   } else if (target.textContent === 'Announcment') {
     disSection.textContent = 'Recent Announcement';
@@ -121,7 +121,7 @@ async function getCapstoneList(
 ) {
   displayResult.innerHTML = '';
   displayResult.appendChild(createSpinningAnimation());
-  const pagination = document.querySelector('.pagination');
+  const pagination = document.querySelector('#main-pagination');
   pagination.innerHTML = '';
 
   const url = `api/approved-capstone-projects?`;
@@ -188,9 +188,8 @@ async function updateCapstoneListUI(capstoneListData) {
     const capstoneCard = createCapstoneCard(capstone);
 
     const capContainer = document.createElement('div');
-    capContainer.classList.add('col-xl-4', 'col-md-6','col-md-12');
+    capContainer.classList.add('col-xl-4', 'col-md-6', 'col-md-12');
     capContainer.appendChild(capstoneCard);
-    
 
     capstoneCard.addEventListener('click', async function (ev) {
       ev.preventDefault();
@@ -205,12 +204,6 @@ async function updateCapstoneListUI(capstoneListData) {
 //Company Search
 async function getCompanyList(companyName, page, size, sort) {
   const url = `api/company/search?`;
-
-  displayResult.innerHTML = '';
-  displayResult.appendChild(createSpinningAnimation());
-  const pagination = document.querySelector('.pagination');
-  pagination.innerHTML = '';
-
   var companyName = !!companyName
     ? companyName.includes(' ')
       ? convertString(companyName)
@@ -237,8 +230,7 @@ async function getCompanyList(companyName, page, size, sort) {
   let endpoint = url + temp;
   response = await fetch(endpoint);
   result = await response.json();
-  updateCompanyUI(result.content);
-  await displayPagination(result);
+  return result;
 }
 async function updateCompanyUI(companyList) {
   displayResult.innerHTML = '';
@@ -247,7 +239,7 @@ async function updateCompanyUI(companyList) {
     const companyCard = createCompanyCard(company);
 
     const compContainer = document.createElement('div');
-    compContainer.classList.add('col-xl-4', 'col-md-6','col-md-12');
+    compContainer.classList.add('col-xl-4', 'col-md-6', 'col-md-12');
     compContainer.appendChild(companyCard);
     displayResult.appendChild(compContainer);
   }
@@ -265,14 +257,18 @@ function createCompanyCard(companyInfo) {
                 <div class="d-flex flex-row align-items-center">
                 <div class="icon"><i class="fas fa-building"></i></div>
                     <div class="ms-2 c-details">
-                        <h5 class="company-title">${companyInfo.name}</h5> <span>1 days ago</span>
+                        <h5 class="company-title">${
+                          companyInfo.name
+                        }</h5> <span>1 days ago</span>
                     </div>
                 </div>
             </div>
             <div class="mt-2">
                 <div class="mt-2">
                     <div class="sub-overview">
-                        <i class="bi bi-briefcase"> <span><span>Contact Info: ${!!companyInfo.email?companyInfo.email:"N/A"}</span></span></i>
+                        <i class="bi bi-briefcase"> <span><span>Contact Info: ${
+                          !!companyInfo.email ? companyInfo.email : 'N/A'
+                        }</span></span></i>
                     </div>
                 </div>
                 <div class="mt-2">
@@ -289,7 +285,7 @@ async function getGroupList(groupName, page, size, sort) {
 
   displayResult.innerHTML = '';
   displayResult.appendChild(createSpinningAnimation());
-  const pagination = document.querySelector('.pagination');
+  const pagination = document.querySelector('#main-pagination');
   pagination.innerHTML = '';
 
   var groupName = !!groupName
@@ -328,7 +324,7 @@ async function updateGroupUI(groupList) {
     const groupCard = createGroupCard(group);
 
     const groupContainer = document.createElement('div');
-    groupContainer.classList.add('col-xl-4', 'col-md-6','col-md-12');
+    groupContainer.classList.add('col-xl-4', 'col-md-6', 'col-md-12');
     groupContainer.appendChild(groupCard);
 
     displayResult.appendChild(groupContainer);
@@ -350,14 +346,28 @@ function createGroupCard(groupInfo) {
                 </div>
             </div>
             <div class="mt-3">
-                <h3 class="heading">Capstone: ${!!groupInfo.capstone?groupInfo.capstone.projectTitle:"Have not register for Capstone"}</h3>
-                <h4 class="heading">Supervisor: ${!!groupInfo.capstone?groupInfo.capstone.supervisor.name:"Have not register for Capstone"}</h4>
+                <h3 class="heading">Capstone: ${
+                  !!groupInfo.capstone
+                    ? groupInfo.capstone.projectTitle
+                    : 'Have not register for Capstone'
+                }</h3>
+                <h4 class="heading">Supervisor: ${
+                  !!groupInfo.capstone
+                    ? groupInfo.capstone.supervisor.name
+                    : 'Have not register for Capstone'
+                }</h4>
                 <div class="mt-3">
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" style="width: ${groupInfo.studentList.length/4*100}%" aria-valuenow="${groupInfo.studentList.length}" aria-valuemin="0" aria-valuemax="4"></div>
+                        <div class="progress-bar" role="progressbar" style="width: ${
+                          (groupInfo.studentList.length / 4) * 100
+                        }%" aria-valuenow="${
+    groupInfo.studentList.length
+  }" aria-valuemin="0" aria-valuemax="4"></div>
                     </div>
                     <div class="mt-3"> 
-                        <span class="text1"> ${groupInfo.studentList.length} Applied <span class="text2">of 4</span></span> 
+                        <span class="text1"> ${
+                          groupInfo.studentList.length
+                        } Applied <span class="text2">of 4</span></span> 
                     </div>
                     <div class="mt-3">
                         <button class="btn join-group-btn">JOIN</button>
@@ -369,10 +379,10 @@ function createGroupCard(groupInfo) {
 }
 
 const displayPagination = async function (pageable) {
-  const pagination = document.querySelector('.pagination');
+  const pagination = document.querySelector('#main-pagination');
   console.trace();
-  pagination.innerHTML ="";
-  console.log("display pagination");
+  pagination.innerHTML = '';
+  console.log('display pagination');
   let maxPage = pageable.totalPages;
 
   for (let i = 0; i < maxPage; i++) {
@@ -418,24 +428,24 @@ const updateCompany = async function (curPage) {
   await getCompanyList(searchInput.value, curPage);
 };
 const onFiltered = async function () {
-  let user = JSON.parse(sessionStorage.getItem("user"));
+  let user = JSON.parse(sessionStorage.getItem('user'));
   if (searchSelection.value === 'capstone') {
     searchInput.placeholder = 'Please enter Capstone Name';
 
-    if (user.role ==="student"){
-      filterContainer.removeAttribute("style");
+    if (user.role === 'student') {
+      filterContainer.removeAttribute('style');
     }
     await updateCapstone(0);
   } else if (searchSelection.value === 'group') {
     searchInput.placeholder = 'Please enter Group Name';
-    if (user.role ==="student"){
-      filterContainer.setAttribute("style","height: 125px");
+    if (user.role === 'student') {
+      filterContainer.setAttribute('style', 'height: 125px');
     }
     await updateGroup(0);
   } else if (searchSelection.value === 'company') {
     searchInput.placeholder = 'Please enter Company Name';
-    if (user.role ==="student"){
-      filterContainer.setAttribute("style","height: 125px");
+    if (user.role === 'student') {
+      filterContainer.setAttribute('style', 'height: 125px');
     }
     await updateCompany(0);
   }
@@ -465,7 +475,7 @@ function handleCollapsibleFilter() {
 handleCollapsibleFilter();
 
 searchSelection.addEventListener('change', function () {
-  searchInput.value = "";
+  searchInput.value = '';
   onFiltered();
 });
 
