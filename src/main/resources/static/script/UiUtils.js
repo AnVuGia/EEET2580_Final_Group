@@ -30,30 +30,50 @@ function createPagination(sectionObj, sectionEl, updateSectionUI) {
   if (sectionObj.totalPages <= 1) {
     return;
   }
-  const paginationEl = document.createElement('div');
-  paginationEl.className = 'd-flex justify-content-center';
-  const prevBtn = document.createElement('button');
-  prevBtn.className = 'page-item';
-  prevBtn.innerHTML = `<a class = "page-link">Prev</a>`;
-  const nextBtn = document.createElement('button');
-  nextBtn.className = 'page-item';
-  nextBtn.innerHTML = `<a class = "page-link">Next</a>`;
-  paginationEl.appendChild(prevBtn);
-  paginationEl.appendChild(nextBtn);
-  sectionEl.appendChild(paginationEl);
-  prevBtn.addEventListener('click', () => {
+  const paginationEl = document.createElement('nav');
+  paginationEl.setAttribute('aria-label', 'Page navigation');
+  const ulEl = document.createElement('ul');
+  ulEl.classList.add('pagination');
+  ulEl.classList.add('justify-content-center');
+  for (let i = 0; i < sectionObj.totalPages; i++) {
+    const liEl = document.createElement('li');
+    const aEl = document.createElement('a');
+    aEl.classList.add('page-link');
+    aEl.textContent = i + 1;
+    liEl.appendChild(aEl);
+    ulEl.appendChild(liEl);
+    if (i === sectionObj.currPage) {
+      aEl.classList.add('active');
+    }
+    aEl.addEventListener('click', () => {
+      sectionObj.currPage = i;
+      updateSectionUI();
+    });
+  }
+  const prevLiEl = document.createElement('li');
+  const prevAEl = document.createElement('a');
+  prevAEl.classList.add('page-link');
+  prevAEl.textContent = 'Previous';
+  prevLiEl.appendChild(prevAEl);
+  ulEl.insertBefore(prevLiEl, ulEl.firstChild);
+  prevAEl.addEventListener('click', () => {
     if (sectionObj.currPage > 0) {
-      sectionObj.currPage -= 1;
-      console.log(sectionObj.currPage);
+      sectionObj.currPage--;
       updateSectionUI();
     }
   });
-  nextBtn.addEventListener('click', () => {
+  const nextLiEl = document.createElement('li');
+  const nextAEl = document.createElement('a');
+  nextAEl.classList.add('page-link');
+  nextAEl.textContent = 'Next';
+  nextLiEl.appendChild(nextAEl);
+  ulEl.appendChild(nextLiEl);
+  nextAEl.addEventListener('click', () => {
     if (sectionObj.currPage < sectionObj.totalPages - 1) {
-      sectionObj.currPage += 1;
-      console.log(sectionObj.currPage);
+      sectionObj.currPage++;
       updateSectionUI();
     }
   });
+  paginationEl.appendChild(ulEl);
+  sectionEl.appendChild(paginationEl);
 }
-
