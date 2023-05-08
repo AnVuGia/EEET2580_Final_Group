@@ -9,21 +9,21 @@ const displayResult = document.querySelector('.display-result-search');
 const groupListContainer = document.querySelector('.group-list');
 const groupInfoContainer = document.querySelector(".group-info-section");
 
-const studentCapstoneModal = document.querySelector('#student-capstone-modal');
-const loadingModal = new bootstrap.Modal(
-  document.getElementById('loading-modal'),
-  {
-    keyboard: false,
-    backdrop: 'static',
-  }
-);
-const studentCapstoneModal = new bootstrap.Modal(
-  document.getElementById('student-capstone-modal'),
-  {
-    keyboard: false,
-    backdrop: 'static',
-  }
-);
+// const studentCapstoneModal = document.querySelector('#student-capstone-modal');
+// const loadingModal = new bootstrap.Modal(
+//   document.getElementById('loading-modal'),
+//   {
+//     keyboard: false,
+//     backdrop: 'static',
+//   }
+// );
+// studentCapstoneModal = new bootstrap.Modal(
+//   document.getElementById('student-capstone-modal'),
+//   {
+//     keyboard: false,
+//     backdrop: 'static',
+//   }
+// );
 
 const profileController = document.querySelectorAll('.profile-list-item');
 const capstonePageInfo = {
