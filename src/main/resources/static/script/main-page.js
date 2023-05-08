@@ -547,5 +547,4 @@ searchSelection.dispatchEvent(new Event('change'));
 
 updateCompanyList();
 updateSupervisorList();
-searchSelection.dispatchEvent(new Event('change'));
 listenProfileBehave();

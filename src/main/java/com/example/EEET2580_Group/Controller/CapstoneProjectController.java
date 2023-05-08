@@ -39,7 +39,7 @@ public class CapstoneProjectController {
     // Update Capstone Project in database
     @PutMapping(value = "/capstone-project/{id}")
     public void updateCapstoneProject(@PathVariable Long id,
-                                      @RequestBody CapstoneProjectDto capstoneProjectDto) {
+            @RequestBody CapstoneProjectDto capstoneProjectDto) {
         System.out.println("update capstone");
         capstoneProjectService.updateCapstoneProjectById(id, capstoneProjectDto);
     }
@@ -54,8 +54,9 @@ public class CapstoneProjectController {
     }
 
     @GetMapping("/pending-capstone-projects")
-    public Page<CapstoneProjectDto> findAllPendingCapstoneProject(@RequestParam(name = "page", defaultValue = "0") String page,
-                                                                  @RequestParam(name = "size", defaultValue = "6") String size) {
+    public Page<CapstoneProjectDto> findAllPendingCapstoneProject(
+            @RequestParam(name = "page", defaultValue = "0") String page,
+            @RequestParam(name = "size", defaultValue = "6") String size) {
         Pageable pageable = null;
         pageable = PageRequest.of(Integer.parseInt(page), Integer.parseInt(size));
         Page<CapstoneProject> result = capstoneProjectService.findAllPendingCapstone(pageable);
@@ -76,10 +77,11 @@ public class CapstoneProjectController {
     }
 
     @GetMapping("/capstone-project/company_name")
-    public Page<CapstoneProject> findByCompanyName(@RequestParam(name = "company_name", defaultValue = "") String companyName,
-                                                   @RequestParam(name = "page", defaultValue = "0") String page,
-                                                   @RequestParam(name = "size", defaultValue = "6") String size,
-                                                   @RequestParam(name = "sort", defaultValue = "asc") String sort) {
+    public Page<CapstoneProject> findByCompanyName(
+            @RequestParam(name = "company_name", defaultValue = "") String companyName,
+            @RequestParam(name = "page", defaultValue = "0") String page,
+            @RequestParam(name = "size", defaultValue = "6") String size,
+            @RequestParam(name = "sort", defaultValue = "asc") String sort) {
 
         Pageable pageable = null;
         if (sort.equals("desc")) {
@@ -92,12 +94,13 @@ public class CapstoneProjectController {
     }
 
     @GetMapping("/approved-capstone-projects")
-    public Page<CapstoneProjectDto> filterAll(@RequestParam(name = "capstone_name", defaultValue = "") String capstoneName,
-                                              @RequestParam(name = "company_name", defaultValue = "") String companyName,
-                                              @RequestParam(name = "supervisor_name", defaultValue = "") String supervisorName,
-                                              @RequestParam(name = "page", defaultValue = "0") String page,
-                                              @RequestParam(name = "size", defaultValue = "6") String size,
-                                              @RequestParam(name = "sort", defaultValue = "asc") String sort) {
+    public Page<CapstoneProjectDto> filterAll(
+            @RequestParam(name = "capstone_name", defaultValue = "") String capstoneName,
+            @RequestParam(name = "company_name", defaultValue = "") String companyName,
+            @RequestParam(name = "supervisor_name", defaultValue = "") String supervisorName,
+            @RequestParam(name = "page", defaultValue = "0") String page,
+            @RequestParam(name = "size", defaultValue = "6") String size,
+            @RequestParam(name = "sort", defaultValue = "asc") String sort) {
 
         Pageable pageable = null;
         if (sort.equals("desc")) {
@@ -111,13 +114,13 @@ public class CapstoneProjectController {
             Page<CapstoneProjectDto> dtoConvert = result.map(object -> new CapstoneProjectDto(object));
             return dtoConvert;
         }
-        Page<CapstoneProject> result =
-                capstoneProjectService.filterAll(capstoneName, companyName, supervisorName, pageable);
+        Page<CapstoneProject> result = capstoneProjectService.filterAll(capstoneName, companyName, supervisorName,
+                pageable);
         Page<CapstoneProjectDto> dtoConvert = result.map(object -> new CapstoneProjectDto(object));
         return dtoConvert;
     }
 
-    //testing
+    // testing
     @GetMapping("/capstone-project/test/{id}")
     public CompanyAcc capstoneProjectCompany(@PathVariable Long id) {
         CapstoneProject capstoneProject = capstoneProjectService.findById(id).get();
@@ -125,42 +128,49 @@ public class CapstoneProjectController {
     }
 
     @GetMapping("/capstone-project/company")
-    public List<CapstoneProject> findCapstoneProjectByCompanyName(@RequestParam(name = "company-name") String companyName) {
-        List<CapstoneProject> capstoneProjects = capstoneProjectService.findAllProjectByCompanyName(companyName, "approved");
+    public List<CapstoneProject> findCapstoneProjectByCompanyName(
+            @RequestParam(name = "company-name") String companyName) {
+        List<CapstoneProject> capstoneProjects = capstoneProjectService.findAllProjectByCompanyName(companyName,
+                "approved");
         return capstoneProjects;
     }
 
     @GetMapping("/capstone-project/{companyName}/{status}")
-    public Page<CapstoneProject> findCapstoneProjectByStatus(@PathVariable String status,
-                                                             @PathVariable String companyName,
-                                                             @RequestParam(name = "page", defaultValue = "0") String page, @RequestParam(name = "size", defaultValue = "3") String size) {
+    public Page<CapstoneProjectDto> findCapstoneProjectByStatus(@PathVariable String status,
+            @PathVariable String companyName,
+            @RequestParam(name = "page", defaultValue = "0") String page,
+            @RequestParam(name = "size", defaultValue = "3") String size) {
         Pageable pageable = PageRequest.of(Integer.parseInt(page), Integer.parseInt(size));
 
         if (status.equals("pending")) {
 
-            Page<CapstoneProject> capstoneProjects =
-                    capstoneProjectService.findAllPendingCapstoneByCompanyName(companyName, pageable);
-            return capstoneProjects;
+            Page<CapstoneProject> capstoneProjects = capstoneProjectService
+                    .findAllPendingCapstoneByCompanyName(companyName, pageable);
+            return capstoneProjects.map(object -> new CapstoneProjectDto(object));
         } else if (status.equals("approved")) {
 
-            Page<CapstoneProject> capstoneProjects = capstoneProjectService.findAllApprovedCapstoneByCompanyName(companyName,
+            Page<CapstoneProject> capstoneProjects = capstoneProjectService.findAllApprovedCapstoneByCompanyName(
+                    companyName,
                     pageable);
-            return capstoneProjects;
+            return capstoneProjects.map(object -> new CapstoneProjectDto(object));
         } else if (status.equals("rejected")) {
-            Page<CapstoneProject> capstoneProjects = capstoneProjectService.findAllRejectedCapstoneByCompanyName(companyName,
+            Page<CapstoneProject> capstoneProjects = capstoneProjectService.findAllRejectedCapstoneByCompanyName(
+                    companyName,
                     pageable);
-            return capstoneProjects;
+            return capstoneProjects.map(object -> new CapstoneProjectDto(object));
         } else {
-            Page<CapstoneProject> capstoneProjects = capstoneProjectService.findAllPendingCapstoneByCompanyName(companyName,
+            Page<CapstoneProject> capstoneProjects = capstoneProjectService.findAllPendingCapstoneByCompanyName(
+                    companyName,
                     pageable);
-            return capstoneProjects;
+            return capstoneProjects.map(object -> new CapstoneProjectDto(object));
         }
     }
+
     @GetMapping("/capstone-project/supervisor")
     public Page<CapstoneProjectDto> getAllSupervisedCapstone(@RequestParam String name,
-                                                   @RequestParam(name = "page", defaultValue = "0") String page,
-                                                   @RequestParam(name = "size", defaultValue = "3") String size,
-                                                   @RequestParam(name = "sort", defaultValue = "asc") String sort) {
+            @RequestParam(name = "page", defaultValue = "0") String page,
+            @RequestParam(name = "size", defaultValue = "3") String size,
+            @RequestParam(name = "sort", defaultValue = "asc") String sort) {
         Pageable pageable = null;
         if (sort.equals("desc")) {
             pageable = PageRequest.of(Integer.parseInt(page), Integer.parseInt(size), Sort.by("id").descending());
@@ -168,16 +178,17 @@ public class CapstoneProjectController {
             pageable = PageRequest.of(Integer.parseInt(page), Integer.parseInt(size), Sort.by("id").ascending());
         }
 
-        Page<CapstoneProject> result = capstoneProjectService.findBySupervisorName(name,"approved", pageable);
+        Page<CapstoneProject> result = capstoneProjectService.findBySupervisorName(name, "approved", pageable);
         Page<CapstoneProjectDto> dtoConvert = result.map(object -> new CapstoneProjectDto(object));
 
         return dtoConvert;
     }
+
     @GetMapping("/capstone-project/{status}")
     Page<CapstoneProject> getAllCapstoneByStatus(@PathVariable String status,
-                                                 @RequestParam(name = "page", defaultValue = "0") String page,
-                                                 @RequestParam(name = "size", defaultValue = "3") String size,
-                                                 @RequestParam(name = "sort", defaultValue = "asc") String sort) {
+            @RequestParam(name = "page", defaultValue = "0") String page,
+            @RequestParam(name = "size", defaultValue = "3") String size,
+            @RequestParam(name = "sort", defaultValue = "asc") String sort) {
         Pageable pageable = null;
         if (sort.equals("desc")) {
             pageable = PageRequest.of(Integer.parseInt(page), Integer.parseInt(size), Sort.by("id").descending());
@@ -188,4 +199,3 @@ public class CapstoneProjectController {
     }
 
 }
-
