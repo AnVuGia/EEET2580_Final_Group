@@ -22,8 +22,9 @@ const pendingSectionPage = {
 };
 async function getApproveCapstoneProject(page, size) {
   console.log(currCompany.name);
-  const endpoint = `api/capstone-project/${currCompany.name}/approved`;
-  const url = `${endpoint}?page=${page}&size=${size}`;
+  // const endpoint = `api/capstone-project/${currCompany.name}/approved`;
+  const endpoint = `api/approved-capstone-projects?company_name=${currCompany.name}&page=${page}&size=${size}`;
+  const url = `${endpoint}`;
   const response = await fetch(url);
   const result = await response.json();
   console.log(result);

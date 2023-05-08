@@ -31,12 +31,12 @@ public class CapstoneProject {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "company_id")
     @JsonBackReference
     private CompanyAcc company;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "supervisor_id")
     @JsonBackReference
     private SupervisorAcc supervisor;
