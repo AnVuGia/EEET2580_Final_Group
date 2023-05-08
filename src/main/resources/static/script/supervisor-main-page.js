@@ -47,8 +47,8 @@ function createCapstoneCardWithEditButton(capstone) {
         }" class="capstone-item-color"></div>
           <div class="capstone-item-info">
           <p class="item-name">${capstone.projectTitle}</p>
-          <p class="course-code">COSC2753</p>
-          <p class="time-enrolled">Semester 1 2023</p>
+          <p class="course-code">${capstone.company.name}</p>
+          <p class="time-enrolled">${capstone.supervisor.name}</p>
           <button class="edit-button">Edit</button> 
         </div>  
     `;
