@@ -54,11 +54,12 @@ function createRequestCapstoneCard(capstone) {
     itemInfo.appendChild(itemName);
     
     const cardButton = document.createElement("button");
-    cardButton.classList.add("btn", "btn-primary", "card-button", "mb-2", "mx-auto");
+    cardButton.classList.add("btn",  "card-button", "mb-2", "mx-auto",);
     cardButton.setAttribute("data-bs-target", "#staticBackdrop");
     cardButton.setAttribute("data-bs-toggle", "modal");
     cardButton.setAttribute("type", "button");
-    cardButton.textContent = "More info";
+    cardButton.setAttribute("style", "display: margin: 0px auto");
+    cardButton.textContent = "Review";
     
     cardButton.setAttribute("id",`${capstone.id}`);
     cardButton.addEventListener("click", async function(ev){

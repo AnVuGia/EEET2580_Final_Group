@@ -1,8 +1,10 @@
 package com.example.EEET2580_Group.Controller;
 
 import com.example.EEET2580_Group.DTO.AccountDto;
+import com.example.EEET2580_Group.DTO.CapstoneProjectDto;
 import com.example.EEET2580_Group.DTO.GroupDto;
 import com.example.EEET2580_Group.DTO.StudentAccDto;
+import com.example.EEET2580_Group.Entity.CapstoneProject;
 import com.example.EEET2580_Group.Entity.GroupEntity;
 import com.example.EEET2580_Group.Entity.StudentAcc;
 import com.example.EEET2580_Group.Repository.StudentAccRepository;
@@ -37,7 +39,7 @@ public class GroupController {
         this.groupService.saveGroup(groupDto);
     }
     @GetMapping("/search")
-    public Page<GroupEntity> getAllGroup (@RequestParam(name = "group_name",defaultValue = "") String groupName,
+    public Page<GroupDto> getAllGroup (@RequestParam(name = "group_name",defaultValue = "") String groupName,
                                     @RequestParam(name = "page",defaultValue = "0") String page,
                                     @RequestParam(name = "size",defaultValue = "6") String size,
                                     @RequestParam(name = "sort",defaultValue = "asc") String sort){
@@ -47,7 +49,9 @@ public class GroupController {
         } else {
             pageable = PageRequest.of(Integer.parseInt(page), Integer.parseInt(size), Sort.by("id").ascending());
         }
-        return groupService.getAllGroup(groupName, pageable);
+        Page<GroupEntity> result =  groupService.getAllGroup(groupName, pageable);
+        Page<GroupDto> dtoConvert = result.map(object -> new GroupDto(object));
+        return dtoConvert;
     }
 
     @GetMapping("/{studentId}")

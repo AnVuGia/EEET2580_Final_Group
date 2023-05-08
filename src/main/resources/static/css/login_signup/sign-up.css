@@ -19,15 +19,16 @@ main {
 }
 .form {
   background-color: var(--text-color);
-  width: 500px;
+  width: 700px;
   border-radius: 5px;
 }
 
 .form .form-form-element {
   outline: none;
-  width: 480px;
+  width: 100%;
   margin: 0px auto;
   padding: 10px;
+  font-size: 1.6rem;
 }
 .controller {
   margin: 30px 0;

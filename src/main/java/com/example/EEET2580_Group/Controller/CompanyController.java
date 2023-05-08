@@ -1,6 +1,7 @@
 package com.example.EEET2580_Group.Controller;
 
 import com.example.EEET2580_Group.DTO.CompanyAccDto;
+import com.example.EEET2580_Group.DTO.GroupDto;
 import com.example.EEET2580_Group.DTO.StudentDto;
 import com.example.EEET2580_Group.Entity.CompanyAcc;
 import com.example.EEET2580_Group.Entity.GroupEntity;
@@ -35,7 +36,7 @@ public class CompanyController {
 
 
     @GetMapping("/search")
-    public Page<CompanyAcc> getAllCompany (@RequestParam(name = "company_name",defaultValue = "") String companyName,
+    public Page<CompanyAccDto> getAllCompany (@RequestParam(name = "company_name",defaultValue = "") String companyName,
                                           @RequestParam(name = "page",defaultValue = "0") String page,
                                           @RequestParam(name = "size",defaultValue = "6") String size,
                                           @RequestParam(name = "sort",defaultValue = "asc") String sort){
@@ -45,7 +46,9 @@ public class CompanyController {
         } else {
             pageable = PageRequest.of(Integer.parseInt(page), Integer.parseInt(size), Sort.by("id").ascending());
         }
-        return companyService.getAllCompany(companyName, pageable);
+        Page<CompanyAcc> result =  companyService.getAllCompany(companyName, pageable);
+        Page<CompanyAccDto> dtoConvert = result.map(object -> new CompanyAccDto(object));
+        return dtoConvert;
     }
 
     @PutMapping(value = "/update/{id}")

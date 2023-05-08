@@ -26,12 +26,10 @@ public class StudentServiceImp implements StudentService {
     }
 
     public void updateStudentSkill(StudentAcc oldStudent, StudentDto newStudent){
-        System.out.println("INside update student");
         oldStudent.setSkills(newStudent.getSkills());
     }
 
     public void updateStudentBib(StudentAcc oldStudent, StudentDto newStudent){
-        System.out.println("INside update student");
 //        oldStudent.setBib(newStudent.getBib());
     }
 
