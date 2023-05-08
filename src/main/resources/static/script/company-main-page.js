@@ -61,7 +61,7 @@ async function updateApproveSectionUI() {
     data.forEach((capstone) => {
       const capItem = createCapstoneCard(capstone);
       const capContainer = document.createElement('div');
-      capContainer.classList.add('grid-item');
+       capContainer.classList.add('col-lg-4', 'col-md-12');
       capContainer.appendChild(capItem);
       approveSectionEl.appendChild(capContainer);
     });
@@ -93,7 +93,7 @@ async function updatePendingSectionUI() {
     data.forEach((capstone) => {
       const capItem = createCapstoneCard(capstone);
       const capContainer = document.createElement('div');
-      capContainer.classList.add('grid-item');
+      capContainer.classList.add('col-lg-4', 'col-md-12');
       capContainer.appendChild(capItem);
       pendingSectionEl.appendChild(capContainer);
     });
@@ -124,7 +124,7 @@ async function updateRejectSectionUI() {
     data.forEach((capstone) => {
       const capItem = createCapstoneCard(capstone);
       const capContainer = document.createElement('div');
-      capContainer.classList.add('grid-item');
+      capContainer.classList.add('col-lg-4', 'col-md-12');
       capContainer.appendChild(capItem);
       rejectSectionEl.appendChild(capContainer);
     });

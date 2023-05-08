@@ -93,13 +93,13 @@ main {
 }
 .search-container {
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
   display: flex;
 }
 .search-filter {
   position: relative;
-  height: 275px;
-  width: 275px;
+  height: 225px;
+  width: 300px;
   display: flex;
   flex-direction: column;
   margin: 0px 10px;
@@ -119,7 +119,7 @@ main {
   font-size: 1.4rem;
 }
 .display-result {
-  height: 100vh;
+  min-height: 100vh;
   position: relative;
   border-top: 1px solid grey;
   border-left: 1px solid grey;
@@ -127,6 +127,7 @@ main {
   box-shadow: 0px 0px 1px;
 }
 .display-result-search {
+  padding: 25px;
   display: flex;
   flex-wrap: wrap;
 }
@@ -171,10 +172,10 @@ main {
   margin-top: 15px;
 }
 .capstone-item {
+  margin: 0px auto;
   padding: 0px;
-  margin: 1rem 1rem 1rem 1rem;
   gap: 1rem;
-  width: 265px;
+  width: 285px;
   border-radius: 5px;
   box-shadow: 0px 0px 5px grey;
 }
@@ -189,18 +190,18 @@ main {
 .item-name {
   margin: 10px;
   text-align: start;
-  font-size: 1.4rem;
+  font-size: 1.7rem;
 }
 .course-code {
   margin: 10px;
   text-align: start;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   font-weight: 300;
 }
 .time-enrolled {
   margin: 10px;
   text-align: start;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   font-weight: 300;
 }
 .display-result-list {
@@ -243,7 +244,7 @@ main {
 }
 
 /* pagination */
-.fixed-pagination {
+/* .fixed-pagination {
   position: fixed;
   left: 0;
   right: 0;
@@ -251,13 +252,14 @@ main {
   margin-bottom: 20px;
   display: flex;
   justify-content: center;
-}
+} */
 .pagination {
   margin-top: 20px;
 }
 .page-item {
   text-align: center;
-  width: 50px;
+  width: 75px;
+  height: 25;
   margin: 0px 10px;
 }
 .page-item:hover {
@@ -269,6 +271,7 @@ main {
   color: var(--dark-color);
 }
 .pagination-container {
+  margin-top: auto;
   display: flex;
   justify-content: center;
 }
@@ -460,4 +463,3 @@ main {
   display: flex;
   justify-content: center;
 }
-

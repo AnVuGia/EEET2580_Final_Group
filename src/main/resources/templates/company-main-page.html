@@ -98,17 +98,11 @@
         </div>
         <div class="separator"></div>
         <div class="container-fluid capstone-project-info">
-          <div class="company-pending-list">
-            <div class="capstone-item">
-              <div class="capstone-item-color"></div>
-              <div class="capstone-item-info">
-                <p class="item-name">Machine Learning</p>
-                <p class="course-code">COSC2753</p>
-                <p class="time-enrolled">Semester 1 2023</p>
-              </div>
+          <div class="container">
+            <div class="company-pending-list row gy-4">
             </div>
+            <div id="pending-pagination" class="company-pagination"></div>
           </div>
-          <div id="pending-pagination"></div>
         </div>
         <div class="capstone-panel">
           <div class="capstone-pannel-in m-auto m-md-0 display-section">
@@ -116,18 +110,11 @@
           </div>
         </div>
         <div class="separator"></div>
-        <div class="container-fluid capstone-project-info">
-          <div class="company-approved-list">
-            <div class="capstone-item">
-              <div class="capstone-item-color"></div>
-              <div class="capstone-item-info">
-                <p class="item-name">Machine Learning</p>
-                <p class="course-code">COSC2753</p>
-                <p class="time-enrolled">Semester 1 2023</p>
-              </div>
-            </div>
+        <div class="container capstone-project-info">
+          <div class="company-approved-list row gy-4">
+            
           </div>
-          <div id="approve-pagination"></div>
+          <div id="approve-pagination" class="company-pagination"></div>
         </div>
         <div class="capstone-panel">
           <div class="capstone-pannel-in m-auto m-md-0 display-section">
@@ -135,18 +122,10 @@
           </div>
         </div>
         <div class="separator"></div>
-        <div class="container-fluid capstone-project-info">
-          <div class="company-rejected-list">
-            <div class="capstone-item">
-              <div class="capstone-item-color"></div>
-              <div class="capstone-item-info">
-                <p class="item-name">Machine Learning</p>
-                <p class="course-code">COSC2753</p>
-                <p class="time-enrolled">Semester 1 2023</p>
-              </div>
-            </div>
+        <div class="container capstone-project-info">
+          <div class="company-rejected-list row gy-4">
           </div>
-          <div id="reject-pagination"></div>
+          <div id="reject-pagination" class="company-pagination"></div>
         </div>
       </div>
       <div
@@ -381,13 +360,13 @@
             ></select>
           </div>
           <div class="display-result">
-            <div class="display-result-search"></div>
-            <nav
+            <div class="display-result-search row"></div>
+            <div
               aria-label="Page navigation example"
-              class="d-flex justify-content-center"
+              class="d-flex justify-content-center pagination-container mt-auto"
             >
               <ul class="pagination"></ul>
-            </nav>
+          </div>
           </div>
         </div>
       </div>
