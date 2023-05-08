@@ -7,12 +7,14 @@ const superviseCapstoneSection = {
   currSize: 3,
   totalPages: 0,
 };
+
 async function getCapstoneList(page, size) {
   console.log(currUser.name);
   const endpoint = `api/capstone-project/supervisor?name=${currUser.name}&page=${page}&size=${size}`;
   const response = await fetch(endpoint);
   const result = await response.json();
   console.log(result);
+  //await updateCapstoneListUI(result.content);
   return result;
 }
 
@@ -60,8 +62,36 @@ function createCapstoneCardWithEditButton(capstone) {
     document.body.appendChild(editForm);
   });
 
+  capItem.addEventListener('click', async function (ev) {
+    ev.preventDefault();
+
+    if (ev.target !== editButton) {
+      await updateCapstoneModal(capstone);
+      const studentCapstoneModal = new bootstrap.Modal(document.querySelector('#student-capstone-modal'));
+      studentCapstoneModal.show();
+    }
+  });
+
   return capItem;
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const closeModalBtn = document.querySelector("#close-modal-btn");
+
+  closeModalBtn.addEventListener("click", () => {
+    const studentCapstoneModal = new bootstrap.Modal(document.querySelector("#student-capstone-modal"));
+    studentCapstoneModal.hide();
+
+    // Add this line to remove the 'modal-open' class from the body
+    document.body.classList.remove("modal-open");
+    // Add this line to remove the 'modal-backdrop' element
+    const backdrop = document.querySelector(".modal-backdrop");
+    if (backdrop) {
+      backdrop.remove();
+    }
+  });
+});
+
 
 function createEditCapstoneForm(capstone) {
   // Create a form container element
@@ -186,10 +216,6 @@ function createEditCapstoneForm(capstone) {
     // Update the capstone data and close the form
     await updateCapstoneProject(capstone.id);
 
-    // Update the capstone card display, if needed
-    // Update the capstone card display
-    //updateUI();
-
     document.body.removeChild(editFormContainer);
   });
 
@@ -248,4 +274,19 @@ async function updateCapstoneProject(capstoneID) {
   }
 
   console.log(updatedCapstoneData);
+}
+
+async function updateCapstoneListUI(capstoneListData) {
+  displayResult.innerHTML = '';
+  for (let i = 0; i < capstoneListData.length; i++) {
+    const capstone = capstoneListData[i];
+    const capstoneCard = createCapstoneCardWithEditButton(capstone);
+    capstoneCard.addEventListener('click', async function (ev) {
+      ev.preventDefault();
+      await updateCapstoneModal(capstone);
+    });
+
+    displayResult.appendChild(capstoneCard);
+    // createPagination(capstonePageInfo, displayResult, updateCapstoneListUI);
+  }
 }
