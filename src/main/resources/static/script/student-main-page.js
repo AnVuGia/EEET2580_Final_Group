@@ -22,8 +22,6 @@ var successLeaveAnnouncment = document.getElementById("group-left-successful"); 
 var successLeaveAnnouncmentInstance = new bootstrap.Modal(successLeaveAnnouncment);
 
 
-
-
 let group = JSON.parse(sessionStorage.getItem("current-group"));
 let user  = JSON.parse(sessionStorage.getItem("user"));
 
@@ -82,8 +80,6 @@ async function getCurrentGroup(){
   const groupInfo = await response.json();
   sessionStorage.setItem("current-group",JSON.stringify(groupInfo));
 }
-
-
 
 const displayGroupInfo = async function(){
     await getCurrentGroup();

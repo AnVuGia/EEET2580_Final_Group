@@ -373,6 +373,8 @@ function createGroupCard(groupInfo) {
           <span class="text1"> ${groupInfo.studentList.length} Applied <span class="text2">of 4</span></span> 
       </div>
     `;
+    div.appendChild(bottom);
+    div.appendChild(bottom2);
   return div;
 }
 
