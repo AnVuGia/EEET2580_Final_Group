@@ -30,7 +30,8 @@ public class GroupController {
     private StudentAccRepository studentAccRepository;
 
     @PutMapping()
-    public void udpateGroup (@RequestBody GroupDto groupDto ){
+    public void updateGroup (@RequestBody GroupDto groupDto ){
+        System.out.println(groupDto);
         this.groupService.updateGroup(groupDto);
     }
 
@@ -53,7 +54,10 @@ public class GroupController {
         Page<GroupDto> dtoConvert = result.map(object -> new GroupDto(object));
         return dtoConvert;
     }
-
+    @GetMapping("/id/{groupId}")
+    public GroupDto getGroup (@PathVariable Long groupId){
+        return new GroupDto(this.groupService.findGroupById(groupId));
+    }
     @GetMapping("/{studentId}")
     public GroupDto getStudentsInGroup (@PathVariable Long studentId){
        StudentAcc student =  studentAccRepository.findById(studentId).get();

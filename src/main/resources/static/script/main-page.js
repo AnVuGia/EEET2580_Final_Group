@@ -3,7 +3,6 @@ const dashboardView = document.querySelector('.dashboard-view');
 const capstoneInfoSection = document.querySelector('.nav-header-item');
 const capstoneSearchSection = document.querySelector('.search-section');
 const headerLogo = document.querySelector('.navbar-brand');
-const createGroupBtn = document.querySelector('.create-group-btn');
 const disSection = document.querySelector('.display-section');
 const displayResult = document.querySelector('.display-result-search');
 const groupListContainer = document.querySelector('.group-list');
@@ -11,20 +10,20 @@ const filterContainer = document.querySelector('.search-filter');
 const groupInfoContainer = document.querySelector('.group-info-section');
 const role = sessionStorage.getItem('role');
 
-// const loadingModal = new bootstrap.Modal(
-//   document.getElementById('loading-modal'),
-//   {
-//     keyboard: false,
-//     backdrop: 'static',
-//   }
-// );
-// studentCapstoneModal = new bootstrap.Modal(
-//   document.getElementById('student-capstone-modal'),
-//   {
-//     keyboard: false,
-//     backdrop: 'static',
-//   }
-// );
+const loadingModal = new bootstrap.Modal(
+  document.getElementById('loading-modal'),
+  {
+    keyboard: false,
+    backdrop: 'static',
+  }
+);
+studentCapstoneModal = new bootstrap.Modal(
+  document.getElementById('student-capstone-modal'),
+  {
+    keyboard: false,
+    backdrop: 'static',
+  }
+);
 
 const profileController = document.querySelectorAll('.profile-list-item');
 const capstonePageInfo = {
@@ -349,25 +348,58 @@ function createGroupCard(groupInfo) {
                     </div>
                 </div>
             </div>
-            <div class="mt-3">
-                <h3 class="heading">Capstone: ${!!groupInfo.capstone?groupInfo.capstone.projectTitle:"Have not register for Capstone"}</h3>
-                <h4 class="heading">Supervisor: ${!!groupInfo.capstone?groupInfo.capstone.supervisor.name:"Have not register for Capstone"}</h4>
-                <div class="mt-3">
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" style="width: ${groupInfo.studentList.length/4*100}%" aria-valuenow="${groupInfo.studentList.length}" aria-valuemin="0" aria-valuemax="4"></div>
-                    </div>
-                    <div class="mt-3"> 
-                        <span class="text1"> ${groupInfo.studentList.length} Applied <span class="text2">of 4</span></span> 
-                    </div>
-                    <div class="mt-3">
-                        <button class="btn join-group-btn">JOIN</button>
-                    </div>
-                </div>
-            </div>
     `;
+
+    const bottom = document.createElement("div");
+    bottom.classList.add("mt-3");
+    bottom .innerHTML = `
+        <h3 class="heading">Capstone: ${!!groupInfo.capstone?groupInfo.capstone.projectTitle:"Have not register for Capstone"}</h3>
+        <h4 class="heading">Supervisor: ${!!groupInfo.capstone?groupInfo.capstone.supervisor.name:"Have not register for Capstone"}</h4>
+    `;
+
+    const bottom2 = document.createElement("div");
+    bottom2.classList.add("mt-3");
+    bottom2 .innerHTML = `
+      <div class="progress">
+      <div class="progress-bar" role="progressbar" style="width: ${groupInfo.studentList.length/4*100}%" aria-valuenow="${groupInfo.studentList.length}" aria-valuemin="0" aria-valuemax="4"></div>
+      </div>
+      <div class="mt-3"> 
+          <span class="text1"> ${groupInfo.studentList.length} Applied <span class="text2">of 4</span></span> 
+      </div>
+    `;
+    
+    const user  = JSON.parse(sessionStorage.getItem("user"));
+    if (user.role === "student"){     
+      const bottom3 = document.createElement("div");
+      bottom3.classList.add("mt-3");
+      const button  = document.createElement("button");
+      button.classList.add("btn", "group-toggle-btn");
+      button.setAttribute('id',groupInfo.id);
+      button.textContent = "JOIN";
+      button.addEventListener("click", async function(ev){
+      button.textContent = "JOIN";
+        console.log("more info");
+        let id = parseInt(ev.target.id);
+        let repsonse = await fetch(`api/group/id/${id}`);
+        let group = await repsonse.json();
+        button.setAttribute('data-bs-toggle',"modal");
+        if ((JSON.parse(sessionStorage.getItem("current-group"))).id){
+          modalJoinedGroupInstance.show();
+        }else if (group.studentList.length == 4) {
+          console.log(group);
+          modalGroupFullInstance.show();
+        }else{
+          confirmModalInstance.show();
+        }
+        sessionStorage.setItem("group",JSON.stringify(group));
+      })
+      bottom3.appendChild(button);
+      bottom2.appendChild(bottom3);
+    }
+    bottom.appendChild(bottom2);
+    div.appendChild(bottom);
   return div;
 }
-
 const displayPagination = async function (pageable) {
   const pagination = document.querySelector('.pagination');
   console.trace();
@@ -421,22 +453,18 @@ const onFiltered = async function () {
   let user = JSON.parse(sessionStorage.getItem("user"));
   if (searchSelection.value === 'capstone') {
     searchInput.placeholder = 'Please enter Capstone Name';
-
-    if (user.role ==="student"){
-      filterContainer.removeAttribute("style");
-    }
+    filterContainer.removeAttribute("style");
+    
     await updateCapstone(0);
   } else if (searchSelection.value === 'group') {
     searchInput.placeholder = 'Please enter Group Name';
-    if (user.role ==="student"){
-      filterContainer.setAttribute("style","height: 125px");
-    }
+    filterContainer.setAttribute("style","height: 125px");
+    
     await updateGroup(0);
   } else if (searchSelection.value === 'company') {
     searchInput.placeholder = 'Please enter Company Name';
-    if (user.role ==="student"){
-      filterContainer.setAttribute("style","height: 125px");
-    }
+    filterContainer.setAttribute("style","height: 125px");
+    
     await updateCompany(0);
   }
 };
@@ -561,8 +589,7 @@ async function updateCapstoneModal(capstone) {
 }
 
 searchSelection.dispatchEvent(new Event('change'));
-// onFiltered();
-
 updateCompanyList();
 updateSupervisorList();
 listenProfileBehave();
+

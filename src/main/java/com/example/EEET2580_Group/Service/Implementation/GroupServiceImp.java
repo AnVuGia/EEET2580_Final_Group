@@ -59,9 +59,11 @@ public class GroupServiceImp implements GroupService {
 
     @Override
     public void updateGroup(GroupDto groupDto) {
-        List<StudentAcc> studentNewList = new ArrayList<>(groupDto.getStudentList().size());
+        List<StudentAcc> studentNewList = new ArrayList<>();
         GroupEntity group = this.groupRepository.findById(groupDto.getId()).get();
-        if (studentNewList.size() == 0){
+        System.out.println(groupDto.getId());
+        if (groupDto.getStudentList().size() == 0){
+            System.out.println("Size = 0");
             List<StudentAcc> tempStudent = this.studentAccRepository
                         .findByGroup(this.groupRepository.findById(groupDto.getId()).get());
             for (StudentAcc i : tempStudent){
@@ -70,31 +72,32 @@ public class GroupServiceImp implements GroupService {
             groupRepository.deleteById(groupDto.getId());
             return;
         }
+        //get the new Student List
         for (StudentAccDto i : groupDto.getStudentList()){
             StudentAcc tempStudent = this.studentAccRepository.findByUsername(i.getUsername());
+            tempStudent.setGroup(group);
+            System.out.println("update group");
             studentNewList.add(tempStudent);
         }
         //oldGroup
         //update group for student if they left
-        for (StudentAcc i : group.getStudentAccList()){
-            if (!studentNewList.contains(i)){
-               i.setGroup(null);
+        for (StudentAcc i : group.getStudentAccList()) {
+            if (!studentNewList.contains(i)) {
+                i.setGroup(null);
             }
         }
-        GroupEntity toBeSaved = new GroupEntity();
-        toBeSaved.setStudentAccList(studentNewList);
-        toBeSaved.setGroupName(groupDto.getGroupName());
-        toBeSaved.setCapstoneId(
-                this.capstoneProjectRepository.findById(groupDto.getCapstone().getId()).get());
-        groupRepository.save(toBeSaved);
+        group.setStudentAccList(studentNewList);
+        group.setGroupName(groupDto.getGroupName());
+        if (groupDto.getCapstone()!=null){
+            group.setCapstoneId(
+                    this.capstoneProjectRepository.findById(groupDto.getCapstone().getId()).get());
+            groupRepository.save(group);
+            return;
+        }else{
+            group.setCapstoneId(null);
+        }
+        this.groupRepository.save(group);
     }
-
-
-//    @Override
-//    public List<GroupEntity> getAllGroup() {
-//        return groupRepository.findAll();
-//    }
-
     @Override
     public Page<GroupEntity> getAllGroup(String groupName, Pageable page) {
         return groupName.isEmpty()?groupRepository.findAll(page):
