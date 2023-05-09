@@ -40,7 +40,7 @@ public class StudentAcc extends Account{
     public List<String> getSkills() {
         return this.skills;
     }
-
+    
     public void setAccount(Account account) {
         username = account.getUsername();
         password = account.getPassword();

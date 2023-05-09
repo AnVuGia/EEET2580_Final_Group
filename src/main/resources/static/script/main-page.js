@@ -7,6 +7,7 @@ const createGroupBtn = document.querySelector('.create-group-btn');
 const disSection = document.querySelector('.display-section');
 const displayResult = document.querySelector('.display-result-search');
 const groupListContainer = document.querySelector('.group-list');
+const user = JSON.parse(sessionStorage.getItem('user'));
 const studentCapstoneModalEl = document.querySelector(
   '#student-capstone-modal'
 );
@@ -75,9 +76,18 @@ function headerBar() {
       oldTarget = ev.target;
     });
 }
+async function setProfileImage() {
+  if (user.imageId != null) {
+    const profileImageEl = document.querySelector(
+      '.img-thumbnail mx-auto d-block acc-img'
+    );
+    const imgURL = await getImage(user.imageId);
+    profileImageEl.setAttribute('src', imgURL);
+  }
+}
+setProfileImage();
 headerBar();
 function setVisibiltySearchPage(target) {
-  const user = JSON.parse(sessionStorage.getItem('user'));
   if (target.textContent === 'Search') {
     disSection.textContent = 'Search';
     dashboardView.setAttribute('hidden', 'hidden');
