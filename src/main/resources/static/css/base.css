@@ -36,9 +36,9 @@ body {
   font-size: 1.5rem;
 }
 .btn:hover {
+  cursor: pointer;
   background-color: var(--grey);
   color: black;
-  cursor: pointer;
 }
 .loading-spinner {
   width: 40px;

@@ -122,3 +122,13 @@ async function getImage(imageId) {
   const response = await fetch(url);
   return response.url;
 }
+
+
+function updateSuccessModal(msg){
+  const msgDiv = document.querySelector(".successful-modal");
+  msgDiv.textContent = msg;
+}
+function updateDangerModal(msg){
+  const msgDiv = document.querySelector(".danger-modal");
+  msgDiv.textContent = msg;
+}
