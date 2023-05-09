@@ -21,6 +21,7 @@ public class StudentServiceImp implements StudentService {
         oldStudent.setContact(newStudent.getContact());
         oldStudent.setEmail(newStudent.getEmail());
         oldStudent.setMajor(newStudent.getMajor());
+        oldStudent.setPassword(newStudent.getPassword());
 //        oldStudent.setSkills(newStudent.getSkills());
         //image, bib, group
     }
