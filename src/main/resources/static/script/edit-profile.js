@@ -1,5 +1,5 @@
-const SaveChangeBtn = document.getElementById('SaveProfile');
-const EditBtn = document.getElementById('EditBtn');
+const SaveChangeBtn = document.getElementById('submit-btn');
+
 const SaveBib = document.getElementById('SaveBib');
 const CapabilityCreateBtn = document.getElementById('CapabilityCreateBtn');
 const name = document.getElementById('profile_name');
@@ -10,7 +10,7 @@ const email = document.getElementById('profile_email');
 const session = sessionStorage.getItem('user');
 const user = JSON.parse(session);
 
-
+let testing;
 let StudentName;
 let StudentMajor;
 let StudentContact;
@@ -32,11 +32,15 @@ async function ViewAll() {
     LoadData(result2);
 }
 
+ViewAll();
+
 function LoadData(result2) {
-    let StudentName = result2.studentName;
+    let StudentName = result2.name;
+    console.log(result2.name);
     let StudentMajor = result2.major;
     let StudentContact = result2.contact;
     let StudentEmail = result2.email;
+   
 
     const name = document.getElementById('profile_name');
     const major = document.getElementById('profile_major');
@@ -59,6 +63,7 @@ function DeleteAllSkills() {
     while (Capabilityul.firstChild) {
         Capabilityul.removeChild(Capabilityul.firstChild);
     }
+
 }
 async function RewriteAllSkills(){
     const endpoint = user.username;
@@ -78,6 +83,7 @@ function LoadSkills(result2) {
     const Capabilityul = document.getElementById('capability');
     for (let i = 0; i < result2.skills.length; i++) {
         const li = document.createElement("li");
+        li.className = 'profile_li';
         li.textContent = result2.skills[i];
         Capabilityul.appendChild(li);
     }
@@ -89,11 +95,14 @@ function LoadModal(result2) {
     const Modalmajor = document.getElementById('NewMajor');
     const Modalcontact = document.getElementById('NewContact');
     const Modalemail = document.getElementById('NewEmail');
+    const Modalpassword = document.getElementById('NewPassword');
 
-    Modalname.value = result2.studentName;
+    Modalname.value = result2.name;
     Modalmajor.value = result2.major;
     Modalcontact.value = result2.contact;
     Modalemail.value = result2.email;
+    Modalpassword.value = result2.password;
+
     const ul = document.querySelector('#capability');
     const li = ul.querySelectorAll('li');
     const liCount = ul.querySelectorAll('li').length;
@@ -124,69 +133,79 @@ CapabilityCreateBtn.addEventListener('click', () => {
     const CapabilitiesCreateInput = document.getElementById('CapabilitiesCreateInput');
 
     if (CapabilitiesCreateInput.value != "") {
-        const newSkill = CapabilitiesCreateInput.value;
-        const ul = document.querySelector('#capability');
-        const newli = document.createElement('li');
-        newli.textContent = newSkill;
-        newli.className = 'profile_li'
-        ul.appendChild(newli);
-        reloadSkills();
-    }
-})
-
-SaveBib.addEventListener('click', () => {
-    const newBib = document.getElementById('Bibliography').value;
-    const Bib = document.getElementById('Bib');
-    if (newBib != "") {
-        Bib.innerHTML = newBib;
-    }
-})
-
-EditBtn.addEventListener('click', () => {
-   
-})
-
-function DeleteSkill(skill) {
-    return function () {
-        const ul = document.querySelector('#capability');
-        const li = ul.querySelectorAll('li');
-        const liCount = ul.querySelectorAll('li').length;
-        for (let i = 0; i < liCount; i++) {
-            const oldSkill = li[i].textContent;
-            if (oldSkill === skill) {
-                ul.removeChild(li[i]);
-                break;
-            }
-        }
-        reloadSkills();
-    }
-
-}
-function reloadSkills() {
-    const ul = document.querySelector('#capability');
-    const li = ul.querySelectorAll('li');
-    const liCount = ul.querySelectorAll('li').length;
-    const modalUl = document.querySelector('#ModalCapability');
-    const ModalLi = modalUl.getElementsByTagName('li');
-    for (let i = ModalLi.length - 1; i >= 0; i--) {
-        modalUl.removeChild(ModalLi[i]);
-    }
-
-    for (let i = 0; i < liCount; i++) {
-        const skill = li[i].textContent;
+         const newSkill = CapabilitiesCreateInput.value;
+        // const ul = document.querySelector('#capability');
+        // const newli = document.createElement('li');
+        // newli.textContent = newSkill;
+        // newli.className = 'profile_li'
+        // ul.appendChild(newli);
+        const modalUl = document.querySelector('#ModalCapability');
         const modalLi = document.createElement('li');
-        modalLi.textContent = skill;
+        modalLi.textContent = newSkill;
         modalLi.className = 'list-group-item'
         const DelteBtn = document.createElement('Button');
         DelteBtn.id = 'deleteBtn'
         DelteBtn.classList.add("btn", "btn-danger");
         DelteBtn.innerHTML = "Delete";
-        DelteBtn.addEventListener('click', DeleteSkill(skill));
+        DelteBtn.addEventListener('click', DeleteSkill(newSkill));
         modalLi.appendChild(DelteBtn);
         modalUl.appendChild(modalLi);
     }
+})
+
+// SaveBib.addEventListener('click', () => {
+//     const newBib = document.getElementById('Bibliography').value;
+//     const Bib = document.getElementById('Bib');
+//     if (newBib != "") {
+//         Bib.innerHTML = newBib;
+//     }
+// })
+
+
+
+function DeleteSkill(skill) {
+    return function () {
+        const modalUl = document.querySelector('#ModalCapability');
+        const modalli = modalUl.querySelectorAll('li');
+        const liCount = modalUl.querySelectorAll('li').length;
+        for(let i = 0 ; i < liCount; i++){
+            const text = modalli[i].textContent.trim();
+            const deleteIndex = text.indexOf('Delete');
+            const oldSkill = text.substring(0, deleteIndex).trim();
+            if(oldSkill === skill){
+                modalUl.removeChild(modalli[i]);
+            }   
+        }
+    }
 
 }
+
+// function reloadSkills() {
+   
+//     const liCount = ul.querySelectorAll('li').length;
+//     const modalUl = document.querySelector('#ModalCapability');
+//     const ModalLi = modalUl.getElementsByTagName('li');
+//     for (let i = ModalLi.length - 1; i >= 0; i--) {
+//         modalUl.removeChild(ModalLi[i]);
+//     }
+
+//     for (let i = 0; i < liCount; i++) {
+//         const skill = li[i].textContent;
+//         const modalLi = document.createElement('li');
+//         modalLi.textContent = skill;
+//         modalLi.className = 'list-group-item'
+//         const DelteBtn = document.createElement('Button');
+//         DelteBtn.id = 'deleteBtn'
+//         DelteBtn.classList.add("btn", "btn-danger");
+//         DelteBtn.innerHTML = "Delete";
+//         DelteBtn.addEventListener('click', DeleteSkill(skill));
+//         modalLi.appendChild(DelteBtn);
+//         modalUl.appendChild(modalLi);
+//     }
+
+// }
+
+
 SaveChangeBtn.addEventListener('click', () => {
     UpdateStudentPersona(user.id);
     UpdateStudentSkills();
@@ -204,12 +223,14 @@ async function UpdateStudentPersona(studentID) {
     NewMajor = document.getElementById('NewMajor').value;
     NewContact = document.getElementById('NewContact').value;
     NewEmail = document.getElementById('NewEmail').value;
+    NewPassword = document.getElementById('NewPassword').value;
 
     const newStudentPersona = {
         studentName: NewName,
         email: NewEmail,
         major: NewMajor,
-        contact: NewContact
+        contact: NewContact,
+        password :NewPassword
     };
 
     try {
@@ -279,5 +300,4 @@ async function UpdateStudentSkills() {
 
 
 
-ViewAll();
 

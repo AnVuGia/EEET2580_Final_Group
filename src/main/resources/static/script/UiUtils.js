@@ -39,11 +39,15 @@ function createCapstoneCard(capstone) {
           !!capstone.capstoneColor ? capstone.capstoneColor : '#BD3C14'
         }" class="capstone-item-color"></div>
             <div class="capstone-item-info">
-            <p class="item-name">${capstone.projectTitle}</p>
-            <p class="course-code">Company: ${capstone.company.name}</p>
-            <p class="time-enrolled">Supervisor: ${capstone.supervisor.name}</p>
+            <p class="item-name fs-3">${capstone.projectTitle}</p>
+            <p class="course-code text-primary">${capstone.company.name}</p>
+            <p class="time-enrolled text-secondary">${
+              capstone.supervisor.name
+            }</p>
         </div>  
     `;
+  const titleEl = capItem.querySelector('.item-name');
+  titleEl.style.color = capstone.capstoneColor;
   return capItem;
 }
 function createSpinningAnimation() {

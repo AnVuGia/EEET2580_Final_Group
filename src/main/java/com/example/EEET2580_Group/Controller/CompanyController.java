@@ -58,6 +58,4 @@ public class CompanyController {
         companyService.updateCompanyById(id, companyAccDto);
     }
 
-
-
 }

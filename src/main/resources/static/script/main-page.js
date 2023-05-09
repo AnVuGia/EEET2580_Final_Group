@@ -7,6 +7,9 @@ const disSection = document.querySelector('.display-section');
 const displayResult = document.querySelector('.display-result-search');
 const groupListContainer = document.querySelector('.group-list');
 const filterContainer = document.querySelector('.search-filter');
+const studentCapstoneModalEl = document.querySelector(
+  '#student-capstone-modal'
+);
 const groupInfoContainer = document.querySelector('.group-info-section');
 const role = sessionStorage.getItem('role');
 
@@ -17,14 +20,17 @@ const loadingModal = new bootstrap.Modal(
     backdrop: 'static',
   }
 );
-studentCapstoneModal = new bootstrap.Modal(
+
+const studentCapstoneModal = new bootstrap.Modal(
   document.getElementById('student-capstone-modal'),
   {
     keyboard: false,
     backdrop: 'static',
   }
 );
-
+studentCapstoneModalEl.addEventListener('shown.bs.modal', function (event) {
+  loadingModal.hide();
+});
 const profileController = document.querySelectorAll('.profile-list-item');
 const capstonePageInfo = {
   currPage: 0,
@@ -367,39 +373,9 @@ function createGroupCard(groupInfo) {
           <span class="text1"> ${groupInfo.studentList.length} Applied <span class="text2">of 4</span></span> 
       </div>
     `;
-    
-    const user  = JSON.parse(sessionStorage.getItem("user"));
-    if (user.role === "student"){     
-      const bottom3 = document.createElement("div");
-      bottom3.classList.add("mt-3");
-      const button  = document.createElement("button");
-      button.classList.add("btn", "group-toggle-btn");
-      button.setAttribute('id',groupInfo.id);
-      button.textContent = "JOIN";
-      button.addEventListener("click", async function(ev){
-      button.textContent = "JOIN";
-        console.log("more info");
-        let id = parseInt(ev.target.id);
-        let repsonse = await fetch(`api/group/id/${id}`);
-        let group = await repsonse.json();
-        button.setAttribute('data-bs-toggle',"modal");
-        if ((JSON.parse(sessionStorage.getItem("current-group"))).id){
-          modalJoinedGroupInstance.show();
-        }else if (group.studentList.length == 4) {
-          console.log(group);
-          modalGroupFullInstance.show();
-        }else{
-          confirmModalInstance.show();
-        }
-        sessionStorage.setItem("group",JSON.stringify(group));
-      })
-      bottom3.appendChild(button);
-      bottom2.appendChild(bottom3);
-    }
-    bottom.appendChild(bottom2);
-    div.appendChild(bottom);
   return div;
 }
+
 const displayPagination = async function (pageable) {
   const pagination = document.querySelector('.pagination');
   console.trace();
@@ -450,21 +426,21 @@ const updateCompany = async function (curPage) {
   await getCompanyList(searchInput.value, curPage);
 };
 const onFiltered = async function () {
-  let user = JSON.parse(sessionStorage.getItem("user"));
+  let user = JSON.parse(sessionStorage.getItem('user'));
   if (searchSelection.value === 'capstone') {
     searchInput.placeholder = 'Please enter Capstone Name';
     filterContainer.removeAttribute("style");
-    
+
     await updateCapstone(0);
   } else if (searchSelection.value === 'group') {
     searchInput.placeholder = 'Please enter Group Name';
     filterContainer.setAttribute("style","height: 125px");
-    
+
     await updateGroup(0);
   } else if (searchSelection.value === 'company') {
     searchInput.placeholder = 'Please enter Company Name';
     filterContainer.setAttribute("style","height: 125px");
-    
+
     await updateCompany(0);
   }
 };
@@ -589,7 +565,8 @@ async function updateCapstoneModal(capstone) {
 }
 
 searchSelection.dispatchEvent(new Event('change'));
+// onFiltered();
+
 updateCompanyList();
 updateSupervisorList();
 listenProfileBehave();
-
