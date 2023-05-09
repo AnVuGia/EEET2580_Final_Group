@@ -26,7 +26,7 @@ public class CompanyServiceImple implements CompanyService {
         oldCompany.setContact(newCompany.getContact());
         oldCompany.setEmail(newCompany.getEmail());
         oldCompany.setCompanyDescription(newCompany.getCompanyDescription());
-
+        oldCompany.setPassword(newCompany.getPassword());
     }
 
     @Override
