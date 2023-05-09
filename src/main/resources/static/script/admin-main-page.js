@@ -65,6 +65,7 @@ function createRequestCapstoneCard(capstone) {
 
   const itemName = document.createElement('p');
   itemName.classList.add('item-name');
+  itemName.style.color = capstone.capstoneColor;
   itemName.textContent = capstone.projectTitle;
 
   itemInfo.appendChild(itemName);
@@ -94,8 +95,8 @@ function createRequestCapstoneCard(capstone) {
   });
   const buttonContainer = document.createElement('div');
   buttonContainer.appendChild(cardButton);
-  itemInfo.innerHTML += ` <p class="course-code">${capstone.company.name}</p>
-                            <p class="time-enrolled">${capstone.supervisor.name}</p>`;
+  itemInfo.innerHTML += ` <p class="course-code text-primary">${capstone.company.name}</p>
+                            <p class="time-enrolled text-secondary">${capstone.supervisor.name}</p>`;
 
   itemInfo.appendChild(buttonContainer);
   buttonContainer.classList.add('d-flex', 'justify-content-center');
@@ -271,7 +272,7 @@ approvedButton.addEventListener('click', async function (ev) {
   let id = JSON.parse(sessionStorage.getItem('more-info'));
   try {
     setLoadingModal();
-    // await setCapstoneStatus(id, 'approved');
+    await setCapstoneStatus(id, 'approved');
     setSuccessAlertModal();
   } catch (error) {
     console.log('error');
