@@ -6,7 +6,7 @@ const headerLogo = document.querySelector('.navbar-brand');
 const disSection = document.querySelector('.display-section');
 const displayResult = document.querySelector('.display-result-search');
 const groupListContainer = document.querySelector('.group-list');
-const user = JSON.parse(sessionStorage.getItem('user'));
+// const user = JSON.parse(sessionStorage.getItem('user'));
 const filterContainer = document.querySelector('.search-filter');
 const studentCapstoneModalEl = document.querySelector(
   '#student-capstone-modal'
@@ -385,7 +385,7 @@ function createGroupCard(groupInfo) {
       </div>
     `;
 
-    let currentGroup = JSON.parse(sessionStorage.getItem('current-group'));
+    
 
     if (user.role === "student"){
         const button  = document.createElement("button");
@@ -395,6 +395,7 @@ function createGroupCard(groupInfo) {
 
       
         button.addEventListener("click", async function(ev){
+          let currentGroup = JSON.parse(sessionStorage.getItem('current-group'));
           let response = await fetch(`api/group/id/${ev.target.id}`);
           let group = await response.json();
           sessionStorage.setItem("group",JSON.stringify(group));
