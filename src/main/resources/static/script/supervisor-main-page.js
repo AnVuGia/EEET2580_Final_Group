@@ -30,7 +30,10 @@ async function updateUI() {
   capstoneContainer.innerHTML = '';
   capstoneListData.forEach((capstone) => {
     const capstoneEl = createCapstoneCardWithEditButton(capstone);
-    capstoneContainer.appendChild(capstoneEl);
+    const div = document.createElement("div");
+    div.classList.add("col","col-lg-12","col-xl")
+    div.appendChild(capstoneEl);
+    capstoneContainer.appendChild(div);
   });
   superviseCapstoneSection.totalPages = capstoneList.totalPages;
 

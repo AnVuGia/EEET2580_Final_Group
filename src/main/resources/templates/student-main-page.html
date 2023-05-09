@@ -31,7 +31,7 @@
   </head>
   <body>
     <main class="main-section">
-      <nav class="navbar navbar-expand-md header-container py-4">
+      <nav class="navbar navbar-expand-lg header-container py-4">
         <div class="container-fluid">
           <button
             class="navbar-toggler"
@@ -81,10 +81,10 @@
               </li>
             </ul>
           </div>
-          <p class="mb-0 me-3 welcome-message"></p>
+          <p class="mb-0 me-3 d-none d-xl-block welcome-message"></p>
           <div class="nav me-5 d-none d-md-block">
             <img
-              class="img-thumbnail mx-auto d-block acc-img"
+              class="img-thumbnail mx-auto d-none d-lg-block acc-img"
               src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
               style="border-radius: 50%"
               alt=""
@@ -104,12 +104,12 @@
         </div>
       </nav>
       <div class="capstone-panel">
-        <div class="capstone-pannel-in m-auto m-md-0 display-section">
+        <div class="capstone-pannel-in m-auto ms-lg-5 display-section">
           Dashboard
         </div>
         <button
           type="button"
-          class="btn create-group-btn d-none d-md-block"
+          class="btn create-group-btn d-none d-lg-block"
           data-bs-toggle="modal"
           data-bs-target="#staticBackdrop"
         >
@@ -463,10 +463,10 @@
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="loading-modal">Loading</h5>
+              <h2 class="modal-title" id="loading-modal">Loading</h2>
               <button
                 type="button"
-                class="btn-close"
+                class="btn-close fs3"
                 data-bs-dismiss="modal"
                 aria-label="Close"
               ></button>

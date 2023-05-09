@@ -385,6 +385,5 @@ function setErrorAlertModal() {
 alertModalEl.addEventListener('hidden.bs.modal', function (event) {
   updateRequestUI();
 });
-console.log(alertModalEl);
-
+// console.log(alertModalEl);
 updateRequestUI();
