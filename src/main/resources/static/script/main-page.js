@@ -7,7 +7,9 @@ const createGroupBtn = document.querySelector('.create-group-btn');
 const disSection = document.querySelector('.display-section');
 const displayResult = document.querySelector('.display-result-search');
 const groupListContainer = document.querySelector('.group-list');
-
+const studentCapstoneModalEl = document.querySelector(
+  '#student-capstone-modal'
+);
 const groupInfoContainer = document.querySelector('.group-info-section');
 const role = sessionStorage.getItem('role');
 
@@ -15,14 +17,16 @@ const loadingModal = new bootstrap.Modal(
   document.getElementById('loading-modal')
 );
 
-studentCapstoneModal = new bootstrap.Modal(
+const studentCapstoneModal = new bootstrap.Modal(
   document.getElementById('student-capstone-modal'),
   {
     keyboard: false,
     backdrop: 'static',
   }
 );
-
+studentCapstoneModalEl.addEventListener('shown.bs.modal', function (event) {
+  loadingModal.hide();
+});
 const profileController = document.querySelectorAll('.profile-list-item');
 const capstonePageInfo = {
   currPage: 0,
@@ -541,7 +545,7 @@ async function updateCapstoneModal(capstone) {
   const companyProfilePicEl = document.querySelector(
     '#company-profile-pic img'
   );
-
+  studentCapstoneModal.hide();
   if (capstone.imageId !== null) {
     const src = await getImage(capstone.imageId);
     companyProfilePicEl.src = src;
@@ -549,7 +553,7 @@ async function updateCapstoneModal(capstone) {
     companyProfilePicEl.src = 'images/login-signup/capstone-logo.png';
   }
   console.log(companyProfilePicEl);
-  studentCapstoneModal.hide();
+
   companyProfilePicEl.addEventListener('load', function () {
     console.log('loaded');
     loadingModal.hide();
