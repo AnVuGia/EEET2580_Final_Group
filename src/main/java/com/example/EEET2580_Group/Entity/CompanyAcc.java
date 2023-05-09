@@ -39,7 +39,8 @@ public class CompanyAcc extends Account {
 
     @Column(name = "contact")
     private Long contact;
-
+    @Column(name = "profile_image")
+    private Long imageId;
     public void setAccount(Account account) {
         username = account.getUsername();
         password = account.getPassword();

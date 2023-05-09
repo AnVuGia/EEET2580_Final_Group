@@ -15,7 +15,7 @@ public class SupervisorAccDto{
     private String email;
     private String bio;
     private Long contact;
-
+    private Long imageId;
     public SupervisorAccDto(SupervisorAcc supervisorAcc) {
         this.id = supervisorAcc.getId();
         this.name = supervisorAcc.getName();
@@ -23,5 +23,6 @@ public class SupervisorAccDto{
         this.email = supervisorAcc.getEmail();
         this.bio = supervisorAcc.getBio();
         this.contact = supervisorAcc.getContact();
+        this.imageId = supervisorAcc.getImageId();
     }
 }
