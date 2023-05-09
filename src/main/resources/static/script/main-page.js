@@ -408,6 +408,7 @@ function createGroupCard(groupInfo) {
       let response = await fetch(`api/group/id/${ev.target.id}`);
       let group = await response.json();
       sessionStorage.setItem('group', JSON.stringify(group));
+      let currentGroup = sessionStorage.getItem('group');
       console.log(group);
       if (currentGroup.id) {
         modalJoinedGroupInstance.show();
@@ -597,10 +598,10 @@ async function updateCapstoneModal(capstone) {
     companyProfilePicEl.src = 'images/login-signup/capstone-logo.png';
   }
   studentCapstoneModal.hide();
-
-  companyProfilePicEl.addEventListener('load', function () {
+  companyProfilePicEl.addEventListener('load', async function () {
     studentCapstoneModal.show();
   });
+  await updateGroupSection(capstone);
   capstoneDescriptionEl.textContent = capstone.projectDescription;
   capstoneOutcomEl.textContent = capstone.projectObjectives;
   capstoneRequirementsEl.textContent = capstone.technicalRequirements;
@@ -614,6 +615,26 @@ async function updateCapstoneModal(capstone) {
   capstoneTitleEl.textContent = capstone.projectTitle;
 
   console.log(capstone);
+}
+async function updateGroupSection(capstone) {
+  const groupSection = document.querySelector('#group-modal-container');
+  groupSection.innerHTML = ``;
+  groupSection.innerHTML = `<h3 class="text-center">Loading...</h3>`;
+
+  console.log('groupSection');
+
+  const groupList = await fetch(`api/group/capstone/${capstone.id}`);
+  const groupListResult = await groupList.json();
+  if (groupListResult.content.length === 0) {
+    groupSection.innerHTML = `<h3 class="text-center">No Group Found</h3>`;
+    return;
+  }
+  groupSection.innerHTML = ``;
+  const groupListResultContent = groupListResult.content;
+  groupListResultContent.forEach((group) => {
+    const groupSectionCard = createGroupCard(group);
+    groupSection.appendChild(groupSectionCard);
+  });
 }
 
 searchSelection.dispatchEvent(new Event('change'));
