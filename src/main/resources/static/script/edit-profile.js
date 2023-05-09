@@ -95,7 +95,7 @@ function LoadModal(result2) {
     const Modalcontact = document.getElementById('NewContact');
     const Modalemail = document.getElementById('NewEmail');
 
-    Modalname.value = result2.studentName;
+    Modalname.value = result2.name;
     Modalmajor.value = result2.major;
     Modalcontact.value = result2.contact;
     Modalemail.value = result2.email;
@@ -165,7 +165,7 @@ function DeleteSkill(skill) {
         const modalli = modalUl.querySelectorAll('li');
         const liCount = modalUl.querySelectorAll('li').length;
         for(let i = 0 ; i < liCount; i++){
-            const text = modalli[i].textContent.textContent.trim();
+            const text = modalli[i].textContent.trim();
             const deleteIndex = text.indexOf('Delete');
             const oldSkill = text.substring(0, deleteIndex).trim();
             if(oldSkill === skill){
@@ -221,7 +221,7 @@ async function UpdateStudentPersona(studentID) {
     NewEmail = document.getElementById('NewEmail').value;
 
     const newStudentPersona = {
-        name: NewName,
+        studentName: NewName,
         email: NewEmail,
         major: NewMajor,
         contact: NewContact
