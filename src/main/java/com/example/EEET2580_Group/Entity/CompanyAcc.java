@@ -28,6 +28,7 @@ public class CompanyAcc extends Account {
     @OneToMany(mappedBy = "company")
     @JsonBackReference
     private List<CapstoneProject> capstoneProjects;
+
     @Column(name = "username")
     private String username;
 

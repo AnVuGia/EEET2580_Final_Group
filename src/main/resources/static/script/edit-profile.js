@@ -40,6 +40,7 @@ function LoadData(result2) {
     let StudentMajor = result2.major;
     let StudentContact = result2.contact;
     let StudentEmail = result2.email;
+   
 
     const name = document.getElementById('profile_name');
     const major = document.getElementById('profile_major');
@@ -94,11 +95,14 @@ function LoadModal(result2) {
     const Modalmajor = document.getElementById('NewMajor');
     const Modalcontact = document.getElementById('NewContact');
     const Modalemail = document.getElementById('NewEmail');
+    const Modalpassword = document.getElementById('NewPassword');
 
-    Modalname.value = result2.studentName;
+    Modalname.value = result2.name;
     Modalmajor.value = result2.major;
     Modalcontact.value = result2.contact;
     Modalemail.value = result2.email;
+    Modalpassword.value = result2.password;
+
     const ul = document.querySelector('#capability');
     const li = ul.querySelectorAll('li');
     const liCount = ul.querySelectorAll('li').length;
@@ -165,7 +169,7 @@ function DeleteSkill(skill) {
         const modalli = modalUl.querySelectorAll('li');
         const liCount = modalUl.querySelectorAll('li').length;
         for(let i = 0 ; i < liCount; i++){
-            const text = modalli[i].textContent.textContent.trim();
+            const text = modalli[i].textContent.trim();
             const deleteIndex = text.indexOf('Delete');
             const oldSkill = text.substring(0, deleteIndex).trim();
             if(oldSkill === skill){
@@ -219,12 +223,14 @@ async function UpdateStudentPersona(studentID) {
     NewMajor = document.getElementById('NewMajor').value;
     NewContact = document.getElementById('NewContact').value;
     NewEmail = document.getElementById('NewEmail').value;
+    NewPassword = document.getElementById('NewPassword').value;
 
     const newStudentPersona = {
-        name: NewName,
+        studentName: NewName,
         email: NewEmail,
         major: NewMajor,
-        contact: NewContact
+        contact: NewContact,
+        password :NewPassword
     };
 
     try {
