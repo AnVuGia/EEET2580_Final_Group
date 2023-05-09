@@ -4,7 +4,9 @@ const groupNameInput = document.querySelector(".group-name-input");
 const groupSubmit = document.querySelector("#submit-group");
 const groupInfoSection = document.querySelector(".group-info-section");
 const groupSubmitButton = document.querySelector('.join-group-btn');
+const leaveGroupBtn = document.getElementById('leave-group-btn');
 const createGroupBtn = document.querySelector(".create-group-btn")
+const registerCapstoneBtn = document.querySelector("#register-btn");
 
 var modalJoinedGroup = document.getElementById("alertModal");  // Query the modal element
 var modalJoinedGroupInstance = new bootstrap.Modal(modalJoinedGroup);
@@ -21,6 +23,9 @@ var successAnnouncmentInstance = new bootstrap.Modal(successAnnouncment);
 var successLeaveAnnouncment = document.getElementById("group-left-successful");  // Query the modal element
 var successLeaveAnnouncmentInstance = new bootstrap.Modal(successLeaveAnnouncment);
 
+var groupLeavConfirm = document.getElementById("group-leave-confirm");  // Query the modal element
+var groupLeavConfirmInstance = new bootstrap.Modal(groupLeavConfirm);
+
 
 let group = JSON.parse(sessionStorage.getItem("current-group"));
 let user  = JSON.parse(sessionStorage.getItem("user"));
@@ -31,9 +36,30 @@ function updateSessionStorage(){
 
 }
 
+leaveGroupBtn.addEventListener("click", async function(ev){
+        loadingModal.show();
+        let index = findObjectIndex(group.studentList,user);
+        group.studentList.splice(index,1);
+        await fetch('api/group', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(group)
+          });
+        loadingModal.show();
+        await displayGroupInfo();
+        await updateGroup(0);
+        updateSuccessModal("You successfully left the group!");
+        successAnnouncmentInstance.show();
+})
+successAnnouncment.addEventListener("shown.bs.modal",function(ev){
+  loadingModal.hide();
+})
 //click this button to join the group in search
 groupSubmitButton.addEventListener("click", async function(ev){
   updateSessionStorage();
+  loadingModal.show();
   let groupToBeApplied = JSON.parse(sessionStorage.getItem("group"));
   groupToBeApplied.studentList.push(user);
   await fetch('api/group', {
@@ -47,8 +73,11 @@ groupSubmitButton.addEventListener("click", async function(ev){
   await updateGroup(0);
   await getCurrentGroup();
   await displayGroupInfo();
+  await getCurrentGroup();
 })
-
+successAnnouncment.addEventListener("shown.bs.modal",function(ev){
+    loadingModal.hide();
+})
 groupSubmit.addEventListener("click", async function(ev){
   groupInfoSection.innerHTML = '';
   groupInfoSection.appendChild(createSpinningAnimation());
@@ -110,19 +139,8 @@ const displayGroupInfo = async function(){
       const leavGroupBtn = document.createElement("button");
       leavGroupBtn.classList.add("btn");
       leavGroupBtn.textContent = "Leave Group";
-      leavGroupBtn.addEventListener("click",async function(ev){
-        let index = findObjectIndex(group.studentList,user);
-        group.studentList.splice(index,1);
-        await fetch('api/group', {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(group)
-          });
-
-        successLeaveAnnouncmentInstance.show();
-        await displayGroupInfo();
+      leavGroupBtn.addEventListener("click", function(ev){
+        groupLeavConfirmInstance.show();
       });
       leftSide.innerHTML += `
           <p class="group-capacity group-title" style ="margin-right: 8px;">${!!groupInfo.capstone?`${groupInfo.studentList.leng}/4 people`:""}</p>
@@ -178,4 +196,6 @@ const createGroup  = async function (){
     });
     await getCurrentGroup();
 }
+
+
 displayGroupInfo();

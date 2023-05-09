@@ -401,7 +401,7 @@ function createGroupCard(groupInfo) {
       </div>
     `;
 
-  let currentGroup = JSON.parse(sessionStorage.getItem('current-group'));
+    let currentGroup = JSON.parse(sessionStorage.getItem('current-group'));
 
   if (user.role === 'student') {
     const button = document.createElement('button');
@@ -409,25 +409,26 @@ function createGroupCard(groupInfo) {
     button.textContent = 'JOIN';
     button.setAttribute('id', groupInfo.id);
 
-    button.addEventListener('click', async function (ev) {
-      let response = await fetch(`api/group/id/${ev.target.id}`);
-      let group = await response.json();
-      sessionStorage.setItem('group', JSON.stringify(group));
-      console.log(group);
-      if (currentGroup.id) {
-        modalJoinedGroupInstance.show();
-        return;
-      } else if (group.studentList.length == 4) {
-        modalGroupFullInstance.show();
-        return;
-      }
-      confirmModalInstance.show();
-    });
-    bottom2.appendChild(button);
-  }
-
-  div.appendChild(bottom);
-  div.appendChild(bottom2);
+      
+        button.addEventListener("click", async function(ev){
+          let response = await fetch(`api/group/id/${ev.target.id}`);
+          let group = await response.json();
+          sessionStorage.setItem("group",JSON.stringify(group));
+          console.log(group);
+          if (currentGroup.id){
+              modalJoinedGroupInstance.show();
+              return;
+          }else if (group.studentList.length == 4){
+            modalGroupFullInstance.show();
+            return;
+          }
+          confirmModalInstance.show();
+        })
+        bottom2.appendChild(button);
+    }
+    
+    div.appendChild(bottom);
+    div.appendChild(bottom2);
   return div;
 }
 

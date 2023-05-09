@@ -441,7 +441,7 @@
                 Cancel
               </button>
               <button
-                id="submit-btn"
+                id="register-btn"
                 type="button"
                 class="btn modal-button-controller"
               >
@@ -511,7 +511,7 @@
             <div class="modal-body">
               <div class="alert alert-success d-flex align-items-center" role="alert">
                 <i class="fas fa-shield-check fs-3" style="color: #1dd510;"></i>
-                <div style="font-size: 1.6rem;">
+                <div class="successful-modal" style="font-size: 1.6rem;">
                   You have successfuly joined the group!
                 </div>
               </div>
@@ -554,7 +554,7 @@
             <div class="modal-body">
               <div class="alert alert-warning d-flex align-items-center" role="alert">
                 <i class="fas fa-exclamation-circle fs-3" style="margin-right: 8px;"></i>
-                <div style="font-size: 1.6rem;">
+                <div style="font-size: 1.6rem;" class="danger-modal">
                   The group is full!
                 </div>
               </div>
@@ -576,7 +576,7 @@
             <div class="modal-body" style="font-size: 1.6rem;">
               <div class="alert alert-primary d-flex align-items-center" role="alert">
                 <i class="fas fa-info fs-3" style="margin-right: 8px;"></i>
-                <div>
+                <div class="inform-modal">
                   Are you sure that you want to join?
                 </div>
               </div>
@@ -584,6 +584,28 @@
             <div class="modal-footer">
               <button type="button" class="btn " style="background-color: grey;" data-bs-dismiss="modal">Close</button>
               <button type="button" class="btn join-group-btn" style="background-color: var(--green)" data-bs-dismiss="modal">Yes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="group-leave-confirm" tabindex="-1" aria-labelledby="group-apply-confirm" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-2" id="group-apply-confirm">Announcement</h1>
+              <button type="button" class="btn-close fs-3" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="font-size: 1.6rem;">
+              <div class="alert alert-primary d-flex align-items-center" role="alert">
+                <i class="fas fa-info fs-3" style="margin-right: 8px;"></i>
+                <div class="inform-modal">
+                  Are you sure that you want to leave this group?
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn" style="background-color: grey;" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn" id ="leave-group-btn" style="background-color: var(--green)" data-bs-dismiss="modal">Yes</button>
             </div>
           </div>
         </div>
