@@ -27,7 +27,7 @@
   </head>
   <body>
     <main class="main-section">
-      <nav class="navbar navbar-expand-md header-container py-4">
+      <nav class="navbar navbar-expand-lg header-container py-4">
         <div class="container-fluid">
           <button
             class="navbar-toggler"
@@ -37,7 +37,7 @@
             aria-controls="navbarSupportedContent"
             aria-expanded="false"
             aria-label="Toggle navigation"
-            >p
+            >
           <span class="navbar-toggler-icon"></span>
           </button>
           <a class="navbar-brand" href="main-page.html">
@@ -64,10 +64,10 @@
               </li>
             </ul>
           </div>
-          <p class="mb-0 me-3 welcome-message"></p>
+          <p class="mb-0 me-3 d-none d-lg-block welcome-message"></p>
           <div class="nav me-5 d-none d-md-block">
             <img
-              class="img-thumbnail mx-auto d-block acc-img"
+              class="img-thumbnail mx-auto d-none d-lg-block acc-img"
               src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
               style="border-radius: 50%"
               alt=""
@@ -84,7 +84,7 @@
         </div>
       </nav>
       <div class="capstone-panel">
-        <div class="capstone-pannel-in m-auto m-md-0 display-section">
+        <div class="capstone-pannel-in m-auto ms-lg-5 display-section">
           Supervised Capstone List
         </div>
       </div>
@@ -134,9 +134,9 @@
         </div>
       </div>
       <div class="separator"></div>
-      <div class="container-fluid capstone-project-info dashboard-view">
-        <div class="request-capstone">
-          
+      <div class="capstone-project-info container dashboard-view">
+        <div class="request-capstone row gy-5">
+            
         </div>
         <div id="sup-pagination"></div>
       </div>
@@ -215,10 +215,10 @@
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="loading-modal-text">Loading</h5>
+              <h2 class="modal-title" id="loading-modal-text">Loading</h2>
               <button
                 type="button"
-                class="btn-close"
+                class="btn-close fs-3"
                 data-bs-dismiss="modal"
                 aria-label="Close"
               ></button>

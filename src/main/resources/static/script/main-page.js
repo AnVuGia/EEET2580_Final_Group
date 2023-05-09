@@ -6,13 +6,16 @@ const headerLogo = document.querySelector('.navbar-brand');
 const disSection = document.querySelector('.display-section');
 const displayResult = document.querySelector('.display-result-search');
 const groupListContainer = document.querySelector('.group-list');
-// let user = JSON.parse(sessionStorage.getItem('user'));
 const filterContainer = document.querySelector('.search-filter');
 const studentCapstoneModalEl = document.querySelector(
   '#student-capstone-modal'
 );
 const groupInfoContainer = document.querySelector('.group-info-section');
 const role = sessionStorage.getItem('role');
+
+function getUser (){
+    return JSON.parse(sessionStorage.getItem('user'));
+}
 
 const loadingModal = new bootstrap.Modal(
   document.getElementById('loading-modal'),
@@ -21,7 +24,6 @@ const loadingModal = new bootstrap.Modal(
     backdrop: 'static',
   }
 );
-
 const studentCapstoneModal = new bootstrap.Modal(
   document.getElementById('student-capstone-modal'),
   {
@@ -41,11 +43,6 @@ const capstonePageInfo = {
 var oldTarget = document.querySelector('.active');
 let sort = 'asc';
 let currentPage = 0;
-const convertString = function (string) {
-  var temp = string.split(' ');
-  return temp.join('%20');
-};
-
 headerLogo.addEventListener('click', function (ev) {
   ev.preventDefault();
   const currView = JSON.parse(role);
@@ -81,6 +78,7 @@ function headerBar() {
     });
 }
 async function setProfileImage() {
+  let user = getUser();
   if (user.imageId != null) {
     const profileImageEl = document.querySelector(
       '.img-thumbnail mx-auto d-block acc-img'
@@ -92,7 +90,7 @@ async function setProfileImage() {
 setProfileImage();
 headerBar();
 function setVisibiltySearchPage(target) {
-  // user = JSON.parse(sessionStorage.getItem('user'));
+  const user  = getUser();
   if (target.textContent === 'Search') {
     disSection.textContent = 'Search';
     dashboardView.setAttribute('hidden', 'hidden');
@@ -401,15 +399,12 @@ function createGroupCard(groupInfo) {
       </div>
     `;
 
-    let currentGroup = JSON.parse(sessionStorage.getItem('current-group'));
 
-  if (user.role === 'student') {
-    const button = document.createElement('button');
-    button.classList.add('btn', 'join-group-btn');
-    button.textContent = 'JOIN';
-    button.setAttribute('id', groupInfo.id);
-
-      
+    if (getUser().role === "student"){
+        const button  = document.createElement("button");
+        button.classList.add("btn","join-group-btn");
+        button.textContent = "JOIN";
+        button.setAttribute("id",groupInfo.id);
         button.addEventListener("click", async function(ev){
           let response = await fetch(`api/group/id/${ev.target.id}`);
           let group = await response.json();

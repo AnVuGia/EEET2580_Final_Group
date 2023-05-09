@@ -55,7 +55,6 @@ function createSpinningAnimation() {
   spinningEl.classList.add('loading-spinner');
   return spinningEl;
 }
-
 function displayWelcomMessage() {
   const user = JSON.parse(sessionStorage.getItem('user'));
   const greetingText = document.querySelector('.welcome-message');
@@ -122,8 +121,10 @@ async function getImage(imageId) {
   const response = await fetch(url);
   return response.url;
 }
-
-
+const convertString = function (string) {
+  var temp = string.split(' ');
+  return temp.join('%20');
+};
 function updateSuccessModal(msg){
   const msgDiv = document.querySelector(".successful-modal");
   msgDiv.textContent = msg;

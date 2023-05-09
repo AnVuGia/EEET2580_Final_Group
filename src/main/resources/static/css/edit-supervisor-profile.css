@@ -4,16 +4,8 @@
     font-weight: bold;
 }
 
-#profile-supervisor-bio {
-    font-size: 14px;
-}
-
 #profile-heading {
     font-size: 16px;
-}
-
-.profile-item label, p {
-    font-size: 14px;
 }
 
 .profile-item label {
