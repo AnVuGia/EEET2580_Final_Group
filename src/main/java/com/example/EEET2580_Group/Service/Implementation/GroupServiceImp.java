@@ -107,4 +107,9 @@ public class GroupServiceImp implements GroupService {
     public GroupEntity findGroupById(Long id){
         return this.groupRepository.findById(id).get();
     }
+
+    @Override
+    public Page<GroupEntity> findGroupByCapstoneProjectId(Long id, Pageable page) {
+        return this.groupRepository.findByCapstoneId(id,page);
+    }
 }

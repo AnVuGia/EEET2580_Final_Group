@@ -13,8 +13,8 @@ const studentCapstoneModalEl = document.querySelector(
 const groupInfoContainer = document.querySelector('.group-info-section');
 const role = sessionStorage.getItem('role');
 
-function getUser (){
-    return JSON.parse(sessionStorage.getItem('user'));
+function getUser() {
+  return JSON.parse(sessionStorage.getItem('user'));
 }
 
 const loadingModal = new bootstrap.Modal(
@@ -78,11 +78,11 @@ function headerBar() {
     });
 }
 async function setProfileImage() {
+  console.log('set profile image');
   let user = getUser();
   if (user.imageId != null) {
-    const profileImageEl = document.querySelector(
-      '.img-thumbnail mx-auto d-block acc-img'
-    );
+    const profileImageEl = document.querySelector('.img-thumbnail ');
+    console.log(profileImageEl);
     const imgURL = await getImage(user.imageId);
     profileImageEl.setAttribute('src', imgURL);
   }
@@ -90,7 +90,7 @@ async function setProfileImage() {
 setProfileImage();
 headerBar();
 function setVisibiltySearchPage(target) {
-  const user  = getUser();
+  const user = getUser();
   if (target.textContent === 'Search') {
     disSection.textContent = 'Search';
     dashboardView.setAttribute('hidden', 'hidden');
@@ -399,31 +399,30 @@ function createGroupCard(groupInfo) {
       </div>
     `;
 
+  if (getUser().role === 'student') {
+    const button = document.createElement('button');
+    button.classList.add('btn', 'join-group-btn');
+    button.textContent = 'JOIN';
+    button.setAttribute('id', groupInfo.id);
+    button.addEventListener('click', async function (ev) {
+      let response = await fetch(`api/group/id/${ev.target.id}`);
+      let group = await response.json();
+      sessionStorage.setItem('group', JSON.stringify(group));
+      console.log(group);
+      if (currentGroup.id) {
+        modalJoinedGroupInstance.show();
+        return;
+      } else if (group.studentList.length == 4) {
+        modalGroupFullInstance.show();
+        return;
+      }
+      confirmModalInstance.show();
+    });
+    bottom2.appendChild(button);
+  }
 
-    if (getUser().role === "student"){
-        const button  = document.createElement("button");
-        button.classList.add("btn","join-group-btn");
-        button.textContent = "JOIN";
-        button.setAttribute("id",groupInfo.id);
-        button.addEventListener("click", async function(ev){
-          let response = await fetch(`api/group/id/${ev.target.id}`);
-          let group = await response.json();
-          sessionStorage.setItem("group",JSON.stringify(group));
-          console.log(group);
-          if (currentGroup.id){
-              modalJoinedGroupInstance.show();
-              return;
-          }else if (group.studentList.length == 4){
-            modalGroupFullInstance.show();
-            return;
-          }
-          confirmModalInstance.show();
-        })
-        bottom2.appendChild(button);
-    }
-    
-    div.appendChild(bottom);
-    div.appendChild(bottom2);
+  div.appendChild(bottom);
+  div.appendChild(bottom2);
   return div;
 }
 

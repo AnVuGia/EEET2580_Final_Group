@@ -1,5 +1,6 @@
 package com.example.EEET2580_Group.Repository;
 
+import com.example.EEET2580_Group.Entity.CapstoneProject;
 import com.example.EEET2580_Group.Entity.GroupEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,4 +20,7 @@ public interface GroupRepository extends JpaRepository<GroupEntity, Long> {
 
     @Query("SELECT g FROM GroupEntity g WHERE g.groupName LIKE %:groupName%")
     Page<GroupEntity> findByGroupName(@Param("groupName") String groupName, Pageable page);
+
+    @Query("SELECT g FROM GroupEntity g WHERE g.capstoneId.id = :capstone_id")
+    Page<GroupEntity> findByCapstoneId(@Param("capstone_id") Long capstoneProjectId, Pageable page);
 }

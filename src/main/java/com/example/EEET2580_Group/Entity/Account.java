@@ -14,5 +14,5 @@ public class Account {
     protected String password;
     protected String email;
     protected Long id;
-
+    protected Long imageId;
 }
