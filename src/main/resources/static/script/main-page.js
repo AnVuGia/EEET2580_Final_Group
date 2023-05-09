@@ -12,11 +12,7 @@ const groupInfoContainer = document.querySelector('.group-info-section');
 const role = sessionStorage.getItem('role');
 
 const loadingModal = new bootstrap.Modal(
-  document.getElementById('loading-modal'),
-  {
-    keyboard: false,
-    backdrop: 'static',
-  }
+  document.getElementById('loading-modal')
 );
 
 studentCapstoneModal = new bootstrap.Modal(
@@ -542,19 +538,29 @@ async function updateCapstoneModal(capstone) {
   const groupNumberEl = document.querySelector('#group-number');
   const companyNameEl = document.querySelector('#company-name-a');
   const capstoneTitleEl = document.querySelector('#capstone-title-h2');
-  const companyProfilePicEl = document.querySelector('#company-profile-pic');
-  companyProfilePicEl.innerHTML = '';
+  const companyProfilePicEl = document.querySelector(
+    '#company-profile-pic img'
+  );
+
   if (capstone.imageId !== null) {
     const src = await getImage(capstone.imageId);
-    companyProfilePicEl.innerHTML = `<img src="${src}" alt="company profile picture" />`;
+    companyProfilePicEl.src = src;
   } else {
-    companyProfilePicEl.innerHTML = `<img src="https://via.placeholder.com/150" alt="company profile picture" />`;
+    companyProfilePicEl.src = 'images/login-signup/capstone-logo.png';
   }
+  console.log(companyProfilePicEl);
   studentCapstoneModal.hide();
+  companyProfilePicEl.addEventListener('load', function () {
+    console.log('loaded');
+    loadingModal.hide();
+    studentCapstoneModal.show();
+  });
 
-  while (companyProfilePicEl.innerHTML === '') {}
-  loadingModal.hide();
-  studentCapstoneModal.show();
+  // studentCapstoneModal.hide();
+  // const imgEl = document.querySelector('#company-profile-pic img');
+  // while (companyProfilePicEl.innerHTML === '') {}
+  // loadingModal.hide();
+  // studentCapstoneModal.show();
   capstoneDescriptionEl.textContent = capstone.projectDescription;
   capstoneOutcomEl.textContent = capstone.projectObjectives;
   capstoneRequirementsEl.textContent = capstone.technicalRequirements;
