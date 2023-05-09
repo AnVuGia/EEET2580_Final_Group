@@ -1,3 +1,31 @@
+function deepEqual(obj1, obj2) {
+  if (obj1 === obj2) {
+    return true;
+  }
+
+  if (typeof obj1 !== 'object' || obj1 === null ||
+      typeof obj2 !== 'object' || obj2 === null) {
+    return false;
+  }
+
+  const keys1 = Object.keys(obj1);
+  const keys2 = Object.keys(obj2);
+
+  if (keys1.length !== keys2.length) {
+    return false;
+  }
+
+  for (let key of keys1) {
+    if (!keys2.includes(key) || !deepEqual(obj1[key], obj2[key])) {
+      return false;
+    }
+  }
+
+  return true;
+}
+function findObjectIndex(list, object) {
+  return list.findIndex(item => deepEqual(item, object));
+}
 function createCapstoneCard(capstone) {
   // if (!company || !supervisor) {
   //   company = { name: 'No company' };
@@ -11,11 +39,15 @@ function createCapstoneCard(capstone) {
           !!capstone.capstoneColor ? capstone.capstoneColor : '#BD3C14'
         }" class="capstone-item-color"></div>
             <div class="capstone-item-info">
-            <p class="item-name">${capstone.projectTitle}</p>
-            <p class="course-code">${capstone.company.name}</p>
-            <p class="time-enrolled">${capstone.supervisor.name}</p>
+            <p class="item-name fs-3">${capstone.projectTitle}</p>
+            <p class="course-code text-primary">${capstone.company.name}</p>
+            <p class="time-enrolled text-secondary">${
+              capstone.supervisor.name
+            }</p>
         </div>  
     `;
+  const titleEl = capItem.querySelector('.item-name');
+  titleEl.style.color = capstone.capstoneColor;
   return capItem;
 }
 function createSpinningAnimation() {
@@ -23,7 +55,6 @@ function createSpinningAnimation() {
   spinningEl.classList.add('loading-spinner');
   return spinningEl;
 }
-
 function displayWelcomMessage() {
   const user = JSON.parse(sessionStorage.getItem('user'));
   const greetingText = document.querySelector('.welcome-message');
@@ -89,4 +120,16 @@ async function getImage(imageId) {
   const url = `api/images/${imageId}`;
   const response = await fetch(url);
   return response.url;
+}
+const convertString = function (string) {
+  var temp = string.split(' ');
+  return temp.join('%20');
+};
+function updateSuccessModal(msg){
+  const msgDiv = document.querySelector(".successful-modal");
+  msgDiv.textContent = msg;
+}
+function updateDangerModal(msg){
+  const msgDiv = document.querySelector(".danger-modal");
+  msgDiv.textContent = msg;
 }

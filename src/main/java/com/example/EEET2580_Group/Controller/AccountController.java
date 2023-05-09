@@ -1,15 +1,11 @@
 package com.example.EEET2580_Group.Controller;
 
-import com.example.EEET2580_Group.DTO.AccountDto;
-import com.example.EEET2580_Group.DTO.CapstoneProjectDto;
-import com.example.EEET2580_Group.DTO.CompanyAccDto;
-import com.example.EEET2580_Group.DTO.StudentAccDto;
+import com.example.EEET2580_Group.DTO.*;
 import com.example.EEET2580_Group.Entity.Account;
 import com.example.EEET2580_Group.Entity.CompanyAcc;
 import com.example.EEET2580_Group.Entity.StudentAcc;
 import com.example.EEET2580_Group.Entity.SupervisorAcc;
 import com.example.EEET2580_Group.Service.Interface.AccountService;
-import com.example.EEET2580_Group.Service.Interface.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -112,9 +108,9 @@ public class AccountController {
     }
 
     @GetMapping("/supervisor/username/{username}")
-    Account getSupervisorAccountByUsername(@PathVariable String username) {
+    SupervisorAccDto getSupervisorAccountByUsername(@PathVariable String username) {
         Account account = accountService.getAccountByUsername(username, "supervisor");
-        return account;
+        return new SupervisorAccDto((SupervisorAcc) account);
     }
 
 }

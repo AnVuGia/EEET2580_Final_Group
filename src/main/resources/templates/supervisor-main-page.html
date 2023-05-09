@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="css/edit-capstone.css" />
     <link rel="stylesheet" href="css/capstone-info.css" />
     <link rel="stylesheet" href="css/supervisor-main-page.css" />
+    <link rel="stylesheet" href="css/edit-supervisor-profile.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -26,7 +27,7 @@
   </head>
   <body>
     <main class="main-section">
-      <nav class="navbar navbar-expand-md header-container py-4">
+      <nav class="navbar navbar-expand-lg header-container py-4">
         <div class="container-fluid">
           <button
             class="navbar-toggler"
@@ -36,7 +37,7 @@
             aria-controls="navbarSupportedContent"
             aria-expanded="false"
             aria-label="Toggle navigation"
-            >p
+            >
           <span class="navbar-toggler-icon"></span>
           </button>
           <a class="navbar-brand" href="main-page.html">
@@ -63,10 +64,10 @@
               </li>
             </ul>
           </div>
-          <p class="mb-0 me-3 welcome-message"></p>
+          <p class="mb-0 me-3 d-none d-lg-block welcome-message"></p>
           <div class="nav me-5 d-none d-md-block">
             <img
-              class="img-thumbnail mx-auto d-block acc-img"
+              class="img-thumbnail mx-auto d-none d-lg-block acc-img"
               src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
               style="border-radius: 50%"
               alt=""
@@ -83,7 +84,7 @@
         </div>
       </nav>
       <div class="capstone-panel">
-        <div class="capstone-pannel-in m-auto m-md-0 display-section">
+        <div class="capstone-pannel-in m-auto ms-lg-5 display-section">
           Supervised Capstone List
         </div>
       </div>
@@ -133,9 +134,9 @@
         </div>
       </div>
       <div class="separator"></div>
-      <div class="container-fluid capstone-project-info dashboard-view">
-        <div class="request-capstone">
-          
+      <div class="capstone-project-info container dashboard-view">
+        <div class="request-capstone row gy-5">
+            
         </div>
         <div id="sup-pagination"></div>
       </div>
@@ -214,10 +215,10 @@
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="loading-modal">Loading</h5>
+              <h2 class="modal-title" id="loading-modal-text">Loading</h2>
               <button
                 type="button"
-                class="btn-close"
+                class="btn-close fs-3"
                 data-bs-dismiss="modal"
                 aria-label="Close"
               ></button>
@@ -243,13 +244,14 @@
             <div class="modal-header">
               <h1
                 class="modal-title fs-2 group-form-heading"
-                id="student-capstone-modal"
+                id="student-capstone-modal-heading-text"
               >
                 Capstone Project Info
               </h1>
               <button
                 type="button"
                 class="btn-close fs-5 me-1"
+                id="close-modal-btn"
                 data-bs-dismiss="modal"
                 aria-label="Close"
               ></button>
@@ -291,27 +293,20 @@
                       <div class="skills-container">
                         <h3>Academic Background</h3>
                         <p id="academic-background-h3"></p>
-                        <!-- <ul class="skills-list">
+                        <ul class="skills-list">
                               <li><span class="skill">HTML</span></li>
                               <li><span class="skill">CSS</span></li>
                               <li><span class="skill">Bootstrap</span></li>
                               <li><span class="skill">Javascript</span></li>
                               <li><span class="skill">Spring Boot</span></li>
-                            </ul> -->
+                            </ul>
                       </div>
                       <div class="capstone-info">
                         <h2>Capstone Description</h2>
                         <div class="para info-para">
                           <p id="capstone-description-p">
                             Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua. Ut enim ad minim veniam, quis
-                            nostrud exercitation ullamco laboris nisi ut aliquip
-                            ex ea commodo consequat. Duis aute irure dolor in
-                            reprehenderit in voluptate velit esse cillum dolore
-                            eu fugiat nulla pariatur. Excepteur sint occaecat
-                            cupidatat non proident, sunt in culpa qui officia
-                            deserunt mollit anim id est laborum.
+                            
                           </p>
                         </div>
                       </div>
@@ -319,15 +314,7 @@
                         <h2>Outcome</h2>
                         <div class="para outcome-para">
                           <p id="capstone-outcome-p">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua. Ut enim ad minim veniam, quis
-                            nostrud exercitation ullamco laboris nisi ut aliquip
-                            ex ea commodo consequat. Duis aute irure dolor in
-                            reprehenderit in voluptate velit esse cillum dolore
-                            eu fugiat nulla pariatur. Excepteur sint occaecat
-                            cupidatat non proident, sunt in culpa qui officia
-                            deserunt mollit anim id est laborum.
+                           
                           </p>
                         </div>
                       </div>
@@ -335,15 +322,7 @@
                         <h2>Requirements</h2>
                         <div class="para requirement-para">
                           <p id="capstone-requirement-p">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua. Ut enim ad minim veniam, quis
-                            nostrud exercitation ullamco laboris nisi ut aliquip
-                            ex ea commodo consequat. Duis aute irure dolor in
-                            reprehenderit in voluptate velit esse cillum dolore
-                            eu fugiat nulla pariatur. Excepteur sint occaecat
-                            cupidatat non proident, sunt in culpa qui officia
-                            deserunt mollit anim id est laborum.
+                      
                           </p>
                         </div>
                       </div>
@@ -351,15 +330,6 @@
                         <h2>Success Criteria</h2>
                         <div class="para requirement-para">
                           <p id="success-criteria-p">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua. Ut enim ad minim veniam, quis
-                            nostrud exercitation ullamco laboris nisi ut aliquip
-                            ex ea commodo consequat. Duis aute irure dolor in
-                            reprehenderit in voluptate velit esse cillum dolore
-                            eu fugiat nulla pariatur. Excepteur sint occaecat
-                            cupidatat non proident, sunt in culpa qui officia
-                            deserunt mollit anim id est laborum.
                           </p>
                         </div>
                       </div>
@@ -382,15 +352,43 @@
                 </div>
               </div>
             </div>
-            <div class="modal-footer">
-              <button
-                id="cancel-btn"
-                type="button"
-                class="btn modal-button-controller"
-                data-bs-dismiss="modal"
-              >
-                Cancel
-              </button>
+            <div class="modal-footer"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-section" hidden="hidden">
+        <div class="container rounded bg-white mt-5 mb-5">
+          <button id="close-profile-section-btn" type="button" class="btn-close top-3 end-3 close-btn" aria-label="Close"></button>
+          <div class="row">
+            <div class="col-md-3 border-right">
+              <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                <span class="font-weight-bold" id="profile-supervisor-name">Edogaru</span>
+                <span class="text-black-50" id="profile-supervisor-bio">Major SSET</span>
+                <span> </span>
+              </div>
+            </div>
+            <div class="col-md-5 border-right">
+              <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h4 id="profile-heading" class="text-right">Profile</h4>
+                </div>
+
+                <div class="row mt-3">
+                  <div class="col-md-12 profile-item">
+                    <label class="labels">Email</label>
+                    <p id="profile-supervisor-email" type="text"></p>
+                  </div>
+
+                  <div class="col-md-12 profile-item">
+                    <label class="labels">Contact</label>
+                    <p id="profile-supervisor-contact" ></p>
+                  </div>
+                </div>
+
+                <div id="edit-profile-button" class="mt-5"><button class="btn btn-primary edit-profile-button" type="button">Edit Profile</button></div>
+              </div>
             </div>
           </div>
         </div>

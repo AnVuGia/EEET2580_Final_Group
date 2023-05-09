@@ -3,13 +3,19 @@ const dashboardView = document.querySelector('.dashboard-view');
 const capstoneInfoSection = document.querySelector('.nav-header-item');
 const capstoneSearchSection = document.querySelector('.search-section');
 const headerLogo = document.querySelector('.navbar-brand');
-const createGroupBtn = document.querySelector('.create-group-btn');
 const disSection = document.querySelector('.display-section');
 const displayResult = document.querySelector('.display-result-search');
 const groupListContainer = document.querySelector('.group-list');
-
+const filterContainer = document.querySelector('.search-filter');
+const studentCapstoneModalEl = document.querySelector(
+  '#student-capstone-modal'
+);
 const groupInfoContainer = document.querySelector('.group-info-section');
 const role = sessionStorage.getItem('role');
+
+function getUser (){
+    return JSON.parse(sessionStorage.getItem('user'));
+}
 
 const loadingModal = new bootstrap.Modal(
   document.getElementById('loading-modal'),
@@ -18,15 +24,16 @@ const loadingModal = new bootstrap.Modal(
     backdrop: 'static',
   }
 );
-
-studentCapstoneModal = new bootstrap.Modal(
+const studentCapstoneModal = new bootstrap.Modal(
   document.getElementById('student-capstone-modal'),
   {
     keyboard: false,
     backdrop: 'static',
   }
 );
-
+studentCapstoneModalEl.addEventListener('shown.bs.modal', function (event) {
+  loadingModal.hide();
+});
 const profileController = document.querySelectorAll('.profile-list-item');
 const capstonePageInfo = {
   currPage: 0,
@@ -36,11 +43,6 @@ const capstonePageInfo = {
 var oldTarget = document.querySelector('.active');
 let sort = 'asc';
 let currentPage = 0;
-const convertString = function (string) {
-  var temp = string.split(' ');
-  return temp.join('%20');
-};
-
 headerLogo.addEventListener('click', function (ev) {
   ev.preventDefault();
   const currView = JSON.parse(role);
@@ -75,9 +77,20 @@ function headerBar() {
       oldTarget = ev.target;
     });
 }
+async function setProfileImage() {
+  let user = getUser();
+  if (user.imageId != null) {
+    const profileImageEl = document.querySelector(
+      '.img-thumbnail mx-auto d-block acc-img'
+    );
+    const imgURL = await getImage(user.imageId);
+    profileImageEl.setAttribute('src', imgURL);
+  }
+}
+setProfileImage();
 headerBar();
 function setVisibiltySearchPage(target) {
-  const user = JSON.parse(sessionStorage.getItem('user'));
+  const user  = getUser();
   if (target.textContent === 'Search') {
     disSection.textContent = 'Search';
     dashboardView.setAttribute('hidden', 'hidden');
@@ -121,7 +134,7 @@ async function getCapstoneList(
 ) {
   displayResult.innerHTML = '';
   displayResult.appendChild(createSpinningAnimation());
-  const pagination = document.querySelector('#main-pagination');
+  const pagination = document.querySelector('.pagination');
   pagination.innerHTML = '';
 
   const url = `api/approved-capstone-projects?`;
@@ -204,6 +217,12 @@ async function updateCapstoneListUI(capstoneListData) {
 //Company Search
 async function getCompanyList(companyName, page, size, sort) {
   const url = `api/company/search?`;
+
+  displayResult.innerHTML = '';
+  displayResult.appendChild(createSpinningAnimation());
+  const pagination = document.querySelector('.pagination');
+  pagination.innerHTML = '';
+
   var companyName = !!companyName
     ? companyName.includes(' ')
       ? convertString(companyName)
@@ -230,7 +249,8 @@ async function getCompanyList(companyName, page, size, sort) {
   let endpoint = url + temp;
   response = await fetch(endpoint);
   result = await response.json();
-  return result;
+  updateCompanyUI(result.content);
+  await displayPagination(result);
 }
 async function updateCompanyUI(companyList) {
   displayResult.innerHTML = '';
@@ -285,7 +305,7 @@ async function getGroupList(groupName, page, size, sort) {
 
   displayResult.innerHTML = '';
   displayResult.appendChild(createSpinningAnimation());
-  const pagination = document.querySelector('#main-pagination');
+  const pagination = document.querySelector('.pagination');
   pagination.innerHTML = '';
 
   var groupName = !!groupName
@@ -345,41 +365,70 @@ function createGroupCard(groupInfo) {
                     </div>
                 </div>
             </div>
-            <div class="mt-3">
-                <h3 class="heading">Capstone: ${
-                  !!groupInfo.capstone
-                    ? groupInfo.capstone.projectTitle
-                    : 'Have not register for Capstone'
-                }</h3>
-                <h4 class="heading">Supervisor: ${
-                  !!groupInfo.capstone
-                    ? groupInfo.capstone.supervisor.name
-                    : 'Have not register for Capstone'
-                }</h4>
-                <div class="mt-3">
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" style="width: ${
-                          (groupInfo.studentList.length / 4) * 100
-                        }%" aria-valuenow="${
+    `;
+
+  const bottom = document.createElement('div');
+  bottom.classList.add('mt-3');
+  bottom.innerHTML = `
+        <h3 class="heading">Capstone: ${
+          !!groupInfo.capstone
+            ? groupInfo.capstone.projectTitle
+            : 'Have not register for Capstone'
+        }</h3>
+        <h4 class="heading">Supervisor: ${
+          !!groupInfo.capstone
+            ? groupInfo.capstone.supervisor.name
+            : 'Have not register for Capstone'
+        }</h4>
+    `;
+
+  const bottom2 = document.createElement('div');
+  bottom2.classList.add('mt-3');
+  bottom2.innerHTML = `
+      <div class="progress">
+      <div class="progress-bar" role="progressbar" style="width: ${
+        (groupInfo.studentList.length / 4) * 100
+      }%" aria-valuenow="${
     groupInfo.studentList.length
   }" aria-valuemin="0" aria-valuemax="4"></div>
-                    </div>
-                    <div class="mt-3"> 
-                        <span class="text1"> ${
-                          groupInfo.studentList.length
-                        } Applied <span class="text2">of 4</span></span> 
-                    </div>
-                    <div class="mt-3">
-                        <button class="btn join-group-btn">JOIN</button>
-                    </div>
-                </div>
-            </div>
+      </div>
+      <div class="mt-3"> 
+          <span class="text1"> ${
+            groupInfo.studentList.length
+          } Applied <span class="text2">of 4</span></span> 
+      </div>
     `;
+
+
+    if (getUser().role === "student"){
+        const button  = document.createElement("button");
+        button.classList.add("btn","join-group-btn");
+        button.textContent = "JOIN";
+        button.setAttribute("id",groupInfo.id);
+        button.addEventListener("click", async function(ev){
+          let response = await fetch(`api/group/id/${ev.target.id}`);
+          let group = await response.json();
+          sessionStorage.setItem("group",JSON.stringify(group));
+          console.log(group);
+          if (currentGroup.id){
+              modalJoinedGroupInstance.show();
+              return;
+          }else if (group.studentList.length == 4){
+            modalGroupFullInstance.show();
+            return;
+          }
+          confirmModalInstance.show();
+        })
+        bottom2.appendChild(button);
+    }
+    
+    div.appendChild(bottom);
+    div.appendChild(bottom2);
   return div;
 }
 
 const displayPagination = async function (pageable) {
-  const pagination = document.querySelector('#main-pagination');
+  const pagination = document.querySelector('.pagination');
   console.trace();
   pagination.innerHTML = '';
   console.log('display pagination');
@@ -428,25 +477,21 @@ const updateCompany = async function (curPage) {
   await getCompanyList(searchInput.value, curPage);
 };
 const onFiltered = async function () {
-  let user = JSON.parse(sessionStorage.getItem('user'));
+  // let user = JSON.parse(sessionStorage.getItem('user'));
   if (searchSelection.value === 'capstone') {
     searchInput.placeholder = 'Please enter Capstone Name';
+    filterContainer.removeAttribute('style');
 
-    if (user.role === 'student') {
-      filterContainer.removeAttribute('style');
-    }
     await updateCapstone(0);
   } else if (searchSelection.value === 'group') {
     searchInput.placeholder = 'Please enter Group Name';
-    if (user.role === 'student') {
-      filterContainer.setAttribute('style', 'height: 125px');
-    }
+    filterContainer.setAttribute('style', 'height: 125px');
+
     await updateGroup(0);
   } else if (searchSelection.value === 'company') {
     searchInput.placeholder = 'Please enter Company Name';
-    if (user.role === 'student') {
-      filterContainer.setAttribute('style', 'height: 125px');
-    }
+    filterContainer.setAttribute('style', 'height: 125px');
+
     await updateCompany(0);
   }
 };
@@ -542,19 +587,21 @@ async function updateCapstoneModal(capstone) {
   const groupNumberEl = document.querySelector('#group-number');
   const companyNameEl = document.querySelector('#company-name-a');
   const capstoneTitleEl = document.querySelector('#capstone-title-h2');
-  const companyProfilePicEl = document.querySelector('#company-profile-pic');
+  const companyProfilePicEl = document.querySelector(
+    '#company-profile-pic img'
+  );
   companyProfilePicEl.innerHTML = '';
   if (capstone.imageId !== null) {
     const src = await getImage(capstone.imageId);
-    companyProfilePicEl.innerHTML = `<img src="${src}" alt="company profile picture" />`;
+    companyProfilePicEl.src = src;
   } else {
-    companyProfilePicEl.innerHTML = `<img src="https://via.placeholder.com/150" alt="company profile picture" />`;
+    companyProfilePicEl.src = 'images/login-signup/capstone-logo.png';
   }
   studentCapstoneModal.hide();
 
-  while (companyProfilePicEl.innerHTML === '') {}
-  loadingModal.hide();
-  studentCapstoneModal.show();
+  companyProfilePicEl.addEventListener('load', function () {
+    studentCapstoneModal.show();
+  });
   capstoneDescriptionEl.textContent = capstone.projectDescription;
   capstoneOutcomEl.textContent = capstone.projectObjectives;
   capstoneRequirementsEl.textContent = capstone.technicalRequirements;

@@ -2,6 +2,11 @@ const displayPendingList = document.querySelector('.row');
 const approvedButton = document.querySelector('#approve-btn');
 const rejectButton = document.querySelector('#reject-btn');
 const paginationEl = document.querySelector('#ad-pag');
+const alertModal = new bootstrap.Modal(document.getElementById('alert-modal'));
+const alertModalEl = document.querySelector('#alert-modal');
+const infoModal = new bootstrap.Modal(
+  document.getElementById('staticBackdrop')
+);
 const pageInfo = {
   currPage: 0,
   currSize: 3,
@@ -60,6 +65,7 @@ function createRequestCapstoneCard(capstone) {
 
   const itemName = document.createElement('p');
   itemName.classList.add('item-name');
+  itemName.style.color = capstone.capstoneColor;
   itemName.textContent = capstone.projectTitle;
 
   itemInfo.appendChild(itemName);
@@ -78,6 +84,7 @@ function createRequestCapstoneCard(capstone) {
       'more-info',
       JSON.stringify(extractNumberFromString(ev.target.id))
     );
+
     console.log('click on item title');
     console.log(ev.target);
     let url = `api/capstone-project/id/${ev.target.id}`;
@@ -86,12 +93,13 @@ function createRequestCapstoneCard(capstone) {
     console.log(data);
     updateModal(data);
   });
+  const buttonContainer = document.createElement('div');
+  buttonContainer.appendChild(cardButton);
+  itemInfo.innerHTML += ` <p class="course-code text-primary">${capstone.company.name}</p>
+                            <p class="time-enrolled text-secondary">${capstone.supervisor.name}</p>`;
 
-  itemInfo.innerHTML += ` <p class="course-code">${capstone.company.name}</p>
-                            <p class="time-enrolled">${capstone.supervisor.name}</p>`;
-
-  itemInfo.appendChild(cardButton);
-
+  itemInfo.appendChild(buttonContainer);
+  buttonContainer.classList.add('d-flex', 'justify-content-center');
   capItem.appendChild(itemInfo);
   return capItem;
 }
@@ -262,13 +270,25 @@ const updateModal = async function (capstone) {
 
 approvedButton.addEventListener('click', async function (ev) {
   let id = JSON.parse(sessionStorage.getItem('more-info'));
-  await setCapstoneStatus(id, 'approved');
-  await getRequestList(pageInfo.currPage, pageInfo.currSize);
+  try {
+    setLoadingModal();
+    await setCapstoneStatus(id, 'approved');
+    setSuccessAlertModal();
+  } catch (error) {
+    console.log('error');
+    setErrorAlertModal();
+  }
 });
 rejectButton.addEventListener('click', async function (ev) {
   let id = JSON.parse(sessionStorage.getItem('more-info'));
-  await setCapstoneStatus(id, 'reject');
-  await getRequestList(pageInfo.currPage, pageInfo.currSize);
+  try {
+    setLoadingModal();
+    await setCapstoneStatus(id, 'reject');
+    setRejectAlertModal();
+  } catch (error) {
+    console.log('error');
+    setErrorAlertModal();
+  }
 });
 const setCapstoneStatus = async function (id, status) {
   let url = `/api/capstone-project/id/${id}`;
@@ -289,5 +309,81 @@ const setCapstoneStatus = async function (id, status) {
     console.error(error);
   }
 };
+function setSuccessAlertModal() {
+  console.log('setSuccessAlertModal');
+  const alertModalBody = document.querySelector('#alert-body');
+  console.log(alertModalBody);
+  alertModalBody.innerHTML = `
+    <div class="alert-modal-body">
+      <div class="alert-modal-body-icon">
+        <i class="fas fa-check-circle"></i>
+      </div>
+      <div class="alert-modal-body-text">
+        <h3 class ="information-section-element input-label">Success</h3>
+        <p class="information-section-element input-label">Capstone project has been approved</p>
+      </div>
+    </div>
+  `;
+  console.log(alertModalEl);
+  // alertModal.show();
+}
+function setRejectAlertModal() {
+  console.log('setRejectAlertModal');
+  const alertModalBody = document.querySelector('#alert-body');
+  console.log(alertModalBody);
+  alertModalBody.innerHTML = `
 
+    <div class="alert-modal-body">
+      <div class="alert-modal-body-icon"> 
+        <i class="fas fa-times-circle"></i>
+      </div>
+      <div class="alert-modal-body-text"> 
+        <h3>Reject</h3>
+        <p class ="">Capstone project has been rejected</p> 
+      </div>
+    </div>  
+  `;
+  console.log(alertModalEl);
+  // alertModal.show();
+}
+function setLoadingModal() {
+  console.log('setLoadingModal');
+  const alertModalBody = document.querySelector('#alert-body');
+  console.log(alertModalBody);
+  alertModalBody.innerHTML = `
+    <div class="alert-modal-body">
+      <div class="alert-modal-body-icon">
+        <i class="fas fa-spinner fa-spin"></i>
+      </div>
+      <div class="alert-modal-body-text">
+        <h3>Loading</h3>
+        <p>Please wait</p> 
+      </div>
+    </div>
+  `;
+  console.log(alertModalEl);
+  // alertModal.show();
+}
+function setErrorAlertModal() {
+  console.log('setErrorAlertModal');
+  const alertModalBody = document.querySelector('#alert-body');
+  console.log(alertModalBody);
+  alertModalBody.innerHTML = `
+    <div class="alert-modal-body">
+      <div class="alert-modal-body-icon">
+        <i class="fas fa-exclamation-circle"></i>
+      </div>
+      <div class="alert-modal-body-text">
+        <h3>Error</h3>
+        <p>Something went wrong</p> 
+      </div>
+    </div>
+  `;
+  console.log(alertModalEl);
+  // alertModal.show();
+}
+alertModalEl.addEventListener('hidden.bs.modal', function (event) {
+  updateRequestUI();
+});
+// console.log(alertModalEl);
 updateRequestUI();
