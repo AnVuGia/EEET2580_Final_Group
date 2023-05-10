@@ -408,7 +408,6 @@ function createGroupCard(groupInfo) {
       let response = await fetch(`api/group/id/${ev.target.id}`);
       let group = await response.json();
       sessionStorage.setItem('group', JSON.stringify(group));
-      let currentGroup = sessionStorage.getItem('group');
       console.log(group);
       if (currentGroup.id) {
         modalJoinedGroupInstance.show();
