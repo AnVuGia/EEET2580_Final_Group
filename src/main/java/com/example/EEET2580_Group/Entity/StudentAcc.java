@@ -37,6 +37,8 @@ public class StudentAcc extends Account{
     private String major;
     @Column(name = "contact")
     private Long contact;
+    @Column(name = "profile_image")
+    private Long imageId;
     public List<String> getSkills() {
         return this.skills;
     }

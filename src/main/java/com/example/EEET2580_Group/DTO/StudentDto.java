@@ -22,6 +22,7 @@ public class StudentDto {
 //    private Long imageId;
     private String major;
     private Long contact;
+    private Long imageId;
 
     public StudentDto(StudentAcc studentAcc){
         this.id = studentAcc.getId();
@@ -34,7 +35,7 @@ public class StudentDto {
         this.major = studentAcc.getMajor();
         this.contact = studentAcc.getContact();
         this.skills = studentAcc.getSkills();
-
+        this.imageId = studentAcc.getImageId();
     }
 
 

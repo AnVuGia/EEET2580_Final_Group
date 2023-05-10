@@ -64,6 +64,13 @@ public class GroupController {
        GroupEntity group = student.getGroup();
        return group == null? new GroupDto(): new GroupDto(group);
     }
-
+    @GetMapping("/capstone/{capstoneId}")
+    public Page<GroupDto> getGroupByCapstone (@PathVariable Long capstoneId,
+    @RequestParam(name = "page",defaultValue = "0") String page,
+                                        @RequestParam(name = "size",defaultValue = "6") String size){
+        Pageable pageable = PageRequest.of(Integer.parseInt(page), Integer.parseInt(size), Sort.by("id").ascending());
+        Page<GroupDto> group = this.groupService.findGroupByCapstoneProjectId(capstoneId,pageable).map(object -> new GroupDto(object));
+        return group;
+    }
 
 }

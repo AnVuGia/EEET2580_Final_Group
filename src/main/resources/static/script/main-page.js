@@ -14,6 +14,11 @@ const groupInfoContainer = document.querySelector('.group-info-section');
 const role = sessionStorage.getItem('role');
 
 
+function getUser() {
+  return JSON.parse(sessionStorage.getItem('user'));
+}
+
+
 const loadingModal = new bootstrap.Modal(
   document.getElementById('loading-modal'),
   {
@@ -75,11 +80,11 @@ function headerBar() {
     });
 }
 async function setProfileImage() {
+  console.log('set profile image');
   let user = getUser();
   if (user.imageId != null) {
-    const profileImageEl = document.querySelector(
-      '.img-thumbnail mx-auto d-block acc-img'
-    );
+    const profileImageEl = document.querySelector('.img-thumbnail ');
+    console.log(profileImageEl);
     const imgURL = await getImage(user.imageId);
     profileImageEl.setAttribute('src', imgURL);
   }
@@ -87,7 +92,7 @@ async function setProfileImage() {
 setProfileImage();
 headerBar();
 function setVisibiltySearchPage(target) {
-  const user  = getUser();
+  const user = getUser();
   if (target.textContent === 'Search') {
     disSection.textContent = 'Search';
     dashboardView.setAttribute('hidden', 'hidden');
@@ -396,6 +401,7 @@ function createGroupCard(groupInfo) {
       </div>
     `;
 
+
     if (getUser().role === "student"){
         const button  = document.createElement("button");
         button.classList.add("btn","join-group-btn");
@@ -593,10 +599,10 @@ async function updateCapstoneModal(capstone) {
     companyProfilePicEl.src = 'images/login-signup/capstone-logo.png';
   }
   studentCapstoneModal.hide();
-
-  companyProfilePicEl.addEventListener('load', function () {
+  companyProfilePicEl.addEventListener('load', async function () {
     studentCapstoneModal.show();
   });
+  await updateGroupSection(capstone);
   capstoneDescriptionEl.textContent = capstone.projectDescription;
   capstoneOutcomEl.textContent = capstone.projectObjectives;
   capstoneRequirementsEl.textContent = capstone.technicalRequirements;
@@ -610,6 +616,26 @@ async function updateCapstoneModal(capstone) {
   capstoneTitleEl.textContent = capstone.projectTitle;
 
   console.log(capstone);
+}
+async function updateGroupSection(capstone) {
+  const groupSection = document.querySelector('#group-modal-container');
+  groupSection.innerHTML = ``;
+  groupSection.innerHTML = `<h3 class="text-center">Loading...</h3>`;
+
+  console.log('groupSection');
+
+  const groupList = await fetch(`api/group/capstone/${capstone.id}`);
+  const groupListResult = await groupList.json();
+  if (groupListResult.content.length === 0) {
+    groupSection.innerHTML = `<h3 class="text-center">No Group Found</h3>`;
+    return;
+  }
+  groupSection.innerHTML = ``;
+  const groupListResultContent = groupListResult.content;
+  groupListResultContent.forEach((group) => {
+    const groupSectionCard = createGroupCard(group);
+    groupSection.appendChild(groupSectionCard);
+  });
 }
 
 searchSelection.dispatchEvent(new Event('change'));

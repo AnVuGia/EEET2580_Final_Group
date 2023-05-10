@@ -14,13 +14,14 @@ public class AccountDto {
     private String email;
     private String role;
     private Long id;
+    private Long imageId;
 
     public AccountDto(Account account){
         this.name = account.getName();
         this.username = account.getUsername();
         this.email = account.getEmail();
         this.id = account.getId();
-
+        this.imageId = account.getImageId();
         if (account instanceof CompanyAcc){
             this.role = "company";
         }else if (account instanceof StudentAcc){

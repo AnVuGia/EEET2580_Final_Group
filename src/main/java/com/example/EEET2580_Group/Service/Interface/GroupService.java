@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
+import javax.swing.*;
 import java.util.List;
 @Service
 public interface GroupService {
@@ -13,4 +14,5 @@ public interface GroupService {
     void updateGroup(GroupDto groupDto);
     Page<GroupEntity> getAllGroup(String groupName, Pageable page);
     GroupEntity findGroupById(Long id);
+    Page<GroupEntity> findGroupByCapstoneProjectId(Long id, Pageable page);
 }

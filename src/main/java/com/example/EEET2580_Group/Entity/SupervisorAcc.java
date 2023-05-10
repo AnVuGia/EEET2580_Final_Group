@@ -39,7 +39,8 @@ public class SupervisorAcc extends Account {
 
     @Column(name = "supervisor_bio")
     private String bio;
-
+    @Column(name = "profile_image")
+    private Long imageId;
     public void setAccount(Account account) {
         name = account.getName();
         username = account.getUsername();

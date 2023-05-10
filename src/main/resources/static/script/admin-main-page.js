@@ -115,6 +115,7 @@ const updateModal = async function (capstone) {
     imageURL = await getImage(capstone.projectImage);
     loadingSpinner.hide();
   }
+
   const div = document.querySelector('.information-section');
   div.innerHTML = `<div class="information-section">
                 <label for="" class="information-section-element input-label"
@@ -129,10 +130,10 @@ const updateModal = async function (capstone) {
                 <input
                   type="text"
                   id="capstone-title"
-                  placeholder="${capstone.projectTitle}"
+                  value="${capstone.projectTitle}"
                   required
                   class="information-section-element input-modal"
-                  disabled
+                  readonly
                 />
 
                 <label
@@ -144,9 +145,9 @@ const updateModal = async function (capstone) {
                   type="text"
                   class="information-section-element input-modal"
                   id="introduction"
-                  placeholder="${capstone.projectIntroduction}"
+                  value="${capstone.projectIntroduction}"
                   required
-                  disabled
+                  readonly
                 />
                 <label
                   for="capstone-objectives"
@@ -157,9 +158,9 @@ const updateModal = async function (capstone) {
                   type="text"
                   class="information-section-element input-modal"
                   id="capstone-objectives"
-                  placeholder="${capstone.projectObjectives}"
+                  value="${capstone.projectObjectives}"
                   required
-                  disabled
+                  readonly
                 />
                 <label for="" class="information-section-element input-label"
                   >Interview Requirements</label
@@ -168,9 +169,9 @@ const updateModal = async function (capstone) {
                     type="text"
                     class="information-section-element input-modal"
                     id="interview-requirements"
-                    placeholder="${capstone.interviewReqs}"
+                    value="${capstone.interviewReqs}"
                     required
-                    disabled
+                    readonly
                     />
 
                 <label
@@ -182,9 +183,9 @@ const updateModal = async function (capstone) {
                     type="text"
                     class="information-section-element input-modal"
                     id="multi-team"
-                    placeholder="${capstone.multiTeam ? 'Yes' : 'No'}"
+                    value="${capstone.multiTeam ? 'Yes' : 'No'}"
                     required
-                    disabled
+                    readonly
                     />
                 
                 <label
@@ -196,9 +197,9 @@ const updateModal = async function (capstone) {
                   type="text"
                   class="information-section-element input-modal"
                   id="academic-background"
-                  placeholder="${capstone.academicBackground}"
+                  value="${capstone.academicBackground}"
                   required
-                    disabled
+                    readonly
                 />
                 <label
                   for="no-students"
@@ -209,9 +210,9 @@ const updateModal = async function (capstone) {
                   type="number"
                   class="information-section-element input-modal"
                   id="no-students"
-                  placeholder="${capstone.noStudents}"
+                  value="${capstone.noStudents}"
                   required
-                    disabled
+                    readonly
                 />
                 <label
                   for="success-criteria"
@@ -222,9 +223,9 @@ const updateModal = async function (capstone) {
                   type="text"
                   class="information-section-element input-modal"
                   id="success-criteria"
-                  placeholder="${capstone.projectSuccessCriteria}"
+                  value="${capstone.projectSuccessCriteria}"
                   required
-                    disabled
+                    readonly
                 />
                 <label
                   for="capstone-description"
@@ -236,8 +237,8 @@ const updateModal = async function (capstone) {
                   class="information-section-textarea input-modal"
                   id="capstone-description"
                   required
-                  placeholder="${capstone.projectDescription}"
-                  disabled
+                  value="${capstone.projectDescription}"
+                  readonly
                 ></textarea>
                 <label
                   for="capstone-requirements"
@@ -249,23 +250,29 @@ const updateModal = async function (capstone) {
                   class="information-section-textarea input-modal"
                   id="capstone-requirements"
                   required
-                    placeholder="${capstone.technicalRequirements}"
-                    disabled
+                    value="${capstone.technicalRequirements}"
+                    readonly
                 ></textarea>
                 <label
                   for="supervisor-select"
                   class="information-section-element input-label"
                   >Supervisor Name</label
                 >
-                <input
+                <select
                     type="text"
                     class="information-section-element input-modal"
                     id="supervisor-select"
-                    placeholder="${capstone.supervisor.name}"
+                    value="${capstone.supervisor.name}"
                     required
-                    disabled
-                    />
+                    readonly
+                    > </select>
               </div>`;
+
+  document.querySelector('#capstone-description').innerHTML =
+    capstone.projectDescription;
+  document.querySelector('#capstone-requirements').innerHTML =
+    capstone.technicalRequirements;
+  await getSuperVisorAdminPage(capstone);
 };
 
 approvedButton.addEventListener('click', async function (ev) {
@@ -295,8 +302,15 @@ const setCapstoneStatus = async function (id, status) {
   let reponse = await fetch(url);
   let capstone = await reponse.json();
 
+  const supervisorSelect = document.querySelector('#supervisor-select');
+  let supervisorUrl = `/api/account/supervisor/id/${supervisorSelect.value}`;
+  let supervisorResponse = await fetch(supervisorUrl);
+  let supervisor = await supervisorResponse.json();
+  capstone.supervisor = supervisor;
+
   url = `api/capstone-project/${capstone.id}`;
   capstone.capstoneStatus = status;
+
   try {
     const response = await fetch(url, {
       method: 'PUT',
@@ -324,7 +338,7 @@ function setSuccessAlertModal() {
       </div>
     </div>
   `;
-  console.log(alertModalEl);
+  
   // alertModal.show();
 }
 function setRejectAlertModal() {
@@ -381,6 +395,21 @@ function setErrorAlertModal() {
   `;
   console.log(alertModalEl);
   // alertModal.show();
+}
+async function getSuperVisorAdminPage(capstone) {
+  let url = '/api/account/supervisor/all';
+  let response = await fetch(url);
+  let supervisors = await response.json();
+  let supervisorSelect = document.querySelector('#supervisor-select');
+  supervisorSelect.innerHTML = '';
+  console.log(supervisors);
+  supervisors.forEach((supervisor) => {
+    supervisorSelect.innerHTML += `<option ${
+      supervisor.id === capstone.supervisor.id ? 'selected' : ''
+    } value="${supervisor.id}">${supervisor.name} - ${
+      supervisor.email
+    }</option>`;
+  });
 }
 alertModalEl.addEventListener('hidden.bs.modal', function (event) {
   updateRequestUI();
