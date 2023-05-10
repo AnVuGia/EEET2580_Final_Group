@@ -8,68 +8,80 @@ const leaveGroupBtn = document.getElementById('leave-group-btn');
 const createGroupBtn = document.querySelector('.create-group-btn');
 const registerCapstoneBtn = document.querySelector('#register-btn');
 
-var modalJoinedGroup = document.getElementById('alertModal'); // Query the modal element
-var modalJoinedGroupInstance = new bootstrap.Modal(modalJoinedGroup);
+const alertModalElStudent = document.querySelector('#alert-modal');
+const alertModalInstanceStudent = new bootstrap.Modal(alertModalElStudent);
 
-var modalGroupFull = document.getElementById('groupFullAlert'); // Query the modal element
-var modalGroupFullInstance = new bootstrap.Modal(modalGroupFull);
+// var modalJoinedGroup = document.getElementById('alertModal'); // Query the modal element
+// var modalJoinedGroupInstance = new bootstrap.Modal(modalJoinedGroup);
 
-var confirmModal = document.getElementById('group-apply-confirm'); // Query the modal element
-var confirmModalInstance = new bootstrap.Modal(confirmModal);
+// var modalGroupFull = document.getElementById('groupFullAlert'); // Query the modal element
+// var modalGroupFullInstance = new bootstrap.Modal(modalGroupFull);
 
-var successAnnouncment = document.getElementById('successful'); // Query the modal element
-var successAnnouncmentInstance = new bootstrap.Modal(successAnnouncment);
+// var confirmModal = document.getElementById('group-apply-confirm'); // Query the modal element
+// var confirmModalInstance = new bootstrap.Modal(confirmModal);
 
-var successLeaveAnnouncment = document.getElementById('group-left-successful'); // Query the modal element
-var successLeaveAnnouncmentInstance = new bootstrap.Modal(
-  successLeaveAnnouncment
-);
+// var successAnnouncmenleaveGroupBtnt = document.getElementById('successful'); // Query the modal element
+// var successAnnouncmentInstance = new bootstrap.Modal(successAnnouncment);
 
-var groupLeavConfirm = document.getElementById('group-leave-confirm'); // Query the modal element
-var groupLeavConfirmInstance = new bootstrap.Modal(groupLeavConfirm);
+// var successLeaveAnnouncment = document.getElementById('group-left-successful'); // Query the modal element
+// var successLeaveAnnouncmentInstance = new bootstrap.Modal(
+//   successLeaveAnnouncment
+// );
 
-leaveGroupBtn.addEventListener('click', async function (ev) {
-  loadingModal.show();
-  let group = JSON.parse(sessionStorage.getItem('current-group'));
-  let index = findObjectIndex(group.studentList, getUser());
-  group.studentList.splice(index, 1);
-  await fetch('api/group', {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(group),
-  });
-  loadingModal.show();
-  await displayGroupInfo();
-  await updateGroup(0);
-  updateSuccessModal('You successfully left the group!');
-  successAnnouncmentInstance.show();
-});
-successAnnouncment.addEventListener('shown.bs.modal', function (ev) {
+// var groupLeavConfirm = document.getElementById('group-leave-confirm'); // Query the modal element
+// var groupLeavConfirmInstance = new bootstrap.Modal(groupLeavConfirm);
+async function onLeave(ev) {
+  updateDangerModal(
+    'Are you sure you want to leave the group?',
+    alertModalElStudent,
+    async () => {
+      loadingModal.show();
+      let group = JSON.parse(sessionStorage.getItem('current-group'));
+      let index = findObjectIndex(group.studentList, getUser());
+      group.studentList.splice(index, 1);
+      await fetch('api/group', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(group),
+      });
+      loadingModal.show();
+      await displayGroupInfo();
+      await updateGroup(0);
+      updateSuccessModal(
+        'You successfully left the group!',
+        alertModalElStudent,
+        () => {}
+      );
+    }
+  );
+}
+
+alertModalElStudent.addEventListener('shown.bs.modal', function (ev) {
   loadingModal.hide();
 });
 //click this button to join the group in search
-groupSubmitButton.addEventListener('click', async function (ev) {
-  loadingModal.show();
-  let groupToBeApplied = JSON.parse(sessionStorage.getItem('group'));
-  groupToBeApplied.studentList.push(getUser());
-  await fetch('api/group', {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(groupToBeApplied),
+if (groupSubmitButton) {
+  groupSubmitButton.addEventListener('click', async function (ev) {
+    loadingModal.show();
+    let groupToBeApplied = JSON.parse(sessionStorage.getItem('group'));
+    groupToBeApplied.studentList.push(getUser());
+    await fetch('api/group', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(groupToBeApplied),
+    });
+    successAnnouncmentInstance.show();
+    await updateGroup(0);
+    await getCurrentGroup();
+    await displayGroupInfo();
+    await getCurrentGroup();
   });
-  successAnnouncmentInstance.show();
-  await updateGroup(0);
-  await getCurrentGroup();
-  await displayGroupInfo();
-  await getCurrentGroup();
-});
-successAnnouncment.addEventListener('shown.bs.modal', function (ev) {
-  loadingModal.hide();
-});
+}
+
 groupSubmit.addEventListener('click', async function (ev) {
   groupInfoSection.innerHTML = '';
   groupInfoSection.appendChild(createSpinningAnimation());
@@ -130,14 +142,16 @@ const displayGroupInfo = async function () {
     const leavGroupBtn = document.createElement('button');
     leavGroupBtn.classList.add('btn');
     leavGroupBtn.textContent = 'Leave Group';
-    leavGroupBtn.addEventListener('click', function (ev) {
-      groupLeavConfirmInstance.show();
-    });
     leftSide.innerHTML += `
           <p class="group-capacity group-title" style ="margin-right: 8px;">${
-            !!groupInfo.capstone ? `${groupInfo.studentList.leng}/4 people` : ''
+            !!groupInfo.capstone
+              ? `${groupInfo.studentList.length}/4 people`
+              : ''
           }</p>
       `;
+    leavGroupBtn.addEventListener('click', async function (ev) {
+      await onLeave(ev);
+    });
     leftSide.appendChild(leavGroupBtn);
     infoTop.appendChild(leftSide);
     groupInfoSection.append(infoTop);

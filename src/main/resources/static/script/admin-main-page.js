@@ -411,5 +411,5 @@ async function getSuperVisorAdminPage(capstone) {
 alertModalEl.addEventListener('hidden.bs.modal', function (event) {
   updateRequestUI();
 });
-/
+
 updateRequestUI();
