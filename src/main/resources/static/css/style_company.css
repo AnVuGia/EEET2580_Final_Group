@@ -1,0 +1,200 @@
+.header-logo {
+    height: var(--header-height);
+    width: 170px;
+    cursor: pointer;
+}
+
+.header-logo {
+    height: var(--header-height);
+    width: 170px;
+    cursor: pointer;
+}
+
+.nav-header-list {
+    display: flex;
+    height: calc(var(--header-height) - 10px);
+    font-size: 1.6rem;
+}
+
+.nav-item {
+    width: 140px;
+    height: 40px;
+    border-radius: 5px;
+}
+
+.nav-header-item {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+}
+
+.nav-header-item:hover {
+    background-color: var(--text-color);
+}
+
+.navbar {
+    font-size: 1.8rem;
+}
+
+.navbar-toggler-icon {
+    width: 25px;
+    height: 25px;
+}
+
+.navbar-toggler {
+    width: 45px;
+    height: 35px;
+}
+
+.nav-header-item:hover {
+    cursor: pointer;
+}
+
+.header-container {
+    /* height: var(--header-height); */
+    background-color: var(--nude-color);
+}
+#NewEmail,
+  #NewContact,
+  #newsupervisorcontact,
+  #newsupervisor {
+    width: 80%;
+  }
+
+  #NewEmail {
+    margin-bottom: 20px;
+  }
+
+  #Bibliography {
+    width: 100%;
+    height: auto;
+    min-height: 50px;
+    margin-bottom: 20px;
+  }
+
+  #Content {
+    margin-bottom: 20px;
+  }
+
+  #SaveProfile,
+  #SaveBib {
+    float: right;
+    width: 10%;
+    height: 10%;
+  }
+  .company_detail_label{
+    font-weight: 700;
+  }
+
+  #companyName,
+  #companySupervisor,
+  #companySupervisorContact,
+  #companyEmail,
+  #companyContact {
+    margin-bottom: 1rem;
+  }
+
+  #EditBtn {
+    float: right;
+    margin-top: 20px;
+    width: 10vh;
+  }
+
+  .row {
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    /* Set the height of the row to the full viewport height */
+  }
+
+  #companyImg {
+    width: 80%;
+    height: auto;
+    max-height: 50vh;
+  }
+
+  .companyImgContainer {
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+  }
+
+  .tab_content {
+    margin-top: 5vh;
+    margin-left: 30px;
+  }
+
+  input[type="radio"] {
+    display: none;
+
+  }
+
+  input[type="radio"]+label {
+    display: inline-block;
+    padding: 10px;
+    background: #ccc;
+    columns: #999;
+    font-size: 1rem;
+    cursor: pointer;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+  }
+
+  input[type="radio"]:checked+label {
+    background: #aaa;
+    color: #000;
+  }
+ .tab{
+  font-weight: 600;
+ }
+  .conbox {
+    width: 100%;
+    background: #aaa;
+    /* margin: 0 auto; */
+    display: none;
+    min-height: 20vh;
+    padding: 3% 3%;
+  }
+
+  .company_detail_ul{
+    list-style: none;
+    margin-top: 1rem;
+    font-size: 1.3rem;
+  }
+
+  input[id="tab01"]:checked~.con1 {
+    display: block;
+  }
+
+  input[id="tab02"]:checked~.con2 {
+    display: block;
+  }
+  .modal_profile {
+    width: 100%;
+}
+.company_detail_container{
+  margin-bottom: 5rem;
+}
+.separator {
+  width: 80%;
+  border: 0.5px solid var(--primary-color);
+  margin: 10px auto;
+}
+#comapnyName{
+  font-size: 2.4rem;
+  margin-left: 5rem;
+  margin-top: 1rem;
+}
+.tab_content{
+  margin-bottom: 5rem;
+}
+#companyDescription{
+  font-size: 1.3rem;
+}
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
