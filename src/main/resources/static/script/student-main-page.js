@@ -27,14 +27,7 @@ var groupLeavConfirm = document.getElementById("group-leave-confirm");  // Query
 var groupLeavConfirmInstance = new bootstrap.Modal(groupLeavConfirm);
 
 
-let group = JSON.parse(sessionStorage.getItem("current-group"));
-let user  = JSON.parse(sessionStorage.getItem("user"));
 
-function updateSessionStorage(){
-   group = JSON.parse(sessionStorage.getItem("current-group"));
-   user  = JSON.parse(sessionStorage.getItem("user"));
-
-}
 
 leaveGroupBtn.addEventListener("click", async function(ev){
         loadingModal.show();
