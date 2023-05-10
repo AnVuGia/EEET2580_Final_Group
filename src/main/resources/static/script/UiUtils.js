@@ -133,3 +133,10 @@ function updateDangerModal(msg){
   const msgDiv = document.querySelector(".danger-modal");
   msgDiv.textContent = msg;
 }
+function getUser (){
+  return JSON.parse(sessionStorage.getItem('user'));
+}
+function getCurrentGroup(){
+  return JSON.parse(sessionStorage.getItem('current-group'));
+}
+
