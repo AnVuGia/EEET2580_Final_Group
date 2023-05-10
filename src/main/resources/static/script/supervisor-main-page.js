@@ -8,8 +8,7 @@ const superviseCapstoneSection = {
   totalPages: 0,
 };
 
-
-async function getCapstoneList(page, size) {
+async function getSupCapstoneList(page, size) {
   console.log(currUser.name);
   const endpoint = `api/capstone-project/supervisor?name=${currUser.name}&page=${page}&size=${size}`;
   const response = await fetch(endpoint);
@@ -22,7 +21,7 @@ async function updateUI() {
   capstoneContainer.innerHTML = '';
   paginationSection.innerHTML = '';
   capstoneContainer.appendChild(loadingSpinner);
-  const capstoneList = await getCapstoneList(
+  const capstoneList = await getSupCapstoneList(
     superviseCapstoneSection.currPage,
     superviseCapstoneSection.currSize
   );
@@ -30,17 +29,16 @@ async function updateUI() {
   capstoneContainer.innerHTML = '';
   capstoneListData.forEach((capstone) => {
     const capstoneEl = createCapstoneCardWithEditButton(capstone);
-    const div = document.createElement("div");
-    div.classList.add("col","col-lg-12","col-xl")
+    const div = document.createElement('div');
+    div.classList.add('col', 'col-lg-12', 'col-xl');
     div.appendChild(capstoneEl);
     capstoneContainer.appendChild(div);
   });
   superviseCapstoneSection.totalPages = capstoneList.totalPages;
 
   createPagination(superviseCapstoneSection, paginationSection, updateUI);
-
+  capstoneContainer.removeChild(loadingSpinner);
   console.log('Capstone list from server:', capstoneList);
-
 }
 updateUI();
 
@@ -71,7 +69,6 @@ function createCapstoneCardWithEditButton(capstone) {
 
     if (ev.target !== editButton) {
       await updateCapstoneModal(capstone);
-      const studentCapstoneModal = new bootstrap.Modal(document.querySelector('#student-capstone-modal'));
       studentCapstoneModal.show();
     }
   });
@@ -80,25 +77,25 @@ function createCapstoneCardWithEditButton(capstone) {
 }
 
 function closeModal() {
-  document.addEventListener("DOMContentLoaded", () => {
-    const closeModalBtn = document.querySelector("#close-modal-btn");
+  document.addEventListener('DOMContentLoaded', () => {
+    const closeModalBtn = document.querySelector('#close-modal-btn');
 
-    closeModalBtn.addEventListener("click", () => {
-      const studentCapstoneModal = new bootstrap.Modal(document.querySelector("#student-capstone-modal"));
+    closeModalBtn.addEventListener('click', () => {
+      const studentCapstoneModal = new bootstrap.Modal(
+        document.querySelector('#student-capstone-modal')
+      );
       studentCapstoneModal.hide();
 
       // Add this line to remove the 'modal-open' class from the body
-      document.body.classList.remove("modal-open");
+      document.body.classList.remove('modal-open');
       // Add this line to remove the 'modal-backdrop' element
-      const backdrop = document.querySelector(".modal-backdrop");
+      const backdrop = document.querySelector('.modal-backdrop');
       if (backdrop) {
         backdrop.remove();
       }
     });
   });
 }
-
-closeModal();
 
 function createEditCapstoneForm(capstone) {
   // Create a form container element
@@ -116,13 +113,7 @@ function createEditCapstoneForm(capstone) {
   form.innerHTML = `
     <h3>Edit Capstone Project</h3>
     <p>
-        Groups are a good place to collaborate on projects or to figure
-        out schedules for study sessions and the like. Every group gets
-        a calendar, a wiki, discussions, and a little bit of space to
-        store files. Groups can collaborate on documents, or even
-        schedule web conferences. It's really like a mini-course where
-        you can work with a smaller number of students on a more focused
-        project.
+      Please fill in the form below to edit the capstone project.
     </p>
     <div class="capstone-information">
         <label for="project-image">Capstone Image</label>
@@ -184,24 +175,18 @@ function createEditCapstoneForm(capstone) {
         }</textarea>
         
         <label for="supervisor-name">Company Name</label>
-        <input type="text" id="supervisor-name" value="${
+        <input readonly type="text" id="supervisor-name" value="${
           capstone.supervisor.name
         }"/>
         
-        <input type="hidden" id="supervisor-id" name="supervisor-id" value="${
-          capstone.supervisor.id
-        }"/>
+      
         
         <label for="company-name">Company Name</label>
-        <input type="text" id="company-name" value="${capstone.company.name}"/>
+        <input readonly type="text" id="company-name" value="${
+          capstone.company.name
+        }"/>
         
-        <input type="hidden" id="company-id" name="company-id" value="${
-          capstone.company.id
-        }"/>
-        <input type="hidden" id="company-username" name="company-username" value="${
-          capstone.company.username
-        }"/>
-
+       
         <button type="submit">Save</button>
         <button type="button" class="close-button">Close</button>
         
@@ -221,7 +206,7 @@ function createEditCapstoneForm(capstone) {
     event.preventDefault();
 
     // Update the capstone data and close the form
-    const updateSuccess = await updateCapstoneProject(capstone.id);
+    const updateSuccess = await updateCapstoneProject(capstone);
 
     if (updateSuccess) {
       updateUI();
@@ -231,19 +216,81 @@ function createEditCapstoneForm(capstone) {
 
   return editFormContainer;
 }
+async function setCapstoneImage(capstoneProject) {
+  const fileInput = document.querySelector('#project-image');
+  if (fileInput.files.length === 0) {
+    await fetch(`/api/capstone-project/id/${capstoneProject.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(capstoneProject),
+    });
+    return capstoneProject;
+  }
 
-async function updateCapstoneProject(capstoneID) {
+  console.log('change');
+  const file = fileInput.files[0];
+  const reader = new FileReader();
+
+  reader.onload = () => {
+    const image = new Image();
+
+    image.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = 300;
+      canvas.height = 300;
+      const context = canvas.getContext('2d');
+      context.drawImage(image, 0, 0, 300, 300);
+      const compressedImageData = canvas.toDataURL('image/jpeg', 0.5);
+      console.log(compressedImageData);
+      const formData = new FormData();
+      formData.append('file', dataURItoBlob(compressedImageData));
+
+      fetch('/api/images', {
+        method: 'POST',
+        body: formData,
+      })
+        .then((response) => {
+          console.log('Image uploaded successfully.');
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+          capstoneProject.imageId = data.id;
+          console.log(capstoneProject);
+          return capstoneProject;
+        })
+        .then((capstoneProject) => {
+          fetch(`/api/capstone-project/id/${capstoneProject.id}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(capstoneProject),
+          })
+            .then((response) => {
+              console.log('Capstone project update successfully.');
+            })
+            .then((data) => {
+              console.log(data);
+            });
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+
+    image.src = reader.result;
+  };
+  reader.readAsDataURL(file);
+  return capstoneProject;
+}
+async function updateCapstoneProject(capstone) {
   const updatedCapstoneData = {
-    company: {
-      name: document.querySelector('#company-name').value,
-      id: document.querySelector('#company-id').value,
-      username: document.querySelector('#company-username').value,
-    },
-    supervisor: {
-      name: document.querySelector('#supervisor-name').value,
-      id: document.querySelector('#supervisor-id').value,
-      username: currUser.username,
-    },
+    id: capstone.id,
+    company: capstone.company,
+    supervisor: capstone.supervisor,
     projectTitle: document.querySelector('#project-title').value,
     projectIntroduction: document.querySelector('#project-introduction').value,
     projectObjectives: document.querySelector('#project-objectives').value,
@@ -257,37 +304,18 @@ async function updateCapstoneProject(capstoneID) {
       .value,
     projectDescription: document.querySelector('#project-description').value,
     projectRequirement: document.querySelector('#project-requirements').value,
-    capstoneStatus: 'approved',
-    imageId: '',
+    capstoneStatus: capstone.capstoneStatus,
+    imageId: capstone.imageId,
   };
-
+  console.log(updatedCapstoneData);
   try {
-    const response = await fetch(`/api/capstone-project/${capstoneID}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(updatedCapstoneData),
-    });
-
-    if (response.ok) {
-      console.log('Capstone project updated successfully');
-      return true;
-    } else {
-      console.error(
-        'Error updating capstone project. Response status:',
-        response.status
-      );
-      return false;
-    }
+    await setCapstoneImage(updatedCapstoneData);
+    return true;
   } catch (error) {
     console.error('Error updating capstone project:', error);
     return false;
   }
-
-  console.log(updatedCapstoneData);
 }
-
 
 //This part is for edit supervisor profile
 const supervisorName = document.querySelector('#profile-supervisor-name');
@@ -323,7 +351,7 @@ async function displayProfile() {
   const closeProfileBtn = document.querySelector('#close-profile-section-btn');
   const editProfileBtn = document.querySelector('#edit-profile-button');
 
-// Add a click event listener to the list item
+  // Add a click event listener to the list item
   profileController.addEventListener('click', (event) => {
     if (event.target.classList.contains('profile-list-item')) {
       // Toggle the hidden attribute on the profile section element
@@ -341,7 +369,6 @@ async function displayProfile() {
     paginationSection.style.display = 'block';
     capstoneContainer.style.display = 'flex';
     capstonePanel.style.display = 'flex';
-
   });
 
   const supervisor = await getSupervisorProfile();
@@ -401,7 +428,7 @@ function createEditProfileForm(supervisor) {
     event.preventDefault();
 
     // Update the capstone data and close the form
-      await updateProfile(supervisor.id);
+    await updateProfile(supervisor.id);
 
     document.body.removeChild(editProfileFormContainer);
   });
@@ -414,25 +441,28 @@ async function updateProfile(supervisorID) {
     name: document.querySelector('#sup-profile-name').value,
     bio: document.querySelector('#sup-profile-bio').value,
     email: document.querySelector('#sup-profile-email').value,
-    contact: document.querySelector('#sup-profile-contact').value
+    contact: document.querySelector('#sup-profile-contact').value,
   };
 
   try {
-    const response = await fetch(`/api/supervisor/update-profile/${supervisorID}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(updatedProfileSupervisor),
-    });
+    const response = await fetch(
+      `/api/supervisor/update-profile/${supervisorID}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedProfileSupervisor),
+      }
+    );
 
     if (response.ok) {
       console.log('Capstone project updated successfully');
-      updateProfileUI(updatedProfileSupervisor)
+      updateProfileUI(updatedProfileSupervisor);
     } else {
       console.error(
-          'Error updating capstone project. Response status:',
-          response.status
+        'Error updating capstone project. Response status:',
+        response.status
       );
     }
   } catch (error) {
@@ -441,7 +471,15 @@ async function updateProfile(supervisorID) {
 
   console.log(updatedProfileSupervisor);
 }
-
-
+function dataURItoBlob(dataURI) {
+  const byteString = atob(dataURI.split(',')[1]);
+  const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+  const ab = new ArrayBuffer(byteString.length);
+  const ia = new Uint8Array(ab);
+  for (let i = 0; i < byteString.length; i++) {
+    ia[i] = byteString.charCodeAt(i);
+  }
+  return new Blob([ab], { type: mimeString });
+}
 getSupervisorProfile();
 displayProfile();

@@ -53,7 +53,7 @@ public class CapstoneProjectServiceImp implements CapstoneProjectService {
                                     capstoneProject.getImageId());
     }
 
-    public void updateCapstone(CapstoneProject oldCapstone, CapstoneProjectDto newCapstone){
+    public CapstoneProject updateCapstone(CapstoneProject oldCapstone, CapstoneProjectDto newCapstone){
         System.out.println("Inside update capstone");
         CompanyAcc companyAcc = companyAccRepository.findByUsername(newCapstone.getCompany().getUsername());
         SupervisorAcc superVisorAcc = supervisorAccRepository.findByUsername(newCapstone.getSupervisor().getUsername());
@@ -71,6 +71,7 @@ public class CapstoneProjectServiceImp implements CapstoneProjectService {
         oldCapstone.setMultiTeamAllow(newCapstone.getMultiTeamAllow());
         oldCapstone.setCapstoneStatus(newCapstone.getCapstoneStatus());
         oldCapstone.setImageId(newCapstone.getImageId());
+        return oldCapstone;
     }
 
     @Override
@@ -110,8 +111,8 @@ public class CapstoneProjectServiceImp implements CapstoneProjectService {
     @Override
     public void updateCapstoneProjectById(Long id, CapstoneProjectDto capstoneProjectDto) {
         CapstoneProject capstoneToUpdate = capstoneProjectRepository.findById(id).get();
-        this.updateCapstone(capstoneToUpdate,capstoneProjectDto);
-        capstoneProjectRepository.save(capstoneToUpdate);
+        CapstoneProject temp = this.updateCapstone(capstoneToUpdate,capstoneProjectDto);
+        capstoneProjectRepository.save(temp);
         System.out.println("CapstoneProject updated");
     }
     @Override

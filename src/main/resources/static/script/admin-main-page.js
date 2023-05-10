@@ -357,7 +357,6 @@ function setRejectAlertModal() {
       </div>
     </div>  
   `;
-  console.log(alertModalEl);
   alertModal.show();
 }
 function setLoadingModal() {
@@ -375,7 +374,6 @@ function setLoadingModal() {
       </div>
     </div>
   `;
-  console.log(alertModalEl);
   alertModal.show();
 }
 function setErrorAlertModal() {
@@ -393,7 +391,6 @@ function setErrorAlertModal() {
       </div>
     </div>
   `;
-  console.log(alertModalEl);
   alertModal.show();
 }
 async function getSuperVisorAdminPage(capstone) {
@@ -414,5 +411,5 @@ async function getSuperVisorAdminPage(capstone) {
 alertModalEl.addEventListener('hidden.bs.modal', function (event) {
   updateRequestUI();
 });
-// console.log(alertModalEl);
+/
 updateRequestUI();

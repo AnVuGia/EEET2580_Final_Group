@@ -37,7 +37,7 @@ public class CapstoneProjectController {
     }
 
     // Update Capstone Project in database
-    @PutMapping(value = "/capstone-project/{id}")
+    @PutMapping(value = "/capstone-project/id/{id}")
     public void updateCapstoneProject(@PathVariable Long id,
             @RequestBody CapstoneProjectDto capstoneProjectDto) {
         System.out.println("update capstone");

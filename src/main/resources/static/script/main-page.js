@@ -626,6 +626,13 @@ async function updateGroupSection(capstone) {
   const groupListResult = await groupList.json();
   if (groupListResult.content.length === 0) {
     groupSection.innerHTML = `<h3 class="text-center">No Group Found</h3>`;
+    if (role === 'student') {
+      let currentGroup = JSON.parse(localStorage.getItem('currentGroup'));
+      if (currentGroup.id === null) {
+        window.alert('You are not in any group');
+      } else {
+      }
+    }
     return;
   }
   groupSection.innerHTML = ``;
@@ -635,7 +642,50 @@ async function updateGroupSection(capstone) {
     groupSection.appendChild(groupSectionCard);
   });
 }
+async function createApplyButton(capstone) {
+  const applyButton = document.createElement('button');
+  applyButton.classList.add('btn', 'btn-primary', 'apply-button');
+  applyButton.textContent = 'Apply';
+  applyButton.addEventListener('click', async function () {
+    const currentGroupInProjectResponse = await fetch(
+      `api/group/capstone/${capstone.id}`
+    );
+    const currentGroupInProjectResult =
+      await currentGroupInProjectResponse.json();
+    let groupMemberCount = 0;
+    currentGroupInProjectResult.content.forEach((group) => {
+      if (group.id === currentGroup.id) {
+        window.alert('You are already in this capstone');
+        return;
+      }
+      groupMemberCount += group.studentList.length;
+    });
+    let currentGroup = JSON.parse(localStorage.getItem('currentGroup'));
+    if (
+      groupMemberCount + currentGroup.studentList.length >
+      capstone.noStudents
+    ) {
+      window.alert('This capstone is full');
+      return;
+    }
+    currentGroup.capstone = capstone;
+    const response = await fetch(`api/group`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(currentGroup),
+    });
 
+    if (response.status === 200) {
+      window.alert('You have successfully applied for this capstone');
+      // updateCapstoneModal(capstone);
+    } else {
+      window.alert('You have already applied for this capstone');
+    }
+  });
+  return applyButton;
+}
 searchSelection.dispatchEvent(new Event('change'));
 // onFiltered();
 
