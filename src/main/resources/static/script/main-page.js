@@ -13,9 +13,6 @@ const studentCapstoneModalEl = document.querySelector(
 const groupInfoContainer = document.querySelector('.group-info-section');
 const role = sessionStorage.getItem('role');
 
-function getUser (){
-    return JSON.parse(sessionStorage.getItem('user'));
-}
 
 const loadingModal = new bootstrap.Modal(
   document.getElementById('loading-modal'),
@@ -94,7 +91,7 @@ function setVisibiltySearchPage(target) {
   if (target.textContent === 'Search') {
     disSection.textContent = 'Search';
     dashboardView.setAttribute('hidden', 'hidden');
-    if (JSON.parse(sessionStorage.getItem('user')).role === 'student') {
+    if (user.role === 'student') {
       groupInfoContainer.setAttribute('hidden', 'hidden');
     }
 
@@ -110,7 +107,7 @@ function setVisibiltySearchPage(target) {
       disSection.textContent = 'Supervised Capstone List';
     }
     capstoneSearchSection.setAttribute('hidden', 'hidden');
-    if (JSON.parse(sessionStorage.getItem('user')).role === 'student') {
+    if (user.role === 'student') {
       groupInfoContainer.setAttribute('hidden', 'hidden');
     }
     dashboardView.removeAttribute('hidden');
@@ -399,18 +396,17 @@ function createGroupCard(groupInfo) {
       </div>
     `;
 
-
     if (getUser().role === "student"){
         const button  = document.createElement("button");
         button.classList.add("btn","join-group-btn");
         button.textContent = "JOIN";
-        button.setAttribute("id",groupInfo.id);
+        button.setAttribute("id",groupInfo.id);      
         button.addEventListener("click", async function(ev){
           let response = await fetch(`api/group/id/${ev.target.id}`);
           let group = await response.json();
           sessionStorage.setItem("group",JSON.stringify(group));
           console.log(group);
-          if (currentGroup.id){
+          if (getCurrentGroup().id){
               modalJoinedGroupInstance.show();
               return;
           }else if (group.studentList.length == 4){
@@ -477,7 +473,6 @@ const updateCompany = async function (curPage) {
   await getCompanyList(searchInput.value, curPage);
 };
 const onFiltered = async function () {
-  // let user = JSON.parse(sessionStorage.getItem('user'));
   if (searchSelection.value === 'capstone') {
     searchInput.placeholder = 'Please enter Capstone Name';
     filterContainer.removeAttribute('style');
