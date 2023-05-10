@@ -7,6 +7,7 @@ const disSection = document.querySelector('.display-section');
 const displayResult = document.querySelector('.display-result-search');
 const groupListContainer = document.querySelector('.group-list');
 const filterContainer = document.querySelector('.search-filter');
+const searchPagePagination = document.getElementById('main-pagination');
 const studentCapstoneModalEl = document.querySelector(
   '#student-capstone-modal'
 );
@@ -472,7 +473,6 @@ function createGroupCard(groupInfo) {
 const displayPagination = async function (pageable) {
   //don't change the query selector, if something is wrong, change the html file instead
   const pagination = document.querySelector('#main-pagination');
-  console.trace();
   pagination.innerHTML = '';
   console.log('display pagination');
   let maxPage = pageable.totalPages;
@@ -480,25 +480,75 @@ const displayPagination = async function (pageable) {
   for (let i = 0; i < maxPage; i++) {
     const page = document.createElement('li');
     page.className = 'page-item';
-
     const pageLink = document.createElement('div');
     pageLink.classList.add('page-link');
+    if (i === currentPage) {
+      pageLink.classList.add('active');
+    }
     pageLink.textContent = i + 1;
     pageLink.addEventListener('click', (e) => {
       const page = Number.parseInt(e.target.textContent) - 1;
       currentPage = page;
-
       if (searchSelection.value === 'capstone') {
+        searchPagePagination.innerHTML="";
         updateCapstone(currentPage);
       } else if (searchSelection.value === 'group') {
+        searchPagePagination.innerHTML="";
         updateGroup(currentPage);
       } else if (searchSelection.value === 'company') {
+        searchPagePagination.innerHTML="";
         updateCompany(currentPage);
       }
     });
     page.appendChild(pageLink);
     pagination.appendChild(page);
   }
+  const prevLiEl = document.createElement('li');
+  prevLiEl.classList.add("page-item");
+  const prevAEl = document.createElement('a');
+  prevAEl.classList.add('page-link');
+  prevAEl.textContent = 'Previous';
+  prevLiEl.appendChild(prevAEl);
+  pagination.insertBefore(prevLiEl, pagination.firstChild);
+  prevAEl.addEventListener('click', () => {
+      if (currentPage >= 1){
+        currentPage--;
+        if (searchSelection.value === 'capstone') {
+          searchPagePagination.innerHTML="";
+          updateCapstone(currentPage);
+        } else if (searchSelection.value === 'group') {
+          searchPagePagination.innerHTML="";
+          updateGroup(currentPage);
+        } else if (searchSelection.value === 'company') {
+          searchPagePagination.innerHTML="";
+          updateCompany(currentPage);
+        }
+      }
+  });
+  const nextLiEl = document.createElement('li');
+  nextLiEl.classList.add("page-item");
+  const nextAEl = document.createElement('a');
+  nextAEl.classList.add('page-link');
+  nextAEl.textContent = 'Next';
+  nextLiEl.appendChild(nextAEl);
+  pagination.appendChild(nextLiEl);
+  nextAEl.addEventListener('click', () => {
+    if (currentPage < maxPage-1){
+        currentPage++;
+        if (searchSelection.value === 'capstone') {
+          searchPagePagination.innerHTML="";
+          updateCapstone(currentPage);
+        } else if (searchSelection.value === 'group') {
+          searchPagePagination.innerHTML="";
+          updateGroup(currentPage);
+        } else if (searchSelection.value === 'company') {
+          searchPagePagination.innerHTML="";
+          updateCompany(currentPage);
+        }
+    }
+  });
+
+
 };
 
 const updateCapstone = async function (curPage) {
@@ -514,9 +564,11 @@ const updateCapstone = async function (curPage) {
   );
 };
 const updateGroup = async function (curPage) {
+  
   await getGroupList(searchInput.value, curPage);
 };
 const updateCompany = async function (curPage) {
+ 
   await getCompanyList(searchInput.value, curPage);
 };
 const onFiltered = async function () {
@@ -563,16 +615,20 @@ handleCollapsibleFilter();
 
 searchSelection.addEventListener('change', function () {
   searchInput.value = '';
+  searchPagePagination.innerHTML ="";
   onFiltered();
 });
 
 superVisorSelection.addEventListener('change', function () {
+  searchPagePagination.innerHTML="";
   onFiltered();
 });
 companySelection.addEventListener('change', function () {
+  searchPagePagination.innerHTML ="";
   onFiltered();
 });
 searchInput.addEventListener('keyup', function () {
+  searchPagePagination.innerHTML ="";
   onFiltered();
 });
 
