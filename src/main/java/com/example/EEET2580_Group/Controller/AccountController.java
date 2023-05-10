@@ -92,8 +92,9 @@ public class AccountController {
     @GetMapping("/student/id/{id}")
     StudentAccDto getStudentAccountById(@PathVariable Long id) {
         Account account = accountService.getAccountById(id, "student");
-        return new StudentAccDto((StudentAcc)account);
+        return new StudentAccDto((StudentAcc) account);
     }
+
     @GetMapping("/student/username/{username}")
     Account getStudentAccountByUsername(@PathVariable String username) {
         Account account = accountService.getAccountByUsername(username, "student");
@@ -113,4 +114,9 @@ public class AccountController {
         return new SupervisorAccDto((SupervisorAcc) account);
     }
 
+    @GetMapping("/supervisor/id/{id}")
+    SupervisorAccDto getSupervisorAccountById(@PathVariable Long id) {
+        Account account = accountService.getAccountById(id, "supervisor");
+        return new SupervisorAccDto((SupervisorAcc) account);
+    }
 }

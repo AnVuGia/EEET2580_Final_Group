@@ -135,7 +135,7 @@
                 class="btn modal-button-admin"
                 data-bs-dismiss="modal"
               >
-              Cancel
+                Cancel
               </button>
               <button
                 id="approve-btn"
@@ -143,21 +143,21 @@
                 class="btn modal-button-admin"
                 data-bs-dismiss="modal"
               >
-              Approve
+                Approve
               </button>
               <button
                 id="reject-btn"
                 type="button"
                 class="btn modal-button-admin"
                 data-bs-dismiss="modal"
-                >
+              >
                 Reject
               </button>
             </div>
           </div>
         </div>
       </div>
-     
+
       <div class="search-section" hidden="hidden">
         <div class="search-container">
           <div class="search-filter d-none d-md-block">
@@ -167,7 +167,7 @@
                 class="search-selection-item filter align-self-center"
                 name="by-group-or-capstone"
                 id="by-group-or-capstone"
-                >
+              >
                 <option value="capstone">Search Capstone</option>
                 <option value="group">Search Group</option>
                 <option value="company">Search Company</option>
@@ -177,19 +177,17 @@
               type="text"
               class="search-selection-item search-input"
               placeholder="Please Enter Capstone Name"
-              />
+            />
             <select
               class="search-selection-item search-selection"
               name="Supervisor"
               id="supervior-selection"
-              >
-            </select>
+            ></select>
             <select
               class="search-selection-item search-selection"
               name="Company"
               id="company-selection"
-              >
-            </select>
+            ></select>
           </div>
           <div class="display-result">
             <div class="display-result-search row gy-5"></div>
@@ -197,27 +195,7 @@
               aria-label="Page navigation example"
               class="d-flex justify-content-center pagination-container mt-auto"
             >
-              <ul id="" class="pagination"></ul>
-          </div>
-        </div>
-      </div>
-      <div class="modal fade" id="alert-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-2" id="exampleModalLabel">Applied Alert</h1>
-              <button type="button" class="btn-close fs-3" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <div class="alert alert-warning d-flex align-items-center" role="alert">
-                <i class="fas fa-exclamation-circle fs-3" style="margin-right: 8px;"></i>
-                <div style="font-size: 1.6rem;">
-                  You already joined a group.
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
+              <ul id="main-pagination" class="pagination"></ul>
             </div>
           </div>
         </div>
@@ -371,6 +349,10 @@
                         ><span>Group: 1</span></i
                       >
                     </div>
+                    <div class="supervisor-overview-container">
+                      <a href="#"><h3>Applied Group</h3></a>
+                      <div id="group-modal-container"></div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -412,6 +394,46 @@
               <div class="loading-spinner"></div>
             </div>
             <div class="modal-footer"></div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="modal fade"
+        id="alert-modal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-2" id="exampleModalLabel">
+                Capstone Status
+              </h1>
+              <button
+                type="button"
+                class="btn-close fs-3"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div
+                class="alert alert-warning d-flex align-items-center"
+                role="alert"
+              >
+                <i
+                  class="fas fa-exclamation-circle fs-3"
+                  style="margin-right: 8px"
+                ></i>
+                <div style="font-size: 1.6rem">You already joined a group.</div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn" data-bs-dismiss="modal">
+                Close
+              </button>
+            </div>
           </div>
         </div>
       </div>

@@ -13,11 +13,9 @@ const studentCapstoneModalEl = document.querySelector(
 const groupInfoContainer = document.querySelector('.group-info-section');
 const role = sessionStorage.getItem('role');
 
-
 function getUser() {
   return JSON.parse(sessionStorage.getItem('user'));
 }
-
 
 const loadingModal = new bootstrap.Modal(
   document.getElementById('loading-modal'),
@@ -401,36 +399,36 @@ function createGroupCard(groupInfo) {
       </div>
     `;
 
+  if (getUser().role === 'student') {
+    const button = document.createElement('button');
+    button.classList.add('btn', 'join-group-btn');
+    button.textContent = 'JOIN';
+    button.setAttribute('id', groupInfo.id);
+    button.addEventListener('click', async function (ev) {
+      let response = await fetch(`api/group/id/${ev.target.id}`);
+      let group = await response.json();
+      sessionStorage.setItem('group', JSON.stringify(group));
+      console.log(group);
+      if (getCurrentGroup().id) {
+        modalJoinedGroupInstance.show();
+        return;
+      } else if (group.studentList.length == 4) {
+        modalGroupFullInstance.show();
+        return;
+      }
+      confirmModalInstance.show();
+    });
+    bottom2.appendChild(button);
+  }
 
-    if (getUser().role === "student"){
-        const button  = document.createElement("button");
-        button.classList.add("btn","join-group-btn");
-        button.textContent = "JOIN";
-        button.setAttribute("id",groupInfo.id);      
-        button.addEventListener("click", async function(ev){
-          let response = await fetch(`api/group/id/${ev.target.id}`);
-          let group = await response.json();
-          sessionStorage.setItem("group",JSON.stringify(group));
-          console.log(group);
-          if (getCurrentGroup().id){
-              modalJoinedGroupInstance.show();
-              return;
-          }else if (group.studentList.length == 4){
-            modalGroupFullInstance.show();
-            return;
-          }
-          confirmModalInstance.show();
-        })
-        bottom2.appendChild(button);
-    }
-    
-    div.appendChild(bottom);
-    div.appendChild(bottom2);
+  div.appendChild(bottom);
+  div.appendChild(bottom2);
   return div;
 }
 
 const displayPagination = async function (pageable) {
-  const pagination = document.querySelector('.pagination');
+  //don't change the query selector, if something is wrong, change the html file instead
+  const pagination = document.querySelector('#main-pagination');
   console.trace();
   pagination.innerHTML = '';
   console.log('display pagination');

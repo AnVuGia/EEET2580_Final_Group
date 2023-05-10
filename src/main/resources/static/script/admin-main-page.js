@@ -325,7 +325,7 @@ const setCapstoneStatus = async function (id, status) {
 };
 function setSuccessAlertModal() {
   console.log('setSuccessAlertModal');
-  const alertModalBody = document.querySelector('#alert-body');
+  const alertModalBody = document.querySelector('#alert-modal .modal-body');
   console.log(alertModalBody);
   alertModalBody.innerHTML = `
     <div class="alert-modal-body">
@@ -338,12 +338,12 @@ function setSuccessAlertModal() {
       </div>
     </div>
   `;
-  
-  // alertModal.show();
+
+  alertModal.show();
 }
 function setRejectAlertModal() {
   console.log('setRejectAlertModal');
-  const alertModalBody = document.querySelector('#alert-body');
+  const alertModalBody = document.querySelector('#alert-modal .modal-body');
   console.log(alertModalBody);
   alertModalBody.innerHTML = `
 
@@ -358,11 +358,11 @@ function setRejectAlertModal() {
     </div>  
   `;
   console.log(alertModalEl);
-  // alertModal.show();
+  alertModal.show();
 }
 function setLoadingModal() {
   console.log('setLoadingModal');
-  const alertModalBody = document.querySelector('#alert-body');
+  const alertModalBody = document.querySelector('#alert-modal .modal-body');
   console.log(alertModalBody);
   alertModalBody.innerHTML = `
     <div class="alert-modal-body">
@@ -376,11 +376,11 @@ function setLoadingModal() {
     </div>
   `;
   console.log(alertModalEl);
-  // alertModal.show();
+  alertModal.show();
 }
 function setErrorAlertModal() {
   console.log('setErrorAlertModal');
-  const alertModalBody = document.querySelector('#alert-body');
+  const alertModalBody = document.querySelector('#alert-modal .modal-body');
   console.log(alertModalBody);
   alertModalBody.innerHTML = `
     <div class="alert-modal-body">
@@ -394,7 +394,7 @@ function setErrorAlertModal() {
     </div>
   `;
   console.log(alertModalEl);
-  // alertModal.show();
+  alertModal.show();
 }
 async function getSuperVisorAdminPage(capstone) {
   let url = '/api/account/supervisor/all';
