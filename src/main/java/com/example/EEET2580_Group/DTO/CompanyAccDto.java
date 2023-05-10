@@ -22,6 +22,10 @@ public class CompanyAccDto extends AccountDto{
 
     private Long contact;
     private Long imageId;
+
+    private String manager;
+    private Long manager_contact;
+
     public CompanyAccDto(CompanyAcc account){
         super(account);
         this.companyDescription = account.getCompanyDescription();
