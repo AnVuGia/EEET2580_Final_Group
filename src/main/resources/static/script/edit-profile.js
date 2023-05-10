@@ -134,11 +134,7 @@ CapabilityCreateBtn.addEventListener('click', () => {
 
     if (CapabilitiesCreateInput.value != "") {
          const newSkill = CapabilitiesCreateInput.value;
-        // const ul = document.querySelector('#capability');
-        // const newli = document.createElement('li');
-        // newli.textContent = newSkill;
-        // newli.className = 'profile_li'
-        // ul.appendChild(newli);
+      
         const modalUl = document.querySelector('#ModalCapability');
         const modalLi = document.createElement('li');
         modalLi.textContent = newSkill;
@@ -152,14 +148,6 @@ CapabilityCreateBtn.addEventListener('click', () => {
         modalUl.appendChild(modalLi);
     }
 })
-
-// SaveBib.addEventListener('click', () => {
-//     const newBib = document.getElementById('Bibliography').value;
-//     const Bib = document.getElementById('Bib');
-//     if (newBib != "") {
-//         Bib.innerHTML = newBib;
-//     }
-// })
 
 
 
@@ -179,31 +167,6 @@ function DeleteSkill(skill) {
     }
 
 }
-
-// function reloadSkills() {
-   
-//     const liCount = ul.querySelectorAll('li').length;
-//     const modalUl = document.querySelector('#ModalCapability');
-//     const ModalLi = modalUl.getElementsByTagName('li');
-//     for (let i = ModalLi.length - 1; i >= 0; i--) {
-//         modalUl.removeChild(ModalLi[i]);
-//     }
-
-//     for (let i = 0; i < liCount; i++) {
-//         const skill = li[i].textContent;
-//         const modalLi = document.createElement('li');
-//         modalLi.textContent = skill;
-//         modalLi.className = 'list-group-item'
-//         const DelteBtn = document.createElement('Button');
-//         DelteBtn.id = 'deleteBtn'
-//         DelteBtn.classList.add("btn", "btn-danger");
-//         DelteBtn.innerHTML = "Delete";
-//         DelteBtn.addEventListener('click', DeleteSkill(skill));
-//         modalLi.appendChild(DelteBtn);
-//         modalUl.appendChild(modalLi);
-//     }
-
-// }
 
 
 SaveChangeBtn.addEventListener('click', () => {

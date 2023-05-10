@@ -410,14 +410,57 @@ function createGroupCard(groupInfo) {
       let group = await response.json();
       sessionStorage.setItem('group', JSON.stringify(group));
       console.log(group);
-      if (getCurrentGroup().id) {
-        modalJoinedGroupInstance.show();
+      let currentGroup = JSON.parse(sessionStorage.getItem('current-group'));
+      if (currentGroup.id) {
+        // modalJoinedGroupInstance.show();
+        updateDangerModal(
+          'You have already joined a group!',
+          alertModalElStudent,
+          (ev) => {}
+        );
         return;
       } else if (group.studentList.length == 4) {
-        modalGroupFullInstance.show();
+        // modalGroupFullInstance.show();
+        updateDangerModal(
+          'This group is full!',
+          alertModalElStudent,
+          (ev) => {}
+        );
+
         return;
       }
-      confirmModalInstance.show();
+      // confirmModalInstance.show();
+      updateInfoModal(
+        'Are you sure you want to join this group?',
+        alertModalElStudent,
+        async (ev) => {
+          try {
+            group.studentList.push(getUser());
+            let response = await fetch(`api/group`, {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(group),
+            });
+
+            updateSuccessModal(
+              'Join group successfully!',
+              alertModalElStudent,
+              (ev) => {
+                // sessionStorage.setItem('current-group', JSON.stringify(group));
+                window.location.reload();
+              }
+            );
+          } catch (error) {
+            updateDangerModal(
+              'Join group failed!',
+              alertModalElStudent,
+              (ev) => {}
+            );
+          }
+        }
+      );
     });
     bottom2.appendChild(button);
   }
