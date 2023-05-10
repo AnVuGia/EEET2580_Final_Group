@@ -13,6 +13,8 @@ const Email = document.getElementById('CPemail');
 const Name = document.getElementById('CPname');
 const Hname = document.getElementById('comapnyName');
 const Contact = document.getElementById('CPcontact');
+const Manager = document.getElementById('CPmanager');
+const ManagerContact = document.getElementById('CPmanagercontact');
 
 
 // const Name_modal = document.getElementById('newManager');
@@ -20,7 +22,8 @@ const Email_modal = document.getElementById('newCompanyEmail');
 const Contact_modal = document.getElementById('newCompanyContact');
 const Description_modal = document.getElementById('newDescription');
 const Password_modal = document.getElementById('newPassword');
-
+const Manager_modal = document.getElementById('newManager');
+const ManagerContact_modal = document.getElementById('newManagerContact');
 
 let data = sessionStorage.getItem('user');
 let user = JSON.parse(data);
@@ -65,6 +68,9 @@ function LoadData(result) {
   let CPName = result.name;
   let CPContact = result.contact;
   let CPEmail = result.email;
+  let CPManager = result.manager;
+  let CPManagerContact = result.manager_contact;
+
   // let CPSupervisor= result3.companyDescription;
   // let CPSupervisorContact= result3.contact;
   Name.innerHTML = CPName;
@@ -74,6 +80,10 @@ function LoadData(result) {
   // SupervisorContact.innerHTML = CPSupervisorContact;
   Description.innerHTML = CPDesc;
   Hname.innerHTML = CPName;
+
+  Manager.innerHTML = CPManager;
+  ManagerContact.innerHTML = CPManagerContact;
+
 }
 
 function LoadModal(result) {
@@ -81,11 +91,16 @@ function LoadModal(result) {
   let CPContact = result.contact;
   let CPEmail = result.email;
   let CPpassword = result.password;
+  let CPManager = result.manager;
+  let CPManagerContact = result.manager_contact;
 
   Email_modal.value = CPEmail;
   Contact_modal.value = CPContact;
   Description_modal.value = CPDescription;
   Password_modal.value = CPpassword;
+  Manager_modal.value = CPManager;
+  ManagerContact_modal.value = CPManagerContact;
+
 }
 
 const EditBtn = document.getElementById('submit-btn');
@@ -104,13 +119,17 @@ async function UpdateCompany() {
   let newContact = Contact_modal.value;
   let newEmail = Email_modal.value;
   let newPassword = Password_modal.value;
+  let newManager = Manager_modal.value;
+  let newManagerContact = ManagerContact_modal.value;
 
   const NewCompanyInfo = {
     name: company_name,
     contact: newContact,
     companyDescription: newCPDescription,
     email: newEmail,
-    password: newPassword
+    password: newPassword,
+    manager:newManager,
+    manager_contact:newManagerContact
   };
 
   try {
@@ -128,6 +147,8 @@ async function UpdateCompany() {
       Email.innerHTML = newEmail;
       Contact.innerHTML = newContact;
       Description.innerHTML = newCPDescription;
+      Manager.innerHTML = newManager;
+      ManagerContact.innerHTML = newManagerContact;
 
 
     } else {

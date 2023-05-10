@@ -23,6 +23,7 @@ public class StudentDto {
     private String major;
     private Long contact;
     private Long imageId;
+    private String bib;
 
     public StudentDto(StudentAcc studentAcc){
         this.id = studentAcc.getId();
