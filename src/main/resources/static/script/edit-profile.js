@@ -159,6 +159,7 @@ function DeleteSkill(skill) {
 
 
 SaveChangeBtn.addEventListener('click', () => {
+    loadingModal.show();
     UpdateStudentPersona(user.id);
     UpdateStudentSkills();
 
@@ -254,6 +255,13 @@ async function UpdateStudentSkills() {
     } catch (error) {
         console.error('Error updating capstone project:', error);
     }
+    updateSuccessModal(
+        'You successfully update your group profile!',
+        alertModalElStudent,
+        () => {
+          window.location.reload();
+        }
+      );
 }
 
 
