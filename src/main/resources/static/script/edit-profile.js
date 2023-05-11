@@ -6,7 +6,7 @@ const name = document.getElementById('profile_name');
 const major = document.getElementById('profile_major');
 const contact = document.getElementById('profile_contact');
 const email = document.getElementById('profile_email');
-// const gorup= document.getElementById('profile_group');
+const group =  document.getElementById('profile_group');
 const session = sessionStorage.getItem('user');
 const user = JSON.parse(session);
 
@@ -49,6 +49,7 @@ function LoadData(result2) {
 
     name.innerHTML = StudentName;
     major.innerHTML = StudentMajor;
+    group.textContent = getCurrentGroup().id?getCurrentGroup().groupName: "N/A";
     contact.innerHTML = StudentContact;
     email.innerHTML = StudentEmail;
 
@@ -57,9 +58,7 @@ function LoadData(result2) {
 }
 
 function DeleteAllSkills() {
-    
     const Capabilityul = document.querySelector('#capability');
-
     while (Capabilityul.firstChild) {
         Capabilityul.removeChild(Capabilityul.firstChild);
     }
@@ -81,11 +80,13 @@ async function RewriteAllSkills(){
 
 function LoadSkills(result2) {
     const Capabilityul = document.getElementById('capability');
-    for (let i = 0; i < result2.skills.length; i++) {
-        const li = document.createElement("li");
-        li.className = 'profile_li';
-        li.textContent = result2.skills[i];
-        Capabilityul.appendChild(li);
+    if (result2.skills){
+        for (let i = 0; i < result2.skills.length; i++) {
+            const li = document.createElement("li");
+            li.className = 'profile_li';
+            li.textContent = result2.skills[i];
+            Capabilityul.appendChild(li);
+        }
     }
 }
 
@@ -170,6 +171,7 @@ function DeleteSkill(skill) {
 
 
 SaveChangeBtn.addEventListener('click', () => {
+    
     UpdateStudentPersona(user.id);
     UpdateStudentSkills();
 
@@ -188,21 +190,22 @@ async function UpdateStudentPersona(studentID) {
     NewEmail = document.getElementById('NewEmail').value;
     NewPassword = document.getElementById('NewPassword').value;
 
-    const newStudentPersona = {
-        studentName: NewName,
-        email: NewEmail,
-        major: NewMajor,
-        contact: NewContact,
-        password :NewPassword
-    };
+    let newUser = getUser();
+    newUser.name  = NewName;
+    newUser.major  = NewMajor;
+    newUser.contact = NewContact;
+    newUser.email = NewEmail;
+    newUser.password = NewPassword;
 
+
+    sessionStorage.setItem("user",JSON.stringify(newUser));
     try {
         const response = await fetch(`/api/student/update/${studentID}/persona`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(newStudentPersona),
+            body: JSON.stringify(newUser),
         });
 
         if (response.ok) {
@@ -211,6 +214,7 @@ async function UpdateStudentPersona(studentID) {
             profile_major.innerHTML = NewMajor;
             profile_contact.innerHTML = NewContact;
             profile_email.innerHTML = NewEmail;
+            displayWelcomMessage();
         } else {
             console.error('Error updating capstone project. Response status:', response.status);
         }

@@ -5,11 +5,22 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 
+@Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class StudentAccDto extends AccountDto{
-    public StudentAccDto(StudentAcc account){
-        super(account);
+    private List<String> skills;
+    private String major;
+    private Long contact;
+
+    public StudentAccDto(StudentAcc studentAcc){
+        super(studentAcc);
+        this.major = studentAcc.getMajor();
+        this.contact = studentAcc.getContact();
+        this.skills = studentAcc.getSkills();
     }
+
 
 }

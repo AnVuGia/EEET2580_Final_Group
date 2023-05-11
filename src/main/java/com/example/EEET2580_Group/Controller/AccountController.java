@@ -102,10 +102,13 @@ public class AccountController {
     }
 
     @GetMapping("/supervisor/all")
-    List<SupervisorAcc> getAllSupervisorAccounts() {
+    List<SupervisorAccDto> getAllSupervisorAccounts() {
         System.out.println("getAllSupervisorAccounts in AccountController");
         List<SupervisorAcc> accounts = accountService.getAllSupervisorAccounts();
-        return accounts;
+        List<SupervisorAccDto> dtoConvert = accounts.stream()
+                .map(account-> new SupervisorAccDto(account)).collect(Collectors.toList());
+
+        return dtoConvert;
     }
 
     @GetMapping("/supervisor/username/{username}")

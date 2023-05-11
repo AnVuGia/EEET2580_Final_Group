@@ -10,7 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AccountDto {
     private  String name;
+
     private String username;
+    private String password;
     private String email;
     private String role;
     private Long id;
@@ -19,6 +21,7 @@ public class AccountDto {
     public AccountDto(Account account){
         this.name = account.getName();
         this.username = account.getUsername();
+        this.password = account.getPassword();
         this.email = account.getEmail();
         this.id = account.getId();
         this.imageId = account.getImageId();

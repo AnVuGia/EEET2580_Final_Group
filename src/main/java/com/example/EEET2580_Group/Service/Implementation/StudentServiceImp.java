@@ -1,6 +1,6 @@
 package com.example.EEET2580_Group.Service.Implementation;
 
-import com.example.EEET2580_Group.DTO.StudentDto;
+import com.example.EEET2580_Group.DTO.StudentAccDto;
 import com.example.EEET2580_Group.Entity.StudentAcc;
 import com.example.EEET2580_Group.Repository.StudentAccRepository;
 import com.example.EEET2580_Group.Service.Interface.StudentService;
@@ -15,9 +15,8 @@ public class StudentServiceImp implements StudentService {
     @Autowired
     private StudentAccRepository studentAccRepository;
 
-    public void updateStudentPersona(StudentAcc oldStudent, StudentDto newStudent){
-        System.out.println("INside update student");
-        oldStudent.setName(newStudent.getStudentName());
+    public void updateStudentPersona(StudentAcc oldStudent, StudentAccDto newStudent){
+        oldStudent.setName(newStudent.getName());
         oldStudent.setContact(newStudent.getContact());
         oldStudent.setEmail(newStudent.getEmail());
         oldStudent.setMajor(newStudent.getMajor());
@@ -26,16 +25,16 @@ public class StudentServiceImp implements StudentService {
         //image, bib, group
     }
 
-    public void updateStudentSkill(StudentAcc oldStudent, StudentDto newStudent){
+    public void updateStudentSkill(StudentAcc oldStudent, StudentAccDto newStudent){
         oldStudent.setSkills(newStudent.getSkills());
     }
 
-    public void updateStudentBib(StudentAcc oldStudent, StudentDto newStudent){
+    public void updateStudentBib(StudentAcc oldStudent, StudentAccDto newStudent){
 //        oldStudent.setBib(newStudent.getBib());
     }
 
     @Override
-    public void updateStudentPersonaById(Long id, StudentDto studentDto) {
+    public void updateStudentPersonaById(Long id, StudentAccDto studentDto) {
         StudentAcc studentToUpdate = studentAccRepository.findById(id).get();
         this.updateStudentPersona(studentToUpdate,studentDto);
         studentAccRepository.save(studentToUpdate);
@@ -43,7 +42,7 @@ public class StudentServiceImp implements StudentService {
     }
 
     @Override
-    public void updateStudentSkillsById(Long id, StudentDto studentDto) {
+    public void updateStudentSkillsById(Long id, StudentAccDto studentDto) {
         StudentAcc studentToUpdate = studentAccRepository.findById(id).get();
         this.updateStudentSkill(studentToUpdate,studentDto);
         studentAccRepository.save(studentToUpdate);
@@ -51,7 +50,7 @@ public class StudentServiceImp implements StudentService {
     }
 
     @Override
-    public void updateStudentBibById(Long id, StudentDto studentDto) {
+    public void updateStudentBibById(Long id, StudentAccDto studentDto) {
         StudentAcc studentToUpdate = studentAccRepository.findById(id).get();
         this.updateStudentBib(studentToUpdate,studentDto);
         studentAccRepository.save(studentToUpdate);

@@ -49,7 +49,7 @@ headerLogo.addEventListener('click', function (ev) {
   const currView = JSON.parse(role);
   window.location.href = `/${currView}`;
 });
-
+const accountProfileSectoin = document.getElementById("account-profile");
 function listenProfileBehave() {
   for (var i = 0; i < profileController.length; i++) {
     profileController[i].addEventListener('click', function (ev) {
@@ -59,7 +59,11 @@ function listenProfileBehave() {
         const Role = JSON.parse(role);
 
         if (Role == 'student') {
-          window.location.href = '/account-page';
+          accountProfileSectoin.removeAttribute("hidden");
+          capstoneSearchSection.setAttribute("hidden");
+          dashboardView.setAttribute('hidden', 'hidden');
+          groupInfoContainer.setAttribute('hidden',"hidden");
+          dash
         } else if (Role == 'company') {
           window.location.href = '/edit-company-profile';
         }
@@ -93,20 +97,21 @@ headerBar();
 function setVisibiltySearchPage(target) {
   const user = getUser();
   if (target.textContent === 'Search') {
+    accountProfileSection.removeAttribute("hidden");
     disSection.textContent = 'Search';
     dashboardView.setAttribute('hidden', 'hidden');
     if (user.role === 'student') {
       groupInfoContainer.setAttribute('hidden', 'hidden');
     }
-
     capstoneSearchSection.removeAttribute('hidden');
   } else if (target.textContent === 'Dashboard') {
+    accountProfileSection.removeAttribute("hidden");
     if (user.role === 'admin') {
       disSection.textContent = 'Request Capstone List';
     } else if (user.role === 'company') {
       disSection.textContent = 'Pending Capstone List';
     } else if (user.role === 'student') {
-      disSection.textContent = 'Dashboard';
+      disSection.textContent = 'Register Capstone';
     } else if (user.role === 'supevisor') {
       disSection.textContent = 'Supervised Capstone List';
     }
@@ -115,9 +120,8 @@ function setVisibiltySearchPage(target) {
       groupInfoContainer.setAttribute('hidden', 'hidden');
     }
     dashboardView.removeAttribute('hidden');
-  } else if (target.textContent === 'Announcment') {
-    disSection.textContent = 'Recent Announcement';
   } else if (target.textContent === 'Group Info') {
+    accountProfileSection.removeAttribute("hidden");
     disSection.textContent = 'Group Info';
     capstoneSearchSection.setAttribute('hidden', 'hidden');
     dashboardView.setAttribute('hidden', 'hidden');
