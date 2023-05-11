@@ -739,6 +739,8 @@ async function updateGroupSection(capstone) {
   return;
 }
 function createApplyButton(capstone) {
+  const div = document.createElement('div');
+  div.classList.add('text-center');
   let currentGroup = JSON.parse(sessionStorage.getItem('current-group'));
   console.log(currentGroup);
   const applyButton = document.createElement('button');
@@ -776,7 +778,8 @@ function createApplyButton(capstone) {
             );
             return;
           }
-          groupMemberCount += group.studentList.length;
+          groupMemberCount +=
+            currentGroupInProjectResult.content[i].studentList.length;
         }
         let currLength =
           currentGroup.id === null ? currentGroup.studentList.length : 0;
@@ -801,20 +804,21 @@ function createApplyButton(capstone) {
           updateSuccessModal(
             'You have applied for this capstone',
             alertModalElStudent,
-            () => {}
+            () => {
+              updateGroupSection(capstone);
+            }
           );
           // updateCapstoneModal(capstone);
         } else {
-          updateDangerModal(
-            'Something went wrong',
-            alertModalElStudent,
-            () => {}
-          );
+          updateDangerModal('Something went wrong', alertModalElStudent, () => {
+            window.location.reload();
+          });
         }
       }
     );
   });
-  return applyButton;
+  div.appendChild(applyButton);
+  return div;
 }
 searchSelection.dispatchEvent(new Event('change'));
 // onFiltered();

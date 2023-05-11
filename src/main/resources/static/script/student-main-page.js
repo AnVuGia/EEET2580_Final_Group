@@ -105,7 +105,6 @@ if (groupSubmitButton) {
     await updateGroup(0);
     await getCurrentGroup();
     await displayGroupInfo();
-    await getCurrentGroup();
     await updateStudentDashBoardUI();
   });
 }
@@ -132,7 +131,6 @@ async function getAllApprovedCapstones(page, size) {
   console.log(result);
   return result;
 }
-async function updateDashboardUI() {}
 
 async function getCurrentGroup() {
   let url = `api/group/${getUser().id}`;
@@ -201,11 +199,10 @@ const displayGroupInfo = async function () {
 };
 
 const createGroup = async function () {
-  updateSessionStorage();
-  let studentList = getUser();
-
+  // updateSessionStorage();
+  let studentList = [];
+  studentList.push(getUser());
   console.log(groupNameInput);
-
   let groupObject = {
     groupName: groupNameInput.value,
     studentList: studentList,
@@ -229,6 +226,7 @@ const createGroup = async function () {
       // handle any errors
     });
   await getCurrentGroup();
+  await updateStudentDashBoardUI();
 };
 updateStudentDashBoardUI();
 displayGroupInfo();

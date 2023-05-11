@@ -26,7 +26,7 @@ GroupEntity {
     @JsonBackReference
     private List<StudentAcc> studentAccList;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne()
     @JoinColumn(name = "capstone_id", referencedColumnName = "id")
     private CapstoneProject capstoneId;
 
