@@ -15,6 +15,8 @@ let StudentName;
 let StudentMajor;
 let StudentContact;
 let StudentEmail;
+let StudentBib;
+
 
 async function ViewAll() {
 
@@ -40,18 +42,20 @@ function LoadData(result2) {
     let StudentMajor = result2.major;
     let StudentContact = result2.contact;
     let StudentEmail = result2.email;
+    let StudentBib = result2.bib;
    
 
     const name = document.getElementById('profile_name');
     const major = document.getElementById('profile_major');
     const contact = document.getElementById('profile_contact');
     const email = document.getElementById('profile_email');
+    const Bib = document.getElementById('Bib');
 
     name.innerHTML = StudentName;
     major.innerHTML = StudentMajor;
     contact.innerHTML = StudentContact;
     email.innerHTML = StudentEmail;
-
+    Bib.innerHTML = StudentBib;
     LoadSkills(result2);
     LoadModal(result2);
 }
@@ -96,12 +100,14 @@ function LoadModal(result2) {
     const Modalcontact = document.getElementById('NewContact');
     const Modalemail = document.getElementById('NewEmail');
     const Modalpassword = document.getElementById('NewPassword');
+    const ModalBib = document.getElementById('NewBib');
 
     Modalname.value = result2.name;
     Modalmajor.value = result2.major;
     Modalcontact.value = result2.contact;
     Modalemail.value = result2.email;
     Modalpassword.value = result2.password;
+    ModalBib.value = result2.bib;
 
     const ul = document.querySelector('#capability');
     const li = ul.querySelectorAll('li');
@@ -181,19 +187,22 @@ async function UpdateStudentPersona(studentID) {
     const profile_major = document.getElementById('profile_major');
     const profile_contact = document.getElementById('profile_contact');
     const profile_email = document.getElementById('profile_email');
+    const profile_bib = document.getElementById('Bib');
 
-    NewName = document.getElementById('NewName').value;
-    NewMajor = document.getElementById('NewMajor').value;
-    NewContact = document.getElementById('NewContact').value;
-    NewEmail = document.getElementById('NewEmail').value;
-    NewPassword = document.getElementById('NewPassword').value;
+    let NewName = document.getElementById('NewName').value;
+    let NewMajor = document.getElementById('NewMajor').value;
+    let NewContact = document.getElementById('NewContact').value;
+    let NewEmail = document.getElementById('NewEmail').value;
+    let NewPassword = document.getElementById('NewPassword').value;
+    let NewBib = document.getElementById('NewBib').value;
 
     const newStudentPersona = {
         studentName: NewName,
         email: NewEmail,
         major: NewMajor,
         contact: NewContact,
-        password :NewPassword
+        password :NewPassword,
+        bib:NewBib
     };
 
     try {
@@ -211,6 +220,7 @@ async function UpdateStudentPersona(studentID) {
             profile_major.innerHTML = NewMajor;
             profile_contact.innerHTML = NewContact;
             profile_email.innerHTML = NewEmail;
+            profile_bib.innerHTML = NewBib;
         } else {
             console.error('Error updating capstone project. Response status:', response.status);
         }
