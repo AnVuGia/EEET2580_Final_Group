@@ -6,7 +6,7 @@ const name = document.getElementById('profile_name');
 const major = document.getElementById('profile_major');
 const contact = document.getElementById('profile_contact');
 const email = document.getElementById('profile_email');
-// const gorup= document.getElementById('profile_group');
+const group = document.getElementById('profile_group');
 const session = sessionStorage.getItem('user');
 const user = JSON.parse(session);
 
@@ -18,45 +18,26 @@ let StudentEmail;
 let StudentBib;
 
 
-async function ViewAll() {
+function ViewAll() {
 
-    const endpoint = user.username;
-    console.log(endpoint);
-    const responsee = await fetch(`/api/account/student/username/${endpoint}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
-    const result2 = await responsee.json();
-    console.log(result2);
-    console.log("user id ", user.id);
-    LoadData(result2);
+    LoadData(getUser());
 }
 
 ViewAll();
 
 function LoadData(result2) {
-    let StudentName = result2.name;
-    console.log(result2.name);
-    let StudentMajor = result2.major;
-    let StudentContact = result2.contact;
-    let StudentEmail = result2.email;
-    let StudentBib = result2.bib;
-
-
     const name = document.getElementById('profile_name');
     const major = document.getElementById('profile_major');
     const contact = document.getElementById('profile_contact');
     const email = document.getElementById('profile_email');
     const Bib = document.getElementById('Bib');
 
-    name.innerHTML = StudentName;
-    major.innerHTML = StudentMajor;
+    name.innerHTML = getUser().name?getUser().name: "N/A";
+    major.innerHTML = getUser().major?getUser().major: "N/A";
     group.textContent = getCurrentGroup().id?getCurrentGroup().groupName: "N/A";
-    contact.innerHTML = StudentContact;
-    email.innerHTML = StudentEmail;
-    Bib.innerHTML = StudentBib;
+    contact.innerHTML = getUser().contact?getUser().contact: "N/A";
+    email.innerHTML = getUser().email?getUser().email: "N/A";
+    Bib.innerHTML = getUser().bib?getUser().bib: "N/A";
     LoadSkills(result2);
     LoadModal(result2);
 }
@@ -102,13 +83,14 @@ function LoadModal(result2) {
     const Modalemail = document.getElementById('NewEmail');
     const Modalpassword = document.getElementById('NewPassword');
     const ModalBib = document.getElementById('NewBib');
-
-    Modalname.value = result2.name;
-    Modalmajor.value = result2.major;
-    Modalcontact.value = result2.contact;
-    Modalemail.value = result2.email;
-    Modalpassword.value = result2.password;
-    ModalBib.value = result2.bib;
+    console.log(getUser());
+    Modalname.value = getUser().name?getUser().name: "N/A";
+    Modalmajor.value = getUser().major?getUser().major: "N/A";
+    group.textContent = getCurrentGroup().id?getCurrentGroup().groupName: "N/A";
+    Modalpassword.value = getUser().password?getUser().password: "N/A";
+    Modalcontact.value = getUser().contact?getUser().contact: "N/A";
+    Modalemail.value = getUser().email?getUser().email: "N/A";
+    ModalBib.value = getUser().bib?getUser().bib: "N/A";
 
     const ul = document.querySelector('#capability');
     const li = ul.querySelectorAll('li');

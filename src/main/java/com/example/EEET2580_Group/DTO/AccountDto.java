@@ -9,13 +9,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AccountDto {
+    private Long id;
     private  String name;
-
     private String username;
     private String password;
     private String email;
     private String role;
-    private Long id;
     private Long imageId;
 
     public AccountDto(Account account){

@@ -14,12 +14,14 @@ public class StudentAccDto extends AccountDto{
     private List<String> skills;
     private String major;
     private Long contact;
+    private String bib;
 
     public StudentAccDto(StudentAcc studentAcc){
         super(studentAcc);
         this.major = studentAcc.getMajor();
         this.contact = studentAcc.getContact();
         this.skills = studentAcc.getSkills();
+        this.bib = studentAcc.getBib();
     }
 
 

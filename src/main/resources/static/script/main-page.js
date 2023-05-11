@@ -8,6 +8,7 @@ const displayResult = document.querySelector('.display-result-search');
 const groupListContainer = document.querySelector('.group-list');
 const filterContainer = document.querySelector('.search-filter');
 const searchPagePagination = document.getElementById('main-pagination');
+const accountProfileSection = document.getElementById("account-profile");
 const studentCapstoneModalEl = document.querySelector(
   '#student-capstone-modal'
 );
@@ -49,7 +50,7 @@ headerLogo.addEventListener('click', function (ev) {
   const currView = JSON.parse(role);
   window.location.href = `/${currView}`;
 });
-const accountProfileSectoin = document.getElementById("account-profile");
+
 function listenProfileBehave() {
   for (var i = 0; i < profileController.length; i++) {
     profileController[i].addEventListener('click', function (ev) {
@@ -59,11 +60,10 @@ function listenProfileBehave() {
         const Role = JSON.parse(role);
 
         if (Role == 'student') {
-          accountProfileSectoin.removeAttribute("hidden");
-          capstoneSearchSection.setAttribute("hidden");
+          accountProfileSection.removeAttribute("hidden");
+          capstoneSearchSection.setAttribute("hidden","hidden");
           dashboardView.setAttribute('hidden', 'hidden');
           groupInfoContainer.setAttribute('hidden',"hidden");
-          dash
         } else if (Role == 'company') {
           window.location.href = '/edit-company-profile';
         }
@@ -97,7 +97,7 @@ headerBar();
 function setVisibiltySearchPage(target) {
   const user = getUser();
   if (target.textContent === 'Search') {
-    accountProfileSection.removeAttribute("hidden");
+    accountProfileSection.setAttribute("hidden","hidden");
     disSection.textContent = 'Search';
     dashboardView.setAttribute('hidden', 'hidden');
     if (user.role === 'student') {
@@ -105,7 +105,7 @@ function setVisibiltySearchPage(target) {
     }
     capstoneSearchSection.removeAttribute('hidden');
   } else if (target.textContent === 'Dashboard') {
-    accountProfileSection.removeAttribute("hidden");
+    accountProfileSection.setAttribute("hidden","hidden");
     if (user.role === 'admin') {
       disSection.textContent = 'Request Capstone List';
     } else if (user.role === 'company') {
@@ -121,7 +121,7 @@ function setVisibiltySearchPage(target) {
     }
     dashboardView.removeAttribute('hidden');
   } else if (target.textContent === 'Group Info') {
-    accountProfileSection.removeAttribute("hidden");
+    accountProfileSection.setAttribute("hidden","hidden");
     disSection.textContent = 'Group Info';
     capstoneSearchSection.setAttribute('hidden', 'hidden');
     dashboardView.setAttribute('hidden', 'hidden');
