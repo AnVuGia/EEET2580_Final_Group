@@ -490,13 +490,13 @@ const displayPagination = async function (pageable) {
       const page = Number.parseInt(e.target.textContent) - 1;
       currentPage = page;
       if (searchSelection.value === 'capstone') {
-        searchPagePagination.innerHTML="";
+        searchPagePagination.innerHTML = '';
         updateCapstone(currentPage);
       } else if (searchSelection.value === 'group') {
-        searchPagePagination.innerHTML="";
+        searchPagePagination.innerHTML = '';
         updateGroup(currentPage);
       } else if (searchSelection.value === 'company') {
-        searchPagePagination.innerHTML="";
+        searchPagePagination.innerHTML = '';
         updateCompany(currentPage);
       }
     });
@@ -504,51 +504,49 @@ const displayPagination = async function (pageable) {
     pagination.appendChild(page);
   }
   const prevLiEl = document.createElement('li');
-  prevLiEl.classList.add("page-item");
+  prevLiEl.classList.add('page-item');
   const prevAEl = document.createElement('a');
   prevAEl.classList.add('page-link');
   prevAEl.textContent = 'Previous';
   prevLiEl.appendChild(prevAEl);
   pagination.insertBefore(prevLiEl, pagination.firstChild);
   prevAEl.addEventListener('click', () => {
-      if (currentPage >= 1){
-        currentPage--;
-        if (searchSelection.value === 'capstone') {
-          searchPagePagination.innerHTML="";
-          updateCapstone(currentPage);
-        } else if (searchSelection.value === 'group') {
-          searchPagePagination.innerHTML="";
-          updateGroup(currentPage);
-        } else if (searchSelection.value === 'company') {
-          searchPagePagination.innerHTML="";
-          updateCompany(currentPage);
-        }
+    if (currentPage >= 1) {
+      currentPage--;
+      if (searchSelection.value === 'capstone') {
+        searchPagePagination.innerHTML = '';
+        updateCapstone(currentPage);
+      } else if (searchSelection.value === 'group') {
+        searchPagePagination.innerHTML = '';
+        updateGroup(currentPage);
+      } else if (searchSelection.value === 'company') {
+        searchPagePagination.innerHTML = '';
+        updateCompany(currentPage);
       }
+    }
   });
   const nextLiEl = document.createElement('li');
-  nextLiEl.classList.add("page-item");
+  nextLiEl.classList.add('page-item');
   const nextAEl = document.createElement('a');
   nextAEl.classList.add('page-link');
   nextAEl.textContent = 'Next';
   nextLiEl.appendChild(nextAEl);
   pagination.appendChild(nextLiEl);
   nextAEl.addEventListener('click', () => {
-    if (currentPage < maxPage-1){
-        currentPage++;
-        if (searchSelection.value === 'capstone') {
-          searchPagePagination.innerHTML="";
-          updateCapstone(currentPage);
-        } else if (searchSelection.value === 'group') {
-          searchPagePagination.innerHTML="";
-          updateGroup(currentPage);
-        } else if (searchSelection.value === 'company') {
-          searchPagePagination.innerHTML="";
-          updateCompany(currentPage);
-        }
+    if (currentPage < maxPage - 1) {
+      currentPage++;
+      if (searchSelection.value === 'capstone') {
+        searchPagePagination.innerHTML = '';
+        updateCapstone(currentPage);
+      } else if (searchSelection.value === 'group') {
+        searchPagePagination.innerHTML = '';
+        updateGroup(currentPage);
+      } else if (searchSelection.value === 'company') {
+        searchPagePagination.innerHTML = '';
+        updateCompany(currentPage);
+      }
     }
   });
-
-
 };
 
 const updateCapstone = async function (curPage) {
@@ -564,11 +562,9 @@ const updateCapstone = async function (curPage) {
   );
 };
 const updateGroup = async function (curPage) {
-  
   await getGroupList(searchInput.value, curPage);
 };
 const updateCompany = async function (curPage) {
- 
   await getCompanyList(searchInput.value, curPage);
 };
 const onFiltered = async function () {
@@ -615,20 +611,20 @@ handleCollapsibleFilter();
 
 searchSelection.addEventListener('change', function () {
   searchInput.value = '';
-  searchPagePagination.innerHTML ="";
+  searchPagePagination.innerHTML = '';
   onFiltered();
 });
 
 superVisorSelection.addEventListener('change', function () {
-  searchPagePagination.innerHTML="";
+  searchPagePagination.innerHTML = '';
   onFiltered();
 });
 companySelection.addEventListener('change', function () {
-  searchPagePagination.innerHTML ="";
+  searchPagePagination.innerHTML = '';
   onFiltered();
 });
 searchInput.addEventListener('keyup', function () {
-  searchPagePagination.innerHTML ="";
+  searchPagePagination.innerHTML = '';
   onFiltered();
 });
 
@@ -711,8 +707,6 @@ async function updateCapstoneModal(capstone) {
   supervisorMailEl.innerHTML = `<span>Email: ${capstone.supervisor.email}</span>`;
   companyNameEl.textContent = capstone.company.name;
   capstoneTitleEl.textContent = capstone.projectTitle;
-
-  console.log(capstone);
 }
 async function updateGroupSection(capstone) {
   const groupSection = document.querySelector('#group-modal-container');
@@ -725,12 +719,9 @@ async function updateGroupSection(capstone) {
   const groupListResult = await groupList.json();
   if (groupListResult.content.length === 0) {
     groupSection.innerHTML = `<h3 class="text-center">No Group Found</h3>`;
-    if (role === 'student') {
-      let currentGroup = JSON.parse(localStorage.getItem('currentGroup'));
-      if (currentGroup.id === null) {
-        window.alert('You are not in any group');
-      } else {
-      }
+    if (getUser().role === 'student') {
+      console.log('in group section');
+      groupSection.appendChild(createApplyButton(capstone));
     }
     return;
   }
@@ -740,48 +731,88 @@ async function updateGroupSection(capstone) {
     const groupSectionCard = createGroupCard(group);
     groupSection.appendChild(groupSectionCard);
   });
+
+  if (getUser().role === 'student') {
+    console.log('in group section');
+    groupSection.appendChild(createApplyButton(capstone));
+  }
+  return;
 }
-async function createApplyButton(capstone) {
+function createApplyButton(capstone) {
+  let currentGroup = JSON.parse(sessionStorage.getItem('current-group'));
+  console.log(currentGroup);
   const applyButton = document.createElement('button');
   applyButton.classList.add('btn', 'btn-primary', 'apply-button');
   applyButton.textContent = 'Apply';
   applyButton.addEventListener('click', async function () {
-    const currentGroupInProjectResponse = await fetch(
-      `api/group/capstone/${capstone.id}`
-    );
-    const currentGroupInProjectResult =
-      await currentGroupInProjectResponse.json();
-    let groupMemberCount = 0;
-    currentGroupInProjectResult.content.forEach((group) => {
-      if (group.id === currentGroup.id) {
-        window.alert('You are already in this capstone');
-        return;
-      }
-      groupMemberCount += group.studentList.length;
-    });
-    let currentGroup = JSON.parse(localStorage.getItem('currentGroup'));
-    if (
-      groupMemberCount + currentGroup.studentList.length >
-      capstone.noStudents
-    ) {
-      window.alert('This capstone is full');
+    let currentGroup = JSON.parse(sessionStorage.getItem('current-group'));
+    if (currentGroup.id === null) {
+      updateDangerModal(
+        'You are not in a group',
+        alertModalElStudent,
+        () => {}
+      );
       return;
     }
-    currentGroup.capstone = capstone;
-    const response = await fetch(`api/group`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(currentGroup),
-    });
+    updateInfoModal(
+      'You want to apply for this capstone?',
+      alertModalElStudent,
+      async function () {
+        let currentGroup = JSON.parse(sessionStorage.getItem('current-group'));
 
-    if (response.status === 200) {
-      window.alert('You have successfully applied for this capstone');
-      // updateCapstoneModal(capstone);
-    } else {
-      window.alert('You have already applied for this capstone');
-    }
+        const currentGroupInProjectResponse = await fetch(
+          `api/group/capstone/${capstone.id}`
+        );
+        const currentGroupInProjectResult =
+          await currentGroupInProjectResponse.json();
+        let groupMemberCount = 0;
+        console.log(currentGroupInProjectResult);
+        for (let i = 0; i < currentGroupInProjectResult.content.length; i++) {
+          if (currentGroupInProjectResult.content[i].id === currentGroup.id) {
+            updateDangerModal(
+              'You are already in this capstone',
+              alertModalElStudent,
+              () => {}
+            );
+            return;
+          }
+          groupMemberCount += group.studentList.length;
+        }
+        let currLength =
+          currentGroup.id === null ? currentGroup.studentList.length : 0;
+        if (groupMemberCount + currLength > capstone.noStudents) {
+          updateDangerModal(
+            'This capstone is full',
+            alertModalElStudent,
+            () => {}
+          );
+          return;
+        }
+        currentGroup.capstone = capstone;
+        const response = await fetch(`api/group`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(currentGroup),
+        });
+
+        if (response.status === 200) {
+          updateSuccessModal(
+            'You have applied for this capstone',
+            alertModalElStudent,
+            () => {}
+          );
+          // updateCapstoneModal(capstone);
+        } else {
+          updateDangerModal(
+            'Something went wrong',
+            alertModalElStudent,
+            () => {}
+          );
+        }
+      }
+    );
   });
   return applyButton;
 }

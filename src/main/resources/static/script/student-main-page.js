@@ -11,10 +11,15 @@ const capstoneContainer = document.querySelector('.capstone-list-dashboard');
 const alertModalElStudent = document.querySelector('#alert-modal');
 const alertModalInstanceStudent = new bootstrap.Modal(alertModalElStudent);
 
-function updateStudentDashBoardUI() {
+async function updateStudentDashBoardUI() {
   console.log('updateStudentDashBoardUI');
   console.log(capstoneContainer);
-  const groupInfo = JSON.parse(sessionStorage.getItem('current-group'));
+  let groupInfo = JSON.parse(sessionStorage.getItem('current-group'));
+  if (groupInfo == null) {
+    await getCurrentGroup();
+    groupInfo = JSON.parse(sessionStorage.getItem('current-group'));
+  }
+
   if (groupInfo.id == null) {
     capstoneContainer.innerHTML = `
         <div
@@ -41,7 +46,12 @@ function updateStudentDashBoardUI() {
     `;
   } else {
     capstoneContainer.innerHTML = '';
-    capstoneContainer.appendChild(createCapstoneCard(groupInfo.capstone));
+    const capstone = createCapstoneCard(groupInfo.capstone);
+    capstoneContainer.appendChild(capstone);
+    capstone.addEventListener('click', async function (ev) {
+      await updateCapstoneModal(groupInfo.capstone);
+      studentCapstoneModal.show();
+    });
   }
 }
 
@@ -96,7 +106,7 @@ if (groupSubmitButton) {
     await getCurrentGroup();
     await displayGroupInfo();
     await getCurrentGroup();
-    updateStudentDashBoardUI();
+    await updateStudentDashBoardUI();
   });
 }
 
