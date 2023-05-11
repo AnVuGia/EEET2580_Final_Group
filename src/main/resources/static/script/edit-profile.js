@@ -6,7 +6,7 @@ const name = document.getElementById('profile_name');
 const major = document.getElementById('profile_major');
 const contact = document.getElementById('profile_contact');
 const email = document.getElementById('profile_email');
-// const gorup= document.getElementById('profile_group');
+const group = document.getElementById('profile_group');
 const session = sessionStorage.getItem('user');
 const user = JSON.parse(session);
 
@@ -18,52 +18,32 @@ let StudentEmail;
 let StudentBib;
 
 
-async function ViewAll() {
+function ViewAll() {
 
-    const endpoint = user.username;
-    console.log(endpoint);
-    const responsee = await fetch(`/api/account/student/username/${endpoint}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
-    const result2 = await responsee.json();
-    console.log(result2);
-    console.log("user id ", user.id);
-    LoadData(result2);
+    LoadData(getUser());
 }
 
 ViewAll();
 
 function LoadData(result2) {
-    let StudentName = result2.name;
-    console.log(result2.name);
-    let StudentMajor = result2.major;
-    let StudentContact = result2.contact;
-    let StudentEmail = result2.email;
-    let StudentBib = result2.bib;
-   
-
     const name = document.getElementById('profile_name');
     const major = document.getElementById('profile_major');
     const contact = document.getElementById('profile_contact');
     const email = document.getElementById('profile_email');
     const Bib = document.getElementById('Bib');
 
-    name.innerHTML = StudentName;
-    major.innerHTML = StudentMajor;
-    contact.innerHTML = StudentContact;
-    email.innerHTML = StudentEmail;
-    Bib.innerHTML = StudentBib;
+    name.innerHTML = getUser().name?getUser().name: "N/A";
+    major.innerHTML = getUser().major?getUser().major: "N/A";
+    group.textContent = getCurrentGroup().id?getCurrentGroup().groupName: "N/A";
+    contact.innerHTML = getUser().contact?getUser().contact: "N/A";
+    email.innerHTML = getUser().email?getUser().email: "N/A";
+    Bib.innerHTML = getUser().bib?getUser().bib: "N/A";
     LoadSkills(result2);
     LoadModal(result2);
 }
 
 function DeleteAllSkills() {
-    
     const Capabilityul = document.querySelector('#capability');
-
     while (Capabilityul.firstChild) {
         Capabilityul.removeChild(Capabilityul.firstChild);
     }
@@ -85,11 +65,13 @@ async function RewriteAllSkills(){
 
 function LoadSkills(result2) {
     const Capabilityul = document.getElementById('capability');
-    for (let i = 0; i < result2.skills.length; i++) {
-        const li = document.createElement("li");
-        li.className = 'profile_li';
-        li.textContent = result2.skills[i];
-        Capabilityul.appendChild(li);
+    if (result2.skills){
+        for (let i = 0; i < result2.skills.length; i++) {
+            const li = document.createElement("li");
+            li.className = 'profile_li';
+            li.textContent = result2.skills[i];
+            Capabilityul.appendChild(li);
+        }
     }
 }
 
@@ -101,13 +83,14 @@ function LoadModal(result2) {
     const Modalemail = document.getElementById('NewEmail');
     const Modalpassword = document.getElementById('NewPassword');
     const ModalBib = document.getElementById('NewBib');
-
-    Modalname.value = result2.name;
-    Modalmajor.value = result2.major;
-    Modalcontact.value = result2.contact;
-    Modalemail.value = result2.email;
-    Modalpassword.value = result2.password;
-    ModalBib.value = result2.bib;
+    console.log(getUser());
+    Modalname.value = getUser().name?getUser().name: "N/A";
+    Modalmajor.value = getUser().major?getUser().major: "N/A";
+    group.textContent = getCurrentGroup().id?getCurrentGroup().groupName: "N/A";
+    Modalpassword.value = getUser().password?getUser().password: "N/A";
+    Modalcontact.value = getUser().contact?getUser().contact: "N/A";
+    Modalemail.value = getUser().email?getUser().email: "N/A";
+    ModalBib.value = getUser().bib?getUser().bib: "N/A";
 
     const ul = document.querySelector('#capability');
     const li = ul.querySelectorAll('li');
@@ -196,22 +179,23 @@ async function UpdateStudentPersona(studentID) {
     let NewPassword = document.getElementById('NewPassword').value;
     let NewBib = document.getElementById('NewBib').value;
 
-    const newStudentPersona = {
-        studentName: NewName,
-        email: NewEmail,
-        major: NewMajor,
-        contact: NewContact,
-        password :NewPassword,
-        bib:NewBib
-    };
+    let newUser = getUser();
+    newUser.name  = NewName;
+    newUser.major  = NewMajor;
+    newUser.contact = NewContact;
+    newUser.email = NewEmail;
+    newUser.password = NewPassword;
+    newUser.bib =NewBib;
 
+
+    sessionStorage.setItem("user",JSON.stringify(newUser));
     try {
         const response = await fetch(`/api/student/update/${studentID}/persona`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(newStudentPersona),
+            body: JSON.stringify(newUser),
         });
 
         if (response.ok) {
@@ -220,6 +204,7 @@ async function UpdateStudentPersona(studentID) {
             profile_major.innerHTML = NewMajor;
             profile_contact.innerHTML = NewContact;
             profile_email.innerHTML = NewEmail;
+            displayWelcomMessage();
             profile_bib.innerHTML = NewBib;
         } else {
             console.error('Error updating capstone project. Response status:', response.status);

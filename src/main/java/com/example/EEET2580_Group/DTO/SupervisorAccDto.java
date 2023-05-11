@@ -8,21 +8,14 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SupervisorAccDto{
-    private Long id;
-    private String name;
-    private String username;
-    private String email;
+public class SupervisorAccDto extends AccountDto {
+
     private String bio;
     private Long contact;
-    private Long imageId;
     public SupervisorAccDto(SupervisorAcc supervisorAcc) {
-        this.id = supervisorAcc.getId();
-        this.name = supervisorAcc.getName();
-        this.username = supervisorAcc.getUsername();
-        this.email = supervisorAcc.getEmail();
+        super(supervisorAcc);
         this.bio = supervisorAcc.getBio();
         this.contact = supervisorAcc.getContact();
-        this.imageId = supervisorAcc.getImageId();
+
     }
 }

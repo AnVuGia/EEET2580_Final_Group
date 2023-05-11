@@ -1,15 +1,9 @@
 package com.example.EEET2580_Group.Controller;
 
 import com.example.EEET2580_Group.DTO.CompanyAccDto;
-import com.example.EEET2580_Group.DTO.GroupDto;
-import com.example.EEET2580_Group.DTO.StudentDto;
 import com.example.EEET2580_Group.Entity.CompanyAcc;
-import com.example.EEET2580_Group.Entity.GroupEntity;
-import com.example.EEET2580_Group.Entity.SupervisorAcc;
 import com.example.EEET2580_Group.Service.Interface.CapstoneProjectService;
 import com.example.EEET2580_Group.Service.Interface.CompanyService;
-import com.example.EEET2580_Group.Service.Interface.StudentService;
-import com.example.EEET2580_Group.Service.Interface.SupervisorAccService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

@@ -1,25 +1,16 @@
 package com.example.EEET2580_Group.Controller;
 
-import com.example.EEET2580_Group.DTO.AccountDto;
-import com.example.EEET2580_Group.DTO.CapstoneProjectDto;
 import com.example.EEET2580_Group.DTO.GroupDto;
-import com.example.EEET2580_Group.DTO.StudentAccDto;
-import com.example.EEET2580_Group.Entity.CapstoneProject;
 import com.example.EEET2580_Group.Entity.GroupEntity;
 import com.example.EEET2580_Group.Entity.StudentAcc;
 import com.example.EEET2580_Group.Repository.StudentAccRepository;
-import com.example.EEET2580_Group.Service.Interface.AccountService;
 import com.example.EEET2580_Group.Service.Interface.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/group")

@@ -1,6 +1,5 @@
 package com.example.EEET2580_Group.Controller;
 
-import com.example.EEET2580_Group.DTO.StudentDto;
 import com.example.EEET2580_Group.DTO.SupervisorAccDto;
 import com.example.EEET2580_Group.Entity.SupervisorAcc;
 import com.example.EEET2580_Group.Service.Interface.SupervisorAccService;

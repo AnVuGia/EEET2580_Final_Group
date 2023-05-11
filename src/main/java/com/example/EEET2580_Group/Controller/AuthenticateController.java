@@ -14,11 +14,11 @@ public class AuthenticateController {
     @GetMapping("/authenticate")
     public AccountDto login(@RequestParam(name = "username") String username,
                         @RequestParam(name = "password") String password) {
-        Account searchedAccount = authService.getAuthUser(username, password);
+        AccountDto searchedAccount = authService.getAuthUser(username, password);
         if (searchedAccount == null){
             System.out.println("User not found");
             return null;
         }
-        return new AccountDto(searchedAccount);
+        return searchedAccount;
     }
 }
