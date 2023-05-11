@@ -448,7 +448,7 @@ function createGroupCard(groupInfo) {
               'Join group successfully!',
               alertModalElStudent,
               (ev) => {
-                // sessionStorage.setItem('current-group', JSON.stringify(group));
+                sessionStorage.setItem('current-group', JSON.stringify(group));
                 window.location.reload();
               }
             );
