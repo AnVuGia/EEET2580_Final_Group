@@ -57,13 +57,18 @@ async function updateApproveSectionUI() {
   );
   const data = approveCapstoneProject.content;
   if (data.length === 0) {
-    approveSectionEl.innerHTML = '<p>No approved capstone project</p>';
+    approveSectionEl.innerHTML =
+      '<p style="font-size: 1.6rem">No approved capstone project</p>';
   } else {
     data.forEach((capstone) => {
       const capItem = createCapstoneCard(capstone);
       const capContainer = document.createElement('div');
-       capContainer.classList.add('col-lg-4', 'col-md-12');
+      capContainer.classList.add('col-lg-4', 'col-md-12');
       capContainer.appendChild(capItem);
+
+      capItem.addEventListener('click', () => {
+        updateCapstoneModal(capstone);
+      });
       approveSectionEl.appendChild(capContainer);
     });
     approveSectionPage.totalPages = approveCapstoneProject.totalPages;
@@ -89,13 +94,29 @@ async function updatePendingSectionUI() {
   );
   const data = pendingCapstoneProject.content;
   if (data.length === 0) {
-    pendingSectionEl.innerHTML = '<p>No pending capstone project</p>';
+    pendingSectionEl.innerHTML =
+      '<p style="font-size: 1.6rem"> No pending capstone project</p>';
   } else {
     data.forEach((capstone) => {
       const capItem = createCapstoneCard(capstone);
       const capContainer = document.createElement('div');
       capContainer.classList.add('col-lg-4', 'col-md-12');
       capContainer.appendChild(capItem);
+      const deleteButton = createDeleteCapstoneButton(
+        capstone,
+        updateRejectSectionUI
+      );
+      capItem.appendChild(deleteButton);
+      const deleteButtonEl = capItem.querySelector('.btn-danger');
+      capItem.addEventListener('click', (event) => {
+        if (event.target === deleteButtonEl) {
+          console.log(event.target);
+          event.stopPropagation();
+        } else {
+          console.log(event.target);
+          updateCapstoneModal(capstone);
+        }
+      });
       pendingSectionEl.appendChild(capContainer);
     });
   }
@@ -112,7 +133,11 @@ async function updatePendingSectionUI() {
 async function updateRejectSectionUI() {
   const rejectSectionEl = document.querySelector('.company-rejected-list');
 
-  rejectSectionEl.innerHTML = '';
+  rejectSectionEl.innerHTML = `
+  <div class="spinner-border text-primary" role="status">
+  <span class="sr-only">Loading...</span>
+</div>
+  `;
   rejectSectionEl.appendChild(spinner3);
   const rejectCapstoneProject = await getRejectCapstoneProject(
     rejectSectionPage.currPage,
@@ -120,13 +145,31 @@ async function updateRejectSectionUI() {
   );
   const data = rejectCapstoneProject.content;
   if (data.length === 0) {
-    rejectSectionEl.innerHTML = '<p>No rejected capstone project</p>';
+    rejectSectionEl.innerHTML =
+      '<p style="font-size: 1.6rem">No rejected capstone project</p>';
   } else {
+    rejectSectionEl.innerHTML = '';
     data.forEach((capstone) => {
       const capItem = createCapstoneCard(capstone);
       const capContainer = document.createElement('div');
       capContainer.classList.add('col-lg-4', 'col-md-12');
       capContainer.appendChild(capItem);
+
+      const deleteButton = createDeleteCapstoneButton(
+        capstone,
+        updateRejectSectionUI
+      );
+      capItem.appendChild(deleteButton);
+      const deleteButtonEl = capItem.querySelector('.btn-danger');
+      capItem.addEventListener('click', (event) => {
+        if (event.target === deleteButtonEl) {
+          console.log(event.target);
+          event.stopPropagation();
+        } else {
+          console.log(event.target);
+          updateCapstoneModal(capstone);
+        }
+      });
       rejectSectionEl.appendChild(capContainer);
     });
   }
@@ -134,9 +177,40 @@ async function updateRejectSectionUI() {
   const rejectPagination = document.querySelector('#reject-pagination');
   rejectPagination.innerHTML = '';
   createPagination(rejectSectionPage, rejectPagination, updateRejectSectionUI);
-  rejectSectionEl.removeChild(spinner3);
 }
-
+function createDeleteCapstoneButton(capstone, updateUI) {
+  const alertModal = document.querySelector('#alert-modal');
+  const div = document.createElement('div');
+  div.classList.add('d-flex', 'justify-content-center');
+  const button = document.createElement('button');
+  button.classList.add('btn', 'btn-danger');
+  button.innerText = 'Delete';
+  button.addEventListener('click', async () => {
+    updateDangerModal(
+      'Are you sure you want to delete this capstone project?',
+      alertModal,
+      async () => {
+        try {
+          await deleteCapstone(capstone.id);
+          updateUI();
+        } catch (err) {
+          updateDangerModal(err.message, alertModal);
+        }
+      }
+    );
+  });
+  div.appendChild(button);
+  return div;
+}
+async function deleteCapstone(id) {
+  const endpoint = `api/capstone-project?id=${id}`;
+  const url = `${endpoint}`;
+  const response = await fetch(url, {
+    method: 'DELETE',
+  });
+  const result = await response.json();
+  return result;
+}
 async function updateUI() {
   updatePendingSectionUI();
   updateApproveSectionUI();
