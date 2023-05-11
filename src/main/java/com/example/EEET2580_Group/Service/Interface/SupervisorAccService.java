@@ -1,6 +1,5 @@
 package com.example.EEET2580_Group.Service.Interface;
 
-import com.example.EEET2580_Group.DTO.StudentAccDto;
 import com.example.EEET2580_Group.DTO.SupervisorAccDto;
 import com.example.EEET2580_Group.Entity.SupervisorAcc;
 import org.springframework.stereotype.Service;

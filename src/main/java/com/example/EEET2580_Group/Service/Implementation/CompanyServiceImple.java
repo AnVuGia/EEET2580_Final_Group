@@ -1,9 +1,7 @@
 package com.example.EEET2580_Group.Service.Implementation;
 
 import com.example.EEET2580_Group.DTO.CompanyAccDto;
-import com.example.EEET2580_Group.DTO.StudentDto;
 import com.example.EEET2580_Group.Entity.CompanyAcc;
-import com.example.EEET2580_Group.Entity.StudentAcc;
 import com.example.EEET2580_Group.Repository.CompanyAccRepository;
 import com.example.EEET2580_Group.Service.Interface.CompanyService;
 import jakarta.transaction.Transactional;

@@ -72,6 +72,7 @@ async function onLeave(ev) {
         body: JSON.stringify(group),
       });
       loadingModal.show();
+      
       await displayGroupInfo();
       await updateGroup(0);
       updateSuccessModal(

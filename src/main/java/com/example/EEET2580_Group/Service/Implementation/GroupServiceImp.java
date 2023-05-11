@@ -2,7 +2,6 @@ package com.example.EEET2580_Group.Service.Implementation;
 
 import com.example.EEET2580_Group.DTO.GroupDto;
 import com.example.EEET2580_Group.DTO.StudentAccDto;
-import com.example.EEET2580_Group.Entity.CapstoneProject;
 import com.example.EEET2580_Group.Entity.GroupEntity;
 import com.example.EEET2580_Group.Entity.StudentAcc;
 import com.example.EEET2580_Group.Repository.CapstoneProjectRepository;
