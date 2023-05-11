@@ -7,29 +7,54 @@ const groupSubmitButton = document.querySelector('.join-group-btn');
 const leaveGroupBtn = document.getElementById('leave-group-btn');
 const createGroupBtn = document.querySelector('.create-group-btn');
 const registerCapstoneBtn = document.querySelector('#register-btn');
-
+const capstoneContainer = document.querySelector('.capstone-list-dashboard');
 const alertModalElStudent = document.querySelector('#alert-modal');
 const alertModalInstanceStudent = new bootstrap.Modal(alertModalElStudent);
 
-// var modalJoinedGroup = document.getElementById('alertModal'); // Query the modal element
-// var modalJoinedGroupInstance = new bootstrap.Modal(modalJoinedGroup);
+async function updateStudentDashBoardUI() {
+  console.log('updateStudentDashBoardUI');
+  console.log(capstoneContainer);
+  let groupInfo = JSON.parse(sessionStorage.getItem('current-group'));
+  if (groupInfo == null) {
+    await getCurrentGroup();
+    groupInfo = JSON.parse(sessionStorage.getItem('current-group'));
+  }
 
-// var modalGroupFull = document.getElementById('groupFullAlert'); // Query the modal element
-// var modalGroupFullInstance = new bootstrap.Modal(modalGroupFull);
+  if (groupInfo.id == null) {
+    capstoneContainer.innerHTML = `
+        <div
+                class="alert alert-primary d-flex align-items-center"
+                role="alert"
+              >
+                <i class="fas fa-info fs-3" style="margin-right: 8px"></i>
+                <div style="font-size: 1.6rem" class="inform-modal">
+                  You are not in a group yet!
+                </div>
+              </div>
+    `;
+  } else if (groupInfo.capstone == null) {
+    capstoneContainer.innerHTML = `
+        <div
+                class="alert alert-primary d-flex align-items-center"
+                role="alert"
+              >
+                <i class="fas fa-info fs-3" style="margin-right: 8px"></i>
+                <div style="font-size: 1.6rem" class="inform-modal">
+                  You are not in a capstone yet!
+                </div>
+              </div>
+    `;
+  } else {
+    capstoneContainer.innerHTML = '';
+    const capstone = createCapstoneCard(groupInfo.capstone);
+    capstoneContainer.appendChild(capstone);
+    capstone.addEventListener('click', async function (ev) {
+      await updateCapstoneModal(groupInfo.capstone);
+      studentCapstoneModal.show();
+    });
+  }
+}
 
-// var confirmModal = document.getElementById('group-apply-confirm'); // Query the modal element
-// var confirmModalInstance = new bootstrap.Modal(confirmModal);
-
-// var successAnnouncmenleaveGroupBtnt = document.getElementById('successful'); // Query the modal element
-// var successAnnouncmentInstance = new bootstrap.Modal(successAnnouncment);
-
-// var successLeaveAnnouncment = document.getElementById('group-left-successful'); // Query the modal element
-// var successLeaveAnnouncmentInstance = new bootstrap.Modal(
-//   successLeaveAnnouncment
-// );
-
-// var groupLeavConfirm = document.getElementById('group-leave-confirm'); // Query the modal element
-// var groupLeavConfirmInstance = new bootstrap.Modal(groupLeavConfirm);
 async function onLeave(ev) {
   updateDangerModal(
     'Are you sure you want to leave the group?',
@@ -52,7 +77,9 @@ async function onLeave(ev) {
       updateSuccessModal(
         'You successfully left the group!',
         alertModalElStudent,
-        () => {}
+        () => {
+          window.location.reload();
+        }
       );
     }
   );
@@ -79,6 +106,7 @@ if (groupSubmitButton) {
     await getCurrentGroup();
     await displayGroupInfo();
     await getCurrentGroup();
+    await updateStudentDashBoardUI();
   });
 }
 
@@ -202,5 +230,5 @@ const createGroup = async function () {
     });
   await getCurrentGroup();
 };
-
+updateStudentDashBoardUI();
 displayGroupInfo();
