@@ -1,10 +1,7 @@
 package com.example.EEET2580_Group.Controller;
 
 import com.example.EEET2580_Group.DTO.*;
-import com.example.EEET2580_Group.Entity.Account;
-import com.example.EEET2580_Group.Entity.CompanyAcc;
-import com.example.EEET2580_Group.Entity.StudentAcc;
-import com.example.EEET2580_Group.Entity.SupervisorAcc;
+import com.example.EEET2580_Group.Entity.*;
 import com.example.EEET2580_Group.Service.Interface.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -42,6 +39,15 @@ public class AccountController {
         List<StudentAcc> students = accountService.getAllStudentAccounts();
         List<StudentAccDto> dtoConvert = students.stream()
                 .map(account -> new StudentAccDto(account)).collect(Collectors.toList());
+        return dtoConvert;
+    }
+
+    @GetMapping("/groups")
+    List<GroupDto> getAllgroup() {
+        System.out.println("getAllAccounts in AccountController");
+        List<GroupEntity> groups = accountService.getAllGroups();
+        List<GroupDto> dtoConvert = groups.stream()
+                .map(account -> new GroupDto(account)).collect(Collectors.toList());
         return dtoConvert;
     }
 
