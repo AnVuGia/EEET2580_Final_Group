@@ -12,8 +12,6 @@ const capstoneContainer = document.querySelector('.capstone-list-dashboard');
 const alertModalInstanceStudent = new bootstrap.Modal(alertModalElStudent);
 
 async function updateStudentDashBoardUI() {
-  console.log('updateStudentDashBoardUI');
-  console.log(capstoneContainer);
   let groupInfo = JSON.parse(sessionStorage.getItem('current-group'));
   if (groupInfo == null) {
     await getCurrentGroup();

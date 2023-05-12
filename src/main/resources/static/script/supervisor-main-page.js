@@ -21,11 +21,9 @@ const superviseCapstoneSection = {
 };
 
 async function getSupCapstoneList(page, size) {
-  console.log(currUser.name);
   const endpoint = `api/capstone-project/supervisor?name=${currUser.name}&page=${page}&size=${size}`;
   const response = await fetch(endpoint);
   const result = await response.json();
-  console.log(result);
   return result;
 }
 
@@ -48,9 +46,7 @@ async function updateUI() {
   });
   superviseCapstoneSection.totalPages = capstoneList.totalPages;
 
-  createPagination(superviseCapstoneSection, paginationSection, updateUI);
-  // capstoneContainer.removeChild(loadingSpinner);
-  console.log('Capstone list from server:', capstoneList);
+  createPagination(superviseCapstoneSection, paginationSection, updateUI); 
 }
 updateUI();
 
@@ -240,8 +236,6 @@ async function setCapstoneImage(capstoneProject) {
     });
     return capstoneProject;
   }
-
-  console.log('change');
   const file = fileInput.files[0];
   const reader = new FileReader();
 
@@ -255,7 +249,6 @@ async function setCapstoneImage(capstoneProject) {
       const context = canvas.getContext('2d');
       context.drawImage(image, 0, 0, 300, 300);
       const compressedImageData = canvas.toDataURL('image/jpeg', 0.5);
-      console.log(compressedImageData);
       const formData = new FormData();
       formData.append('file', dataURItoBlob(compressedImageData));
 
@@ -268,9 +261,9 @@ async function setCapstoneImage(capstoneProject) {
           return response.json();
         })
         .then((data) => {
-          console.log(data);
+       
           capstoneProject.imageId = data.id;
-          console.log(capstoneProject);
+     
           return capstoneProject;
         })
         .then((capstoneProject) => {
@@ -319,7 +312,6 @@ async function updateCapstoneProject(capstone) {
     capstoneStatus: capstone.capstoneStatus,
     imageId: capstone.imageId,
   };
-  console.log(updatedCapstoneData);
   try {
     await setCapstoneImage(updatedCapstoneData);
     return true;

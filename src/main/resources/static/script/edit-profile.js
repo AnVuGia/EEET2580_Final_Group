@@ -34,9 +34,9 @@ function LoadData(result2) {
     const email = document.getElementById('profile_email');
     const Bib = document.getElementById('Bib');
     
-
-    profileCapInfo.textContent = currentGroupStudent.id?currentGroupStudent.capstone.company.name: "N/A";
-    profileComStudent.textContent = currentGroupStudent.id?currentGroupStudent.capstone.projectTitle: "N/A";
+    
+    profileComStudent.textContent = currentGroupStudent.capstone?(currentGroupStudent.capstone.company.name?currentGroupStudent.capstone.company.name:"N/A"):"N/A";
+    profileCapInfo.textContent = currentGroupStudent.capstone?(currentGroupStudent.capstone.projectTitle?urrentGroupStudent.capstone.projectTitle:"N/A"):"N/A";
     profile_img.src = getUser().imgId?getUser().imgId:nullImagePlacehodler;
     name.innerHTML = getUser().name?getUser().name: "N/A";
     major.innerHTML = getUser().major?getUser().major: "N/A";
@@ -57,7 +57,6 @@ function DeleteAllSkills() {
 }
 async function RewriteAllSkills(){
     const endpoint = user.username;
-    console.log(endpoint);
     const responsee = await fetch(`/api/account/student/username/${endpoint}`, {
         method: 'GET',
         headers: {
@@ -82,14 +81,12 @@ function LoadSkills(result2) {
 }
 
 function LoadModal(result2) {
-    console.log("Load Modal");
     const Modalname = document.getElementById('NewName');
     const Modalmajor = document.getElementById('NewMajor');
     const Modalcontact = document.getElementById('NewContact');
     const Modalemail = document.getElementById('NewEmail');
     const Modalpassword = document.getElementById('NewPassword');
     const ModalBib = document.getElementById('NewBib');
-    console.log(getUser());
     Modalname.value = getUser().name?getUser().name: "N/A";
     Modalmajor.value = getUser().major?getUser().major: "N/A";
     studentInfoGroup.textContent = currentGroupStudent.id?currentGroupStudent.groupName: "N/A";
@@ -242,9 +239,6 @@ async function UpdateStudentSkills() {
         const skill = text.substring(0, deleteIndex).trim();
         NewSkills.push(skill);
     }
-    console.log(NewSkills);
-
-
     const StudentNewSkills = {
         skills: NewSkills
     };

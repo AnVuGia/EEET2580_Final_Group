@@ -12,7 +12,6 @@ back.addEventListener('click', () => {
   window.location.href = 'sign-in-page';
 });
 
-console.log(submit);
 userName.addEventListener('change', () => {
   if (userName.validity.valid) {
     userName.textContent = '';
@@ -72,7 +71,6 @@ submit.addEventListener('click', (event) => {
 });
 
 async function onSignUpSubmit(userName, password,type) {
-  console.log('onStudentSubmit');
   const userData = {
     username: userName,
     password: password
@@ -104,8 +102,6 @@ async function onSignUpSubmit(userName, password,type) {
   } catch (error) {
     console.log('Request failed with error:', error);
   }
-  // const data =res.json();
-  // console.log(data);
   
 }
 

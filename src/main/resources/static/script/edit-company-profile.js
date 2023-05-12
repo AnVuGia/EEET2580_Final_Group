@@ -20,7 +20,6 @@ const CompanyNameModal = document.getElementById("newCompanyName");
 let data = sessionStorage.getItem('user');
 let user = JSON.parse(data);
 const company_username = user.username;
-console.log(company_username);
 const company_id = user.id;
 const company_name = user.name;
 
@@ -105,7 +104,6 @@ async function updateCompanyInformation() {
     newUser.companyDescription = Description_modal.value;
     newUser.password = Password_modal.value;
     newUser.manager_contact = ManagerContact_modal.value;
-    console.log(newUser);
   try {
     const response = await fetch(`/api/company/update/${company_id}`, {
       method: 'PUT',

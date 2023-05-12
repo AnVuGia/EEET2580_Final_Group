@@ -21,13 +21,10 @@ const pendingSectionPage = {
   totalPages: 0,
 };
 async function getApproveCapstoneProject(page, size) {
-  console.log(currCompany.name);
-  // const endpoint = `api/capstone-project/${currCompany.name}/approved`;
   const endpoint = `api/approved-capstone-projects?company_name=${currCompany.name}&page=${page}&size=${size}`;
   const url = `${endpoint}`;
   const response = await fetch(url);
   const result = await response.json();
-  console.log(result);
   return result;
 }
 async function getPendingCapstoneProject(page, size) {
@@ -35,7 +32,6 @@ async function getPendingCapstoneProject(page, size) {
   const url = `${endpoint}?page=${page}&size=${size}`;
   const response = await fetch(url);
   const result = await response.json();
-  console.log(result);
   return result;
 }
 async function getRejectCapstoneProject(page, size) {
@@ -43,7 +39,6 @@ async function getRejectCapstoneProject(page, size) {
   const url = `${endpoint}?page=${page}&size=${size}`;
   const response = await fetch(url);
   const result = await response.json();
-  console.log(result);
   return result;
 }
 
@@ -110,10 +105,8 @@ async function updatePendingSectionUI() {
       const deleteButtonEl = capItem.querySelector('.btn-danger');
       capItem.addEventListener('click', (event) => {
         if (event.target === deleteButtonEl) {
-          console.log(event.target);
           event.stopPropagation();
         } else {
-          console.log(event.target);
           updateCapstoneModal(capstone);
         }
       });
@@ -163,10 +156,8 @@ async function updateRejectSectionUI() {
       const deleteButtonEl = capItem.querySelector('.btn-danger');
       capItem.addEventListener('click', (event) => {
         if (event.target === deleteButtonEl) {
-          console.log(event.target);
           event.stopPropagation();
         } else {
-          console.log(event.target);
           updateCapstoneModal(capstone);
         }
       });

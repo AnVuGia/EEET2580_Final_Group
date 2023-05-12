@@ -71,12 +71,10 @@ function headerBar() {
       oldTarget = ev.target;
     });
 }
-async function setProfileImage() {
-  console.log('set profile image');
+async function setProfileImage() {;
   let user = getUser();
   if (user.imageId != null) {
     const profileImageEl = document.querySelector('.img-thumbnail ');
-    console.log(profileImageEl);
     const imgURL = await getImage(user.imageId);
     profileImageEl.setAttribute('src', imgURL);
   }
@@ -406,7 +404,6 @@ function createGroupCard(groupInfo) {
       let response = await fetch(`api/group/id/${ev.target.id}`);
       let group = await response.json();
       sessionStorage.setItem('group', JSON.stringify(group));
-      console.log(group);
       let currentGroup = JSON.parse(sessionStorage.getItem('current-group'));
       if (currentGroup.id) {
         // modalJoinedGroupInstance.show();
@@ -471,7 +468,6 @@ const displayPagination = async function (pageable) {
   //don't change the query selector, if something is wrong, change the html file instead
   const pagination = document.querySelector('#main-pagination');
   pagination.innerHTML = '';
-  console.log('display pagination');
   let maxPage = pageable.totalPages;
 
   for (let i = 0; i < maxPage; i++) {
@@ -710,14 +706,11 @@ async function updateGroupSection(capstone) {
   groupSection.innerHTML = ``;
   groupSection.innerHTML = `<h3 class="text-center">Loading...</h3>`;
 
-  console.log('groupSection');
-
   const groupList = await fetch(`api/group/capstone/${capstone.id}`);
   const groupListResult = await groupList.json();
   if (groupListResult.content.length === 0) {
     groupSection.innerHTML = `<h3 class="text-center">No Group Found</h3>`;
     if (getUser().role === 'student') {
-      console.log('in group section');
       groupSection.appendChild(createApplyButton(capstone));
     }
     return;
@@ -730,7 +723,6 @@ async function updateGroupSection(capstone) {
   });
 
   if (getUser().role === 'student') {
-    console.log('in group section');
     groupSection.appendChild(createApplyButton(capstone));
   }
   return;
@@ -739,7 +731,6 @@ function createApplyButton(capstone) {
   const div = document.createElement('div');
   div.classList.add('text-center');
   let currentGroup = JSON.parse(sessionStorage.getItem('current-group'));
-  console.log(currentGroup);
   const applyButton = document.createElement('button');
   applyButton.classList.add('btn', 'btn-primary', 'apply-button');
   applyButton.textContent = 'Apply';
