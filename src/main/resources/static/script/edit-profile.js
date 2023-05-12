@@ -1,12 +1,15 @@
 const SaveChangeBtn = document.getElementById('submit-btn');
 
 const SaveBib = document.getElementById('SaveBib');
+const currentGroupStudent = JSON.parse(sessionStorage.getItem("current-group"));
 const CapabilityCreateBtn = document.getElementById('CapabilityCreateBtn');
 const name = document.getElementById('profile_name');
 const major = document.getElementById('profile_major');
 const contact = document.getElementById('profile_contact');
+const profileComStudent = document.getElementById('profile_company');
+const profileCapInfo = document.getElementById('profile_capstoneinfo');
 const email = document.getElementById('profile_email');
-const group = document.getElementById('profile_group');
+const studentInfoGroup = document.getElementById('profile_group');
 const session = sessionStorage.getItem('user');
 const user = JSON.parse(session);
 
@@ -17,24 +20,26 @@ let StudentContact;
 let StudentEmail;
 let StudentBib;
 
-
+const nullImagePlacehodler = "https://t4.ftcdn.net/jpg/03/59/58/91/360_F_359589186_JDLl8dIWoBNf1iqEkHxhUeeOulx0wOC5.jpg";
 function ViewAll() {
-
     LoadData(getUser());
 }
 
 ViewAll();
-
 function LoadData(result2) {
+    const profile_img = document.getElementById('profile_img');
     const name = document.getElementById('profile_name');
     const major = document.getElementById('profile_major');
     const contact = document.getElementById('profile_contact');
     const email = document.getElementById('profile_email');
     const Bib = document.getElementById('Bib');
-
+    
+    profileCapInfo.textContent = currentGroupStudent.id?currentGroupStudent.capstone.company.name: "N/A";
+    profileComStudent.textContent = currentGroupStudent.id?currentGroupStudent.capstone.projectTitle: "N/A";
+    profile_img.src = getUser().imgId?getUser().imgId:nullImagePlacehodler;
     name.innerHTML = getUser().name?getUser().name: "N/A";
     major.innerHTML = getUser().major?getUser().major: "N/A";
-    group.textContent = getCurrentGroup().id?getCurrentGroup().groupName: "N/A";
+    studentInfoGroup.textContent = currentGroupStudent.id?currentGroupStudent.groupName: "N/A";
     contact.innerHTML = getUser().contact?getUser().contact: "N/A";
     email.innerHTML = getUser().email?getUser().email: "N/A";
     Bib.innerHTML = getUser().bib?getUser().bib: "N/A";
@@ -86,7 +91,7 @@ function LoadModal(result2) {
     console.log(getUser());
     Modalname.value = getUser().name?getUser().name: "N/A";
     Modalmajor.value = getUser().major?getUser().major: "N/A";
-    group.textContent = getCurrentGroup().id?getCurrentGroup().groupName: "N/A";
+    studentInfoGroup.textContent = currentGroupStudent.id?currentGroupStudent.groupName: "N/A";
     Modalpassword.value = getUser().password?getUser().password: "N/A";
     Modalcontact.value = getUser().contact?getUser().contact: "N/A";
     Modalemail.value = getUser().email?getUser().email: "N/A";
@@ -159,13 +164,22 @@ function DeleteSkill(skill) {
 
 
 SaveChangeBtn.addEventListener('click', () => {
-    UpdateStudentPersona(user.id);
-    UpdateStudentSkills();
+    updateInfoModal("Are you sure that you want to save change this information?",
+    alertModalElStudent,
+    async (ev)=>{
+        loadingModal.show();
+        await UpdateStudentPersona();
+        await UpdateStudentSkills();
+        displayWelcomMessage();
+        LoadData(getUser());
+        LoadSkills(getUser());
+        LoadModal();
+    });
 
 });
 
-async function UpdateStudentPersona(studentID) {
-
+async function UpdateStudentPersona() {
+    const profile_image = document.getElementById("profile_img")
     const profile_name = document.getElementById('profile_name');
     const profile_major = document.getElementById('profile_major');
     const profile_contact = document.getElementById('profile_contact');
@@ -190,7 +204,7 @@ async function UpdateStudentPersona(studentID) {
 
     sessionStorage.setItem("user",JSON.stringify(newUser));
     try {
-        const response = await fetch(`/api/student/update/${studentID}/persona`, {
+        const response = await fetch(`/api/student/update/${getUser().id}/persona`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -199,13 +213,12 @@ async function UpdateStudentPersona(studentID) {
         });
 
         if (response.ok) {
-            console.log('Capstone project updated successfully');
-            profile_name.innerHTML = NewName;
-            profile_major.innerHTML = NewMajor;
-            profile_contact.innerHTML = NewContact;
-            profile_email.innerHTML = NewEmail;
-            displayWelcomMessage();
-            profile_bib.innerHTML = NewBib;
+            
+
+            updateSuccessModal("You have successfully updated your account info!",
+            alertModalElStudent,
+            ()=>{});
+            
         } else {
             console.error('Error updating capstone project. Response status:', response.status);
         }

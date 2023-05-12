@@ -8,7 +8,7 @@ const leaveGroupBtn = document.getElementById('leave-group-btn');
 const createGroupBtn = document.querySelector('.create-group-btn');
 const registerCapstoneBtn = document.querySelector('#register-btn');
 const capstoneContainer = document.querySelector('.capstone-list-dashboard');
-const alertModalElStudent = document.querySelector('#alert-modal');
+
 const alertModalInstanceStudent = new bootstrap.Modal(alertModalElStudent);
 
 async function updateStudentDashBoardUI() {
@@ -86,9 +86,7 @@ async function onLeave(ev) {
   );
 }
 
-alertModalElStudent.addEventListener('shown.bs.modal', function (ev) {
-  loadingModal.hide();
-});
+
 //click this button to join the group in search
 if (groupSubmitButton) {
   groupSubmitButton.addEventListener('click', async function (ev) {

@@ -1,3 +1,7 @@
+const alertModalElStudent = document.querySelector('#alert-modal');
+alertModalElStudent.addEventListener('shown.bs.modal', function (ev) {
+  loadingModal.hide();
+});
 function deepEqual(obj1, obj2) {
   if (obj1 === obj2) {
     return true;

@@ -58,120 +58,13 @@
     <div id="comapnyName" class="capstone-pannel-in"></div>
   </div>
 
-  <button id="EditBtn" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-    edit
-  </button>
+  
   <div class="separator"></div>
 </div>
 
-<div class="row">
-  <div class="col-lg-10 col-md-10 col-sm-10">
-    <div class="companyImgContainer">
 
 
-      <img id="companyImg"
-           src="https://media.istockphoto.com/id/1128826884/vector/no-image-vector-symbol-missing-available-icon-no-gallery-for-this-moment.jpg?s=170667a&w=0&k=20&c=O9Y41QO7idN44o-VK5s7dBUqg-dhJZcyagMb8485BNU="
-           alt="">
-    </div>
-  </div>
-  <div class="col-lg-10 col-md-10 col-sm-10">
-    <div class="tab_content">
-      <input type="radio" name="tabmenu" id="tab01" checked>
-      <label class="tab" for="tab01">Company Description</label>
-      <input type="radio" name="tabmenu" id="tab02">
-      <label class="tab" for="tab02">Company Detail</label>
-      <div class="conbox con1">
-        <br>
-        <div id="companyDescription">
-        </div>
-      </div>
-      <div class="conbox con2">
-        <ul class="company_detail_ul">
-          <li id="company_name" class><label class="company_detail_label">Company Name :&nbsp; </label>
-            <spand id="CPname"></spand>
-          </li>
-          <li id="company_manager"> <label class="company_detail_label">Manager: &nbsp;
-          </label>
-            <spand id="CPmanager"></spand>
-          </li>
-          <li id="company_manager_contact"> <label class="company_detail_label">Manager Contact :
-            &nbsp;</label>
-            <spand id="CPmanagercontact">
-            </spand>
-          </li>
-          <li id="company_email"><label class="company_detail_label">Company Email : &nbsp;</label>
-            <spand id="CPemail"></spand>
-          </li>
-          <li id="company_contact"> <label class="company_detail_label">Company Contact : &nbsp;</label>
-            <spand id="CPcontact"></spand>
-          </li>
-        </ul>
-      </div>
-    </div>
 
-  </div>
-</div>
-
-
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-     aria-labelledby="staticBackdropLabel" aria-hidden="true">
-
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-2 group-form-heading" id="staticBackdropLabel">
-          Edit Company
-        </h1>
-        <br>
-        <button type="button" class="btn-close fs-5 me-1" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="company_detail_container">
-          <div class="modal_body_header">
-            <h3>Comapny Deatil</h3>
-
-          </div>
-          <label for="company_manager" class=" input-label information-section-element">Manager</label>
-          <input id="newManager" class="modal_profile information-section-element" type="text"
-                 placeholder="Manager : ">
-
-          <label for="company_manager_contact" class=" input-label information-section-element">Manager
-            Contact</label>
-          <input id="newManagerContact" class="modal_profile information-section-element" type="number"
-                 placeholder="Manager Contact : ">
-
-          <label for="company_contact" class=" input-label information-section-element">Company Contact</label>
-          <input id="newCompanyContact" class="modal_profile information-section-element" type="number"
-                 placeholder="Company Contact : ">
-
-          <label for="company_email" class=" input-label information-section-element">Company Email</label>
-          <input id="newCompanyEmail" class="modal_profile information-section-element" type="text"
-                 placeholder="Company Email :">
-
-          <label for="company_password" class=" input-label information-section-element">Password</label>
-          <input id="newPassword" class="modal_profile information-section-element" type="text"
-                 placeholder="Password :">
-
-        </div>
-
-        <hr>
-        <div>
-          <h3>Description</h3>
-          <textarea id = "newDescription" type="text" class="information-section-textarea input-modal" required></textarea>
-        </div>
-
-        <div class="modal-footer">
-          <button id="cancel-btn" type="button" class="btn modal-button-controller" data-bs-dismiss="modal">
-            Cancel
-          </button>
-          <button id="submit-btn" type="button" class="btn modal-button-controller">
-            Submit
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 </body>
 
 </html>

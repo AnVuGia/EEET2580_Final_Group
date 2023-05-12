@@ -1,7 +1,19 @@
 const currUser = JSON.parse(sessionStorage.getItem('user'));
 const paginationSection = document.querySelector('#sup-pagination');
 const capstoneContainer = document.querySelector('.request-capstone');
+const submitProfileBtn = document.getElementById("submit-sup-porfile");
 const loadingSpinner = createSpinningAnimation();
+submitProfileBtn.addEventListener("click", async function(ev){
+  updateInfoModal("Are you sure you want to save change this information?",
+  alertModalElStudent,
+  async()=>{
+    loadingModal.show();
+    await updateProfile();
+    loadSupModal();
+    displayWelcomMessage();
+    updateProfileUI();
+  })
+})
 const superviseCapstoneSection = {
   currPage: 0,
   currSize: 3,
@@ -37,7 +49,7 @@ async function updateUI() {
   superviseCapstoneSection.totalPages = capstoneList.totalPages;
 
   createPagination(superviseCapstoneSection, paginationSection, updateUI);
-  capstoneContainer.removeChild(loadingSpinner);
+  // capstoneContainer.removeChild(loadingSpinner);
   console.log('Capstone list from server:', capstoneList);
 }
 updateUI();
@@ -322,143 +334,63 @@ const supervisorName = document.querySelector('#profile-supervisor-name');
 const supervisorBio = document.querySelector('#profile-supervisor-bio');
 const supervisorEmail = document.querySelector('#profile-supervisor-email');
 const supervisorContact = document.querySelector('#profile-supervisor-contact');
+const imgPlacHolder = document.querySelector('.rounded-circle');
 
+const nullImagePlacehodler = "https://t4.ftcdn.net/jpg/03/59/58/91/360_F_359589186_JDLl8dIWoBNf1iqEkHxhUeeOulx0wOC5.jpg";
 function updateProfileUI(updatedProfile) {
-  supervisorName.textContent = updatedProfile.name;
-  supervisorBio.textContent = updatedProfile.bio;
-  supervisorEmail.textContent = updatedProfile.email;
-  supervisorContact.textContent = updatedProfile.contact;
+  imgPlacHolder.src = getUser().imgId?getUser().imgID:nullImagePlacehodler;
+  supervisorName.textContent = getUser().name;
+  supervisorBio.textContent = getUser().bio;
+  supervisorEmail.textContent = getUser().email;
+  supervisorContact.textContent = getUser().contact;
+}
+updateProfileUI();
+
+function loadSupModal(){
+  const imgIdDiv = document.querySelector("profile-image");
+  const subProfileName = document.getElementById("sup-profile-name");
+  const subProfileBio = document.getElementById("sup-profile-bio");
+  const subProfileContact = document.getElementById("sup-profile-contact");
+  const subProfileEmail = document.getElementById("sup-profile-email");
+
+
+  subProfileName.value = getUser().name?getUser().name:"N/A";
+  subProfileBio.value = getUser().bio?getUser().bio:"N/A";
+  subProfileContact.value = getUser().contact?getUser().contact:"N/A";
+  subProfileEmail.value = getUser().email?getUser().email:"N/A"; 
+  if(getUser().imgId){
+    imgIdDiv.value = getUser().imgId;
+  }
 }
 
-async function getSupervisorProfile() {
-  const endpoint = `api/account/supervisor/username/${currUser.username}`;
-  const response = await fetch(endpoint);
-  const result = await response.json();
-  console.log(result);
-
-  supervisorName.textContent = result.name;
-  supervisorBio.textContent = result.bio;
-  supervisorEmail.textContent = result.email;
-  supervisorContact.textContent = result.contact;
-
-  return result;
-}
-
-async function displayProfile() {
-  const capstonePanel = document.querySelector('.capstone-panel');
-  const profileController = document.querySelector('.profile-controller');
-  const profileSection = document.querySelector('.profile-section');
-  const closeProfileBtn = document.querySelector('#close-profile-section-btn');
-  const editProfileBtn = document.querySelector('#edit-profile-button');
-
-  // Add a click event listener to the list item
-  profileController.addEventListener('click', (event) => {
-    if (event.target.classList.contains('profile-list-item')) {
-      // Toggle the hidden attribute on the profile section element
-      profileSection.hidden = !profileSection.hidden;
-
-      // Toggle the hidden attribute on the pagination section and capstone container elements
-      paginationSection.style.display = 'none';
-      capstoneContainer.style.display = 'none';
-      capstonePanel.style.display = 'none';
-    }
-  });
-
-  closeProfileBtn.addEventListener('click', () => {
-    profileSection.hidden = true;
-    paginationSection.style.display = 'block';
-    capstoneContainer.style.display = 'flex';
-    capstonePanel.style.display = 'flex';
-  });
-
-  const supervisor = await getSupervisorProfile();
-
-  editProfileBtn.addEventListener('click', () => {
-    const editForm = createEditProfileForm(supervisor);
-    document.body.appendChild(editForm);
-  });
-}
-
-function createEditProfileForm(supervisor) {
-  // Create a form container element
-  const editProfileFormContainer = document.createElement('div');
-  editProfileFormContainer.classList.add('edit-form-container');
-
-  // Create the form overlay element
-  const formOverlay = document.createElement('div');
-  formOverlay.classList.add('form-overlay');
-  editProfileFormContainer.appendChild(formOverlay);
-
-  // Create the form element
-  const form = document.createElement('form');
-  form.classList.add('edit-form');
-  form.innerHTML = `
-    <h3>Edit Profile</h3>
-    
-    <div class="profile-information">
-        <label for="profile-image">Profile Image</label>
-        <input type="file" id="profile-image" accept="image/*" />
-        
-        <label for="sup-profile-name"> Supervisor Name</label>
-        <input type="text" id="sup-profile-name" value="${supervisor.name}"/>
-
-        <label for="sup-profile-bio">Supervisor Bio</label>
-        <input type="text" id="sup-profile-bio" value="${supervisor.bio}"/>
-        
-        <label for="sup-profile-email">Supervisor Email</label>
-        <input type="text" id="sup-profile-email" value="${supervisor.email}"/>
-        
-        <label for="sup-profile-contact">Supervisor Contact</label>
-        <input type="text" id="sup-profile-contact" value="${supervisor.contact}"/>
-
-        <button type="submit">Save</button>
-        <button type="button" class="close-button">Close</button> 
-    </div>
-  `;
-  editProfileFormContainer.appendChild(form);
-
-  // Close button functionality
-  const closeButton = form.querySelector('.close-button');
-  closeButton.addEventListener('click', () => {
-    document.body.removeChild(editProfileFormContainer);
-  });
-
-  // Handle form submission
-  form.addEventListener('submit', async (event) => {
-    event.preventDefault();
-
-    // Update the capstone data and close the form
-    await updateProfile(supervisor.id);
-
-    document.body.removeChild(editProfileFormContainer);
-  });
-
-  return editProfileFormContainer;
-}
+loadSupModal();
 
 async function updateProfile(supervisorID) {
-  const updatedProfileSupervisor = {
-    name: document.querySelector('#sup-profile-name').value,
-    bio: document.querySelector('#sup-profile-bio').value,
-    email: document.querySelector('#sup-profile-email').value,
-    contact: document.querySelector('#sup-profile-contact').value,
-  };
-
+  let newUser = getUser();
+    
+    if (document.getElementById("profile-image").files.length !=0){
+      // newUser.imgID = document.querySelector("profile-image").files[0].name;
+    }
+    newUser.name = document.querySelector('#sup-profile-name').value;
+    newUser.bio = document.querySelector('#sup-profile-bio').value;
+    newUser.email = document.querySelector('#sup-profile-email').value;
+    newUser.contact = document.querySelector('#sup-profile-contact').value;
+    sessionStorage.setItem("user",JSON.stringify(newUser));
   try {
     const response = await fetch(
-      `/api/supervisor/update-profile/${supervisorID}`,
+      `/api/supervisor/update-profile/${getUser().id}`,
       {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(updatedProfileSupervisor),
+        body: JSON.stringify(newUser),
       }
     );
-
     if (response.ok) {
-      console.log('Capstone project updated successfully');
-      updateProfileUI(updatedProfileSupervisor);
+      updateSuccessModal("You have successfully updated the account information!",
+      alertModalElStudent,
+      ()=>{});
     } else {
       console.error(
         'Error updating capstone project. Response status:',
@@ -468,8 +400,6 @@ async function updateProfile(supervisorID) {
   } catch (error) {
     console.error('Error updating capstone project:', error);
   }
-
-  console.log(updatedProfileSupervisor);
 }
 function dataURItoBlob(dataURI) {
   const byteString = atob(dataURI.split(',')[1]);
@@ -481,5 +411,3 @@ function dataURItoBlob(dataURI) {
   }
   return new Blob([ab], { type: mimeString });
 }
-getSupervisorProfile();
-displayProfile();
