@@ -33,17 +33,19 @@ password.addEventListener('change', () => {
 // FORM VALIDATION WHEN USER PRESSES SUBMIT //
 
 submit.addEventListener('click', (event) => {
-  let cnt = 0;
+  let count = 0;
   if (!userName.validity.valid) {
     event.preventDefault();
     userNameError();
-    cnt++;
+    count++;
   }
-
   if (!password.validity.valid) {
     event.preventDefault();
     passwordError();
-    cnt++;
+    count++;
+  }
+  if (count > 0) {
+    return;
   }
   authenticate(userName.value, password.value);
 });
@@ -98,10 +100,33 @@ function passwordError() {
     password.classList.add('invalid');
     password.placeholder = '';
   }
-
   if (password.validity.valueMissing) {
     passwordEl.textContent = 'Password cannot be empty';
   } else if (password.validity.tooShort) {
     passwordEl.textContent = 'Password should be at least 8 characters';
   }
 }
+password.addEventListener('keyup', (event) => {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    submit.click();
+  }
+});
+userName.addEventListener('keyup', (event) => {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    submit.click();
+  }
+});
+userName.addEventListener('click', () => {
+  userNameEl.textContent = '';
+  if (userName.classList.contains('invalid')) {
+    userName.classList.remove('invalid');
+  }
+});
+password.addEventListener('click', () => {
+  passwordEl.textContent = '';
+  if (password.classList.contains('invalid')) {
+    password.classList.remove('invalid');
+  }
+});
