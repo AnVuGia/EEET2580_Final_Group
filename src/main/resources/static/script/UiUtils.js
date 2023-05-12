@@ -77,7 +77,7 @@ function createPagination(sectionObj, sectionEl, updateSectionUI) {
   ulEl.classList.add('justify-content-center');
   for (let i = 0; i < sectionObj.totalPages; i++) {
     const liEl = document.createElement('li');
-    liEl.classList.add("page-item");
+    liEl.classList.add('page-item');
     const aEl = document.createElement('a');
     aEl.classList.add('page-link');
     aEl.textContent = i + 1;
@@ -92,7 +92,7 @@ function createPagination(sectionObj, sectionEl, updateSectionUI) {
     });
   }
   const prevLiEl = document.createElement('li');
-  prevLiEl.classList.add("page-item");
+  prevLiEl.classList.add('page-item');
   const prevAEl = document.createElement('a');
   prevAEl.classList.add('page-link');
   prevAEl.textContent = 'Previous';
@@ -105,7 +105,7 @@ function createPagination(sectionObj, sectionEl, updateSectionUI) {
     }
   });
   const nextLiEl = document.createElement('li');
-  nextLiEl.classList.add("page-item");
+  nextLiEl.classList.add('page-item');
   const nextAEl = document.createElement('a');
   nextAEl.classList.add('page-link');
   nextAEl.textContent = 'Next';
@@ -237,6 +237,32 @@ function updateInfoModal(msg, modal, buttonAction) {
   `;
   const confirmBtn = modal.querySelector('.btn-success');
   confirmBtn.addEventListener('click', buttonAction);
+  const newModal = new bootstrap.Modal(modal);
+  newModal.show();
+}
+function updateLoadingModal(msg, modal) {
+  const modalBody = modal.querySelector('.modal-body');
+  modalBody.innerHTML = `
+  <div
+                class="alert alert-info d-flex align-items-center"
+                role="alert"
+              >
+                <i class="fas fa-sync-alt fa-spin fs-3"></i>
+                <div style="font-size: 1.6rem" class="loading-modal">
+                  ${msg}
+                </div>
+              </div>
+  `;
+  const modalFooter = modal.querySelector('.modal-footer');
+  modalFooter.innerHTML = `
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Cancel
+              </button>
+  `;
   const newModal = new bootstrap.Modal(modal);
   newModal.show();
 }

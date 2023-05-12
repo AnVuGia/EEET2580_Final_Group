@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    />     <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/login_signup/sign-up.css">
     <link rel="stylesheet" href="css/login_signup/sign-in.css">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -17,20 +17,31 @@
     <title>Sign up Page</title>
 </head>
 <body>
+    <nav id="nav-sign-in" class="navbar navbar-expand-lg header-container py-4">
+    <img
+            src="/images/login-signup/log-170x50.svg"
+            alt=""
+            class="header-log-image"
+            />
+          </a>
+  </nav>
     <div class="container-fluid">
         <div class="row align-items-center vh-100 gx-0">
-            <div class="row vh-100 mb-5">
+            <div class="row vh-100 mb-5 ">
                 <div class="top col-lg-4 col-md-12 m-auto">
                     <div class="row ">
                         <img src="images/login-signup/capstone-logo-300px.png" alt="" class="top-image d-block mx-auto">
                     </div>
                 </div>
                 <div class="form col-lg-8 col-md-12 m-auto">
-                    <select id="sign-up-role">
+                    <div class="d-flex justify-content-center">
+                        <select id="sign-up-role">
                         <option value="Student" selected>Student</option>
                         <option value="Company">Company</option>
                         <option value="Supervisor">Supervisor</option>
                     </select>
+                    </div>
+                    
 
                     <div class="sign-up-element">
                         <input class="form-form-element user-name"  type="text" placeholder="User Name" name="uname" required/>
@@ -49,8 +60,8 @@
                         <p class="error error-re-password" aria-live="polite"></p>
                     </div>
                     <div class="controller">
-                        <div id ="btn-sign-up" class ="btn-controller">Sign up</div>
-                        <div id = "btn-back" class="btn-controller">Back</div>
+                        <div id ="btn-sign-up" class ="btn-controller btn btn-primary">Sign up</div>
+                        <div id = "btn-back" class="btn-controller btn btn-primary">Back</div>
                     </div>
                 </div>
             </div>
@@ -58,6 +69,6 @@
         
     </div>
         <script defer src="script/sign-up.js"></script>
-    
-  </body>
+
+</body>
 </html>

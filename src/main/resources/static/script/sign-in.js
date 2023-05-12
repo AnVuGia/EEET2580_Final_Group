@@ -5,12 +5,7 @@ const passwordEl = document.querySelector('.error-password');
 const signUp = document.querySelector('#btn-sign-up');
 const submit = document.querySelector('#btn-sign-in');
 const role = document.querySelector('#sign-in-role');
-const alertModal = new bootstrap.Modal(document.querySelector('#alertModal'));
-const alertModalEl = document.querySelector('#alertModal');
-alertModalEl.addEventListener('hidden.bs.modal', () => {
-  userName.value = '';
-  password.value = '';
-});
+
 signUp.addEventListener('click', () => {
   window.location.href = 'sign-up-page';
 });
@@ -55,7 +50,8 @@ submit.addEventListener('click', (event) => {
 
 async function authenticate(username, password) {
   console.log('sign in');
-
+  const alertModal = document.querySelector('#alert-modal');
+  updateLoadingModal('Signing in...', alertModal);
   const response = await fetch(
     `/authenticate?username=${username}&password=${password}`
   );
@@ -81,8 +77,9 @@ async function authenticate(username, password) {
     sessionStorage.setItem('user', JSON.stringify(result));
   } catch (error) {
     console.log('Wrong username or password');
-    console.log(alertModal);
-    alertModal.show();
+    updateDangerModal('Wrong username or password', alertModal, () => {
+      window.location.href = '/sign-in-page';
+    });
     return;
   }
 }
