@@ -1,16 +1,15 @@
 package com.example.EEET2580_Group.Service.Implementation;
 
 import com.example.EEET2580_Group.DTO.AccountDto;
+import com.example.EEET2580_Group.DTO.GroupDto;
 import com.example.EEET2580_Group.Entity.*;
-import com.example.EEET2580_Group.Repository.AdminAccRepository;
-import com.example.EEET2580_Group.Repository.CompanyAccRepository;
-import com.example.EEET2580_Group.Repository.StudentAccRepository;
-import com.example.EEET2580_Group.Repository.SupervisorAccRepository;
+import com.example.EEET2580_Group.Repository.*;
 import com.example.EEET2580_Group.Service.Interface.AccountService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +24,8 @@ public class AccountServiceImp implements AccountService {
     private StudentAccRepository studentAccRepository;
     @Autowired
     private AdminAccRepository adminAccRepository;
+    @Autowired
+    private GroupRepository groupRepository;
 
     @Override
     public void saveAccount(Account account) {
@@ -66,6 +67,14 @@ public class AccountServiceImp implements AccountService {
         System.out.println("getAllStudentAccounts");
         List<StudentAcc> accounts = new ArrayList<>();
         accounts.addAll(studentAccRepository.findAll());
+        return accounts;
+    }
+
+    @Override
+    public List<GroupEntity> getAllGroups() {
+        System.out.println("getAllStudentAccounts");
+        List<GroupEntity> accounts = new ArrayList<>();
+        accounts.addAll(groupRepository.findAll());
         return accounts;
     }
     @Override
