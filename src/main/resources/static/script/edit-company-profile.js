@@ -99,7 +99,7 @@ function LoadModalCompany(){
 async function updateCompanyInformation() {
   let newUser = getUser();
     newUser.name = CompanyNameModal.value;
-    newUser.contact = Contact_modal.value;
+    newUser.contact = Contact_modal.value ==="N/A"?0:Contact_modal.value;
     newUser.email = Email_modal.value;
     newUser.manager = Manager_modal.value;
     newUser.companyDescription = Description_modal.value;

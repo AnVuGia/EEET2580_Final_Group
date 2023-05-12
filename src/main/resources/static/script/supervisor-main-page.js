@@ -65,7 +65,7 @@ function createCapstoneCardWithEditButton(capstone) {
           <p class="item-name">${capstone.projectTitle}</p>
           <p class="course-code">${capstone.company.name}</p>
           <p class="time-enrolled">${capstone.supervisor.name}</p>
-          <button class="edit-button">Edit</button> 
+          <button class="edit-button btn">Edit</button> 
         </div>  
     `;
 
@@ -374,7 +374,7 @@ async function updateProfile(supervisorID) {
     newUser.name = document.querySelector('#sup-profile-name').value;
     newUser.bio = document.querySelector('#sup-profile-bio').value;
     newUser.email = document.querySelector('#sup-profile-email').value;
-    newUser.contact = document.querySelector('#sup-profile-contact').value;
+    newUser.contact = document.querySelector('#sup-profile-contact').value?"N/A":document.querySelector('#sup-profile-contact').value;
     sessionStorage.setItem("user",JSON.stringify(newUser));
   try {
     const response = await fetch(

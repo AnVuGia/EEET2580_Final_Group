@@ -61,68 +61,52 @@ submit.addEventListener('click', (event) => {
     event.preventDefault();
     reEnterPasswordError();
   }
-  if (cnt == 0) {
-    if (role.value == 'Student') {
-      onStudentSubmit(userName.value, password.value);
-    } else if (role.value == 'Company') {
-      onCompanySubmit(userName.value, password.value);
-    } else if (role.value == 'Supervisor') {
-      onSupervisorSubmit(userName.value, password.value);
-    }
+  if (reEnterPass.value !==password.value){
+    updateDangerModal("Your password must be the same!",
+    alertModalElStudent,
+    (ev)=>{});
+  }
+  if (cnt == 0) { 
+      onSignUpSubmit(userName.value, password.value,role.value);
   }
 });
 
-async function onStudentSubmit(userName, password) {
+async function onSignUpSubmit(userName, password,type) {
   console.log('onStudentSubmit');
   const userData = {
     username: userName,
-    password: password,
-    email: 'user1@gmial.com 2',
-    name: 'user 1 2',
+    password: password
   };
-  const res = await fetch('/api/account/student/add', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(userData),
-  });
-}
+  try{
 
-async function onCompanySubmit(userName, password) {
-  console.log('onCompanySubmit');
-  const userData = {
-    username: userName,
-    password: password,
-    name: 'test company',
-    //    company_description: 'test',
-    email: 'user1@gmial.com 2',
-  };
-  const res = await fetch('/api/account/company/add', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(userData),
-  });
-}
-
-async function onSupervisorSubmit(userName, password) {
-  console.log('onStudentSubmit');
-  const userData = {
-    username: userName,
-    password: password,
-    supervisor_bio: 'test supervisor bio',
-    email: 'user1@gmial.com 2',
-    supervisor_name: 'user 1 2',
-  };
-  const res = await fetch('/api/account/supervisor/add', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(userData),
-  });
+    const res = await fetch(`/api/account/${type}/add`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userData),
+    });
+    if (res.ok) {
+      const responseData = await res.json();
+  
+      if (responseData.id == null) {
+        updateDangerModal("User name has already been taken!",
+        alertModalElStudent,
+        ()=>{});
+      } else {
+        updateSuccessModal("You have successfully register the account!",
+        alertModalElStudent,
+        ()=>{window.location.href="sign-in-page"});
+          }
+    } else {
+      console.log('Request failed with status:', res.status);
+    }
+  } catch (error) {
+    console.log('Request failed with error:', error);
+  }
+  // const data =res.json();
+  // console.log(data);
+  
 }
 
 // FORM VALIDATION FORMULAS //

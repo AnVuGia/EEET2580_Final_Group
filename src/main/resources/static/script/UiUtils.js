@@ -1,3 +1,11 @@
+
+const loadingModal = new bootstrap.Modal(
+  document.getElementById('loading-modal'),
+  {
+    keyboard: false,
+    backdrop: 'static',
+  }
+);
 const alertModalElStudent = document.querySelector('#alert-modal');
 alertModalElStudent.addEventListener('shown.bs.modal', function (ev) {
   loadingModal.hide();
@@ -63,12 +71,7 @@ function createSpinningAnimation() {
   spinningEl.classList.add('loading-spinner');
   return spinningEl;
 }
-function displayWelcomMessage() {
-  const user = JSON.parse(sessionStorage.getItem('user'));
-  const greetingText = document.querySelector('.welcome-message');
-  greetingText.textContent = `Welcome, ${user.name}!`;
-}
-displayWelcomMessage();
+
 
 function createPagination(sectionObj, sectionEl, updateSectionUI) {
   if (sectionObj.totalPages <= 1) {

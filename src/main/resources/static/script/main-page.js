@@ -12,16 +12,14 @@ const accountProfileSection = document.getElementById("account-profile");
 const studentCapstoneModalEl = document.querySelector(
   '#student-capstone-modal'
 );
+function displayWelcomMessage() {
+  const user = JSON.parse(sessionStorage.getItem('user'));
+  const greetingText = document.querySelector('.welcome-message');
+  greetingText.textContent = `Welcome, ${user.name}!`;
+}
+displayWelcomMessage();
 const groupInfoContainer = document.querySelector('.group-info-section');
 const role = sessionStorage.getItem('role');
-
-const loadingModal = new bootstrap.Modal(
-  document.getElementById('loading-modal'),
-  {
-    keyboard: false,
-    backdrop: 'static',
-  }
-);
 const studentCapstoneModal = new bootstrap.Modal(
   document.getElementById('student-capstone-modal'),
   {

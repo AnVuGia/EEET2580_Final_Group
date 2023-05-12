@@ -34,6 +34,7 @@ function LoadData(result2) {
     const email = document.getElementById('profile_email');
     const Bib = document.getElementById('Bib');
     
+
     profileCapInfo.textContent = currentGroupStudent.id?currentGroupStudent.capstone.company.name: "N/A";
     profileComStudent.textContent = currentGroupStudent.id?currentGroupStudent.capstone.projectTitle: "N/A";
     profile_img.src = getUser().imgId?getUser().imgId:nullImagePlacehodler;
@@ -188,7 +189,7 @@ async function UpdateStudentPersona() {
 
     let NewName = document.getElementById('NewName').value;
     let NewMajor = document.getElementById('NewMajor').value;
-    let NewContact = document.getElementById('NewContact').value;
+    let NewContact = document.getElementById('NewContact').value === "N/A"?0: document.getElementById('NewContact').value;
     let NewEmail = document.getElementById('NewEmail').value;
     let NewPassword = document.getElementById('NewPassword').value;
     let NewBib = document.getElementById('NewBib').value;

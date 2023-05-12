@@ -66,16 +66,13 @@ public class AccountController {
     @PostMapping("/{type}/add")
     public Account addAccount(@RequestBody Account request, @PathVariable String type) {
         Account account = new Account();
-        account.setName(request.getName());
         account.setUsername(request.getUsername());
         account.setPassword(request.getPassword());
-        account.setEmail(request.getEmail());
 
         if (!accountService.isValidUsername(request.getUsername())) {
             System.out.println("user name is already taken");
-            return null;
+            return new Account();
         }
-
         if (type.equals("company")) {
             CompanyAcc companyAcc = new CompanyAcc();
             companyAcc.setAccount(account);
