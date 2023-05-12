@@ -107,6 +107,7 @@
     let DummyGroup = [];
     GetAllgroup();
     async function GetAllgroup() {
+        
         const response = await fetch('/api/account/groups');
         console.log(response);
         result = await response.json();
