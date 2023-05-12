@@ -133,13 +133,22 @@ function userNameError() {
     userName.classList.add('invalid');
     userName.placeholder = '';
   }
+  if (userName.value.contains(' ')) {
+    userNameEl.textContent = 'User Name cannot contain spaces';
+    userName.classList.add('invalid');
+    userName.placeholder = '';
+  }
 }
 function passwordError() {
   if (password.validity.valueMissing || password.validity.tooShort) {
     password.classList.add('invalid');
     password.placeholder = '';
   }
-
+  if (password.value.contains(' ')) {
+    passwordEl.textContent = 'Password cannot contain spaces';
+    password.classList.add('invalid');
+    password.placeholder = '';
+  }
   if (password.validity.valueMissing) {
     passwordEl.textContent = 'Password cannot be empty';
   } else if (password.validity.tooShort) {
@@ -158,3 +167,38 @@ function reEnterPasswordError() {
     reEnterPassEl.textContent = 'Password should be at least 8 characters';
   }
 }
+userName.addEventListener('click', () => {
+  userNameEl.textContent = '';
+  if (userName.classList.contains('invalid')) {
+    userName.classList.remove('invalid');
+  }
+  userName.placeholder = 'User Name';
+});
+password.addEventListener('click', () => {
+  passwordEl.textContent = '';
+  if (password.classList.contains('invalid')) {
+    password.classList.remove('invalid');
+  }
+  password.placeholder = 'Password';
+});
+reEnterPass.addEventListener('click', () => {
+  reEnterPassEl.textContent = '';
+  if (reEnterPass.classList.contains('invalid')) {
+    reEnterPass.classList.remove('invalid');
+  }
+  reEnterPass.placeholder = 'Re-enter Password';
+});
+document.querySelector('#show-password1').addEventListener('click', () => {
+  if (password.type === 'password') {
+    password.type = 'text';
+  } else {
+    password.type = 'password';
+  }
+});
+document.querySelector('#show-password2').addEventListener('click', () => {
+  if (reEnterPass.type === 'password') {
+    reEnterPass.type = 'text';
+  } else {
+    reEnterPass.type = 'password';
+  }
+});

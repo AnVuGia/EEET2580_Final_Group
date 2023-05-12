@@ -130,3 +130,10 @@ password.addEventListener('click', () => {
     password.classList.remove('invalid');
   }
 });
+document.querySelector('#show-password').addEventListener('click', () => {
+  if (password.type === 'password') {
+    password.type = 'text';
+  } else {
+    password.type = 'password';
+  }
+});
