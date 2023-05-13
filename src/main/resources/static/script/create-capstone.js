@@ -91,9 +91,7 @@ async function setCapstoneProject() {
     company: {
       username: currUser.username,
     },
-    supervisor: {
-      username: supervisorSelect.value,
-    },
+    supervisor: {},
     projectTitle: document.querySelector('#capstone-title').value,
     projectIntroduction: document.querySelector('#introduction').value,
     projectObjectives: document.querySelector('#capstone-objectives').value,
