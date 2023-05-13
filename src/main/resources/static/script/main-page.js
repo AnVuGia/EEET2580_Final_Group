@@ -8,21 +8,25 @@ const displayResult = document.querySelector('.display-result-search');
 const groupListContainer = document.querySelector('.group-list');
 const filterContainer = document.querySelector('.search-filter');
 const searchPagePagination = document.getElementById('main-pagination');
-const accountProfileSection = document.getElementById("account-profile");
+const accountProfileSection = document.getElementById('account-profile');
 const studentCapstoneModalEl = document.querySelector(
   '#student-capstone-modal'
 );
 function displayWelcomMessage() {
   const user = getUser();
-  if (!user.name){
-    updateInfoModal("Please complete your account profile!",
-    alertModalElStudent,
-    ()=>{});
+  if (!user.name) {
+    updateInfoModal(
+      'Please complete your account profile!',
+      alertModalElStudent,
+      () => {}
+    );
   }
   const greetingText = document.querySelector('.welcome-message');
-  greetingText.textContent = `Welcome, ${user.name?user.name:"N/A"}!`;
+  greetingText.textContent = `Welcome, ${user.name ? user.name : 'N/A'}!`;
 }
-displayWelcomMessage();
+if (role !== 'student') {
+  displayWelcomMessage();
+}
 const groupInfoContainer = document.querySelector('.group-info-section');
 const role = sessionStorage.getItem('role');
 const studentCapstoneModal = new bootstrap.Modal(
@@ -57,10 +61,10 @@ function listenProfileBehave() {
         window.location.href = '/sign-in-page';
       } else if (ev.target.textContent === 'Account Information') {
         const Role = JSON.parse(role);
-          accountProfileSection.removeAttribute("hidden");
-          capstoneSearchSection.setAttribute("hidden","hidden");
-          dashboardView.setAttribute('hidden', 'hidden');
-          groupInfoContainer.setAttribute('hidden',"hidden");
+        accountProfileSection.removeAttribute('hidden');
+        capstoneSearchSection.setAttribute('hidden', 'hidden');
+        dashboardView.setAttribute('hidden', 'hidden');
+        groupInfoContainer.setAttribute('hidden', 'hidden');
       }
     });
   }
@@ -76,7 +80,7 @@ function headerBar() {
       oldTarget = ev.target;
     });
 }
-async function setProfileImage() {;
+async function setProfileImage() {
   let user = getUser();
   if (user.imageId != null) {
     const profileImageEl = document.querySelector('.img-thumbnail ');
@@ -89,8 +93,8 @@ headerBar();
 function setVisibiltySearchPage(target) {
   const user = getUser();
   if (target.textContent === 'Search') {
-    if (getUser.role !=="admin"){
-      accountProfileSection.setAttribute("hidden","hidden");
+    if (getUser.role !== 'admin') {
+      accountProfileSection.setAttribute('hidden', 'hidden');
     }
     disSection.textContent = 'Search';
     dashboardView.setAttribute('hidden', 'hidden');
@@ -98,9 +102,9 @@ function setVisibiltySearchPage(target) {
       groupInfoContainer.setAttribute('hidden', 'hidden');
     }
     capstoneSearchSection.removeAttribute('hidden');
-  }else if (target.textContent === 'Dashboard') {
-      accountProfileSection.setAttribute("hidden","hidden");
-    
+  } else if (target.textContent === 'Dashboard') {
+    accountProfileSection.setAttribute('hidden', 'hidden');
+
     if (user.role === 'admin') {
       disSection.textContent = 'Request Capstone List';
     } else if (user.role === 'company') {
@@ -115,9 +119,8 @@ function setVisibiltySearchPage(target) {
       groupInfoContainer.setAttribute('hidden', 'hidden');
     }
     dashboardView.removeAttribute('hidden');
-  }else if (target.textContent === 'Group Info') {
-    
-    accountProfileSection.setAttribute("hidden","hidden");
+  } else if (target.textContent === 'Group Info') {
+    accountProfileSection.setAttribute('hidden', 'hidden');
     disSection.textContent = 'Group Info';
     capstoneSearchSection.setAttribute('hidden', 'hidden');
     dashboardView.setAttribute('hidden', 'hidden');
