@@ -341,14 +341,14 @@ updateProfileUI();
 
 function loadSupModal(){
   const imgIdDiv = document.querySelector("profile-image");
-  const subProfileName = document.getElementById("sup-profile-name");
+  
   const subProfileBio = document.getElementById("sup-profile-bio");
   const subProfileContact = document.getElementById("sup-profile-contact");
   const subPassword = document.getElementById("sup-profile-password");
   const subProfileEmail = document.getElementById("sup-profile-email");
 
 
-  subProfileName.value = getUser().name?getUser().name:"N/A";
+
   subProfileBio.value = getUser().bio?getUser().bio:"N/A";
   subProfileContact.value = getUser().contact?getUser().contact:"N/A";
   subProfileEmail.value = getUser().email?getUser().email:"N/A"; 
@@ -367,10 +367,10 @@ async function updateProfile(supervisorID) {
     if (document.getElementById("profile-image").files.length !=0){
       newUser.imgID = document.querySelector("profile-image").files[0].name;
     }
-    newUser.name = document.querySelector('#sup-profile-name').value;
+    
     newUser.bio = document.querySelector('#sup-profile-bio').value;
     newUser.email = document.querySelector('#sup-profile-email').value;
-    newUser.contact = document.querySelector('#sup-profile-contact').value?null:document.querySelector('#sup-profile-contact').value;
+    newUser.contact = document.querySelector('#sup-profile-contact').value;
     newUser.password = document.querySelector('#sup-profile-password').value;
     sessionStorage.setItem("user",JSON.stringify(newUser));
   try {
