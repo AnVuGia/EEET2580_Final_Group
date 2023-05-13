@@ -41,7 +41,6 @@ async function getRejectCapstoneProject(page, size) {
   const result = await response.json();
   return result;
 }
-
 async function updateApproveSectionUI() {
   const approveSectionEl = document.querySelector('.company-approved-list');
   approveSectionEl.innerHTML = '';
@@ -53,7 +52,7 @@ async function updateApproveSectionUI() {
   const data = approveCapstoneProject.content;
   if (data.length === 0) {
     approveSectionEl.innerHTML =
-      '<p style="font-size: 1.6rem">No approved capstone project</p>';
+      '<p style="font-size: 1.6rem; text-align:center">No approved capstone project</p>';
   } else {
     data.forEach((capstone) => {
       const capItem = createCapstoneCard(capstone);
@@ -75,6 +74,8 @@ async function updateApproveSectionUI() {
       updateApproveSectionUI
     );
   }
+
+  // approveSectionEl.removeChild(spinner1);
 }
 async function updatePendingSectionUI() {
   const pendingSectionEl = document.querySelector('.company-pending-list');
@@ -88,7 +89,7 @@ async function updatePendingSectionUI() {
   const data = pendingCapstoneProject.content;
   if (data.length === 0) {
     pendingSectionEl.innerHTML =
-      '<p style="font-size: 1.6rem"> No pending capstone project</p>';
+      '<p style="font-size: 1.6rem; text-align:center"> No pending capstone project</p>';
   } else {
     data.forEach((capstone) => {
       const capItem = createCapstoneCard(capstone);
@@ -119,6 +120,7 @@ async function updatePendingSectionUI() {
     pendingPagination,
     updatePendingSectionUI
   );
+  // pendingSectionEl.removeChild(spinner2);
 }
 async function updateRejectSectionUI() {
   const rejectSectionEl = document.querySelector('.company-rejected-list');
@@ -136,7 +138,7 @@ async function updateRejectSectionUI() {
   const data = rejectCapstoneProject.content;
   if (data.length === 0) {
     rejectSectionEl.innerHTML =
-      '<p style="font-size: 1.6rem">No rejected capstone project</p>';
+      '<p style="font-size: 1.6rem; text-align:center">No rejected capstone project</p>';
   } else {
     rejectSectionEl.innerHTML = '';
     data.forEach((capstone) => {

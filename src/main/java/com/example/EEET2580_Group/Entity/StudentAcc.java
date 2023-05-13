@@ -47,8 +47,6 @@ public class StudentAcc extends Account{
     public void setAccount(Account account) {
         username = account.getUsername();
         password = account.getPassword();
-        email = account.getEmail();
-        name = account.getName();
     }
 
 }

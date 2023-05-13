@@ -1,8 +1,7 @@
 const currUser = JSON.parse(sessionStorage.getItem('user'));
 const capstoneLogo = document.querySelector('#logo');
 const submitBtn = document.querySelector('#submit-btn');
-const supervisorSelect = document.querySelector('#supervisor-select');
-
+async function updateUI() {}
 function dataURItoBlob(dataURI) {
   const byteString = atob(dataURI.split(',')[1]);
   const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
@@ -110,22 +109,12 @@ async function setCapstoneProject() {
     imageId: '',
   };
   const res = await setCapstoneImage(capstoneProject);
-}
-async function getSupervisors() {
-  supervisorSelect.innerHTML = '';
-  const response = await fetch('/api/account/supervisors');
-  const supervisors = await response.json();
-  console.log(supervisors);
-  supervisors.forEach((supervisor) => {
-    const option = document.createElement('option');
-    option.value = supervisor.username;
-    option.innerHTML = `${supervisor.name} - ${supervisor.email}`;
-    supervisorSelect.appendChild(option);
-  });
+
+
 }
 
 submitBtn.addEventListener('click', async (event) => {
   event.preventDefault();
   await setCapstoneProject();
 });
-getSupervisors();
+
