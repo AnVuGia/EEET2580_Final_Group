@@ -58,6 +58,15 @@ async function authenticate(username, password) {
   );
   try {
     const result = await response.json();
+ 
+    let groupOb = {
+      id: null,
+      groupName: null,
+      studentList:null,
+      capstone:null
+    }
+    sessionStorage.setItem('current-group', JSON.stringify(groupOb));
+    
     if (result.role === 'admin') {
       window.location.href = '/admin';
       sessionStorage.setItem('role', JSON.stringify('admin'));

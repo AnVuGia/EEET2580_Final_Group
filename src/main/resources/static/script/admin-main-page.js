@@ -282,7 +282,7 @@ rejectButton.addEventListener('click', async function (ev) {
   let id = JSON.parse(sessionStorage.getItem('more-info'));
   try {
     setLoadingModal();
-    await setCapstoneStatus(id, 'reject');
+    await setCapstoneStatus(id, 'rejected');
     setRejectAlertModal();
   } catch (error) {
     setErrorAlertModal();
@@ -290,6 +290,7 @@ rejectButton.addEventListener('click', async function (ev) {
 });
 const setCapstoneStatus = async function (id, status) {
   let url = `/api/capstone-project/id/${id}`;
+  // console.log(url);
   let reponse = await fetch(url);
   let capstone = await reponse.json();
 
@@ -299,7 +300,7 @@ const setCapstoneStatus = async function (id, status) {
   let supervisor = await supervisorResponse.json();
   capstone.supervisor = supervisor;
 
-  url = `api/capstone-project/${capstone.id}`;
+  url = `api/capstone-project/id/${id}`;
   capstone.capstoneStatus = status;
 
   try {

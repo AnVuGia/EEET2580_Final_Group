@@ -61,6 +61,9 @@ async function onLeave(ev) {
       loadingModal.show();
       let group = JSON.parse(sessionStorage.getItem('current-group'));
       let index = findObjectIndex(group.studentList, getUser());
+      console.log(group);
+      console.log(getUser());
+      console.log(index);
       group.studentList.splice(index, 1);
       await fetch('api/group', {
         method: 'PUT',

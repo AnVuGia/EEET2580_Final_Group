@@ -18,7 +18,10 @@ function displayWelcomMessage() {
     updateInfoModal(
       'Please complete your account profile!',
       alertModalElStudent,
-      () => {}
+      () => {
+        accountProfileSection.removeAttribute("hidden","hidden");
+        dashboardView.setAttribute("hidden","hidden")
+      }
     );
   }
   const greetingText = document.querySelector('.welcome-message');

@@ -35,7 +35,8 @@ public class CapstoneProjectServiceImp implements CapstoneProjectService {
 
     public CapstoneProject createCapstoneEntity(CapstoneProjectDto capstoneProject){
         CompanyAcc companyAcc = companyAccRepository.findByUsername(capstoneProject.getCompany().getUsername());
-        SupervisorAcc superVisorAcc = supervisorAccRepository.findByUsername(capstoneProject.getSupervisor().getUsername());
+        SupervisorAcc superVisorAcc = capstoneProject.getSupervisor()!=null?
+                supervisorAccRepository.findByUsername(capstoneProject.getSupervisor().getUsername()):null;
 
         return new CapstoneProject(companyAcc,
                                     superVisorAcc,
