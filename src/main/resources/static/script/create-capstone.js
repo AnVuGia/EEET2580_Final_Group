@@ -3,7 +3,6 @@ const capstoneLogo = document.querySelector('#logo');
 const submitBtn = document.querySelector('#submit-btn');
 const supervisorSelect = document.querySelector('#supervisor-select');
 
-async function updateUI() {}
 function dataURItoBlob(dataURI) {
   const byteString = atob(dataURI.split(',')[1]);
   const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
@@ -17,7 +16,15 @@ function dataURItoBlob(dataURI) {
 async function setCapstoneImage(capstoneProject) {
   const fileInput = document.querySelector('#logo');
   if (fileInput.files.length === 0) {
-    return capstoneProject;
+    fetch('/api/capstone-project', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(capstoneProject),
+    });
+    window.location.href = 'company-main-page.html';
+    return;
   }
 
   console.log('change');
@@ -75,9 +82,9 @@ async function setCapstoneImage(capstoneProject) {
     };
 
     image.src = reader.result;
+    reader.readAsDataURL(file);
   };
 
-  reader.readAsDataURL(file);
   return capstoneProject;
 }
 async function setCapstoneProject() {
@@ -103,8 +110,6 @@ async function setCapstoneProject() {
     imageId: '',
   };
   const res = await setCapstoneImage(capstoneProject);
-
-
 }
 async function getSupervisors() {
   supervisorSelect.innerHTML = '';

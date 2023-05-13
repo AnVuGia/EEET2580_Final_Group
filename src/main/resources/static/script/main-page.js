@@ -24,7 +24,7 @@ function displayWelcomMessage() {
   const greetingText = document.querySelector('.welcome-message');
   greetingText.textContent = `Welcome, ${user.name ? user.name : 'N/A'}!`;
 }
-if (role !== 'student') {
+if (JSON.parse(sessionStorage.getItem('role')) !== 'student') {
   displayWelcomMessage();
 }
 const groupInfoContainer = document.querySelector('.group-info-section');
