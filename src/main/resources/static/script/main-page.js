@@ -13,9 +13,14 @@ const studentCapstoneModalEl = document.querySelector(
   '#student-capstone-modal'
 );
 function displayWelcomMessage() {
-  const user = JSON.parse(sessionStorage.getItem('user'));
+  const user = getUser();
+  if (!user.name){
+    updateInfoModal("Please complete your account profile!",
+    alertModalElStudent,
+    ()=>{});
+  }
   const greetingText = document.querySelector('.welcome-message');
-  greetingText.textContent = `Welcome, ${user.name}!`;
+  greetingText.textContent = `Welcome, ${user.name?user.name:"N/A"}!`;
 }
 displayWelcomMessage();
 const groupInfoContainer = document.querySelector('.group-info-section');

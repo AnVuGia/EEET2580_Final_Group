@@ -60,10 +60,16 @@ submit.addEventListener('click', (event) => {
     event.preventDefault();
     reEnterPasswordError();
   }
-  if (reEnterPass.value !==password.value){
+  if (!userName.value||!password.value||!reEnterPass.value){
+    updateDangerModal("All the feilds must be completed",
+    alertModalElStudent,
+    (ev)=>{});
+    return;
+  }else if (reEnterPass.value !==password.value){
     updateDangerModal("Your password must be the same!",
     alertModalElStudent,
     (ev)=>{});
+    return;
   }
   if (cnt == 0) { 
       onSignUpSubmit(userName.value, password.value,role.value);

@@ -28,29 +28,24 @@ async function ViewAll() {
 }
 
 function LoadData(result2) {
-  const name = document.getElementById('profile_name');
-  const major = document.getElementById('profile_major');
-  const contact = document.getElementById('profile_contact');
-  const email = document.getElementById('profile_email');
-  const Bib = document.getElementById('Bib');
+    const profile_img = document.getElementById('profile_img');
+    const name = document.getElementById('profile_name');
+    const major = document.getElementById('profile_major');
+    const contact = document.getElementById('profile_contact');
+    const email = document.getElementById('profile_email');
+    const Bib = document.getElementById('Bib');
 
-  profileCapInfo.textContent = currentGroupStudent.id
-    ? currentGroupStudent.capstone.company.name
-    : 'N/A';
-  profileComStudent.textContent = currentGroupStudent.id
-    ? currentGroupStudent.capstone.projectTitle
-    : 'N/A';
-
-  name.innerHTML = getUser().name ? getUser().name : 'N/A';
-  major.innerHTML = getUser().major ? getUser().major : 'N/A';
-  studentInfoGroup.textContent = currentGroupStudent.id
-    ? currentGroupStudent.groupName
-    : 'N/A';
-  contact.innerHTML = getUser().contact ? getUser().contact : 'N/A';
-  email.innerHTML = getUser().email ? getUser().email : 'N/A';
-  Bib.innerHTML = getUser().bib ? getUser().bib : 'N/A';
-  LoadSkills(result2);
-  LoadModal(result2);
+    profileComStudent.textContent = currentGroupStudent.capstone?(currentGroupStudent.capstone.company.name?currentGroupStudent.capstone.company.name:"N/A"):"N/A";
+    profileCapInfo.textContent = currentGroupStudent.capstone?(currentGroupStudent.capstone.projectTitle?currentGroupStudent.capstone.projectTitle:"N/A"):"N/A";
+    profile_img.src = getUser().imgId?getUser().imgId:nullImagePlacehodler;
+    name.innerHTML = getUser().name?getUser().name: "N/A";
+    major.innerHTML = getUser().major?getUser().major: "N/A";
+    studentInfoGroup.textContent = currentGroupStudent.id?currentGroupStudent.groupName: "N/A";
+    contact.innerHTML = getUser().contact?getUser().contact: "N/A";
+    email.innerHTML = getUser().email?getUser().email: "N/A";
+    Bib.innerHTML = getUser().bib?getUser().bib: "N/A";
+    LoadSkills(result2);
+    LoadModal(result2);
 }
 
 function DeleteAllSkills() {
@@ -74,6 +69,7 @@ async function RewriteAllSkills() {
 
 function LoadSkills(result2) {
   const Capabilityul = document.getElementById('capability');
+  Capabilityul.innerHTML="";
   if (result2.skills) {
     for (let i = 0; i < result2.skills.length; i++) {
       const li = document.createElement('li');
