@@ -1,4 +1,3 @@
-
 const loadingModal = new bootstrap.Modal(
   document.getElementById('loading-modal'),
   {
@@ -71,7 +70,6 @@ function createSpinningAnimation() {
   spinningEl.classList.add('loading-spinner');
   return spinningEl;
 }
-
 
 function createPagination(sectionObj, sectionEl, updateSectionUI) {
   if (sectionObj.totalPages <= 1) {
@@ -254,7 +252,7 @@ function updateLoadingModal(msg, modal) {
                 class="alert alert-info d-flex align-items-center"
                 role="alert"
               >
-                <i class="fas fa-sync-alt fa-spin fs-3"></i>
+                <i style="margin-right: 10px" class="fas fa-sync-alt fa-spin fs-3"></i>
                 <div style="font-size: 1.6rem" class="loading-modal">
                   ${msg}
                 </div>
