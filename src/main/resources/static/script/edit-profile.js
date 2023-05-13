@@ -69,6 +69,7 @@ async function RewriteAllSkills() {
 
 function LoadSkills(result2) {
   const Capabilityul = document.getElementById('capability');
+  Capabilityul.innerHTML="";
   if (result2.skills) {
     for (let i = 0; i < result2.skills.length; i++) {
       const li = document.createElement('li');
