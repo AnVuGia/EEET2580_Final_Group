@@ -21,21 +21,21 @@ const pendingSectionPage = {
   totalPages: 0,
 };
 async function getApproveCapstoneProject(page, size) {
-  const endpoint = `api/approved-capstone-projects?company_name=${currCompany.name}&page=${page}&size=${size}`;
-  const url = `${endpoint}`;
+  const endpoint = `api/capstone-project/${currCompany.username}/approved`;
+  const url = `${endpoint}?page=${page}&size=${size}`;
   const response = await fetch(url);
   const result = await response.json();
   return result;
 }
 async function getPendingCapstoneProject(page, size) {
-  const endpoint = `api/capstone-project/${currCompany.name}/pending`;
+  const endpoint = `api/capstone-project/${currCompany.username}/pending`;
   const url = `${endpoint}?page=${page}&size=${size}`;
   const response = await fetch(url);
   const result = await response.json();
   return result;
 }
 async function getRejectCapstoneProject(page, size) {
-  const endpoint = `api/capstone-project/${currCompany.name}/rejected`;
+  const endpoint = `api/capstone-project/${currCompany.username}/rejected`;
   const url = `${endpoint}?page=${page}&size=${size}`;
   const response = await fetch(url);
   const result = await response.json();
@@ -75,8 +75,6 @@ async function updateApproveSectionUI() {
       updateApproveSectionUI
     );
   }
-
-
 }
 async function updatePendingSectionUI() {
   const pendingSectionEl = document.querySelector('.company-pending-list');
@@ -130,7 +128,7 @@ async function updateRejectSectionUI() {
   <span class="sr-only">Loading...</span>
 </div>
   `;
-  
+
   const rejectCapstoneProject = await getRejectCapstoneProject(
     rejectSectionPage.currPage,
     rejectSectionPage.currSize
