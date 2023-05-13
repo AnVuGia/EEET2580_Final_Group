@@ -8,24 +8,30 @@ const displayResult = document.querySelector('.display-result-search');
 const groupListContainer = document.querySelector('.group-list');
 const filterContainer = document.querySelector('.search-filter');
 const searchPagePagination = document.getElementById('main-pagination');
-const accountProfileSection = document.getElementById("account-profile");
+const accountProfileSection = document.getElementById('account-profile');
 const studentCapstoneModalEl = document.querySelector(
   '#student-capstone-modal'
 );
+function displayWelcomMessage() {
+  const user = getUser();
+  if (!user.name) {
+    updateInfoModal(
+      'Please complete your account profile!',
+      alertModalElStudent,
+      () => {
+        accountProfileSection.removeAttribute("hidden","hidden");
+        dashboardView.setAttribute("hidden","hidden")
+      }
+    );
+  }
+  const greetingText = document.querySelector('.welcome-message');
+  greetingText.textContent = `Welcome, ${user.name ? user.name : 'N/A'}!`;
+}
+if (JSON.parse(sessionStorage.getItem('role')) !== 'student') {
+  displayWelcomMessage();
+}
 const groupInfoContainer = document.querySelector('.group-info-section');
 const role = sessionStorage.getItem('role');
-
-function getUser() {
-  return JSON.parse(sessionStorage.getItem('user'));
-}
-
-const loadingModal = new bootstrap.Modal(
-  document.getElementById('loading-modal'),
-  {
-    keyboard: false,
-    backdrop: 'static',
-  }
-);
 const studentCapstoneModal = new bootstrap.Modal(
   document.getElementById('student-capstone-modal'),
   {
@@ -58,15 +64,10 @@ function listenProfileBehave() {
         window.location.href = '/sign-in-page';
       } else if (ev.target.textContent === 'Account Information') {
         const Role = JSON.parse(role);
-
-        if (Role == 'student') {
-          accountProfileSection.removeAttribute("hidden");
-          capstoneSearchSection.setAttribute("hidden","hidden");
-          dashboardView.setAttribute('hidden', 'hidden');
-          groupInfoContainer.setAttribute('hidden',"hidden");
-        } else if (Role == 'company') {
-          window.location.href = '/edit-company-profile';
-        }
+        accountProfileSection.removeAttribute('hidden');
+        capstoneSearchSection.setAttribute('hidden', 'hidden');
+        dashboardView.setAttribute('hidden', 'hidden');
+        groupInfoContainer.setAttribute('hidden', 'hidden');
       }
     });
   }
@@ -83,11 +84,9 @@ function headerBar() {
     });
 }
 async function setProfileImage() {
-  console.log('set profile image');
   let user = getUser();
   if (user.imageId != null) {
     const profileImageEl = document.querySelector('.img-thumbnail ');
-    console.log(profileImageEl);
     const imgURL = await getImage(user.imageId);
     profileImageEl.setAttribute('src', imgURL);
   }
@@ -97,7 +96,9 @@ headerBar();
 function setVisibiltySearchPage(target) {
   const user = getUser();
   if (target.textContent === 'Search') {
-    accountProfileSection.setAttribute("hidden","hidden");
+    if (getUser.role !== 'admin') {
+      accountProfileSection.setAttribute('hidden', 'hidden');
+    }
     disSection.textContent = 'Search';
     dashboardView.setAttribute('hidden', 'hidden');
     if (user.role === 'student') {
@@ -105,13 +106,13 @@ function setVisibiltySearchPage(target) {
     }
     capstoneSearchSection.removeAttribute('hidden');
   } else if (target.textContent === 'Dashboard') {
-    accountProfileSection.setAttribute("hidden","hidden");
+    accountProfileSection.setAttribute('hidden', 'hidden');
     if (user.role === 'admin') {
       disSection.textContent = 'Request Capstone List';
     } else if (user.role === 'company') {
       disSection.textContent = 'Pending Capstone List';
     } else if (user.role === 'student') {
-      disSection.textContent = 'Register Capstone';
+      disSection.textContent = 'Registered Capstone';
     } else if (user.role === 'supevisor') {
       disSection.textContent = 'Supervised Capstone List';
     }
@@ -121,7 +122,7 @@ function setVisibiltySearchPage(target) {
     }
     dashboardView.removeAttribute('hidden');
   } else if (target.textContent === 'Group Info') {
-    accountProfileSection.setAttribute("hidden","hidden");
+    accountProfileSection.setAttribute('hidden', 'hidden');
     disSection.textContent = 'Group Info';
     capstoneSearchSection.setAttribute('hidden', 'hidden');
     dashboardView.setAttribute('hidden', 'hidden');
@@ -413,7 +414,6 @@ function createGroupCard(groupInfo) {
       let response = await fetch(`api/group/id/${ev.target.id}`);
       let group = await response.json();
       sessionStorage.setItem('group', JSON.stringify(group));
-      console.log(group);
       let currentGroup = JSON.parse(sessionStorage.getItem('current-group'));
       if (currentGroup.id) {
         // modalJoinedGroupInstance.show();
@@ -478,7 +478,6 @@ const displayPagination = async function (pageable) {
   //don't change the query selector, if something is wrong, change the html file instead
   const pagination = document.querySelector('#main-pagination');
   pagination.innerHTML = '';
-  console.log('display pagination');
   let maxPage = pageable.totalPages;
 
   for (let i = 0; i < maxPage; i++) {
@@ -717,14 +716,11 @@ async function updateGroupSection(capstone) {
   groupSection.innerHTML = ``;
   groupSection.innerHTML = `<h3 class="text-center">Loading...</h3>`;
 
-  console.log('groupSection');
-
   const groupList = await fetch(`api/group/capstone/${capstone.id}`);
   const groupListResult = await groupList.json();
   if (groupListResult.content.length === 0) {
     groupSection.innerHTML = `<h3 class="text-center">No Group Found</h3>`;
     if (getUser().role === 'student') {
-      console.log('in group section');
       groupSection.appendChild(createApplyButton(capstone));
     }
     return;
@@ -737,7 +733,6 @@ async function updateGroupSection(capstone) {
   });
 
   if (getUser().role === 'student') {
-    console.log('in group section');
     groupSection.appendChild(createApplyButton(capstone));
   }
   return;
@@ -746,7 +741,6 @@ function createApplyButton(capstone) {
   const div = document.createElement('div');
   div.classList.add('text-center');
   let currentGroup = JSON.parse(sessionStorage.getItem('current-group'));
-  console.log(currentGroup);
   const applyButton = document.createElement('button');
   applyButton.classList.add('btn', 'btn-primary', 'apply-button');
   applyButton.textContent = 'Apply';

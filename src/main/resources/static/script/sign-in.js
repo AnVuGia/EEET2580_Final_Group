@@ -51,16 +51,22 @@ submit.addEventListener('click', (event) => {
 });
 
 async function authenticate(username, password) {
-  console.log('sign in');
   const alertModal = document.querySelector('#alert-modal');
   updateLoadingModal('Signing in...', alertModal);
   const response = await fetch(
     `/authenticate?username=${username}&password=${password}`
   );
-  console.log(response);
   try {
     const result = await response.json();
-    console.log(result);
+ 
+    let groupOb = {
+      id: null,
+      groupName: null,
+      studentList:null,
+      capstone:null
+    }
+    sessionStorage.setItem('current-group', JSON.stringify(groupOb));
+    
     if (result.role === 'admin') {
       window.location.href = '/admin';
       sessionStorage.setItem('role', JSON.stringify('admin'));
@@ -78,7 +84,6 @@ async function authenticate(username, password) {
     }
     sessionStorage.setItem('user', JSON.stringify(result));
   } catch (error) {
-    console.log('Wrong username or password');
     updateDangerModal('Wrong username or password', alertModal, () => {
       window.location.href = '/sign-in-page';
     });

@@ -21,8 +21,6 @@ function extractNumberFromString(str) {
 }
 
 async function getRequestList(page, size) {
-  console.log('getRequestList');
-
   const pagination = document.querySelector('.pagination');
   pagination.innerHTML = '';
 
@@ -85,12 +83,9 @@ function createRequestCapstoneCard(capstone) {
       JSON.stringify(extractNumberFromString(ev.target.id))
     );
 
-    console.log('click on item title');
-    console.log(ev.target);
     let url = `api/capstone-project/id/${ev.target.id}`;
     let response = await fetch(url);
     let data = await response.json();
-    console.log(data);
     updateModal(data);
   });
   const buttonContainer = document.createElement('div');
@@ -105,8 +100,6 @@ function createRequestCapstoneCard(capstone) {
 }
 
 const updateModal = async function (capstone) {
-  console.log(capstone);
-  console.log('update modal');
   let imageURL = capstone.projectImage;
   if (capstone.projectImage == null) {
     imageURL = 'images/login-signup/capstone-logo.png';
@@ -282,7 +275,6 @@ approvedButton.addEventListener('click', async function (ev) {
     await setCapstoneStatus(id, 'approved');
     setSuccessAlertModal();
   } catch (error) {
-    console.log('error');
     setErrorAlertModal();
   }
 });
@@ -290,15 +282,15 @@ rejectButton.addEventListener('click', async function (ev) {
   let id = JSON.parse(sessionStorage.getItem('more-info'));
   try {
     setLoadingModal();
-    await setCapstoneStatus(id, 'reject');
+    await setCapstoneStatus(id, 'rejected');
     setRejectAlertModal();
   } catch (error) {
-    console.log('error');
     setErrorAlertModal();
   }
 });
 const setCapstoneStatus = async function (id, status) {
   let url = `/api/capstone-project/id/${id}`;
+  // console.log(url);
   let reponse = await fetch(url);
   let capstone = await reponse.json();
 
@@ -308,7 +300,7 @@ const setCapstoneStatus = async function (id, status) {
   let supervisor = await supervisorResponse.json();
   capstone.supervisor = supervisor;
 
-  url = `api/capstone-project/${capstone.id}`;
+  url = `api/capstone-project/id/${id}`;
   capstone.capstoneStatus = status;
 
   try {
@@ -324,9 +316,7 @@ const setCapstoneStatus = async function (id, status) {
   }
 };
 function setSuccessAlertModal() {
-  console.log('setSuccessAlertModal');
   const alertModalBody = document.querySelector('#alert-modal .modal-body');
-  console.log(alertModalBody);
   alertModalBody.innerHTML = `
     <div class="alert-modal-body">
       <div class="alert-modal-body-icon">
@@ -342,9 +332,7 @@ function setSuccessAlertModal() {
   alertModal.show();
 }
 function setRejectAlertModal() {
-  console.log('setRejectAlertModal');
   const alertModalBody = document.querySelector('#alert-modal .modal-body');
-  console.log(alertModalBody);
   alertModalBody.innerHTML = `
 
     <div class="alert-modal-body">
@@ -360,9 +348,7 @@ function setRejectAlertModal() {
   alertModal.show();
 }
 function setLoadingModal() {
-  console.log('setLoadingModal');
   const alertModalBody = document.querySelector('#alert-modal .modal-body');
-  console.log(alertModalBody);
   alertModalBody.innerHTML = `
     <div class="alert-modal-body">
       <div class="alert-modal-body-icon">
@@ -377,9 +363,7 @@ function setLoadingModal() {
   alertModal.show();
 }
 function setErrorAlertModal() {
-  console.log('setErrorAlertModal');
   const alertModalBody = document.querySelector('#alert-modal .modal-body');
-  console.log(alertModalBody);
   alertModalBody.innerHTML = `
     <div class="alert-modal-body">
       <div class="alert-modal-body-icon">
@@ -399,7 +383,6 @@ async function getSuperVisorAdminPage(capstone) {
   let supervisors = await response.json();
   let supervisorSelect = document.querySelector('#supervisor-select');
   supervisorSelect.innerHTML = '';
-  console.log(supervisors);
   supervisors.forEach((supervisor) => {
     supervisorSelect.innerHTML += `<option ${
       supervisor.id === capstone.supervisor.id ? 'selected' : ''

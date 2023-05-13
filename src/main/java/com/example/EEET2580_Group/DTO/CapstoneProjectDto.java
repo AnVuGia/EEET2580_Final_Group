@@ -31,7 +31,8 @@ public class CapstoneProjectDto {
     public CapstoneProjectDto(CapstoneProject capstoneProject){
         this.id = capstoneProject.getId();
         this.company = new CompanyAccDto(capstoneProject.getCompany());
-        this.supervisor = new AccountDto(capstoneProject.getSupervisor());
+        this.supervisor =capstoneProject.getSupervisor() ==null?
+                new AccountDto(0L,"None","None","None","None","None",0L): new AccountDto(capstoneProject.getSupervisor());
         this.projectTitle = capstoneProject.getProjectTitle();
         this.projectIntroduction = capstoneProject.getProjectIntroduction();
         this.projectObjectives = capstoneProject.getProjectObjectives();

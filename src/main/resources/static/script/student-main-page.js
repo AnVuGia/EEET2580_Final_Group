@@ -8,12 +8,10 @@ const leaveGroupBtn = document.getElementById('leave-group-btn');
 const createGroupBtn = document.querySelector('.create-group-btn');
 const registerCapstoneBtn = document.querySelector('#register-btn');
 const capstoneContainer = document.querySelector('.capstone-list-dashboard');
-const alertModalElStudent = document.querySelector('#alert-modal');
+
 const alertModalInstanceStudent = new bootstrap.Modal(alertModalElStudent);
 
 async function updateStudentDashBoardUI() {
-  console.log('updateStudentDashBoardUI');
-  console.log(capstoneContainer);
   let groupInfo = JSON.parse(sessionStorage.getItem('current-group'));
   if (groupInfo == null) {
     await getCurrentGroup();
@@ -63,6 +61,9 @@ async function onLeave(ev) {
       loadingModal.show();
       let group = JSON.parse(sessionStorage.getItem('current-group'));
       let index = findObjectIndex(group.studentList, getUser());
+      console.log(group);
+      console.log(getUser());
+      console.log(index);
       group.studentList.splice(index, 1);
       await fetch('api/group', {
         method: 'PUT',
@@ -86,9 +87,7 @@ async function onLeave(ev) {
   );
 }
 
-alertModalElStudent.addEventListener('shown.bs.modal', function (ev) {
-  loadingModal.hide();
-});
+
 //click this button to join the group in search
 if (groupSubmitButton) {
   groupSubmitButton.addEventListener('click', async function (ev) {

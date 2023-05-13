@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="css/modal.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="stylesheet" href="css/capstone-info.css" />
+    <link rel="stylesheet" href="/css/style_company.css">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
@@ -87,7 +88,8 @@
           </div>
         </div>
       </nav>
-      <div class="dashboard-view">
+
+      <div class="dashboard-view" >
         <div class="capstone-panel">
           <div class="capstone-pannel-in m-auto ms-lg-5 display-section">
             Pending Capstone List
@@ -102,7 +104,7 @@
           </button>
         </div>
         <div class="separator"></div>
-        <div class="container-fluid capstone-project-info">
+        <div class="container capstone-project-info">
           <div class="container">
             <div class="company-pending-list row gy-4"></div>
             <div id="pending-pagination" class="company-pagination"></div>
@@ -297,7 +299,7 @@
                   id="capstone-skill"
                   required
                 ></textarea> -->
-                <label
+                <!-- <label
                   for="supervisor-select"
                   class="information-section-element input-label"
                   >Supervisor Name</label
@@ -306,7 +308,7 @@
                   <option value="1">Thanh Nguyen</option>
                   <option value="2">Huy Nguyen</option>
                   <option value="3">Huy Nguyen</option>
-                </select>
+                </select> -->
               </div>
             </div>
             <div class="modal-footer">
@@ -329,6 +331,84 @@
           </div>
         </div>
       </div>
+      <!-- Company Profile -->
+      <div class="mt-5 container" hidden ="hidden" id ="account-profile">
+        <div id ="companyTopSection">
+          <div class="d-flex justify-content-end"><button class="btn" id ="editComanyInfo" data-bs-toggle="modal" data-bs-target="#editCompanyProfile">Edit Profile</button></div>
+          <img  src="" alt="" id="company-img">
+        </div>
+        
+        <div class="controller-bottom d-flex justify-content-start align-content-center mt-5">
+          <div class="controller-bottom-section me-5 border">Company Overview</div>
+          <div class="controller-bottom-section">Company Basic Informtion</div>
+        </div>
+    
+        <div class="company-info-container">
+          
+        </div>
+      </div>
+      
+      <div class="modal fade" id="editCompanyProfile" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-2 group-form-heading" id="staticBackdropLabel">
+          Edit Company
+        </h1>
+        <br>
+        <button type="button" class="btn-close fs-5 me-1" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="company_detail_container">
+          <label for="company_name" class=" input-label information-section-element">Company Name</label>
+          <input id="newCompanyName" class="modal_profile information-section-element" type="text"
+                 placeholder="Company Name: ">
+
+          <label for="company_contact" class=" input-label information-section-element">Company Contact</label>
+          <input id="newCompanyContact" class="modal_profile information-section-element" type="number"
+                 placeholder="Company Contact : ">
+
+          <label for="company_email" class=" input-label information-section-element">Company Email</label>
+          <input id="newCompanyEmail" class="modal_profile information-section-element" type="text"
+                placeholder="Company Email :">
+          <br>
+
+          <label for="company_manager" class=" input-label information-section-element">Manager</label>
+          <input id="newManager" class="modal_profile information-section-element" type="text"
+                 placeholder="Manager Name : ">
+
+          <label for="company_manager_contact" class=" input-label information-section-element">Manager
+            Contact</label>
+          <input id="newManagerContact" class="modal_profile information-section-element" type="number"
+                 placeholder="Manager Contact : ">
+
+          <label for="company_password" class=" input-label information-section-element">Password</label>
+          <input id="newPassword" class="modal_profile information-section-element" type="text"
+                 placeholder="Password :">
+        </div>
+
+        <hr>
+        <div>
+          <h3>Description</h3>
+          <textarea id = "newDescription" type="text" class="information-section-textarea input-modal" required></textarea>
+        </div>
+
+        <div class="modal-footer">
+          <button id="cancel-btn" type="button" class="btn modal-button-controller" data-bs-dismiss="modal">
+            Cancel
+          </button>
+          <button id="profile-submit" type="button" class="btn modal-button-controller" data-bs-dismiss="modal">
+            Submit
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      <!--  -->
       <div class="search-section" hidden="hidden">
         <div class="search-container">
           <div class="search-filter d-none d-md-block">
@@ -370,23 +450,6 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="announcment contianer" hidden="hidden">
-        <ul class="announce-list">
-          <li class="announce-item">
-            <div class="item-container">
-              <img
-                style="border-radius: 50%"
-                src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-                width="30"
-                alt=""
-              />
-              <p class="announce-title">A2 is ready</p>
-              <p class="announce-descript">Dear all, The A2 is ...</p>
-            </div>
-            <div class="separator"></div>
-          </li>
-        </ul>
       </div>
       <div class="group-info-section" hidden="hidden"></div>
       <div
@@ -621,5 +684,6 @@
     <script src="script/main-page.js"></script>
     <script src="script/create-capstone.js"></script>
     <script src="script/company-main-page.js"></script>
+    <script src="script/edit-company-profile.js"></script>
   </body>
 </html>

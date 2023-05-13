@@ -21,36 +21,30 @@ const pendingSectionPage = {
   totalPages: 0,
 };
 async function getApproveCapstoneProject(page, size) {
-  console.log(currCompany.name);
-  // const endpoint = `api/capstone-project/${currCompany.name}/approved`;
-  const endpoint = `api/approved-capstone-projects?company_name=${currCompany.name}&page=${page}&size=${size}`;
-  const url = `${endpoint}`;
+  const endpoint = `api/capstone-project/${currCompany.username}/approved`;
+  const url = `${endpoint}?page=${page}&size=${size}`;
   const response = await fetch(url);
   const result = await response.json();
-  console.log(result);
   return result;
 }
 async function getPendingCapstoneProject(page, size) {
-  const endpoint = `api/capstone-project/${currCompany.name}/pending`;
+  const endpoint = `api/capstone-project/${currCompany.username}/pending`;
   const url = `${endpoint}?page=${page}&size=${size}`;
   const response = await fetch(url);
   const result = await response.json();
-  console.log(result);
   return result;
 }
 async function getRejectCapstoneProject(page, size) {
-  const endpoint = `api/capstone-project/${currCompany.name}/rejected`;
+  const endpoint = `api/capstone-project/${currCompany.username}/rejected`;
   const url = `${endpoint}?page=${page}&size=${size}`;
   const response = await fetch(url);
   const result = await response.json();
-  console.log(result);
   return result;
 }
-
 async function updateApproveSectionUI() {
   const approveSectionEl = document.querySelector('.company-approved-list');
   approveSectionEl.innerHTML = '';
-  approveSectionEl.appendChild(spinner1);
+
   const approveCapstoneProject = await getApproveCapstoneProject(
     approveSectionPage.currPage,
     approveSectionPage.currSize
@@ -58,7 +52,7 @@ async function updateApproveSectionUI() {
   const data = approveCapstoneProject.content;
   if (data.length === 0) {
     approveSectionEl.innerHTML =
-      '<p style="font-size: 1.6rem">No approved capstone project</p>';
+      '<p style="font-size: 1.6rem; text-align:center">No approved capstone project</p>';
   } else {
     data.forEach((capstone) => {
       const capItem = createCapstoneCard(capstone);
@@ -81,13 +75,13 @@ async function updateApproveSectionUI() {
     );
   }
 
-  approveSectionEl.removeChild(spinner1);
+  // approveSectionEl.removeChild(spinner1);
 }
 async function updatePendingSectionUI() {
   const pendingSectionEl = document.querySelector('.company-pending-list');
 
   pendingSectionEl.innerHTML = '';
-  pendingSectionEl.appendChild(spinner2);
+
   const pendingCapstoneProject = await getPendingCapstoneProject(
     pendingSectionPage.currPage,
     pendingSectionPage.currSize
@@ -95,7 +89,7 @@ async function updatePendingSectionUI() {
   const data = pendingCapstoneProject.content;
   if (data.length === 0) {
     pendingSectionEl.innerHTML =
-      '<p style="font-size: 1.6rem"> No pending capstone project</p>';
+      '<p style="font-size: 1.6rem; text-align:center"> No pending capstone project</p>';
   } else {
     data.forEach((capstone) => {
       const capItem = createCapstoneCard(capstone);
@@ -110,10 +104,8 @@ async function updatePendingSectionUI() {
       const deleteButtonEl = capItem.querySelector('.btn-danger');
       capItem.addEventListener('click', (event) => {
         if (event.target === deleteButtonEl) {
-          console.log(event.target);
           event.stopPropagation();
         } else {
-          console.log(event.target);
           updateCapstoneModal(capstone);
         }
       });
@@ -128,7 +120,7 @@ async function updatePendingSectionUI() {
     pendingPagination,
     updatePendingSectionUI
   );
-  pendingSectionEl.removeChild(spinner2);
+  // pendingSectionEl.removeChild(spinner2);
 }
 async function updateRejectSectionUI() {
   const rejectSectionEl = document.querySelector('.company-rejected-list');
@@ -138,7 +130,7 @@ async function updateRejectSectionUI() {
   <span class="sr-only">Loading...</span>
 </div>
   `;
-  rejectSectionEl.appendChild(spinner3);
+
   const rejectCapstoneProject = await getRejectCapstoneProject(
     rejectSectionPage.currPage,
     rejectSectionPage.currSize
@@ -146,7 +138,7 @@ async function updateRejectSectionUI() {
   const data = rejectCapstoneProject.content;
   if (data.length === 0) {
     rejectSectionEl.innerHTML =
-      '<p style="font-size: 1.6rem">No rejected capstone project</p>';
+      '<p style="font-size: 1.6rem; text-align:center">No rejected capstone project</p>';
   } else {
     rejectSectionEl.innerHTML = '';
     data.forEach((capstone) => {
@@ -163,10 +155,8 @@ async function updateRejectSectionUI() {
       const deleteButtonEl = capItem.querySelector('.btn-danger');
       capItem.addEventListener('click', (event) => {
         if (event.target === deleteButtonEl) {
-          console.log(event.target);
           event.stopPropagation();
         } else {
-          console.log(event.target);
           updateCapstoneModal(capstone);
         }
       });

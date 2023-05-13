@@ -100,15 +100,9 @@
     width: 10vh;
   }
 
-  .row {
-    margin-top: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 80vh;
-    /* Set the height of the row to the full viewport height */
-  }
-
+#tab-content{
+  font-size: 1.6rem;
+}
   #companyImg {
     width: 80%;
     height: auto;
@@ -150,6 +144,7 @@
   font-weight: 600;
  }
   .conbox {
+    font-size: 1.6rem;
     width: 100%;
     background: #aaa;
     /* margin: 0 auto; */
@@ -161,7 +156,7 @@
   .company_detail_ul{
     list-style: none;
     margin-top: 1rem;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
   }
 
   input[id="tab01"]:checked~.con1 {
@@ -182,6 +177,10 @@
   border: 0.5px solid var(--primary-color);
   margin: 10px auto;
 }
+#companyDes{
+  display: flex;
+  align-items: center;
+}
 #comapnyName{
   font-size: 2.4rem;
   margin-left: 5rem;
@@ -191,10 +190,50 @@
   margin-bottom: 5rem;
 }
 #companyDescription{
-  font-size: 1.3rem;
+  font-size: 1.5rem;
 }
 input[type=number]::-webkit-outer-spin-button,
 input[type=number]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+#companyTopSection{
+  width: 100%;
+}
+#companyBottomSection{
+  margin-top: 15px;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+.controller-bottom-section{
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+.controller-bottom-section:hover{
+  cursor: pointer;
+}
+.controller-bottom-section{
+  width: 250px;
+  height: 35px;
+  font-size: 1.7rem;
+  text-align: center;
+  background-color: var(--light-brown-color);
+}
+#company-img{
+  display: block;
+  margin: 0px auto;
+  width: 750px;
+  height: 300px;
+}
+#editComanyInfo{
+  margin-left: auto;
+}
+.company-info-container{
+  width: 100%;
+  background-color: var(--light-brown-color);
+  font-size: 1.8rem;
+  border-bottom-left-radius: 9px;
+  border-bottom-right-radius: 9px;
+  border-top-right-radius: 9px;
 }

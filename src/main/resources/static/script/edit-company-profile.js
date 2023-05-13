@@ -1,11 +1,3 @@
-let CPDescription;
-let CPName;
-let CPContact;
-let CPEmail;
-let CPSupervisor;
-let CPSupervisorContact;
-
-
 const Description = document.getElementById('companyDescription');
 const Supervisor = document.getElementById('CPsupervisor');
 const SupervisorContact = document.getElementById('CPsupervisorcontact');
@@ -15,8 +7,7 @@ const Hname = document.getElementById('comapnyName');
 const Contact = document.getElementById('CPcontact');
 const Manager = document.getElementById('CPmanager');
 const ManagerContact = document.getElementById('CPmanagercontact');
-
-
+const comapnyInfoConatiner = document.querySelector(".company-info-container");
 // const Name_modal = document.getElementById('newManager');
 const Email_modal = document.getElementById('newCompanyEmail');
 const Contact_modal = document.getElementById('newCompanyContact');
@@ -24,132 +15,112 @@ const Description_modal = document.getElementById('newDescription');
 const Password_modal = document.getElementById('newPassword');
 const Manager_modal = document.getElementById('newManager');
 const ManagerContact_modal = document.getElementById('newManagerContact');
+const CompanyNameModal = document.getElementById("newCompanyName");
 
 let data = sessionStorage.getItem('user');
 let user = JSON.parse(data);
 const company_username = user.username;
-console.log(company_username);
 const company_id = user.id;
 const company_name = user.name;
 
-async function View() {
+const controlCompInfo = document.querySelectorAll(".controller-bottom-section");
 
-
-  try {
-    const response = await fetch(`/api/account/company/username/${company_username}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+for (var i = 0; i< controlCompInfo.length;i++){
+  controlCompInfo[i].addEventListener("click",function(e){
+    if (e.target.textContent === "Company Overview"){
+      LoadOverView();
+    }else {
+      console.log("a");
+      LoadInformation();
     }
-
-    const responseBody = await response.text();
-
-    if (!responseBody) {
-      throw new Error('Empty response body!');
-    }
-
-    const result = JSON.parse(responseBody);
-    console.log(result);
-    LoadData(result);
-    LoadModal(result);
-  } catch (error) {
-    console.error('Error fetching data:', error);
-  }
+  })
 }
 
-function LoadData(result) {
 
-  let CPDesc = result.companyDescription;
-  let CPName = result.name;
-  let CPContact = result.contact;
-  let CPEmail = result.email;
-  let CPManager = result.manager;
-  let CPManagerContact = result.manager_contact;
-
-  // let CPSupervisor= result3.companyDescription;
-  // let CPSupervisorContact= result3.contact;
-  Name.innerHTML = CPName;
-  Email.innerHTML = CPEmail;
-  Contact.innerHTML = CPContact;
-  // Supervisor.innerHTML = CPSupervisor;
-  // SupervisorContact.innerHTML = CPSupervisorContact;
-  Description.innerHTML = CPDesc;
-  Hname.innerHTML = CPName;
-
-  Manager.innerHTML = CPManager;
-  ManagerContact.innerHTML = CPManagerContact;
-
+function LoadInformation() {
+  comapnyInfoConatiner.innerHTML=""
+  comapnyInfoConatiner.innerHTML =`
+      <div class="p-5">
+      <div class="company-info1">
+        <p>Company Information: </p>
+        <ul class="companyInfoList">
+          <li class="company-info-item mb-2">Company Name: ${getUser().name?getUser().name:"N/A"} </li>
+          <li class="company-info-item mb-2">Contact: ${getUser().contact?getUser().contact:"N/A"}  </li>
+          <li class="company-info-item mb-2">Email: ${getUser().email?getUser().email:"N/A"} </li>
+        </ul>
+      </div>
+      <div class="company-info1 mt-2">
+        <p>Manager Information: </p>
+        <ul class="companyInfoList">
+          <li class="company-info-item mb-2">Manager's Name: ${getUser().manager?getUser().manager:"N/A"}</li>
+          <li class="company-info-item mb-2">Contact:${getUser().manager_contact?getUser().manager_contact:"N/A"}</li>
+        </ul>
+      </div>
+    </div>
+  `
+}
+const defaultImg = "https://phutungnhapkhauchinhhang.com/wp-content/uploads/2020/06/default-thumbnail.jpg";
+function LoadOverView(){
+  const imgDiv = document.getElementById("company-img");
+  imgDiv.src = getUser().imgId?getUser().imgId:defaultImg;
+  comapnyInfoConatiner.innerHTML =`
+    <div class="p-5">
+    <div class="company-info1">
+        <p>Description: ${getUser().companyDescription?getUser().companyDescription:"N/A"}</p>
+    </div>
+  `
 }
 
-function LoadModal(result) {
-  let CPDescription = result.companyDescription;
-  let CPContact = result.contact;
-  let CPEmail = result.email;
-  let CPpassword = result.password;
-  let CPManager = result.manager;
-  let CPManagerContact = result.manager_contact;
 
-  Email_modal.value = CPEmail;
-  Contact_modal.value = CPContact;
-  Description_modal.value = CPDescription;
-  Password_modal.value = CPpassword;
-  Manager_modal.value = CPManager;
-  ManagerContact_modal.value = CPManagerContact;
-
-}
-
-const EditBtn = document.getElementById('submit-btn');
+const EditBtn = document.getElementById('profile-submit');
 EditBtn.addEventListener('click', () => {
-  if (Description_modal.value.length < 99) {
-    UpdateCompany();
-  } else {
-    alert("Description length is too long");
-  }
-
+  updateInfoModal(
+    'Are you sure you want to save change this information?',
+    alertModalElStudent,
+    async (ev) => {
+      loadingModal.show();
+      updateCompanyInformation();
+    }
+  );
 });
 
 
-async function UpdateCompany() {
-  let newCPDescription = Description_modal.value;
-  let newContact = Contact_modal.value;
-  let newEmail = Email_modal.value;
-  let newPassword = Password_modal.value;
-  let newManager = Manager_modal.value;
-  let newManagerContact = ManagerContact_modal.value;
+function LoadModalCompany(){
+    CompanyNameModal.value  = getUser().name?getUser().name:"N/A";
+    Contact_modal.value  = getUser().contact?getUser().contact:"N/A";
+    Email_modal.value = getUser().email?getUser().email:"N/A";
+    Manager_modal.value  = getUser().manager?getUser().manager:"N/A";
+    Description_modal.value  = getUser().companyDescription?getUser().companyDescription:"N/A";
+    Password_modal.value =  getUser().password?getUser().password:"N/A";
+    ManagerContact_modal.value =getUser().manager_contact?getUser().manager_contact:"N/A";
+}
 
-  const NewCompanyInfo = {
-    name: company_name,
-    contact: newContact,
-    companyDescription: newCPDescription,
-    email: newEmail,
-    password: newPassword,
-    manager:newManager,
-    manager_contact:newManagerContact
-  };
-
+async function updateCompanyInformation() {
+  let newUser = getUser();
+    newUser.name = CompanyNameModal.value;
+    newUser.contact = Contact_modal.value ==="N/A"?0:Contact_modal.value;
+    newUser.email = Email_modal.value;
+    newUser.manager = Manager_modal.value;
+    newUser.companyDescription = Description_modal.value;
+    newUser.password = Password_modal.value;
+    newUser.manager_contact = ManagerContact_modal.value;
   try {
     const response = await fetch(`/api/company/update/${company_id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(NewCompanyInfo),
+      body: JSON.stringify(newUser),
     });
 
     if (response.ok) {
-      console.log('Capstone project updated successfully');
-
-      Email.innerHTML = newEmail;
-      Contact.innerHTML = newContact;
-      Description.innerHTML = newCPDescription;
-      Manager.innerHTML = newManager;
-      ManagerContact.innerHTML = newManagerContact;
-
+      sessionStorage.setItem("user",JSON.stringify(newUser));
+      LoadOverView();
+      LoadModalCompany();
+      displayWelcomMessage();
+      updateSuccessModal("You have successfully change you account info!",
+      alertModalElStudent,
+      (ev) => {});
 
     } else {
       console.error('Error updating capstone project. Response status:', response.status);
@@ -159,5 +130,5 @@ async function UpdateCompany() {
   }
 }
 
-
-View();
+LoadModalCompany();
+LoadOverView();

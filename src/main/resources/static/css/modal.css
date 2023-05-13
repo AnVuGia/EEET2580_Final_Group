@@ -54,6 +54,9 @@
 .modal-button-controller {
   margin: 0px 8px;
 }
+.modal-button-controller:hover{
+  cursor: pointer;
+}
 .modal-button-controller:nth-child(1) {
   background-color: var(--text-color);
 }
@@ -66,7 +69,4 @@
 }
 .modal-button-controller:nth-child(2):hover {
   cursor: default;
-}
-.modal-content{
-  width: 550px !important; 
 }

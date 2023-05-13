@@ -1,34 +1,21 @@
-function deepEqual(obj1, obj2) {
-  if (obj1 === obj2) {
-    return true;
+const loadingModal = new bootstrap.Modal(
+  document.getElementById('loading-modal'),
+  {
+    keyboard: false,
+    backdrop: 'static',
   }
+);
+const alertModalElStudent = document.querySelector('#alert-modal');
+alertModalElStudent.addEventListener('shown.bs.modal', function (ev) {
+  loadingModal.hide();
+});
 
-  if (
-    typeof obj1 !== 'object' ||
-    obj1 === null ||
-    typeof obj2 !== 'object' ||
-    obj2 === null
-  ) {
-    return false;
-  }
-
-  const keys1 = Object.keys(obj1);
-  const keys2 = Object.keys(obj2);
-
-  if (keys1.length !== keys2.length) {
-    return false;
-  }
-
-  for (let key of keys1) {
-    if (!keys2.includes(key) || !deepEqual(obj1[key], obj2[key])) {
-      return false;
-    }
-  }
-
-  return true;
-}
 function findObjectIndex(list, object) {
-  return list.findIndex((item) => deepEqual(item, object));
+  for (var i =0 ;i < list.length;i++){
+      if (list[i].id === object.id){
+          return i;
+      }
+  }
 }
 function createCapstoneCard(capstone) {
   // if (!company || !supervisor) {
@@ -59,12 +46,6 @@ function createSpinningAnimation() {
   spinningEl.classList.add('loading-spinner');
   return spinningEl;
 }
-function displayWelcomMessage() {
-  const user = JSON.parse(sessionStorage.getItem('user'));
-  const greetingText = document.querySelector('.welcome-message');
-  greetingText.textContent = `Welcome, ${user.name}!`;
-}
-displayWelcomMessage();
 
 function createPagination(sectionObj, sectionEl, updateSectionUI) {
   if (sectionObj.totalPages <= 1) {
@@ -247,7 +228,7 @@ function updateLoadingModal(msg, modal) {
                 class="alert alert-info d-flex align-items-center"
                 role="alert"
               >
-                <i class="fas fa-sync-alt fa-spin fs-3"></i>
+                <i style="margin-right: 10px" class="fas fa-sync-alt fa-spin fs-3"></i>
                 <div style="font-size: 1.6rem" class="loading-modal">
                   ${msg}
                 </div>

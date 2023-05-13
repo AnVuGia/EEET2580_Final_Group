@@ -47,13 +47,8 @@ public class CompanyAcc extends Account {
     @Column(name = "manager_contact")
     private Long manager_contact;
 
-
-
-
     public void setAccount(Account account) {
         username = account.getUsername();
         password = account.getPassword();
-        email = account.getEmail();
-        name = account.getName();
     }
 }

@@ -1,8 +1,7 @@
 const currUser = JSON.parse(sessionStorage.getItem('user'));
 const capstoneLogo = document.querySelector('#logo');
 const submitBtn = document.querySelector('#submit-btn');
-const supervisorSelect = document.querySelector('#supervisor-select');
-
+// const supervisorSelect = document.querySelector('#supervisor-select');
 async function updateUI() {}
 function dataURItoBlob(dataURI) {
   const byteString = atob(dataURI.split(',')[1]);
@@ -17,7 +16,15 @@ function dataURItoBlob(dataURI) {
 async function setCapstoneImage(capstoneProject) {
   const fileInput = document.querySelector('#logo');
   if (fileInput.files.length === 0) {
-    return capstoneProject;
+    await fetch('/api/capstone-project', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(capstoneProject),
+    });
+    await fetch('/company');
+    return;
   }
 
   console.log('change');
@@ -75,9 +82,9 @@ async function setCapstoneImage(capstoneProject) {
     };
 
     image.src = reader.result;
+    reader.readAsDataURL(file);
   };
 
-  reader.readAsDataURL(file);
   return capstoneProject;
 }
 async function setCapstoneProject() {
@@ -86,7 +93,7 @@ async function setCapstoneProject() {
       username: currUser.username,
     },
     supervisor: {
-      username: supervisorSelect.value,
+      // username: supervisorSelect.value
     },
     projectTitle: document.querySelector('#capstone-title').value,
     projectIntroduction: document.querySelector('#introduction').value,
@@ -103,24 +110,21 @@ async function setCapstoneProject() {
     imageId: '',
   };
   const res = await setCapstoneImage(capstoneProject);
-
-
 }
-async function getSupervisors() {
-  supervisorSelect.innerHTML = '';
-  const response = await fetch('/api/account/supervisors');
-  const supervisors = await response.json();
-  console.log(supervisors);
-  supervisors.forEach((supervisor) => {
-    const option = document.createElement('option');
-    option.value = supervisor.username;
-    option.innerHTML = `${supervisor.name} - ${supervisor.email}`;
-    supervisorSelect.appendChild(option);
-  });
-}
-
+// async function getSupervisors() {
+//   supervisorSelect.innerHTML = '';
+//   const response = await fetch('/api/account/supervisors');
+//   const supervisors = await response.json();
+//   console.log(supervisors);
+//   supervisors.forEach((supervisor) => {
+//     const option = document.createElement('option');
+//     option.value = supervisor.username;
+//     option.innerHTML = `${supervisor.name} - ${supervisor.email}`;
+//     supervisorSelect.appendChild(option);
+//   });
+// }
 submitBtn.addEventListener('click', async (event) => {
   event.preventDefault();
   await setCapstoneProject();
 });
-getSupervisors();
+// getSupervisors();
