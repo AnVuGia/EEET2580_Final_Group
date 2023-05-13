@@ -12,4 +12,6 @@ public interface StudentService {
     void updateStudentSkillsById(Long id, StudentAccDto studentDto);
 
     void updateStudentBibById(Long id, StudentAccDto studentDto);
+
+    void updateStudentProfilePicById(Long id, StudentAccDto studentDto);
 }
