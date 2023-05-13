@@ -22,7 +22,7 @@ public class SupervisorAccServiceImp implements SupervisorAccService {
         oldSupervisor.setContact(newSupervisor.getContact());
         oldSupervisor.setEmail(newSupervisor.getEmail());
         oldSupervisor.setBio(newSupervisor.getBio());
-
+        oldSupervisor.setPassword(newSupervisor.getPassword());
     }
     @Override
     public List<SupervisorAcc> getAllSupervisor() {

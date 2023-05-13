@@ -326,6 +326,7 @@ const supervisorName = document.querySelector('#profile-supervisor-name');
 const supervisorBio = document.querySelector('#profile-supervisor-bio');
 const supervisorEmail = document.querySelector('#profile-supervisor-email');
 const supervisorContact = document.querySelector('#profile-supervisor-contact');
+
 const imgPlacHolder = document.querySelector('.rounded-circle');
 
 const nullImagePlacehodler = "https://t4.ftcdn.net/jpg/03/59/58/91/360_F_359589186_JDLl8dIWoBNf1iqEkHxhUeeOulx0wOC5.jpg";
@@ -340,16 +341,19 @@ updateProfileUI();
 
 function loadSupModal(){
   const imgIdDiv = document.querySelector("profile-image");
-  const subProfileName = document.getElementById("sup-profile-name");
+  
   const subProfileBio = document.getElementById("sup-profile-bio");
   const subProfileContact = document.getElementById("sup-profile-contact");
+  const subPassword = document.getElementById("sup-profile-password");
   const subProfileEmail = document.getElementById("sup-profile-email");
 
 
-  subProfileName.value = getUser().name?getUser().name:"N/A";
+
   subProfileBio.value = getUser().bio?getUser().bio:"N/A";
   subProfileContact.value = getUser().contact?getUser().contact:"N/A";
   subProfileEmail.value = getUser().email?getUser().email:"N/A"; 
+  subPassword.value = getUser().password?getUser().password:"N/A"; 
+
   if(getUser().imgId){
     imgIdDiv.value = getUser().imgId;
   }
@@ -363,10 +367,11 @@ async function updateProfile(supervisorID) {
     if (document.getElementById("profile-image").files.length !=0){
       newUser.imgID = document.querySelector("profile-image").files[0].name;
     }
-    newUser.name = document.querySelector('#sup-profile-name').value;
+    
     newUser.bio = document.querySelector('#sup-profile-bio').value;
     newUser.email = document.querySelector('#sup-profile-email').value;
-    newUser.contact = document.querySelector('#sup-profile-contact').value?null:document.querySelector('#sup-profile-contact').value;
+    newUser.contact = document.querySelector('#sup-profile-contact').value;
+    newUser.password = document.querySelector('#sup-profile-password').value;
     sessionStorage.setItem("user",JSON.stringify(newUser));
   try {
     const response = await fetch(
