@@ -16,14 +16,14 @@ function dataURItoBlob(dataURI) {
 async function setCapstoneImage(capstoneProject) {
   const fileInput = document.querySelector('#logo');
   if (fileInput.files.length === 0) {
-    fetch('/api/capstone-project', {
+    await fetch('/api/capstone-project', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(capstoneProject),
     });
-    window.location.href = 'company-main-page.html';
+    await fetch('/company');
     return;
   }
 
@@ -110,8 +110,6 @@ async function setCapstoneProject() {
     imageId: '',
   };
   const res = await setCapstoneImage(capstoneProject);
-
-
 }
 // async function getSupervisors() {
 //   supervisorSelect.innerHTML = '';
