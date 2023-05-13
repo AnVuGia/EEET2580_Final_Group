@@ -189,12 +189,15 @@ async function UpdateStudentPersona() {
   const profile_email = document.getElementById('profile_email');
   const profile_bib = document.getElementById('Bib');
 
-    let NewName = document.getElementById('NewName').value;
-    let NewMajor = document.getElementById('NewMajor').value;
-    let NewContact = document.getElementById('NewContact').value === "N/A"?0: document.getElementById('NewContact').value;
-    let NewEmail = document.getElementById('NewEmail').value;
-    let NewPassword = document.getElementById('NewPassword').value;
-    let NewBib = document.getElementById('NewBib').value;
+  let NewName = document.getElementById('NewName').value;
+  let NewMajor = document.getElementById('NewMajor').value;
+  let NewContact =
+    document.getElementById('NewContact').value === 'N/A'
+      ? 0
+      : document.getElementById('NewContact').value;
+  let NewEmail = document.getElementById('NewEmail').value;
+  let NewPassword = document.getElementById('NewPassword').value;
+  let NewBib = document.getElementById('NewBib').value;
 
   let newUser = getUser();
   newUser.name = NewName;
@@ -373,10 +376,14 @@ async function setUserProfileImage(user) {
   if (user.imageId != null) {
     const imgURL = await getImage(user.imageId);
     imgProfileEl.src = imgURL;
-  } else {
+    console.log('in true');
+    alertModalElStudent.querySelector('.btn-close').click();
+  } else if (user.imageId === null) {
     imgProfileEl.src = nullImagePlacehodler;
+    setTimeout(() => {
+      alertModalElStudent.querySelector('.btn-close').click();
+    }, 1000);
   }
-  alertModalElStudent.querySelector('.btn-close').click();
 }
 document
   .querySelector('#EditPictureBtn')
