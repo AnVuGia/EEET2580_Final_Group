@@ -331,10 +331,10 @@ const imgPlacHolder = document.querySelector('.rounded-circle');
 const nullImagePlacehodler = "https://t4.ftcdn.net/jpg/03/59/58/91/360_F_359589186_JDLl8dIWoBNf1iqEkHxhUeeOulx0wOC5.jpg";
 function updateProfileUI(updatedProfile) {
   imgPlacHolder.src = getUser().imgId?getUser().imgID:nullImagePlacehodler;
-  supervisorName.textContent = getUser().name;
-  supervisorBio.textContent = getUser().bio;
-  supervisorEmail.textContent = getUser().email;
-  supervisorContact.textContent = getUser().contact;
+  supervisorName.textContent = getUser().name?getUser().name:"N/A";
+  supervisorBio.textContent = getUser().bio?getUser().bio:"N/A";
+  supervisorEmail.textContent = getUser().email?getUser().email:"N/A";
+  supervisorContact.textContent = getUser().contact?getUser().contact:"N/A";
 }
 updateProfileUI();
 
@@ -361,12 +361,12 @@ async function updateProfile(supervisorID) {
   let newUser = getUser();
     
     if (document.getElementById("profile-image").files.length !=0){
-      // newUser.imgID = document.querySelector("profile-image").files[0].name;
+      newUser.imgID = document.querySelector("profile-image").files[0].name;
     }
     newUser.name = document.querySelector('#sup-profile-name').value;
     newUser.bio = document.querySelector('#sup-profile-bio').value;
     newUser.email = document.querySelector('#sup-profile-email').value;
-    newUser.contact = document.querySelector('#sup-profile-contact').value?"N/A":document.querySelector('#sup-profile-contact').value;
+    newUser.contact = document.querySelector('#sup-profile-contact').value?null:document.querySelector('#sup-profile-contact').value;
     sessionStorage.setItem("user",JSON.stringify(newUser));
   try {
     const response = await fetch(
