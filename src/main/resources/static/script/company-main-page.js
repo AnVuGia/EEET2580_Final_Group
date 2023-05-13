@@ -44,7 +44,7 @@ async function getRejectCapstoneProject(page, size) {
 async function updateApproveSectionUI() {
   const approveSectionEl = document.querySelector('.company-approved-list');
   approveSectionEl.innerHTML = '';
-  approveSectionEl.appendChild(spinner1);
+
   const approveCapstoneProject = await getApproveCapstoneProject(
     approveSectionPage.currPage,
     approveSectionPage.currSize
@@ -81,7 +81,7 @@ async function updatePendingSectionUI() {
   const pendingSectionEl = document.querySelector('.company-pending-list');
 
   pendingSectionEl.innerHTML = '';
-  pendingSectionEl.appendChild(spinner2);
+
   const pendingCapstoneProject = await getPendingCapstoneProject(
     pendingSectionPage.currPage,
     pendingSectionPage.currSize
@@ -130,7 +130,7 @@ async function updateRejectSectionUI() {
   <span class="sr-only">Loading...</span>
 </div>
   `;
-  rejectSectionEl.appendChild(spinner3);
+  
   const rejectCapstoneProject = await getRejectCapstoneProject(
     rejectSectionPage.currPage,
     rejectSectionPage.currSize

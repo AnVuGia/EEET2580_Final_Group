@@ -15,7 +15,15 @@ function dataURItoBlob(dataURI) {
 async function setCapstoneImage(capstoneProject) {
   const fileInput = document.querySelector('#logo');
   if (fileInput.files.length === 0) {
-    return capstoneProject;
+    fetch('/api/capstone-project', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(capstoneProject),
+    });
+    window.location.href = 'company-main-page.html';
+    return;
   }
 
   console.log('change');
@@ -73,9 +81,9 @@ async function setCapstoneImage(capstoneProject) {
     };
 
     image.src = reader.result;
+    reader.readAsDataURL(file);
   };
 
-  reader.readAsDataURL(file);
   return capstoneProject;
 }
 async function setCapstoneProject() {
