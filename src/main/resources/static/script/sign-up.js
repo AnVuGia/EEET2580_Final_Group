@@ -61,7 +61,7 @@ submit.addEventListener('click', (event) => {
     reEnterPasswordError();
   }
   if (!userName.value||!password.value||!reEnterPass.value){
-    updateDangerModal("All the feilds must be completed",
+    updateDangerModal("All the fields must be completed",
     alertModalElStudent,
     (ev)=>{});
     return;
