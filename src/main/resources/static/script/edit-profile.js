@@ -33,10 +33,9 @@ function LoadData(result2) {
     const contact = document.getElementById('profile_contact');
     const email = document.getElementById('profile_email');
     const Bib = document.getElementById('Bib');
-    
-    
+
     profileComStudent.textContent = currentGroupStudent.capstone?(currentGroupStudent.capstone.company.name?currentGroupStudent.capstone.company.name:"N/A"):"N/A";
-    profileCapInfo.textContent = currentGroupStudent.capstone?(currentGroupStudent.capstone.projectTitle?urrentGroupStudent.capstone.projectTitle:"N/A"):"N/A";
+    profileCapInfo.textContent = currentGroupStudent.capstone?(currentGroupStudent.capstone.projectTitle?currentGroupStudent.capstone.projectTitle:"N/A"):"N/A";
     profile_img.src = getUser().imgId?getUser().imgId:nullImagePlacehodler;
     name.innerHTML = getUser().name?getUser().name: "N/A";
     major.innerHTML = getUser().major?getUser().major: "N/A";
