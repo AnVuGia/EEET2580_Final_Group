@@ -59,17 +59,18 @@ public interface CapstoneProjectRepository extends JpaRepository<CapstoneProject
                                                                 @Param("status") String status,
                                                                 Pageable page);
 
-    @Query("SELECT c FROM CapstoneProject c WHERE c.supervisor.name = :supervisorName AND  c.company.name = :companyName AND c.projectTitle = :capstoneName AND c.capstoneStatus = :status")
+    @Query("SELECT c FROM CapstoneProject c WHERE c.supervisor.username = :supervisorName AND  c.company.name = " +
+            ":companyName AND c.projectTitle = :capstoneName AND c.capstoneStatus = :status")
     Page<CapstoneProject> filterAll ( @Param("capstoneName") String capstoneName,
                                       @Param("companyName") String companyName,
                                       @Param("supervisorName") String supervisorName,
                                       @Param("status") String status, Pageable page);
 
-    @Query("SELECT c FROM CapstoneProject c WHERE c.company.name = :company_name AND c.capstoneStatus = :status")
+    @Query("SELECT c FROM CapstoneProject c WHERE c.company.username = :company_name AND c.capstoneStatus = :status")
     List<CapstoneProject> findAllProjectByCompanyName(@Param("company_name") String company_name,
                                                       @Param("status") String status);
 
-    @Query("SELECT c FROM CapstoneProject c WHERE c.company.name = :company_name AND c.capstoneStatus = :status")
+    @Query("SELECT c FROM CapstoneProject c WHERE c.company.username = :company_name AND c.capstoneStatus = :status")
     Page<CapstoneProject> findByCompanyNameAndStatus(@Param("company_name") String company_name,
                                                          @Param("status") String status,
                                                          Pageable page);
