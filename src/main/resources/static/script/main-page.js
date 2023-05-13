@@ -104,13 +104,12 @@ function setVisibiltySearchPage(target) {
     capstoneSearchSection.removeAttribute('hidden');
   } else if (target.textContent === 'Dashboard') {
     accountProfileSection.setAttribute('hidden', 'hidden');
-
     if (user.role === 'admin') {
       disSection.textContent = 'Request Capstone List';
     } else if (user.role === 'company') {
       disSection.textContent = 'Pending Capstone List';
     } else if (user.role === 'student') {
-      disSection.textContent = 'Register Capstone';
+      disSection.textContent = 'Registered Capstone';
     } else if (user.role === 'supevisor') {
       disSection.textContent = 'Supervised Capstone List';
     }
