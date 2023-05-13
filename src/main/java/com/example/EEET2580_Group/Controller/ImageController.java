@@ -39,4 +39,8 @@ public class ImageController {
         }
         return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(image.getData());
     }
+    @DeleteMapping("/images/{id}")
+    public void deleteImage(@PathVariable Long id) {
+        imageRepository.deleteById(id);
+    }
 }

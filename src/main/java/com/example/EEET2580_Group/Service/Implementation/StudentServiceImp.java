@@ -58,4 +58,11 @@ public class StudentServiceImp implements StudentService {
         System.out.println("Student updated");
     }
 
+    @Override
+    public void updateStudentProfilePicById(Long id, StudentAccDto studentDto) {
+        StudentAcc studentToUpdate = studentAccRepository.findById(id).get();
+        studentToUpdate.setImageId(studentDto.getImageId());
+        studentAccRepository.save(studentToUpdate);
+        System.out.println("Student updated");
+    }
 }

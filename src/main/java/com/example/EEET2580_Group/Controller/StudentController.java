@@ -30,4 +30,10 @@ public class StudentController {
         System.out.println("update student");
         studentService.updateStudentBibById(id, studentDto);
     }
+    @PutMapping(value = "/student/update/{id}/profile-pic")
+    public void updateStudentProfilePicInfo(@PathVariable Long id,
+                                     @RequestBody StudentAccDto studentDto){
+        System.out.println("update student");
+        studentService.updateStudentProfilePicById(id, studentDto);
+    }
 }
