@@ -52,7 +52,7 @@ async function updateApproveSectionUI() {
   const data = approveCapstoneProject.content;
   if (data.length === 0) {
     approveSectionEl.innerHTML =
-      '<p style="font-size: 1.6rem">No approved capstone project</p>';
+      '<p style="font-size: 1.6rem; text-align:center">No approved capstone project</p>';
   } else {
     data.forEach((capstone) => {
       const capItem = createCapstoneCard(capstone);
@@ -89,7 +89,7 @@ async function updatePendingSectionUI() {
   const data = pendingCapstoneProject.content;
   if (data.length === 0) {
     pendingSectionEl.innerHTML =
-      '<p style="font-size: 1.6rem"> No pending capstone project</p>';
+      '<p style="font-size: 1.6rem; text-align:center"> No pending capstone project</p>';
   } else {
     data.forEach((capstone) => {
       const capItem = createCapstoneCard(capstone);
@@ -125,11 +125,6 @@ async function updatePendingSectionUI() {
 async function updateRejectSectionUI() {
   const rejectSectionEl = document.querySelector('.company-rejected-list');
 
-  rejectSectionEl.innerHTML = `
-  <div class="spinner-border text-primary" role="status">
-  <span class="sr-only">Loading...</span>
-</div>
-  `;
   
   const rejectCapstoneProject = await getRejectCapstoneProject(
     rejectSectionPage.currPage,
@@ -138,7 +133,7 @@ async function updateRejectSectionUI() {
   const data = rejectCapstoneProject.content;
   if (data.length === 0) {
     rejectSectionEl.innerHTML =
-      '<p style="font-size: 1.6rem">No rejected capstone project</p>';
+      '<p style="font-size: 1.6rem; text-align:center">No rejected capstone project</p>';
   } else {
     rejectSectionEl.innerHTML = '';
     data.forEach((capstone) => {
