@@ -42,9 +42,7 @@ public class SupervisorAcc extends Account {
     @Column(name = "profile_image")
     private Long imageId;
     public void setAccount(Account account) {
-        name = account.getName();
         username = account.getUsername();
         password = account.getPassword();
-        email = account.getEmail();
     }
 }

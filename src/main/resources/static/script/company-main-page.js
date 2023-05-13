@@ -41,7 +41,6 @@ async function getRejectCapstoneProject(page, size) {
   const result = await response.json();
   return result;
 }
-
 async function updateApproveSectionUI() {
   const approveSectionEl = document.querySelector('.company-approved-list');
   approveSectionEl.innerHTML = '';
@@ -76,7 +75,7 @@ async function updateApproveSectionUI() {
     );
   }
 
-  approveSectionEl.removeChild(spinner1);
+  // approveSectionEl.removeChild(spinner1);
 }
 async function updatePendingSectionUI() {
   const pendingSectionEl = document.querySelector('.company-pending-list');
@@ -121,7 +120,7 @@ async function updatePendingSectionUI() {
     pendingPagination,
     updatePendingSectionUI
   );
-  pendingSectionEl.removeChild(spinner2);
+  // pendingSectionEl.removeChild(spinner2);
 }
 async function updateRejectSectionUI() {
   const rejectSectionEl = document.querySelector('.company-rejected-list');
