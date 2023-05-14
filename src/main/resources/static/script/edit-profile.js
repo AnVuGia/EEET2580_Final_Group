@@ -209,7 +209,10 @@ async function UpdateStudentPersona() {
   let NewBib = document.getElementById('NewBib').value;
 
   let newUser = getUser();
-  newUser.name = NewName;
+
+  if(NewPassword.length > 8){
+    console.log("suc",NewPassword.length);
+    newUser.name = NewName;
   newUser.major = NewMajor;
   newUser.contact = NewContact;
   newUser.email = NewEmail;
@@ -230,11 +233,7 @@ async function UpdateStudentPersona() {
     );
 
     if (response.ok) {
-      updateSuccessModal(
-        'You have successfully updated your account info!',
-        alertModalElStudent,
-        () => {}
-      );
+      
     } else {
       console.error(
         'Error updating capstone project. Response status:',
@@ -244,6 +243,13 @@ async function UpdateStudentPersona() {
   } catch (error) {
     console.error('Error updating capstone project:', error);
   }
+  }else{
+    console.log("fail",NewPassword.length);
+    updateDangerModal("Password should be at least 8 characters",
+    alertModalElStudent,
+    (ev)=>{});
+  }
+  
 }
 
 async function UpdateStudentSkills() {
