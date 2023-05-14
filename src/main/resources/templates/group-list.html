@@ -159,6 +159,11 @@
     }
 
     SearchBtn.addEventListener('click', () => {
+        const modalUl = document.querySelector('#ResultGroupMemberUL');
+        const ModalLi = modalUl.getElementsByTagName('li');
+        for (let k = ModalLi.length - 1; k >= 0; k--) {
+                    modalUl.removeChild(ModalLi[k]);
+                }
         const SearchGroupInput = document.getElementById('SearchGroupInput');
         let searchGroup = SearchGroupInput.value;
         let cnt = 0;
@@ -173,18 +178,10 @@
                     break;
                 }
                 let lis = buttons[i].nextElementSibling.querySelectorAll("li");
-                for (let j = 0; j < lis.length; j++) {
-                    if (lis[j].textContent == searchGroup) {
-                        cnt = 2;
-                        Button = buttons[i];
-                        break;
-                    }
-                }
+
             }
             if (cnt == 1) {
                 writeModalByID(searchGroup);
-            } else if (cnt == 2) {
-                writeModalByMember(Button);
             } else {
                 const ModalBodyHeader = document.querySelector("#ResultHeader h5");
                 ModalBodyHeader.innerHTML = "Sorry there is no " + searchGroup;
@@ -192,26 +189,6 @@
         }
     })
 
-
-    function writeModalByMember(Button) {
-        let lis = Button.nextElementSibling.querySelectorAll("li");
-        const modalUl = document.querySelector('#ResultGroupMemberUL');
-        const ModalLi = modalUl.getElementsByTagName('li');
-        const ModalBodyHeader = document.querySelector("#ResultHeader h5");
-        ModalBodyHeader.innerHTML = Button.textContent;
-
-        for (let k = ModalLi.length - 1; k >= 0; k--) {
-            modalUl.removeChild(ModalLi[k]);
-        }
-
-        for (let j = 0; j < lis.length; j++) {
-            console.log(lis[j].textContent);
-            const modalLi = document.createElement('li');
-            modalLi.textContent = lis[j].textContent;
-            modalLi.className = 'list-group-item'
-            modalUl.appendChild(modalLi);
-        }
-    }
 
     function writeModalByID(searchGroup) {
         let buttons = document.querySelectorAll(".dropdown-toggle");
@@ -224,9 +201,7 @@
                 const modalUl = document.querySelector('#ResultGroupMemberUL');
                 const ModalLi = modalUl.getElementsByTagName('li');
 
-                for (let k = ModalLi.length - 1; k >= 0; k--) {
-                    modalUl.removeChild(ModalLi[k]);
-                }
+              
 
                 for (let j = 0; j < lis.length; j++) {
                     console.log(lis[j].textContent);

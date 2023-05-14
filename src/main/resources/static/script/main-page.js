@@ -251,7 +251,6 @@ async function getCompanyList(companyName, page, size, sort) {
       }
     }
   }
-
   let endpoint = url + temp;
   response = await fetch(endpoint);
   result = await response.json();
