@@ -22,55 +22,53 @@ let user = JSON.parse(data);
 const company_username = user.username;
 const company_id = user.id;
 const company_name = user.name;
-
 const controlCompInfo = document.querySelectorAll(".controller-bottom-section");
 
-for (var i = 0; i< controlCompInfo.length;i++){
-  controlCompInfo[i].addEventListener("click",function(e){
-    if (e.target.textContent === "Company Overview"){
+for (var i = 0; i < controlCompInfo.length; i++) {
+  controlCompInfo[i].addEventListener("click", function (e) {
+    if (e.target.textContent === "Company Overview") {
       LoadOverView();
-    }else {
+    } else {
       console.log("a");
       LoadInformation();
     }
   })
 }
 
-
 function LoadInformation() {
-  comapnyInfoConatiner.innerHTML=""
-  comapnyInfoConatiner.innerHTML =`
+  comapnyInfoConatiner.innerHTML = ""
+  comapnyInfoConatiner.innerHTML = `
       <div class="p-5">
       <div class="company-info1">
         <p>Company Information: </p>
         <ul class="companyInfoList">
-          <li class="company-info-item mb-2">Company Name: ${getUser().name?getUser().name:"N/A"} </li>
-          <li class="company-info-item mb-2">Contact: ${getUser().contact?getUser().contact:"N/A"}  </li>
-          <li class="company-info-item mb-2">Email: ${getUser().email?getUser().email:"N/A"} </li>
+          <li class="company-info-item mb-2">Company Name: ${getUser().name ? getUser().name : "N/A"} </li>
+          <li class="company-info-item mb-2">Contact: ${getUser().contact ? getUser().contact : "N/A"}  </li>
+          <li class="company-info-item mb-2">Email: ${getUser().email ? getUser().email : "N/A"} </li>
         </ul>
       </div>
       <div class="company-info1 mt-2">
         <p>Manager Information: </p>
         <ul class="companyInfoList">
-          <li class="company-info-item mb-2">Manager's Name: ${getUser().manager?getUser().manager:"N/A"}</li>
-          <li class="company-info-item mb-2">Contact:${getUser().manager_contact?getUser().manager_contact:"N/A"}</li>
+          <li class="company-info-item mb-2">Manager's Name: ${getUser().manager ? getUser().manager : "N/A"}</li>
+          <li class="company-info-item mb-2">Contact:${getUser().manager_contact ? getUser().manager_contact : "N/A"}</li>
         </ul>
       </div>
     </div>
   `
 }
+
 const defaultImg = "https://phutungnhapkhauchinhhang.com/wp-content/uploads/2020/06/default-thumbnail.jpg";
-function LoadOverView(){
+function LoadOverView() {
   const imgDiv = document.getElementById("company-img");
-  imgDiv.src = getUser().imgId?getUser().imgId:defaultImg;
-  comapnyInfoConatiner.innerHTML =`
+  imgDiv.src = getUser().imgId ? getUser().imgId : defaultImg;
+  comapnyInfoConatiner.innerHTML = `
     <div class="p-5">
     <div class="company-info1">
-        <p>Description: ${getUser().companyDescription?getUser().companyDescription:"N/A"}</p>
+        <p>Description: ${getUser().companyDescription ? getUser().companyDescription : "N/A"}</p>
     </div>
   `
 }
-
 
 const EditBtn = document.getElementById('profile-submit');
 EditBtn.addEventListener('click', () => {
@@ -84,27 +82,27 @@ EditBtn.addEventListener('click', () => {
   );
 });
 
-
-function LoadModalCompany(){
-    CompanyNameModal.value  = getUser().name?getUser().name:"N/A";
-    Contact_modal.value  = getUser().contact?getUser().contact:"N/A";
-    Email_modal.value = getUser().email?getUser().email:"N/A";
-    Manager_modal.value  = getUser().manager?getUser().manager:"N/A";
-    Description_modal.value  = getUser().companyDescription?getUser().companyDescription:"N/A";
-    Password_modal.value =  getUser().password?getUser().password:"N/A";
-    ManagerContact_modal.value =getUser().manager_contact?getUser().manager_contact:"N/A";
+function LoadModalCompany() {
+  CompanyNameModal.value = getUser().name ? getUser().name : "N/A";
+  Contact_modal.value = getUser().contact ? getUser().contact : "N/A";
+  Email_modal.value = getUser().email ? getUser().email : "N/A";
+  Manager_modal.value = getUser().manager ? getUser().manager : "N/A";
+  Description_modal.value = getUser().companyDescription ? getUser().companyDescription : "N/A";
+  Password_modal.value = getUser().password ? getUser().password : "N/A";
+  ManagerContact_modal.value = getUser().manager_contact ? getUser().manager_contact : "N/A";
 }
 
 async function updateCompanyInformation() {
   let newUser = getUser();
-    newUser.name = CompanyNameModal.value;
-    newUser.contact = Contact_modal.value ==="N/A"?0:Contact_modal.value;
-    newUser.email = Email_modal.value;
-    newUser.manager = Manager_modal.value;
-    newUser.companyDescription = Description_modal.value;
-    newUser.password = Password_modal.value;
-    newUser.manager_contact = ManagerContact_modal.value;
-  try {
+  newUser.name = CompanyNameModal.value;
+  newUser.contact = Contact_modal.value === "N/A" ? 0 : Contact_modal.value;
+  newUser.email = Email_modal.value;
+  newUser.manager = Manager_modal.value;
+  newUser.companyDescription = Description_modal.value;
+  newUser.password = Password_modal.value;
+  newUser.manager_contact = ManagerContact_modal.value;
+  if(newUser.password.length >= 8){
+     try {
     const response = await fetch(`/api/company/update/${company_id}`, {
       method: 'PUT',
       headers: {
@@ -112,15 +110,14 @@ async function updateCompanyInformation() {
       },
       body: JSON.stringify(newUser),
     });
-
     if (response.ok) {
-      sessionStorage.setItem("user",JSON.stringify(newUser));
+      sessionStorage.setItem("user", JSON.stringify(newUser));
       LoadOverView();
       LoadModalCompany();
       displayWelcomMessage();
       updateSuccessModal("You have successfully change you account info!",
-      alertModalElStudent,
-      (ev) => {});
+        alertModalElStudent,
+        (ev) => { });
 
     } else {
       console.error('Error updating capstone project. Response status:', response.status);
@@ -128,7 +125,11 @@ async function updateCompanyInformation() {
   } catch (error) {
     console.error('Error updating capstone project:', error);
   }
+  }else{
+    updateDangerModal("Password should be at least 8 characters",
+    alertModalElStudent,
+    (ev)=>{});
+  }
 }
-
 LoadModalCompany();
 LoadOverView();
