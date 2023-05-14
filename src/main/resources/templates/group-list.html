@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -44,9 +44,9 @@
                 data-bs-target="#exampleModal">Search</button>
         </div>
         <div class="GroupLists col-md-12 col-sm-12">
-            <ul class="list-group">
-               
-<!-- 
+            <ul id="bigList" class="list-group">
+                <div class="loading-spinner"></div>
+                <!-- 
                 <div class="btn-group">
                     <button type="button" class="btn btn-primary dropdown-toggle list-group-item"
                         data-bs-toggle="dropdown" aria-expanded="false">
@@ -103,11 +103,19 @@
 
 <script>
     const SearchBtn = document.getElementById('SearchBtn');
-    const groupList = document.querySelector('.list-group');
+    const groupList = document.querySelector('#bigList');
+    const Spinner = createSpinningAnimation();
+    const SpinnerContainer = document.querySelector('.loading-spinner');
     let DummyGroup = [];
     GetAllgroup();
+    createSpinningAnimation()
+    function createSpinningAnimation() {
+        const spinningEl = document.createElement('div');
+        spinningEl.classList.add('loading-spinner');
+        return spinningEl;
+    }
     async function GetAllgroup() {
-        
+
         const response = await fetch('/api/account/groups');
         console.log(response);
         result = await response.json();
@@ -118,6 +126,7 @@
         CreateGroupList(DummyGroup);
     }
     function CreateGroupList(DummyGroup) {
+
         console.log(DummyGroup);
         for (let i = 0; i < DummyGroup.length; i++) {
             const div = document.createElement("div");
@@ -128,7 +137,7 @@
             button.className = 'btn btn-primary dropdown-toggle list-group-item';
             button.setAttribute('data-bs-toggle', 'dropdown');
             button.setAttribute('aria-expanded', 'false');
-            button.innerText= "Group "+DummyGroup[i].id;
+            button.innerText = "Group " + DummyGroup[i].id;
 
             const ul = document.createElement("ul");
             ul.className = "dropdown-menu";
@@ -136,34 +145,35 @@
             St.className = 'dropdown-item St';
             St.innerText = "Student"
             const hr = document.createElement("hr");
-            
-            for(let j = 0 ; j < DummyGroup[i].studentList.length; j++){
+
+            for (let j = 0; j < DummyGroup[i].studentList.length; j++) {
                 const li = document.createElement("li");
                 li.className = 'dropdown-item';
-                li.innerText = "Student "+[j+1] +" : "+ DummyGroup[i].studentList[j].name;
+                li.innerText = "Student " + [j + 1] + " : " + DummyGroup[i].studentList[j].name;
                 ul.appendChild(li);
             }
-            if(DummyGroup[i].capstone != null){
+            if (DummyGroup[i].capstone != null) {
                 const Cp = document.createElement("li");
                 Cp.className = 'dropdown-item St';
                 Cp.innerText = "Capstone Project : " + DummyGroup[i].capstone.projectTitle
                 ul.appendChild(hr);
                 ul.appendChild(Cp);
-            
+
             }
             div.appendChild(button);
             div.appendChild(ul);
             groupList.appendChild(div);
         }
-
+        console.log("REMOVE SPINNER")
+        groupList.removeChild(SpinnerContainer);
     }
 
     SearchBtn.addEventListener('click', () => {
         const modalUl = document.querySelector('#ResultGroupMemberUL');
         const ModalLi = modalUl.getElementsByTagName('li');
         for (let k = ModalLi.length - 1; k >= 0; k--) {
-                    modalUl.removeChild(ModalLi[k]);
-                }
+            modalUl.removeChild(ModalLi[k]);
+        }
         const SearchGroupInput = document.getElementById('SearchGroupInput');
         let searchGroup = SearchGroupInput.value;
         let cnt = 0;
@@ -201,7 +211,7 @@
                 const modalUl = document.querySelector('#ResultGroupMemberUL');
                 const ModalLi = modalUl.getElementsByTagName('li');
 
-              
+
 
                 for (let j = 0; j < lis.length; j++) {
                     console.log(lis[j].textContent);
