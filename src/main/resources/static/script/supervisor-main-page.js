@@ -3,16 +3,25 @@ const paginationSection = document.querySelector('#sup-pagination');
 const capstoneContainer = document.querySelector('.request-capstone');
 const submitProfileBtn = document.getElementById("submit-sup-porfile");
 const loadingSpinner = createSpinningAnimation();
+const newPassword = document.querySelector('#sup-profile-password');
+
+
 submitProfileBtn.addEventListener("click", async function (ev) {
-  updateInfoModal("Are you sure you want to save change this information?",
-    alertModalElStudent,
-    async () => {
-      loadingModal.show();
-      await updateProfile();
-      loadSupModal();
-      displayWelcomMessage();
-      updateProfileUI();
-    })
+  if (newPassword.value.length >= 8) {
+    updateInfoModal("Are you sure you want to save change this information?",
+      alertModalElStudent,
+      async () => {
+        loadingModal.show();
+        await updateProfile();
+        loadSupModal();
+        displayWelcomMessage();
+        updateProfileUI();
+      })
+  } else {
+    updateDangerModal("Password should be at least 8 characters",
+      alertModalElStudent,
+      (ev) => {loadSupModal();});
+  }
 })
 const superviseCapstoneSection = {
   currPage: 0,
@@ -327,14 +336,10 @@ updateProfileUI();
 
 function loadSupModal() {
   const imgIdDiv = document.querySelector("profile-image");
-
   const subProfileBio = document.getElementById("sup-profile-bio");
   const subProfileContact = document.getElementById("sup-profile-contact");
   const subPassword = document.getElementById("sup-profile-password");
   const subProfileEmail = document.getElementById("sup-profile-email");
-
-
-
   subProfileBio.value = getUser().bio ? getUser().bio : "N/A";
   subProfileContact.value = getUser().contact ? getUser().contact : "N/A";
   subProfileEmail.value = getUser().email ? getUser().email : "N/A";
@@ -349,7 +354,6 @@ loadSupModal();
 
 async function updateProfile(supervisorID) {
   let newUser = getUser();
-
   if (document.getElementById("profile-image").files.length != 0) {
     newUser.imgID = document.querySelector("profile-image").files[0].name;
   }
@@ -358,8 +362,8 @@ async function updateProfile(supervisorID) {
   newUser.email = document.querySelector('#sup-profile-email').value;
   newUser.contact = document.querySelector('#sup-profile-contact').value;
   newUser.password = document.querySelector('#sup-profile-password').value;
-  if(newUser.password.length >= 8){
-    sessionStorage.setItem("user", JSON.stringify(newUser));
+
+  sessionStorage.setItem("user", JSON.stringify(newUser));
   try {
     const response = await fetch(
       `/api/supervisor/update-profile/${getUser().id}`,
@@ -384,12 +388,8 @@ async function updateProfile(supervisorID) {
   } catch (error) {
     console.error('Error updating capstone project:', error);
   }
-  }else{
-    updateDangerModal("Password should be at least 8 characters",
-    alertModalElStudent,
-    (ev)=>{});
-  }
-  
+
+
 }
 function dataURItoBlob(dataURI) {
   const byteString = atob(dataURI.split(',')[1]);

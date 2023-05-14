@@ -51,7 +51,7 @@ function LoadInformation() {
         <p>Manager Information: </p>
         <ul class="companyInfoList">
           <li class="company-info-item mb-2">Manager's Name: ${getUser().manager ? getUser().manager : "N/A"}</li>
-          <li class="company-info-item mb-2">Contact:${getUser().manager_contact ? getUser().manager_contact : "N/A"}</li>
+          <li class="company-info-item mb-2">Contact: ${getUser().manager_contact ? getUser().manager_contact : "N/A"}</li>
         </ul>
       </div>
     </div>
@@ -72,14 +72,20 @@ function LoadOverView() {
 
 const EditBtn = document.getElementById('profile-submit');
 EditBtn.addEventListener('click', () => {
-  updateInfoModal(
-    'Are you sure you want to save change this information?',
-    alertModalElStudent,
-    async (ev) => {
-      loadingModal.show();
-      updateCompanyInformation();
-    }
-  );
+  if (Password_modal.value.length >= 8) {
+    updateInfoModal(
+      'Are you sure you want to save change this information?',
+      alertModalElStudent,
+      async (ev) => {
+        loadingModal.show();
+        updateCompanyInformation();
+      }
+    );
+  } else {
+    updateDangerModal("Password should be at least 8 characters",
+      alertModalElStudent,
+      (ev) => { LoadModalCompany();});
+  }
 });
 
 function LoadModalCompany() {
@@ -101,8 +107,8 @@ async function updateCompanyInformation() {
   newUser.companyDescription = Description_modal.value;
   newUser.password = Password_modal.value;
   newUser.manager_contact = ManagerContact_modal.value;
-  if(newUser.password.length >= 8){
-     try {
+
+  try {
     const response = await fetch(`/api/company/update/${company_id}`, {
       method: 'PUT',
       headers: {
@@ -125,11 +131,8 @@ async function updateCompanyInformation() {
   } catch (error) {
     console.error('Error updating capstone project:', error);
   }
-  }else{
-    updateDangerModal("Password should be at least 8 characters",
-    alertModalElStudent,
-    (ev)=>{});
-  }
+
+
 }
 LoadModalCompany();
 LoadOverView();
