@@ -5,7 +5,6 @@ const submitProfileBtn = document.getElementById("submit-sup-porfile");
 const loadingSpinner = createSpinningAnimation();
 const newPassword = document.querySelector('#sup-profile-password');
 
-
 submitProfileBtn.addEventListener("click", async function (ev) {
   if (newPassword.value.length >= 8) {
     updateInfoModal("Are you sure you want to save change this information?",

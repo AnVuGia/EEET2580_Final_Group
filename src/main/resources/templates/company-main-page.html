@@ -1,294 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="css/base.css" />
-    <link rel="stylesheet" href="css/main-page.css" />
-    <link rel="stylesheet" href="css/modal.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="stylesheet" href="css/capstone-info.css" />
-    <link rel="stylesheet" href="/css/style_company.css">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="css/company-main-page.css" />
-    <title>Dashboard</title>
-  </head>
-  <body>
-    <main class="main-section">
-      <nav class="navbar navbar-expand-lg header-container py-4">
-        <div class="container-fluid">
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <a class="navbar-brand">
-            <img
-              src="/images/login-signup/log-170x50.svg"
-              alt=""
-              class="header-log-image"
-            />
-          </a>
-          <div
-            class="collapse navbar-collapse show"
-            id="navbarSupportedContent"
-          >
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item me-5 mt-sm-4 mt-md-0">
-                <a
-                  class="nav-link active nav-header-item text-md-center"
-                  id="dashboard"
-                  >Dashboard</a
-                >
-              </li>
-              <li class="nav-item me-5 mt-sm-4 mt-md-0">
-                <a class="nav-link nav-header-item text-md-center">Search</a>
-              </li>
-            </ul>
-          </div>
-          <p class="mb-0 me-3 d-none d-lg-block welcome-message"></p>
-          <div class="nav me-5 d-none d-md-block">
-            <img
-              class="img-thumbnail mx-auto d-none d-lg-block acc-img"
-              src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-              style="border-radius: 50%"
-              alt=""
-              width="30px"
-              height="30px"
-              data-bs-toggle="collapse"
-              data-bs-target="#profile-controller"
-            />
-            <div
-              class="collapse profile-controller profile-list"
-              id="profile-controller"
-            >
-              <li class="profile-list-item">Account Information</li>
-              <li class="profile-list-item">Log out</li>
-            </div>
-          </div>
-        </div>
-      </nav>
 
-      <div class="dashboard-view" >
-        <div class="capstone-panel">
-          <div class="capstone-pannel-in m-auto ms-lg-5 display-section">
-            Pending Capstone List
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    crossorigin="anonymous" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/main-page.css" />
+  <link rel="stylesheet" href="css/modal.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="css/capstone-info.css" />
+  <link rel="stylesheet" href="/css/style_company.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/company-main-page.css" />
+  <title>Dashboard</title>
+</head>
+
+<body>
+  <main class="main-section">
+    <nav class="navbar navbar-expand-lg header-container py-4">
+      <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand">
+          <img src="/images/login-signup/log-170x50.svg" alt="" class="header-log-image" />
+        </a>
+        <div class="collapse navbar-collapse show" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item me-5 mt-sm-4 mt-md-0">
+              <a class="nav-link active nav-header-item text-md-center" id="dashboard">Dashboard</a>
+            </li>
+            <li class="nav-item me-5 mt-sm-4 mt-md-0">
+              <a class="nav-link nav-header-item text-md-center">Search</a>
+            </li>
+          </ul>
+        </div>
+        <p class="mb-0 me-3 d-none d-lg-block welcome-message"></p>
+        <div class="nav me-5 d-none d-md-block">
+          <img class="img-thumbnail mx-auto d-none d-lg-block acc-img"
+            src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+            style="border-radius: 50%" alt="" width="30px" height="30px" data-bs-toggle="collapse"
+            data-bs-target="#profile-controller" />
+          <div class="collapse profile-controller profile-list" id="profile-controller">
+            <li class="profile-list-item">Account Information</li>
+            <li class="profile-list-item">Log out</li>
           </div>
-          <button
-            type="button"
-            class="btn create-cap-btn d-none d-lg-block"
-            data-bs-toggle="modal"
-            data-bs-target="#staticBackdrop"
-          >
-            Create Capstone
-          </button>
-        </div>
-        <div class="separator"></div>
-        <div class="container capstone-project-info">
-          <div class="container">
-            <div class="company-pending-list row gy-4"></div>
-            <div id="pending-pagination" class="company-pagination"></div>
-          </div>
-        </div>
-        <div class="capstone-panel">
-          <div class="capstone-pannel-in m-auto ms-lg-5 display-section">
-            Approved Capstone List
-          </div>
-        </div>
-        <div class="separator"></div>
-        <div class="container capstone-project-info">
-          <div class="company-approved-list row gy-4"></div>
-          <div id="approve-pagination" class="company-pagination"></div>
-        </div>
-        <div class="capstone-panel">
-          <div class="capstone-pannel-in m-auto ms-lg-5 display-section">
-            Reject Capstone List
-          </div>
-        </div>
-        <div class="separator"></div>
-        <div class="container capstone-project-info">
-          <div class="company-rejected-list row gy-4"></div>
-          <div id="reject-pagination" class="company-pagination"></div>
         </div>
       </div>
-      <div
-        class="modal fade"
-        id="staticBackdrop"
-        data-bs-backdrop="static"
-        data-bs-keyboard="false"
-        tabindex="-1"
-        aria-labelledby="staticBackdropLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1
-                class="modal-title fs-2 group-form-heading"
-                id="staticBackdropLabel"
-              >
-                Create New Capstone Project
-              </h1>
-              <button
-                type="button"
-                class="btn-close fs-5 me-1"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">
-              <p class="modal-passage">
-                Groups are a good place to collaborate on projects or to figure
-                out schedules for study sessions and the like. Every group gets
-                a calendar, a wiki, discussions, and a little bit of space to
-                store files. Groups can collaborate on documents, or even
-                schedule web conferences. It's really like a mini-course where
-                you can work with a smaller number of students on a more focused
-                project.
-              </p>
-              <div class="information-section">
-                <label for="" class="information-section-element input-label"
-                  >Capstone image</label
-                >
-                <input
-                  type="file"
-                  id="logo"
-                  accept="image/*"
-                  required
-                  class="information-section-element input-modal"
-                />
-                <label
-                  for="capstone-title"
-                  class="information-section-element input-label"
-                  >Capstone Project Title</label
-                >
-                <input
-                  type="text"
-                  id="capstone-title"
-                  placeholder="Ex. Enterprise Web Development"
-                  required
-                  class="information-section-element input-modal"
-                />
+    </nav>
 
-                <label
-                  for="capstone-intro"
-                  class="information-section-element input-label"
-                  >Project Introduction</label
-                >
-                <input
-                  type="text"
-                  class="information-section-element input-modal"
-                  id="introduction"
-                  placeholder="Ex. the project is about..."
-                  required
-                />
-                <label
-                  for="capstone-objectives"
-                  class="information-section-element input-label"
-                  >Project Objectives</label
-                >
-                <input
-                  type="text"
-                  class="information-section-element input-modal"
-                  id="capstone-objectives"
-                  placeholder="Ex. the project objectives are..."
-                  required
-                />
-                <label for="" class="information-section-element input-label"
-                  >Interview Requirements</label
-                >
-                <select id="interview-reqs" class="modal-select">
-                  <option selected value="true">Yes</option>
-                  <option value="false">No</option>
-                </select>
-                <label
-                  for="multi-team"
-                  class="information-section-element input-label"
-                  >Allow Multiteam?</label
-                >
-                <select id="multi-team" class="modal-select">
-                  <option selected value="true">Yes</option>
-                  <option value="false">No</option>
-                </select>
-                <label
-                  for="academic-background"
-                  class="information-section-element input-label"
-                  >Academic Background</label
-                >
-                <input
-                  type="text"
-                  class="information-section-element input-modal"
-                  id="academic-background"
-                  placeholder="BH120, BP162,..."
-                  required
-                />
-                <label
-                  for="no-students"
-                  class="information-section-element input-label"
-                  >Number of Members in a Group</label
-                >
-                <input
-                  type="number"
-                  class="information-section-element input-modal"
-                  id="no-students"
-                  placeholder="Ex. 4-5"
-                  required
-                />
-                <label
-                  for="success-criteria"
-                  class="information-section-element input-label"
-                  >Success criteria</label
-                >
-                <input
-                  type="text"
-                  class="information-section-element input-modal"
-                  id="success-criteria"
-                  placeholder="Ex. none"
-                  required
-                />
-                <label
-                  for="capstone-description"
-                  class="information-section-element input-label"
-                  >Capstone Description</label
-                >
-                <textarea
-                  type="text"
-                  class="information-section-textarea input-modal"
-                  id="capstone-description"
-                  required
-                ></textarea>
-                <label
-                  for="capstone-requirements"
-                  class="information-section-element input-label"
-                  >Capstone Requirements</label
-                >
-                <textarea
-                  type="text"
-                  class="information-section-textarea input-modal"
-                  id="capstone-requirements"
-                  required
-                ></textarea>
-                <!-- <label
+    <div class="dashboard-view">
+      <div class="capstone-panel">
+        <div class="capstone-pannel-in m-auto ms-lg-5 display-section">
+          Pending Capstone List
+        </div>
+        <button type="button" class="btn create-cap-btn d-none d-lg-block" data-bs-toggle="modal"
+          data-bs-target="#staticBackdrop">
+          Create Capstone
+        </button>
+      </div>
+      <div class="separator"></div>
+      <div class="container capstone-project-info">
+        <div class="container">
+          <div class="company-pending-list row gy-4"></div>
+          <div id="pending-pagination" class="company-pagination"></div>
+        </div>
+      </div>
+      <div class="capstone-panel">
+        <div class="capstone-pannel-in m-auto ms-lg-5 display-section">
+          Approved Capstone List
+        </div>
+      </div>
+      <div class="separator"></div>
+      <div class="container capstone-project-info">
+        <div class="company-approved-list row gy-4"></div>
+        <div id="approve-pagination" class="company-pagination"></div>
+      </div>
+      <div class="capstone-panel">
+        <div class="capstone-pannel-in m-auto ms-lg-5 display-section">
+          Reject Capstone List
+        </div>
+      </div>
+      <div class="separator"></div>
+      <div class="container capstone-project-info">
+        <div class="company-rejected-list row gy-4"></div>
+        <div id="reject-pagination" class="company-pagination"></div>
+      </div>
+    </div>
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+      aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-2 group-form-heading" id="staticBackdropLabel">
+              Create New Capstone Project
+            </h1>
+            <button type="button" class="btn-close fs-5 me-1" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p class="modal-passage">
+              Groups are a good place to collaborate on projects or to figure
+              out schedules for study sessions and the like. Every group gets
+              a calendar, a wiki, discussions, and a little bit of space to
+              store files. Groups can collaborate on documents, or even
+              schedule web conferences. It's really like a mini-course where
+              you can work with a smaller number of students on a more focused
+              project.
+            </p>
+            <div class="information-section">
+              <label for="" class="information-section-element input-label">Capstone image</label>
+              <input type="file" id="logo" accept="image/*" required class="information-section-element input-modal" />
+              <label for="capstone-title" class="information-section-element input-label">Capstone Project Title</label>
+              <input type="text" id="capstone-title" placeholder="Ex. Enterprise Web Development" required
+                class="information-section-element input-modal" />
+
+              <label for="capstone-intro" class="information-section-element input-label">Project Introduction</label>
+              <input type="text" class="information-section-element input-modal" id="introduction"
+                placeholder="Ex. the project is about..." required />
+              <label for="capstone-objectives" class="information-section-element input-label">Project
+                Objectives</label>
+              <input type="text" class="information-section-element input-modal" id="capstone-objectives"
+                placeholder="Ex. the project objectives are..." required />
+              <label for="" class="information-section-element input-label">Interview Requirements</label>
+              <select id="interview-reqs" class="modal-select">
+                <option selected value="true">Yes</option>
+                <option value="false">No</option>
+              </select>
+              <label for="multi-team" class="information-section-element input-label">Allow Multiteam?</label>
+              <select id="multi-team" class="modal-select">
+                <option selected value="true">Yes</option>
+                <option value="false">No</option>
+              </select>
+              <label for="academic-background" class="information-section-element input-label">Academic
+                Background</label>
+              <input type="text" class="information-section-element input-modal" id="academic-background"
+                placeholder="BH120, BP162,..." required />
+              <label for="no-students" class="information-section-element input-label">Number of Members in a
+                Group</label>
+              <input type="number" class="information-section-element input-modal" id="no-students"
+                placeholder="Ex. 4-5" required />
+              <label for="success-criteria" class="information-section-element input-label">Success criteria</label>
+              <input type="text" class="information-section-element input-modal" id="success-criteria"
+                placeholder="Ex. none" required />
+              <label for="capstone-description" class="information-section-element input-label">Capstone
+                Description</label>
+              <textarea type="text" class="information-section-textarea input-modal" id="capstone-description"
+                required></textarea>
+              <label for="capstone-requirements" class="information-section-element input-label">Capstone
+                Requirements</label>
+              <textarea type="text" class="information-section-textarea input-modal" id="capstone-requirements"
+                required></textarea>
+              <!-- <label
                   for="capstone-skill"
                   class="information-section-element input-label"
                   >Skill Requirements</label
@@ -299,7 +167,7 @@
                   id="capstone-skill"
                   required
                 ></textarea> -->
-                <!-- <label
+              <!-- <label
                   for="supervisor-select"
                   class="information-section-element input-label"
                   >Supervisor Name</label
@@ -309,381 +177,301 @@
                   <option value="2">Huy Nguyen</option>
                   <option value="3">Huy Nguyen</option>
                 </select> -->
-              </div>
             </div>
+          </div>
+          <div class="modal-footer">
+            <button id="cancel-btn" type="button" class="btn modal-button-controller" data-bs-dismiss="modal">
+              Cancel
+            </button>
+            <button id="submit-btn" type="button" class="btn modal-button-controller">
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Company Profile -->
+    <div class="mt-5 container" hidden="hidden" id="account-profile">
+      <div id="companyTopSection">
+        <div class="d-flex justify-content-end"><button class="btn" id="editComanyInfo" data-bs-toggle="modal"
+            data-bs-target="#editCompanyProfile">Edit Profile</button></div>
+        <img src="" alt="" id="company-img">
+      </div>
+
+      <div class="controller-bottom d-flex justify-content-start align-content-center mt-5">
+        <div class="controller-bottom-section me-5 border">Company Overview</div>
+        <div class="controller-bottom-section">Company Basic Informtion</div>
+      </div>
+
+      <div class="company-info-container">
+
+      </div>
+    </div>
+
+    <div class="modal fade" id="editCompanyProfile" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+      aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-2 group-form-heading" id="staticBackdropLabel">
+              Edit Company
+            </h1>
+            <br>
+            <button type="button" class="btn-close fs-5 me-1" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="company_detail_container">
+              <label for="company_name" class=" input-label information-section-element">Company Name</label>
+              <input id="newCompanyName" class="modal_profile information-section-element" type="text"
+                placeholder="Company Name: ">
+
+              <label for="company_contact" class=" input-label information-section-element">Company Contact</label>
+              <input id="newCompanyContact" class="modal_profile information-section-element" type="number"
+                placeholder="Company Contact : ">
+
+              <label for="company_email" class=" input-label information-section-element">Company Email</label>
+              <input id="newCompanyEmail" class="modal_profile information-section-element" type="text"
+                placeholder="Company Email :">
+              <br>
+
+              <label for="company_manager" class=" input-label information-section-element">Manager</label>
+              <input id="newManager" class="modal_profile information-section-element" type="text"
+                placeholder="Manager Name : ">
+
+              <label for="company_manager_contact" class=" input-label information-section-element">Manager
+                Contact</label>
+              <input id="newManagerContact" class="modal_profile information-section-element" type="number"
+                placeholder="Manager Contact : ">
+
+              <label for="company_password" class=" input-label information-section-element">Password</label>
+              <input id="newPassword" class="modal_profile information-section-element" type="text"
+                placeholder="Password :">
+            </div>
+
+            <hr>
+            <div>
+              <h3>Description</h3>
+              <textarea id="newDescription" type="text" class="information-section-textarea input-modal"
+                required></textarea>
+            </div>
+
             <div class="modal-footer">
-              <button
-                id="cancel-btn"
-                type="button"
-                class="btn modal-button-controller"
-                data-bs-dismiss="modal"
-              >
+              <button id="cancel-btn" type="button" class="btn modal-button-controller" data-bs-dismiss="modal">
                 Cancel
               </button>
-              <button
-                id="submit-btn"
-                type="button"
-                class="btn modal-button-controller"
-              >
+              <button id="profile-submit" type="button" class="btn modal-button-controller" data-bs-dismiss="modal">
                 Submit
               </button>
             </div>
           </div>
         </div>
       </div>
-      <!-- Company Profile -->
-      <div class="mt-5 container" hidden ="hidden" id ="account-profile">
-        <div id ="companyTopSection">
-          <div class="d-flex justify-content-end"><button class="btn" id ="editComanyInfo" data-bs-toggle="modal" data-bs-target="#editCompanyProfile">Edit Profile</button></div>
-          <img  src="" alt="" id="company-img">
+    </div>
+
+    <!--  -->
+    <div class="search-section" hidden="hidden">
+      <div class="search-container">
+        <div class="search-filter d-none d-md-block">
+          <div class="my-filter">
+            <p class="search-filter-heading">My Filter</p>
+            <select class="search-selection-item filter align-self-center" name="by-group-or-capstone"
+              id="by-group-or-capstone">
+              <option value="capstone">Search Capstone</option>
+              <option value="group">Search Group</option>
+              <option value="company">Search Company</option>
+            </select>
+          </div>
+          <input type="text" class="search-selection-item search-input" placeholder="Please Enter Capstone Name" />
+          <select class="search-selection-item search-selection" name="Supervisor" id="supervior-selection"></select>
+          <select class="search-selection-item search-selection" name="Company" id="company-selection"></select>
         </div>
-        
-        <div class="controller-bottom d-flex justify-content-start align-content-center mt-5">
-          <div class="controller-bottom-section me-5 border">Company Overview</div>
-          <div class="controller-bottom-section">Company Basic Informtion</div>
-        </div>
-    
-        <div class="company-info-container">
-          
-        </div>
-      </div>
-      
-      <div class="modal fade" id="editCompanyProfile" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-     aria-labelledby="staticBackdropLabel" aria-hidden="true">
-
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-2 group-form-heading" id="staticBackdropLabel">
-          Edit Company
-        </h1>
-        <br>
-        <button type="button" class="btn-close fs-5 me-1" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="company_detail_container">
-          <label for="company_name" class=" input-label information-section-element">Company Name</label>
-          <input id="newCompanyName" class="modal_profile information-section-element" type="text"
-                 placeholder="Company Name: ">
-
-          <label for="company_contact" class=" input-label information-section-element">Company Contact</label>
-          <input id="newCompanyContact" class="modal_profile information-section-element" type="number"
-                 placeholder="Company Contact : ">
-
-          <label for="company_email" class=" input-label information-section-element">Company Email</label>
-          <input id="newCompanyEmail" class="modal_profile information-section-element" type="text"
-                placeholder="Company Email :">
-          <br>
-
-          <label for="company_manager" class=" input-label information-section-element">Manager</label>
-          <input id="newManager" class="modal_profile information-section-element" type="text"
-                 placeholder="Manager Name : ">
-
-          <label for="company_manager_contact" class=" input-label information-section-element">Manager
-            Contact</label>
-          <input id="newManagerContact" class="modal_profile information-section-element" type="number"
-                 placeholder="Manager Contact : ">
-
-          <label for="company_password" class=" input-label information-section-element">Password</label>
-          <input id="newPassword" class="modal_profile information-section-element" type="text"
-                 placeholder="Password :">
-        </div>
-
-        <hr>
-        <div>
-          <h3>Description</h3>
-          <textarea id = "newDescription" type="text" class="information-section-textarea input-modal" required></textarea>
-        </div>
-
-        <div class="modal-footer">
-          <button id="cancel-btn" type="button" class="btn modal-button-controller" data-bs-dismiss="modal">
-            Cancel
-          </button>
-          <button id="profile-submit" type="button" class="btn modal-button-controller" data-bs-dismiss="modal">
-            Submit
-          </button>
+        <div class="display-result">
+          <div class="display-result-search row"></div>
+          <div aria-label="Page navigation example" class="d-flex justify-content-center pagination-container mt-auto">
+            <ul id="main-pagination" class="pagination"></ul>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
-
-      <!--  -->
-      <div class="search-section" hidden="hidden">
-        <div class="search-container">
-          <div class="search-filter d-none d-md-block">
-            <div class="my-filter">
-              <p class="search-filter-heading">My Filter</p>
-              <select
-                class="search-selection-item filter align-self-center"
-                name="by-group-or-capstone"
-                id="by-group-or-capstone"
-              >
-                <option value="capstone">Search Capstone</option>
-                <option value="group">Search Group</option>
-                <option value="company">Search Company</option>
-              </select>
-            </div>
-            <input
-              type="text"
-              class="search-selection-item search-input"
-              placeholder="Please Enter Capstone Name"
-            />
-            <select
-              class="search-selection-item search-selection"
-              name="Supervisor"
-              id="supervior-selection"
-            ></select>
-            <select
-              class="search-selection-item search-selection"
-              name="Company"
-              id="company-selection"
-            ></select>
+    <div class="group-info-section" hidden="hidden"></div>
+    <div class="modal fade" id="student-capstone-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+      aria-labelledby="student-capstone-modal" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable modal-fullscreen">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-2 group-form-heading" id="student-capstone-modal">
+              Capstone Project Info
+            </h1>
+            <button type="button" class="btn-close fs-5 me-1" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="display-result">
-            <div class="display-result-search row"></div>
-            <div
-              aria-label="Page navigation example"
-              class="d-flex justify-content-center pagination-container mt-auto"
-            >
-              <ul id="main-pagination" class="pagination"></ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="group-info-section" hidden="hidden"></div>
-      <div
-        class="modal fade"
-        id="student-capstone-modal"
-        data-bs-backdrop="static"
-        data-bs-keyboard="false"
-        tabindex="-1"
-        aria-labelledby="student-capstone-modal"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog modal-dialog-scrollable modal-fullscreen">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1
-                class="modal-title fs-2 group-form-heading"
-                id="student-capstone-modal"
-              >
-                Capstone Project Info
-              </h1>
-              <button
-                type="button"
-                class="btn-close fs-5 me-1"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">
-              <div class="container">
-                <div class="container-content">
-                  <div class="container-capstone-detail">
-                    <div class="capstone-detail">
-                      <div class="capstone-header">
-                        <div class="capstone-header-overview">
-                          <div id="company-profile-pic" class="company-logo">
-                            <img
-                              src="images/capstone-info/vng-logo.jpg"
-                              alt="company-logo"
-                            />
-                          </div>
-                          <div class="sub-overview">
-                            <h2 id="capstone-title-h2" class="project-title">
-                              Enterprise Web Development
-                            </h2>
-                            <a id="company-name-a" href="https://vng.com.vn/"
-                              >VNG Corporation</a
-                            >
-                            <div class="sub-overview-container">
-                              <i id="no-students-i" class="bi bi-people-fill"
-                                ><span>4 - 5 members</span></i
-                              >
-                              <i
-                                id="capstone-introduction-i"
-                                class="bi bi-people-fill"
-                                ><span>introduction</span></i
-                              >
-                            </div>
+          <div class="modal-body">
+            <div class="container">
+              <div class="container-content">
+                <div class="container-capstone-detail">
+                  <div class="capstone-detail">
+                    <div class="capstone-header">
+                      <div class="capstone-header-overview">
+                        <div id="company-profile-pic" class="company-logo">
+                          <img src="images/capstone-info/vng-logo.jpg" alt="company-logo" />
+                        </div>
+                        <div class="sub-overview">
+                          <h2 id="capstone-title-h2" class="project-title">
+                            Enterprise Web Development
+                          </h2>
+                          <a id="company-name-a" href="https://vng.com.vn/">VNG Corporation</a>
+                          <div class="sub-overview-container">
+                            <i id="no-students-i" class="bi bi-people-fill"><span>4 - 5 members</span></i>
+                            <i id="capstone-introduction-i" class="bi bi-people-fill"><span>introduction</span></i>
                           </div>
                         </div>
                       </div>
-                      <hr size="3" noshade="" />
-                      <div class="skills-container">
-                        <h3>Academic Background</h3>
-                        <p id="academic-background-h3"></p>
-                        <!-- <ul class="skills-list">
+                    </div>
+                    <hr size="3" noshade="" />
+                    <div class="skills-container">
+                      <h3>Academic Background</h3>
+                      <p id="academic-background-h3"></p>
+                      <!-- <ul class="skills-list">
                               <li><span class="skill">HTML</span></li>
                               <li><span class="skill">CSS</span></li>
                               <li><span class="skill">Bootstrap</span></li>
                               <li><span class="skill">Javascript</span></li>
                               <li><span class="skill">Spring Boot</span></li>
                             </ul> -->
+                    </div>
+                    <div class="capstone-info">
+                      <h2>Capstone Description</h2>
+                      <div class="para info-para">
+                        <p id="capstone-description-p">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit, sed do eiusmod tempor incididunt ut labore et
+                          dolore magna aliqua. Ut enim ad minim veniam, quis
+                          nostrud exercitation ullamco laboris nisi ut aliquip
+                          ex ea commodo consequat. Duis aute irure dolor in
+                          reprehenderit in voluptate velit esse cillum dolore
+                          eu fugiat nulla pariatur. Excepteur sint occaecat
+                          cupidatat non proident, sunt in culpa qui officia
+                          deserunt mollit anim id est laborum.
+                        </p>
                       </div>
-                      <div class="capstone-info">
-                        <h2>Capstone Description</h2>
-                        <div class="para info-para">
-                          <p id="capstone-description-p">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua. Ut enim ad minim veniam, quis
-                            nostrud exercitation ullamco laboris nisi ut aliquip
-                            ex ea commodo consequat. Duis aute irure dolor in
-                            reprehenderit in voluptate velit esse cillum dolore
-                            eu fugiat nulla pariatur. Excepteur sint occaecat
-                            cupidatat non proident, sunt in culpa qui officia
-                            deserunt mollit anim id est laborum.
-                          </p>
-                        </div>
+                    </div>
+                    <div class="capstone-outcome">
+                      <h2>Outcome</h2>
+                      <div class="para outcome-para">
+                        <p id="capstone-outcome-p">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit, sed do eiusmod tempor incididunt ut labore et
+                          dolore magna aliqua. Ut enim ad minim veniam, quis
+                          nostrud exercitation ullamco laboris nisi ut aliquip
+                          ex ea commodo consequat. Duis aute irure dolor in
+                          reprehenderit in voluptate velit esse cillum dolore
+                          eu fugiat nulla pariatur. Excepteur sint occaecat
+                          cupidatat non proident, sunt in culpa qui officia
+                          deserunt mollit anim id est laborum.
+                        </p>
                       </div>
-                      <div class="capstone-outcome">
-                        <h2>Outcome</h2>
-                        <div class="para outcome-para">
-                          <p id="capstone-outcome-p">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua. Ut enim ad minim veniam, quis
-                            nostrud exercitation ullamco laboris nisi ut aliquip
-                            ex ea commodo consequat. Duis aute irure dolor in
-                            reprehenderit in voluptate velit esse cillum dolore
-                            eu fugiat nulla pariatur. Excepteur sint occaecat
-                            cupidatat non proident, sunt in culpa qui officia
-                            deserunt mollit anim id est laborum.
-                          </p>
-                        </div>
+                    </div>
+                    <div class="capstone-requirements">
+                      <h2>Requirements</h2>
+                      <div class="para requirement-para">
+                        <p id="capstone-requirement-p">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit, sed do eiusmod tempor incididunt ut labore et
+                          dolore magna aliqua. Ut enim ad minim veniam, quis
+                          nostrud exercitation ullamco laboris nisi ut aliquip
+                          ex ea commodo consequat. Duis aute irure dolor in
+                          reprehenderit in voluptate velit esse cillum dolore
+                          eu fugiat nulla pariatur. Excepteur sint occaecat
+                          cupidatat non proident, sunt in culpa qui officia
+                          deserunt mollit anim id est laborum.
+                        </p>
                       </div>
-                      <div class="capstone-requirements">
-                        <h2>Requirements</h2>
-                        <div class="para requirement-para">
-                          <p id="capstone-requirement-p">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua. Ut enim ad minim veniam, quis
-                            nostrud exercitation ullamco laboris nisi ut aliquip
-                            ex ea commodo consequat. Duis aute irure dolor in
-                            reprehenderit in voluptate velit esse cillum dolore
-                            eu fugiat nulla pariatur. Excepteur sint occaecat
-                            cupidatat non proident, sunt in culpa qui officia
-                            deserunt mollit anim id est laborum.
-                          </p>
-                        </div>
-                      </div>
-                      <div id="success-criteria" class="capstone-requirements">
-                        <h2>Success Criteria</h2>
-                        <div class="para requirement-para">
-                          <p id="success-criteria-p">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua. Ut enim ad minim veniam, quis
-                            nostrud exercitation ullamco laboris nisi ut aliquip
-                            ex ea commodo consequat. Duis aute irure dolor in
-                            reprehenderit in voluptate velit esse cillum dolore
-                            eu fugiat nulla pariatur. Excepteur sint occaecat
-                            cupidatat non proident, sunt in culpa qui officia
-                            deserunt mollit anim id est laborum.
-                          </p>
-                        </div>
+                    </div>
+                    <div id="success-criteria" class="capstone-requirements">
+                      <h2>Success Criteria</h2>
+                      <div class="para requirement-para">
+                        <p id="success-criteria-p">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit, sed do eiusmod tempor incididunt ut labore et
+                          dolore magna aliqua. Ut enim ad minim veniam, quis
+                          nostrud exercitation ullamco laboris nisi ut aliquip
+                          ex ea commodo consequat. Duis aute irure dolor in
+                          reprehenderit in voluptate velit esse cillum dolore
+                          eu fugiat nulla pariatur. Excepteur sint occaecat
+                          cupidatat non proident, sunt in culpa qui officia
+                          deserunt mollit anim id est laborum.
+                        </p>
                       </div>
                     </div>
                   </div>
-                  <div class="container-supervisor-detail">
-                    <div class="supervisor-overview-container">
-                      <a href="#"><h3>Supervisor</h3></a>
-                      <i id="supervisor-name" class="bi bi-person-fill"
-                        ><span>Supervisor: Thanh Nguyen Ngoc</span></i
-                      >
-                      <i id="supervisor-mail" class="bi bi-envelope-fill"
-                        ><span>Email: thanhnguyen@rmit.edu.vn</span></i
-                      >
-                      <i id="group-number" class="bi bi-people-fill"
-                        ><span>Group: 1</span></i
-                      >
-                    </div>
-                    <div class="supervisor-overview-container">
-                      <a href="#"><h3>Applied Group</h3></a>
-                      <div id="group-modal-container"></div>
-                    </div>
+                </div>
+                <div class="container-supervisor-detail">
+                  <div class="supervisor-overview-container">
+                    <a href="#">
+                      <h3>Supervisor</h3>
+                    </a>
+                    <i id="supervisor-name" class="bi bi-person-fill"><span>Supervisor: Thanh Nguyen Ngoc</span></i>
+                    <i id="supervisor-mail" class="bi bi-envelope-fill"><span>Email: thanhnguyen@rmit.edu.vn</span></i>
+                    <i id="group-number" class="bi bi-people-fill"><span>Group: 1</span></i>
+                  </div>
+                  <div class="supervisor-overview-container">
+                    <a href="#">
+                      <h3>Applied Group</h3>
+                    </a>
+                    <div id="group-modal-container"></div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="modal-footer">
-              <button
-                id="cancel-btn"
-                type="button"
-                class="btn modal-button-controller"
-                data-bs-dismiss="modal"
-              >
-                Cancel
-              </button>
-            </div>
+          </div>
+          <div class="modal-footer">
+            <button id="cancel-btn" type="button" class="btn modal-button-controller" data-bs-dismiss="modal">
+              Cancel
+            </button>
           </div>
         </div>
       </div>
-      <div
-        class="modal fade"
-        id="loading-modal"
-        data-bs-backdrop="static"
-        data-bs-keyboard="false"
-        tabindex="-1"
-        aria-labelledby="loading-modal"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h2 class="modal-title" id="loading-modal">Loading</h2>
-              <button
-                type="button"
-                class="btn-close fs-3"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">
-              <div class="loading-spinner"></div>
-            </div>
-            <div class="modal-footer"></div>
+    </div>
+    <div class="modal fade" id="loading-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+      aria-labelledby="loading-modal" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title" id="loading-modal">Loading</h2>
+            <button type="button" class="btn-close fs-3" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="loading-spinner"></div>
+          </div>
+          <div class="modal-footer"></div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="alert-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-2" id="exampleModalLabel">
+              Announcement
+            </h1>
+            <button type="button" class="btn-close fs-3" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn" data-bs-dismiss="modal">
+              Close
+            </button>
           </div>
         </div>
       </div>
-      <div
-        class="modal fade"
-        id="alert-modal"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-2" id="exampleModalLabel">
-                Announcement
-              </h1>
-              <button
-                type="button"
-                class="btn-close fs-3"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body"></div>
-            <div class="modal-footer">
-              <button type="button" class="btn" data-bs-dismiss="modal">
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </main>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="script/UiUtils.js"></script>
-    <script src="script/main-page.js"></script>
-    <script src="script/create-capstone.js"></script>
-    <script src="script/company-main-page.js"></script>
-    <script src="script/edit-company-profile.js"></script>
-  </body>
+    </div>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script/UiUtils.js"></script>
+  <script src="script/main-page.js"></script>
+  <script src="script/create-capstone.js"></script>
+  <script src="script/company-main-page.js"></script>
+  <script src="script/edit-company-profile.js"></script>
+</body>
+
 </html>
