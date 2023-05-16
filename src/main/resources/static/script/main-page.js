@@ -2,6 +2,7 @@ const headerSelect = document.querySelectorAll('.nav-header-item');
 const dashboardView = document.querySelector('.dashboard-view');
 const capstoneInfoSection = document.querySelector('.nav-header-item');
 const capstoneSearchSection = document.querySelector('.search-section');
+const peopleSearchSection = document.querySelector('.people-section');
 const headerLogo = document.querySelector('.navbar-brand');
 const disSection = document.querySelector('.display-section');
 const displayResult = document.querySelector('.display-result-search');
@@ -104,6 +105,9 @@ function setVisibiltySearchPage(target) {
     if (user.role === 'student') {
       groupInfoContainer.setAttribute('hidden', 'hidden');
     }
+    if(getUser().role === 'admin'){
+      peopleSearchSection.setAttribute('hidden', 'hidden');
+    }
     capstoneSearchSection.removeAttribute('hidden');
   } else if (target.textContent === 'Dashboard') {
     if(getUser().role !== 'admin'){
@@ -118,6 +122,9 @@ function setVisibiltySearchPage(target) {
     } else if (user.role === 'supevisor') {
       disSection.textContent = 'Supervised Capstone List';
     }
+    if(getUser().role === 'admin'){
+      peopleSearchSection.setAttribute('hidden', 'hidden');
+    }
     capstoneSearchSection.setAttribute('hidden', 'hidden');
     if (user.role === 'student') {
       groupInfoContainer.setAttribute('hidden', 'hidden');
@@ -129,7 +136,15 @@ function setVisibiltySearchPage(target) {
     capstoneSearchSection.setAttribute('hidden', 'hidden');
     dashboardView.setAttribute('hidden', 'hidden');
     groupInfoContainer.removeAttribute('hidden');
+  }else if(target.textContent === 'People'){
+    disSection.textContent = 'People';
+    dashboardView.setAttribute('hidden', 'hidden');
+    capstoneSearchSection.setAttribute('hidden', 'hidden');
+    peopleSearchSection.removeAttribute('hidden');
+    
   }
+
+
 }
 
 async function getCapstoneList(

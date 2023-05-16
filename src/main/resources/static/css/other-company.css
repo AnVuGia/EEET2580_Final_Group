@@ -8,7 +8,7 @@ input[type="radio"]+label {
     padding: 0.8rem;
     background-color: #ccc;
     column-rule: #999;
-  
+
     cursor: pointer;
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
@@ -18,7 +18,8 @@ input[type="radio"]:checked+label {
     background: #aaa;
     columns: #000;
 }
-.tab{
+
+.tab {
     font-size: 1rem;
     font-weight: 700;
     text-align: center;
@@ -38,7 +39,8 @@ input[type="radio"]:checked+label {
     width: 100%;
     font-size: 1.5rem;
 }
-.company_detail_ul{
+
+.company_detail_ul {
     list-style: none;
 }
 
@@ -78,6 +80,7 @@ input[id="tab02"]:checked~.con2 {
 }
 
 .CompanyProfile {
+    border: 2px solid black;
     position: absolute;
     width: 100%;
     height: auto;
@@ -86,12 +89,11 @@ input[id="tab02"]:checked~.con2 {
     top: 8%;
     left: 0;
     right: 0;
-    padding-top:5% ;
+    padding-top: 2%;
     padding-bottom: 3%;
-    
 }
 
-.con2{
+.con2 {
     height: 50%;
     padding-bottom: 3%;
     padding-left: 3%;
@@ -99,8 +101,9 @@ input[id="tab02"]:checked~.con2 {
     padding-top: 3%;
 
 }
-.con1{
-    
+
+.con1 {
+
     padding-bottom: 3%;
     padding-left: 5%;
     padding-right: 5%;
@@ -109,6 +112,7 @@ input[id="tab02"]:checked~.con2 {
 #StcloseBTN {
     float: right;
     margin-right: 2rem;
+    margin-top: 1rem;
 }
 
 
@@ -122,10 +126,16 @@ input[id="tab02"]:checked~.con2 {
     }
 
     .CompanyProfile {
-        position: relative;
+
+        position: absolute;
+        width: 100%;
         height: auto;
+        background-color: var(--text-color);
+        z-index: 1;
         top: 5%;
-        padding-top:3% ;
+        left: 0;
+        right: 0;
+        padding-top: 3%;
         padding-bottom: 3%;
     }
 
@@ -136,13 +146,19 @@ input[id="tab02"]:checked~.con2 {
         margin-right: auto;
     }
 }
-.CompanyULP2{
+
+.CompanyULP2 {
     margin-top: 2rem;
     font-weight: 700;
 }
-.CompanyULP1{
+
+.CompanyULP1 {
     font-weight: 700;
 }
-#companyDescription{
+
+#companyDescription {
     font-weight: 700;
+}
+#CPcloseBTN{
+    margin-right: 2rem;
 }

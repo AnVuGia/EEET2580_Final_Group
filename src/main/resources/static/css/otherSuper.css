@@ -1,0 +1,16 @@
+.supervisorContainer{
+    position: absolute;
+    width: 80%;
+    height: auto;
+    background-color: var(--text-color);
+    z-index: 1;
+    top: 8%;
+    left: 0;
+    right: 0;
+    padding-top: 1%;
+    border: 2px solid black;
+}
+#SPcloseBTN{
+    float: right;
+    margin-right: 2rem;
+}
