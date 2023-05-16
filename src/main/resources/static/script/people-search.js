@@ -180,7 +180,7 @@ function CreateGroupList(DummyGroup) {
         button.setAttribute('data-bs-toggle', 'dropdown');
         button.setAttribute('aria-expanded', 'false');
         button.setAttribute('id', "StudentInGroup");
-        button.innerText = "Group " + DummyGroup[i].id;
+        button.innerText =  DummyGroup[i].groupName;
 
         const ul = document.createElement("ul");
         ul.className = "dropdown-menu";
