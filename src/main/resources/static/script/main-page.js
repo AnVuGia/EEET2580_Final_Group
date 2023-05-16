@@ -106,7 +106,9 @@ function setVisibiltySearchPage(target) {
     }
     capstoneSearchSection.removeAttribute('hidden');
   } else if (target.textContent === 'Dashboard') {
-    accountProfileSection.setAttribute('hidden', 'hidden');
+    if(getUser().role !== 'admin'){
+      accountProfileSection.setAttribute('hidden', 'hidden');
+    }
     if (user.role === 'admin') {
       disSection.textContent = 'Request Capstone List';
     } else if (user.role === 'company') {
