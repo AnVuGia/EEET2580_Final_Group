@@ -1,0 +1,148 @@
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"]+label {
+    width: 15rem;
+    display: inline-block;
+    padding: 0.8rem;
+    background-color: #ccc;
+    column-rule: #999;
+  
+    cursor: pointer;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+}
+
+input[type="radio"]:checked+label {
+    background: #aaa;
+    columns: #000;
+}
+.tab{
+    font-size: 1rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.conbox {
+    width: 100%;
+    height: auto;
+    background: #aaa;
+    margin: 0px 0px;
+    display: none;
+}
+
+.tab_content {
+    margin-top: 3rem;
+    height: auto;
+    width: 100%;
+    font-size: 1.5rem;
+}
+.company_detail_ul{
+    list-style: none;
+}
+
+
+input[id="tab01"]:checked~.con1 {
+    display: block;
+}
+
+input[id="tab02"]:checked~.con2 {
+    display: block;
+}
+
+#ComCon {
+    margin-top: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+.ColseBar {
+    margin-bottom: 3rem;
+}
+
+#company-img {
+    width: 80%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#companyTopSection {
+    display: block;
+    margin-top: 0px;
+    width: 100%;
+    height: 50vh;
+    text-align: center;
+    align-items: center;
+}
+
+.CompanyProfile {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    background-color: var(--text-color);
+    z-index: 1;
+    top: 8%;
+    left: 0;
+    right: 0;
+    padding-top:5% ;
+    padding-bottom: 3%;
+    
+}
+
+.con2{
+    height: 50%;
+    padding-bottom: 3%;
+    padding-left: 3%;
+    padding-right: 5%;
+    padding-top: 3%;
+
+}
+.con1{
+    
+    padding-bottom: 3%;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+#StcloseBTN {
+    float: right;
+    margin-right: 2rem;
+}
+
+
+@media (max-width: 900px) {
+    #company-img {
+        width: 100%;
+    }
+
+    #companyTopSection {
+        height: auto;
+    }
+
+    .CompanyProfile {
+        position: relative;
+        height: auto;
+        top: 5%;
+        padding-top:3% ;
+        padding-bottom: 3%;
+    }
+
+    #company-img {
+        width: 80%;
+        height: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+.CompanyULP2{
+    margin-top: 2rem;
+    font-weight: 700;
+}
+.CompanyULP1{
+    font-weight: 700;
+}
+#companyDescription{
+    font-weight: 700;
+}

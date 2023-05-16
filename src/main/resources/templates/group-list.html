@@ -7,6 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/style_group.css">
+    <link rel="stylesheet" href="/css/style_profile.css" />
+    <link rel="stylesheet" href="/css/other-company.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap"
+        rel="stylesheet" />
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -26,75 +34,316 @@
                 <ul class="nav-header-list">
                     <li class="nav-header-item">Dashboard</li>
                     <li class="nav-header-item">Search</li>
-                    <li class="nav-header-item">Group Info</li>
                 </ul>
             </div>
             <img src="" alt="" class="profile-image">
         </div>
 
-        <div class="capstone-project-info">
-            <div class="capstone-panel">
-                <div class="capstone-pannel-in">Group Search</div>
-            </div>
-            <div class="separator"></div>
-        </div>
-        <div class="GroupSearchContainer col-md-12  col-sm-12">
-            <input id="SearchGroupInput" class="SearchInput" type="text" placeholder="Search Groups or People">
-            <button id="SearchBtn" type="button" class="btn btn-secondary" data-bs-toggle="modal"
-                data-bs-target="#exampleModal">Search</button>
-        </div>
-        <div class="GroupLists col-md-12 col-sm-12">
-            <ul id="bigList" class="list-group">
-                <div class="loading-spinner"></div>
-                <!-- 
-                <div class="btn-group">
-                    <button type="button" class="btn btn-primary dropdown-toggle list-group-item"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        Group 2
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">Separated link</a></li>
-                    </ul>
-                </div> -->
-            </ul>
-
-        </div>
-
-        <div id="exampleModal" class="modal" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Result</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="SearchContainer">
+            <div class="SearchBodyContainer">
+                <div class="capstone-project-info">
+                    <div class="capstone-panel">
+                        <div class="capstone-pannel-in">People</div>
                     </div>
-                    <div id="modalBody" class="modal-body">
-                        <div id="SearchResult" class="row">
-                            <div id="ResultHeader" class="col-md-11">
-                                <h5></h5>
-                            </div>
-
-                            <div id="ResultGroupMember" class="col-md-11">
-                                <ul id="ResultGroupMemberUL" class="list-group">
-
+                    <div class="separator"></div>
+                </div>
+                <div id="PeopleSelectorCon" class="col-md-12  col-sm-12">
+                    <select id="peopleSelector">
+                        <option value="Student" selected> Student </option>
+                        <option value="Company"> Company </option>
+                        <option value="Group"> Group </option>
+                    </select>
+                </div>
+                <!-- Search Group -->
+                <div id="seaarchByGroup" hidden="hidden">
+                    <div class="GroupSearchContainer col-md-12  col-sm-12">
+                        <input id="SearchGroupInput" class="SearchInput" type="text" placeholder="Search Groups">
+                        <button id="SearchBtn" type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                            data-bs-target="#exampleModalGroup">Search</button>
+                    </div>
+                    <div class="GroupLists col-md-12 col-sm-12">
+                        <ul id="bigList" class="list-group">
+                            <div class="loading-spinner"></div>
+                            <!-- 
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-primary dropdown-toggle list-group-item"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Group 2
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Action</a></li>
+                                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li><a class="dropdown-item" href="#">Separated link</a></li>
                                 </ul>
+                            </div> -->
+                        </ul>
+                    </div>
+
+                    <div id="exampleModalGroup" class="modal" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Result</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div id="modalBody" class="modal-body">
+                                    <div id="SearchResult" class="row">
+                                        <div id="ResultHeader" class="col-md-11">
+                                            <h5></h5>
+                                        </div>
+
+                                        <div id="ResultGroupMember" class="col-md-11">
+                                            <ul id="ResultGroupMemberUL" class="list-group">
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Search Company -->
+                <div id="SearchByCompany" hidden="hidden">
+                    <div class="SearchBodyContainer">
+                        <div class="GroupSearchContainer col-md-12  col-sm-12">
+                            <input id="SearchCompanyInput" class="SearchInput" type="text" placeholder="Search Company">
+                            <button id="CompanySearchBtn" type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                data-bs-target="#exampleModalCompany">Search</button>
+                        </div>
+                        <div class="GroupLists col-md-12 col-sm-12">
+                            <ul id="CompanybigList" class="company-list-group">
+                                <div id="companyLoading" class="loading-spinner"></div>
+
+                            </ul>
 
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 
+                        <div id="exampleModalCompany" class="modal" tabindex="-1">
+
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Result</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div id="modalBody" class="modal-body">
+                                        <div id="SearchResult" class="row">
+                                            <div id="ResultHeader" class="col-md-11">
+                                                <h5></h5>
+                                            </div>
+
+                                            <div id="ResultGroupMember" class="col-md-11">
+                                                <ul id="ResultCompanyUL" class="list-group">
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Search Student -->
+                <div id="SearchByStudent">
+                    <div class="SearchBodyContainer">
+                        <div class="GroupSearchContainer col-md-12  col-sm-12">
+                            <input id="SearchStudentInput" class="SearchInput" type="text"
+                                placeholder="Search Student Name">
+                            <button id="StudentSearchBtn" type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                data-bs-target="#exampleModalStudent">Search</button>
+                        </div>
+                        <div class="GroupLists col-md-12 col-sm-12">
+                            <ul id="StudentbigList" class="company-list-group">
+                                <div id="StudentLoading" class="loading-spinner"></div>
+                            </ul>
+                        </div>
+
+                        <div id="exampleModalStudent" class="modal" tabindex="-1">
+
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Result</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div id="modalBody" class="modal-body">
+                                        <div id="SearchResult" class="row">
+                                            <div id="ResultHeader" class="col-md-11">
+                                                <h5></h5>
+                                            </div>
+
+                                            <div id="ResultGroupMember" class="col-md-11">
+                                                <ul id="ResultStudentUL" class="list-group">
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Student Profile -->
+            <div id="account-profile" class="container py-4" hidden="hidden">
+                <div class="ColseBar">
+                    <button id="StcloseBTN" type="button" class="btn-close"></button>
+                </div>
+                <header class="pb-3 mb-4 border-bottom">
+                    <svg width="40" height="32" class="me-2" viewBox="0 0 118 94" role="img"></svg>
+                </header>
+
+                <div class="p-5 mb-4 bg-light rounded-3">
+                    <div class="profile-header">
+                        <h2 class="display-5 fw-bold">Profile</h2>
+                    </div>
+                    <div id="container" class="row align-items-md-stretch">
+                        <div class="col-md-4">
+                            <div class="d-flex justify-content-center">
+                                <img id="profile_img"
+                                    src="https://cdnweb01.wikitree.co.kr/webdata/editor/202203/30/img_20220330160332_5b5ab5c0.webp"
+                                    alt="" />
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <ul id="about-me">
+                                <li class="profile_li">
+                                    <label>Name: &nbsp;</label>
+                                    <div id="profile_name"></div>
+                                </li>
+                                <li class="profile_li">
+                                    <label>Major: &nbsp;</label>
+                                    <div id="profile_major"></div>
+                                </li>
+                                <li class="profile_li">
+                                    <label>Contact: &nbsp;</label>
+                                    <div id="profile_contact"></div>
+                                </li>
+                                <li class="profile_li">
+                                    <label>Email: &nbsp;</label>
+                                    <div id="profile_email"></div>
+                                </li>
+                                <li class="profile_li">
+                                    <label>Group:</label>
+                                    <div id="profile_group" href=""></div>
+                                </li>
+                                <li class="capstone_li">
+                                    <label>Capstone project:</label>
+                                    <div id="profile_capstoneinfo" href="">
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row align-items-md-stretch">
+                    <div class="col-md-6">
+                        <div class="h-100 p-5 text-bg-dark rounded-3">
+                            <h2>Capabilities</h2>
+                            <ul id="capability"></ul>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="h-100 p-5 bg-light border rounded-3">
+                            <h2>Bib</h2>
+                            <p id="Bib">
+                                Hello, my name is [Your Name], it's a pleasure to meet you! Hi
+                                there, I'm [Your Name]. I'm excited to get to know you better.
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- Company Profile -->
 
+
+            <div id="CompanyProfile" class="container CompanyProfile col-lg-10 col-md-10 col-sm-10" hidden="hidden">
+                <div class="ColseBar">
+                    <button id="CPcloseBTN" type="button" class="btn-close"></button>
+                </div>
+                <h5 id="ComapnyName"></h5>
+                <hr>
+                <div id="companyTopSection">
+                    <div></div>
+                    <img src="" alt="" id="company-img">
+                </div>
+                <div class="row">
+                    <div id="ComCon" class="col-lg-10 col-md-10 col-sm-10">
+                        <div class="tab_content">
+                            <input type="radio" name="tabmenu" id="tab01" checked>
+                            <label class="tab" for="tab01">Company Description</label>
+                            <input type="radio" name="tabmenu" id="tab02">
+                            <label class="tab" for="tab02">Company Detail</label>
+                            <div class="conbox con1">
+                                <br>
+                                <div id="companyDescription">
+                                    Description :<br>
+                                      <spand id="CPdesc"></spand>
+                                </div>
+                            </div>
+                            <div class="conbox con2">
+                                <ul class="company_detail_ul">
+                                    <p class="CompanyULP1">Company Information</p>
+
+                                    <li id="companyName" class><label class="company_detail_label">Company Name :&nbsp;
+                                        </label>
+                                        <spand id="CPname"></spand>
+                                    </li>
+                                    <li id="companyEmail"><label class="company_detail_label">Company Email :
+                                            &nbsp;</label>
+                                        <spand id="CPemail"></spand>
+                                    </li>
+                                    <li id="companyContact"> <label class="company_detail_label">Company Contact :
+                                            &nbsp;</label>
+                                        <spand id="CPcontact"></spand>
+                                    </li>
+
+                                    <p class="CompanyULP2">Manager Information </p>
+
+                                    <li id="companySupervisor"> <label class="company_detail_label">
+                                            Manager: &nbsp;
+                                        </label>
+                                        <spand id="Manager"></spand>
+                                    </li>
+                                    <li id="companySupervisorContact"> <label class="company_detail_label">
+                                            Manager Contact: &nbsp;</label>
+                                        <spand id="ManagerContact">
+                                        </spand>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
     </main>
 
 </body>
@@ -102,11 +351,62 @@
 </html>
 
 <script>
-    const SearchBtn = document.getElementById('SearchBtn');
+
+
     const groupList = document.querySelector('#bigList');
     const Spinner = createSpinningAnimation();
     const SpinnerContainer = document.querySelector('.loading-spinner');
-    let DummyGroup = [];
+    const SpinnerContainer2 = document.getElementById('companyLoading');
+    const SpinnerContainer3 = document.getElementById('StudentLoading');
+    const StudentDiv = document.getElementById('account-profile');
+    const SearchDiv = document.querySelector('.SearchBodyContainer');
+    const StCloseBtn = document.getElementById('StcloseBTN');
+    const CPCloseBtn = document.getElementById('CPcloseBTN');
+    const StudentName = document.getElementById('profile_name');
+    const StudentMajor = document.getElementById('profile_major');
+    const StduentContact = document.getElementById('profile_contact');
+    const StudentEmail = document.getElementById('profile_email');
+    const StudentGroup = document.getElementById('profile_group');
+    const StudentCompany = document.getElementById('profile_company');
+    const StudentCapstone = document.getElementById('profile_capstoneinfo');
+    // const StudentSkill;
+    const StduentBib = document.getElementById('Bib');
+    // const StudentImg;
+    const GroupContainer = document.getElementById('seaarchByGroup');
+    const CompanyContainer = document.getElementById('SearchByCompany');
+    const StudentContainer = document.getElementById('SearchByStudent');
+    const selecetor = document.getElementById('peopleSelector');
+    const CompanyDiv = document.getElementById('CompanyProfile');
+
+    selecetor.addEventListener("change", onFiltered);
+
+    function onFiltered() {
+        if (selecetor.value == "Student") {
+            CompanyContainer.setAttribute('hidden', 'hidden');
+            GroupContainer.setAttribute('hidden', 'hidden');
+            StudentContainer.removeAttribute('hidden');
+        } else if (selecetor.value == "Company") {
+            StudentContainer.setAttribute('hidden', 'hidden');
+            GroupContainer.setAttribute('hidden', 'hidden');
+            CompanyContainer.removeAttribute('hidden');
+
+        } else if (selecetor.value == "Group") {
+            CompanyContainer.setAttribute('hidden', 'hidden');
+            StudentContainer.setAttribute('hidden', 'hidden');
+            GroupContainer.removeAttribute('hidden');
+
+        }
+    }
+    CPCloseBtn.addEventListener('click',() =>{
+        CompanyDiv.setAttribute('hidden', 'hidden');
+    })
+
+    StCloseBtn.addEventListener('click', () => {
+        SearchDiv.removeAttribute('hidden');
+        StudentDiv.setAttribute('hidden', 'hidden');
+
+    })
+
     GetAllgroup();
     createSpinningAnimation()
     function createSpinningAnimation() {
@@ -125,6 +425,86 @@
         }
         CreateGroupList(DummyGroup);
     }
+
+    function updateLoadingModal(msg, modal) {
+        const modalBody = modal.querySelector('.modal-body');
+        modalBody.innerHTML = `
+  <div
+                class="alert alert-info d-flex align-items-center"
+                role="alert"
+              >
+                <i style="margin-right: 10px" class="fas fa-sync-alt fa-spin fs-3"></i>
+                <div style="font-size: 1.6rem" class="loading-modal">
+                  ${msg}
+                </div>
+              </div>
+  `;
+        const modalFooter = modal.querySelector('.modal-footer');
+        modalFooter.innerHTML = `
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Cancel
+              </button>
+  `;
+        const newModal = new bootstrap.Modal(modal);
+        newModal.show();
+    }
+    function OpenStudent(GroupName, StudentName) {
+        return function () {
+            findStudent(GroupName, StudentName);
+            SearchDiv.setAttribute('hidden', 'hidden');
+            StudentDiv.removeAttribute('hidden');
+        };
+    }
+
+    async function findStudent(GroupName, SStudentName) {
+
+        let DummyStudent;
+        let FoundStudent;
+        const StudentProfileEndPoint = "http://localhost:8000/api/account/students";
+        const response = await fetch(StudentProfileEndPoint, {
+            method: 'Get',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        await response.json().then((data) => {
+            DummyStudent = data;
+        });
+
+        console.log("dummy", DummyStudent);
+        console.log("length", DummyStudent.length);
+        for (let i = 0; i < DummyStudent.length; i++) {
+            if (DummyStudent[i].name == SStudentName) {
+                StudentName.innerHTML = DummyStudent[i].name;
+                StudentMajor.innerHTML = DummyStudent[i].major;
+                StduentContact.innerHTML = DummyStudent[i].contact;
+                StudentEmail.innerHTML = DummyStudent[i].email;
+                StduentBib.innerHTML = DummyStudent[i].bib;
+                console.log(DummyStudent[i].skills.length);
+                console.log(DummyStudent[i]);
+                const SkillUL = document.getElementById('capability');
+                SkillUL.innerHTML = '';
+                for (let j = 0; j < DummyStudent[i].skills.length; j++) {
+
+                    const li = document.createElement('li');
+                    li.className = 'profile_li';
+                    li.textContent = DummyStudent[i].skills[j];
+                    console.log(DummyStudent[i].skills[j]);
+                    SkillUL.appendChild(li);
+                }
+            }
+        }
+        console.log("Done");
+    }
+
+    let DummyGroup = [];
+    let DummyCompany = [];
+    let DummyStudent = [];
+
     function CreateGroupList(DummyGroup) {
 
         console.log(DummyGroup);
@@ -137,6 +517,7 @@
             button.className = 'btn btn-primary dropdown-toggle list-group-item';
             button.setAttribute('data-bs-toggle', 'dropdown');
             button.setAttribute('aria-expanded', 'false');
+            button.setAttribute('id', "StudentInGroup");
             button.innerText = "Group " + DummyGroup[i].id;
 
             const ul = document.createElement("ul");
@@ -148,8 +529,11 @@
 
             for (let j = 0; j < DummyGroup[i].studentList.length; j++) {
                 const li = document.createElement("li");
+                const StudentNameButton = document.createElement("button");
                 li.className = 'dropdown-item';
+                li.setAttribute('id', "StudentNameInGroup");
                 li.innerText = "Student " + [j + 1] + " : " + DummyGroup[i].studentList[j].name;
+                li.addEventListener('click', OpenStudent(DummyGroup[i], DummyGroup[i].studentList[j].name));
                 ul.appendChild(li);
             }
             if (DummyGroup[i].capstone != null) {
@@ -168,35 +552,167 @@
         groupList.removeChild(SpinnerContainer);
     }
 
-    SearchBtn.addEventListener('click', () => {
-        const modalUl = document.querySelector('#ResultGroupMemberUL');
-        const ModalLi = modalUl.getElementsByTagName('li');
-        for (let k = ModalLi.length - 1; k >= 0; k--) {
-            modalUl.removeChild(ModalLi[k]);
-        }
-        const SearchGroupInput = document.getElementById('SearchGroupInput');
-        let searchGroup = SearchGroupInput.value;
-        let cnt = 0;
-        let Button;
-        if (searchGroup !== "") {
-            let buttons = document.querySelectorAll(".dropdown-toggle");
-            for (let i = 0; i < buttons.length; i++) {
-                console.log(buttons[i].textContent.trim());
-                console.log(searchGroup);
-                if (buttons[i].textContent.trim() === searchGroup) {
-                    cnt = 1;
-                    break;
-                }
-                let lis = buttons[i].nextElementSibling.querySelectorAll("li");
+    getAllCompany();
+    async function getAllCompany() {
+        const ComEndPoint = "http://localhost:8000/api/account/companies";
 
-            }
-            if (cnt == 1) {
-                writeModalByID(searchGroup);
-            } else {
-                const ModalBodyHeader = document.querySelector("#ResultHeader h5");
-                ModalBodyHeader.innerHTML = "Sorry there is no " + searchGroup;
-            }
+        const response = await fetch(ComEndPoint);
+        console.log(response);
+        result = await response.json();
+        for (let i = 0; i < result.length; i++) {
+            DummyCompany.push(result[i]);
+
         }
+        console.log("Dummy", DummyCompany[0]);
+        CreateCompanyList(DummyCompany);
+    }
+
+
+    function CreateCompanyList(DummyCompany){
+
+        console.log("COMPANYLIST");
+        const CompanyGroupUL = document.getElementById('CompanybigList');
+        console.log(DummyCompany);
+        for (let i = 0; i < DummyCompany.length; i++) {
+            const Companyli = document.createElement("li");
+            Companyli.className = 'list-group-item';
+            Companyli.setAttribute('id', "CompanyLi");
+            Companyli.innerHTML = DummyCompany[i].name;
+            Companyli.addEventListener('click', ShowCompany.bind(null, DummyCompany[i].id));
+
+            CompanyGroupUL.appendChild(Companyli);
+        }
+        console.log("REMOVE SPINNER")
+        CompanyGroupUL.removeChild(SpinnerContainer2);
+    }
+
+    async function ShowCompany(id){
+        const end3 ="http://localhost:8000/api/account/company/"+id;
+        const response = await fetch(end3);
+        result = await response.json();
+        const CPname = document.getElementById('CPname');
+        const CPemail = document.getElementById('CPemail');
+        const CPcontact = document.getElementById('CPcontact');
+        const CPmanager = document.getElementById('Manager');
+        const CPmanagerContact = document.getElementById('ManagerContact');
+        const CPdesc = document.getElementById('CPdesc');
+
+        CPname.innerHTML = result.name ? result.name :"N/A";
+        CPemail.innerHTML = result.email ?result.email:"N/A";
+        CPcontact.innerHTML = result.contact? result.contact :"N/A";
+        CPmanager.innerHTML = result.manager?result.manager:"N/A";
+        CPmanagerContact.innerHTML = result.manager_contact ? result.manager_contact:"N/A";
+        CPdesc.innerHTML = result.companyDescription ? result.companyDescription : "N/A";
+        CompanyDiv.removeAttribute('hidden');
+      
+
+    }
+
+
+    getAllStudent();
+    async function getAllStudent() {
+        const StuEndPoint = "http://localhost:8000/api/account/students";
+
+        const response = await fetch(StuEndPoint);
+        console.log(response);
+        result = await response.json();
+        for (let i = 0; i < result.length; i++) {
+            DummyStudent.push(result[i]);
+        }
+        CreateStudentList(DummyStudent);
+        console.log("DummyStudent", DummyStudent);
+    }
+
+    function CreateStudentList(DummyStudent) {
+        console.log("COMPANYLIST");
+        const StuGroupUL = document.getElementById('StudentbigList');
+        console.log(DummyStudent);
+        for (let i = 0; i < DummyStudent.length; i++) {
+            const Studentli = document.createElement("li");
+            Studentli.className = 'list-group-item';
+            Studentli.setAttribute('id', "Studentli");
+            Studentli.addEventListener('click', ShowStudent.bind(null, DummyStudent[i].id));
+            let StName = DummyStudent[i].name;
+            if (StName == null) {
+                StName = "N/A";
+            }
+            Studentli.innerHTML = StName;
+            StuGroupUL.appendChild(Studentli);
+        }
+        console.log("REMOVE SPINNER")
+        StuGroupUL.removeChild(SpinnerContainer3);
+    }
+
+    async function ShowStudent(id) {
+        const endpoint1 = "http://localhost:8000/api/account/student/id/" + id;
+        const response = await fetch(endpoint1);
+        result = await response.json();
+        StudentName.innerHTML = result.name ? result.name : "N/A";
+        StudentMajor.innerHTML = result.major ? result.major : "N/A";
+        StduentContact.innerHTML = result.contact ? result.contact:"N/A";
+        StudentEmail.innerHTML = result.email ? result.email:"N/A";
+        StduentBib.innerHTML = result.bib ? result.bib:"N/A";
+        const SkillUL = document.getElementById('capability');
+        SkillUL.innerHTML = '';
+        if (result.skills.length > 0) {
+            console.log("if",result.skills.length);
+            for (let j = 0; j < result.skills.length; j++) {
+                const li = document.createElement('li');
+                li.className = 'profile_li';
+                li.textContent = result.skills[j];
+                SkillUL.appendChild(li);
+            }
+        } else {
+            console.log("else",result.skills.length);
+            const li = document.createElement('li');
+            li.className = 'profile_li';
+            li.textContent = "N/A";
+            SkillUL.appendChild(li);
+        }
+        StudentDiv.removeAttribute('hidden');
+    }
+
+
+    // search button and function
+
+    // group search
+    const SearchBtn = document.getElementById('SearchBtn');
+    SearchBtn.addEventListener('click', () => {
+        const SearchGroupInput = document.getElementById('SearchGroupInput');
+
+        if (SearchGroupInput.value.length > 0) {
+            const modalUl = document.querySelector('#ResultGroupMemberUL');
+            const ModalLi = modalUl.getElementsByTagName('li');
+            for (let k = ModalLi.length - 1; k >= 0; k--) {
+                modalUl.removeChild(ModalLi[k]);
+            }
+            let searchGroup = SearchGroupInput.value;
+            let cnt = 0;
+            let Button;
+            if (searchGroup !== "") {
+                let buttons = document.querySelectorAll(".dropdown-toggle");
+                for (let i = 0; i < buttons.length; i++) {
+                    console.log(buttons[i].textContent.trim());
+                    console.log(searchGroup);
+                    if (buttons[i].textContent.trim().toLowerCase() === searchGroup.toLowerCase()) {
+                        cnt = 1;
+                        break;
+                    }
+                    let lis = buttons[i].nextElementSibling.querySelectorAll("li");
+
+                }
+                if (cnt == 1) {
+                    writeModalByID(searchGroup);
+                } else {
+                    const ModalBodyHeader = document.querySelector("#ResultHeader h5");
+                    ModalBodyHeader.innerHTML = "Sorry there is no " + searchGroup;
+                }
+            }
+
+        } else {
+            console.log("MUST STH IN INPUT");
+        }
+
     })
 
 
@@ -205,13 +721,11 @@
         const ModalBodyHeader = document.querySelector("#ResultHeader h5");
 
         for (let i = 0; i < buttons.length; i++) {
-            if (buttons[i].textContent.trim() === searchGroup) {
+            if (buttons[i].textContent.trim().toLowerCase() === searchGroup.toLowerCase()) {
                 ModalBodyHeader.innerHTML = buttons[i].textContent;
                 let lis = buttons[i].nextElementSibling.querySelectorAll("li");
                 const modalUl = document.querySelector('#ResultGroupMemberUL');
                 const ModalLi = modalUl.getElementsByTagName('li');
-
-
 
                 for (let j = 0; j < lis.length; j++) {
                     console.log(lis[j].textContent);
@@ -224,6 +738,88 @@
             }
         }
     }
+    //STUDENT SEARCH
+    const StudentSearchBtn = document.getElementById('StudentSearchBtn');
+    const SearchStudentInput = document.getElementById('SearchStudentInput');
+    StudentSearchBtn.addEventListener('click', () => {
+        const SearchValue = SearchStudentInput.value;
+        if (SearchValue.length > 0) {
+
+            const modalUl = document.querySelector('#ResultStudentUL');
+            const ModalLi = modalUl.getElementsByTagName('li');
+            for (let k = ModalLi.length - 1; k >= 0; k--) {
+                modalUl.removeChild(ModalLi[k]);
+            }
+            let cnt = 0;
+            let Stli = document.querySelectorAll(".list-group-item");
+            for (let i = 0; i < Stli.length; i++) {
+                if (Stli[i].textContent.trim().toLowerCase() === SearchValue.toLowerCase()) {
+                    cnt++;
+                    const modalLi = document.createElement('li');
+                    modalLi.textContent = Stli[i].textContent.trim();
+                    modalLi.className = 'list-group-item'
+                    modalUl.appendChild(modalLi);
+
+                }
+            }
+            if (cnt == 0) {
+                console.log("found");
+            }
+
+        } else {
+            console.log("MORE THAN 0")
+        }
+    })
+
+    //COMPANY SEARCH
+    const CompanySearchBtn = document.getElementById('CompanySearchBtn');
+    const SearchCompanyInput = document.getElementById('SearchCompanyInput');
+    CompanySearchBtn.addEventListener('click', () => {
+        const SearchValue = SearchCompanyInput.value;
+        if (SearchValue.length > 0) {
+            const modalUl = document.querySelector('#ResultCompanyUL');
+            const ModalLi = modalUl.getElementsByTagName('li');
+            for (let k = ModalLi.length - 1; k >= 0; k--) {
+                modalUl.removeChild(ModalLi[k]);
+            }
+            let cnt = 0;
+            let Cpli = document.querySelectorAll(".list-group-item");
+            for (let i = 0; i < Cpli.length; i++) {
+                if (Cpli[i].textContent.trim().toLowerCase() === SearchValue.toLowerCase()) {
+                    cnt++;
+                    const modalLi = document.createElement('li');
+                    modalLi.textContent = Cpli[i].textContent.trim();
+                    modalLi.className = 'list-group-item'
+                    modalUl.appendChild(modalLi);
+                    break;
+                }
+            }
+
+            if (cnt != 0) {
+                console.log("found");
+            } else {
+                console.log("not found");
+            }
+
+
+
+        } else {
+            console.log("MORE THAN 0")
+        }
+    })
+
+    //Company profile js
+    const defaultImg = "https://phutungnhapkhauchinhhang.com/wp-content/uploads/2020/06/default-thumbnail.jpg";
+
+    function LoadCompanyProfile() {
+        const imgDiv = document.getElementById("company-img");
+        imgDiv.src = defaultImg;
+    }
+
+    LoadCompanyProfile();
+
+
+    //show Student Profile from Student Search 
 
 
 </script>

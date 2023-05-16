@@ -96,7 +96,7 @@ headerBar();
 function setVisibiltySearchPage(target) {
   const user = getUser();
   if (target.textContent === 'Search') {
-    if (getUser.role !== 'admin') {
+    if (getUser().role !== 'admin') {
       accountProfileSection.setAttribute('hidden', 'hidden');
     }
     disSection.textContent = 'Search';
