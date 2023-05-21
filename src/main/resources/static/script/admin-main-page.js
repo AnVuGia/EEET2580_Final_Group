@@ -39,6 +39,11 @@ async function updateRequestUI() {
     pageInfo.currSize
   );
   displayPendingList.innerHTML = '';
+  if (capstoneListData.content.length === 0) {
+    displayPendingList.innerHTML = `
+      <p style="font-size: 1.6rem; text-align:center">No pending capstone project</p>`;
+  }
+
   const capstoneListDataContent = capstoneListData.content;
   for (let i = 0; i < capstoneListDataContent.length; i++) {
     const capstone = capstoneListDataContent[i];
@@ -340,8 +345,8 @@ function setRejectAlertModal() {
         <i class="fas fa-times-circle"></i>
       </div>
       <div class="alert-modal-body-text"> 
-        <h3>Reject</h3>
-        <p class ="">Capstone project has been rejected</p> 
+        <h3 class ="information-section-element input-label">Reject</h3>
+        <p class="information-section-element input-label">Capstone project has been rejected</p> 
       </div>
     </div>  
   `;
@@ -355,8 +360,8 @@ function setLoadingModal() {
         <i class="fas fa-spinner fa-spin"></i>
       </div>
       <div class="alert-modal-body-text">
-        <h3>Loading</h3>
-        <p>Please wait</p> 
+        <h3 class ="information-section-element input-label">Loading</h3>
+        <p class="information-section-element input-label">Please wait</p> 
       </div>
     </div>
   `;
