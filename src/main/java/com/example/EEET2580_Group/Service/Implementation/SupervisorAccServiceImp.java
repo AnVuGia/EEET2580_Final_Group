@@ -6,6 +6,8 @@ import com.example.EEET2580_Group.Repository.SupervisorAccRepository;
 import com.example.EEET2580_Group.Service.Interface.SupervisorAccService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,5 +37,10 @@ public class SupervisorAccServiceImp implements SupervisorAccService {
         this.updateSupervisor(supervisorAccToUpdate, supervisorAccDto);
         supervisorAccRepository.save(supervisorAccToUpdate);
         System.out.println("Supervisor updated");
+    }
+    @Override
+    public Page<SupervisorAcc> getAllSupervisor (String supervisorName, Pageable page){
+        return supervisorName.isEmpty()?supervisorAccRepository.findAll(page):
+                supervisorAccRepository.findByName(supervisorName,page);
     }
 }

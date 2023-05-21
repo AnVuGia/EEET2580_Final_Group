@@ -238,25 +238,25 @@ async function updateCapstoneListUI(capstoneListData) {
 }
 
 //Company Search
-async function getCompanyList(companyName, page, size, sort) {
-  const url = `api/company/search?`;
+async function getAccList(name,type, page, size, sort) {
+  const url = `api/${type}/search?`;
 
-  displayResult.innerHTML = '';
-  displayResult.appendChild(createSpinningAnimation());
+  
   const pagination = document.querySelector('.pagination');
   pagination.innerHTML = '';
 
-  var companyName = !!companyName
-    ? companyName.includes(' ')
-      ? convertString(companyName)
-      : companyName
+  var name = !!name
+    ? name.includes(' ')
+      ? convertString(name)
+      : name
     : '';
   var page = !!page ? page : '';
   var size = !!size ? size : '';
   var sort = !!sort ? sort : '';
 
-  var paraList = [companyName, page, size, sort];
-  var nameList = ['company_name', 'page', 'size', 'sort'];
+
+  var paraList = [name, page, size, sort];
+  var nameList = ['acc_name', 'page', 'size', 'sort'];
   var temp = '';
 
   for (var i = 0; i < paraList.length; i++) {
@@ -271,19 +271,24 @@ async function getCompanyList(companyName, page, size, sort) {
   let endpoint = url + temp;
   response = await fetch(endpoint);
   result = await response.json();
-  updateCompanyUI(result.content);
+  console.log(result.content)
+  await updateCompanyUI(type,result.content);
   await displayPagination(result);
 }
-async function updateCompanyUI(companyList) {
+async function updateCompanyUI(type,accList) {
   displayResult.innerHTML = '';
-  for (let i = 0; i < companyList.length; i++) {
-    const company = companyList[i];
-    const companyCard = createCompanyCard(company);
-
-    const compContainer = document.createElement('div');
-    compContainer.classList.add('col-xl-4', 'col-md-6', 'col-md-12');
-    compContainer.appendChild(companyCard);
-    displayResult.appendChild(compContainer);
+  for (let i = 0; i < accList.length; i++) {
+    const acc = accList[i];
+    if (type === "company"){
+      const companyCard = createCompanyCard(acc);
+      const compContainer = document.createElement('div');
+      compContainer.classList.add('col-xl-4', 'col-md-6', 'col-md-12');
+      compContainer.appendChild(companyCard);
+      displayResult.appendChild(compContainer);
+    }else {
+      const card  = await createAccCard(acc); 
+      displayResult.appendChild(card);
+    }   
   }
 }
 function createCompanyCard(companyInfo) {
@@ -320,7 +325,27 @@ function createCompanyCard(companyInfo) {
     `;
   return div;
 }
-
+async function  createAccCard(accInfo){
+  placeholder = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/240px-Default_pfp.svg.png";
+  if (accInfo.imageId!==null){
+     placeholder = await getImage(accInfo.imageId)
+  }
+  const div = document.createElement("div");
+  div.setAttribute("id",accInfo.id);
+  div.innerHTML = `
+  <div class="acc_info_container d-none d-lg-flex mx-auto mb-3" style="width: 80%; padding: 0px 30px 0px 0px; height: 60px; border-radius: 10px; ">
+      <img src="${placeholder}" alt="Null Avatar" class="tag-icon my-auto ms-4">
+      <div class = "my-auto acc-name" id ="acc-${accInfo.id}" style ="width: 180px;margin-left:120px"><p class="acc_name my-auto" style="font-size: 1.6rem;">${accInfo.name?accInfo.name:"N/A"}</p></div>
+      <p class="gmail" style="font-size: 1.6rem; margin: auto auto auto 200px;">${accInfo.email?accInfo.email:"N/A"}</p>
+  </div>
+  `
+  div.addEventListener("click",function(ev){
+    console.log("Hello"+accInfo.name)
+    const temp = OpenStudent(ev.target.id);
+    temp();
+  })
+  return div;
+}
 //Group Search
 async function getGroupList(groupName, page, size, sort) {
   const url = `api/group/search?`;
@@ -356,7 +381,7 @@ async function getGroupList(groupName, page, size, sort) {
   let endpoint = url + temp;
   response = await fetch(endpoint);
   result = await response.json();
-  updateGroupUI(result.content);
+  await updateGroupUI(result.content);
   await displayPagination(result);
 }
 async function updateGroupUI(groupList) {
@@ -517,6 +542,12 @@ const displayPagination = async function (pageable) {
       } else if (searchSelection.value === 'company') {
         searchPagePagination.innerHTML = '';
         updateCompany(currentPage);
+      }else if (searchSelection.value === 'student') {
+        searchPagePagination.innerHTML = '';
+        updateStudent(currentPage);
+      }else if (searchSelection.value === 'supervisor') {
+        searchPagePagination.innerHTML = '';
+        updateSupervisor(currentPage);
       }
     });
     page.appendChild(pageLink);
@@ -541,6 +572,12 @@ const displayPagination = async function (pageable) {
       } else if (searchSelection.value === 'company') {
         searchPagePagination.innerHTML = '';
         updateCompany(currentPage);
+      }else if (searchSelection.value === 'student') {
+        searchPagePagination.innerHTML = '';
+        updateStudent(currentPage);
+      }else if (searchSelection.value === 'supervisor') {
+        searchPagePagination.innerHTML = '';
+        updateSupervisor(currentPage);
       }
     }
   });
@@ -563,6 +600,12 @@ const displayPagination = async function (pageable) {
       } else if (searchSelection.value === 'company') {
         searchPagePagination.innerHTML = '';
         updateCompany(currentPage);
+      }else if (searchSelection.value === 'student') {
+        searchPagePagination.innerHTML = '';
+        updateStudent(currentPage);
+      }else if (searchSelection.value === 'supervisor') {
+        searchPagePagination.innerHTML = '';
+        updateSupervisor(currentPage);
       }
     }
   });
@@ -584,13 +627,24 @@ const updateGroup = async function (curPage) {
   await getGroupList(searchInput.value, curPage);
 };
 const updateCompany = async function (curPage) {
-  await getCompanyList(searchInput.value, curPage);
+  displayResult.innerHTML = '';
+  displayResult.appendChild(createSpinningAnimation());
+  await getAccList(searchInput.value,"company", curPage);
+};
+const updateStudent = async function (curPage) {
+  displayResult.innerHTML = '';
+  displayResult.appendChild(createSpinningAnimation());
+  await getAccList(searchInput.value,"student", curPage);
+};
+const updateSupervisor = async function (curPage) {
+  displayResult.innerHTML = '';
+  displayResult.appendChild(createSpinningAnimation());
+  await getAccList(searchInput.value,"supervisor", curPage);
 };
 const onFiltered = async function () {
   if (searchSelection.value === 'capstone') {
     searchInput.placeholder = 'Please enter Capstone Name';
     filterContainer.removeAttribute('style');
-
     await updateCapstone(0);
   } else if (searchSelection.value === 'group') {
     searchInput.placeholder = 'Please enter Group Name';
@@ -600,8 +654,15 @@ const onFiltered = async function () {
   } else if (searchSelection.value === 'company') {
     searchInput.placeholder = 'Please enter Company Name';
     filterContainer.setAttribute('style', 'height: 125px');
-
     await updateCompany(0);
+  } else if (searchSelection.value === 'student') {
+    searchInput.placeholder = 'Please enter Student Name';
+    filterContainer.setAttribute('style', 'height: 125px');
+    await updateStudent(0);
+  }else if (searchSelection.value === 'supervisor') {
+    searchInput.placeholder = 'Please enter Supervisor Name';
+    filterContainer.setAttribute('style', 'height: 125px');
+    await updateSupervisor(0);
   }
 };
 const searchSelection = document.querySelector('#by-group-or-capstone');
@@ -613,14 +674,14 @@ const searchInput = document.querySelector('.search-input');
 function handleCollapsibleFilter() {
   searchSelection.addEventListener('change', function () {
     const selectedOption = this.value;
-    if (selectedOption === 'group' || selectedOption === 'company') {
-      searchInput.style.display = 'block';
-      superVisorSelection.style.display = 'none';
-      companySelection.style.display = 'none';
-    } else if (selectedOption === 'capstone') {
+    if (selectedOption === 'capstone') {
       searchInput.style.display = 'block';
       superVisorSelection.style.display = 'block';
       companySelection.style.display = 'block';
+    }else{
+      searchInput.style.display = 'block';
+      superVisorSelection.style.display = 'none';
+      companySelection.style.display = 'none';
     }
   });
 }

@@ -2,6 +2,8 @@ package com.example.EEET2580_Group.Repository;
 
 import com.example.EEET2580_Group.Entity.StudentAcc;
 import com.example.EEET2580_Group.Entity.SupervisorAcc;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -23,5 +25,6 @@ public interface SupervisorAccRepository extends JpaRepository<SupervisorAcc, Lo
     @Query("SELECT s FROM SupervisorAcc s WHERE s.username = :username AND s.password = :password ")
     SupervisorAcc findByUsernameAndPassword(@Param("username") String username,
                                          @Param("password") String password);
-
+    @Query("SELECT s FROM SupervisorAcc s WHERE s.name LIKE %:supervisorName%")
+    Page<SupervisorAcc> findByName(@Param("supervisorName") String supervisorName, Pageable page);
 }

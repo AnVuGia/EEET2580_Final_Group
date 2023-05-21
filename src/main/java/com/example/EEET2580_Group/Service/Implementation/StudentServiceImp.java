@@ -1,11 +1,14 @@
 package com.example.EEET2580_Group.Service.Implementation;
 
 import com.example.EEET2580_Group.DTO.StudentAccDto;
+import com.example.EEET2580_Group.Entity.CompanyAcc;
 import com.example.EEET2580_Group.Entity.StudentAcc;
 import com.example.EEET2580_Group.Repository.StudentAccRepository;
 import com.example.EEET2580_Group.Service.Interface.StudentService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
@@ -22,8 +25,6 @@ public class StudentServiceImp implements StudentService {
         oldStudent.setMajor(newStudent.getMajor());
         oldStudent.setPassword(newStudent.getPassword());
         oldStudent.setBib(newStudent.getBib());
-//        oldStudent.setSkills(newStudent.getSkills());
-        //image, bib, group
     }
 
     public void updateStudentSkill(StudentAcc oldStudent, StudentAccDto newStudent){
@@ -64,5 +65,10 @@ public class StudentServiceImp implements StudentService {
         studentToUpdate.setImageId(studentDto.getImageId());
         studentAccRepository.save(studentToUpdate);
         System.out.println("Student updated");
+    }
+    @Override
+    public Page<StudentAcc> getAllStudent (String studentName, Pageable page){
+        return studentName.isEmpty()?studentAccRepository.findAll(page):
+                studentAccRepository.findByName(studentName,page);
     }
 }

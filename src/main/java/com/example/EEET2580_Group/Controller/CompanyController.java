@@ -30,7 +30,7 @@ public class CompanyController {
 
 
     @GetMapping("/search")
-    public Page<CompanyAccDto> getAllCompany (@RequestParam(name = "company_name",defaultValue = "") String companyName,
+    public Page<CompanyAccDto> getAllCompany (@RequestParam(name = "acc_name",defaultValue = "") String companyName,
                                           @RequestParam(name = "page",defaultValue = "0") String page,
                                           @RequestParam(name = "size",defaultValue = "6") String size,
                                           @RequestParam(name = "sort",defaultValue = "asc") String sort){

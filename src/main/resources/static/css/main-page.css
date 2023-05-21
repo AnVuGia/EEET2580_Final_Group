@@ -469,3 +469,17 @@ main {
   display: flex;
   justify-content: center;
 }
+
+.acc_info_container{
+  box-shadow: 0px 1px 2px 2px rgba(0, 0, 0, 0.2);
+}
+.tag-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+.acc-name:hover{
+  cursor: pointer;
+  text-decoration: underline;
+}

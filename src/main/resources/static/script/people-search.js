@@ -113,6 +113,60 @@ function updateLoadingModal(msg, modal) {
     const newModal = new bootstrap.Modal(modal);
     newModal.show();
 }
+function OpenStudent(id) {
+    console.log("DummyStudent");
+    return function () {
+        findStudent(id);
+        SearchDiv.setAttribute('hidden', 'hidden');
+        StudentDiv.removeAttribute('hidden');
+    };
+}
+
+async function findStudent(id) {
+
+    let DummyStudent;
+    let FoundStudent;
+    const StudentProfileEndPoint = `/api/account/student/id/${id}`;
+    const response = await fetch(StudentProfileEndPoint, {
+        method: 'Get',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+    await response.json().then((data) => {
+        DummyStudent = data;
+    });
+    console.log(DummyStudent);
+    for (let i = 0; i < DummyStudent.length; i++) {
+        if (DummyStudent[i].name == SStudentName) {
+            StudentName.innerHTML = DummyStudent[i].name;
+            StudentMajor.innerHTML = DummyStudent[i].major;
+            StduentContact.innerHTML = DummyStudent[i].contact;
+            StudentEmail.innerHTML = DummyStudent[i].email;
+            StduentBib.innerHTML = DummyStudent[i].bib;
+            console.log(DummyStudent[i].skills.length);
+            console.log(DummyStudent[i]);
+            const SkillUL = document.getElementById('capability');
+            SkillUL.innerHTML = '';
+            for (let j = 0; j < DummyStudent[i].skills.length; j++) {
+
+                const li = document.createElement('li');
+                li.className = 'profile_li';
+                li.textContent = DummyStudent[i].skills[j];
+                console.log(DummyStudent[i].skills[j]);
+                SkillUL.appendChild(li);
+            }
+        }
+    }
+    StudentDiv.removeAttribute('hidden');
+    console.log("Done");
+}
+
+
+
+
+
+
 function OpenStudent(GroupName, StudentName) {
     return function () {
         findStudent(GroupName, StudentName);
@@ -135,30 +189,30 @@ async function findStudent(GroupName, SStudentName) {
     await response.json().then((data) => {
         DummyStudent = data;
     });
-
-    console.log("dummy", DummyStudent);
-    console.log("length", DummyStudent.length);
-    for (let i = 0; i < DummyStudent.length; i++) {
-        if (DummyStudent[i].name == SStudentName) {
-            StudentName.innerHTML = DummyStudent[i].name;
-            StudentMajor.innerHTML = DummyStudent[i].major;
-            StduentContact.innerHTML = DummyStudent[i].contact;
-            StudentEmail.innerHTML = DummyStudent[i].email;
-            StduentBib.innerHTML = DummyStudent[i].bib;
-            console.log(DummyStudent[i].skills.length);
-            console.log(DummyStudent[i]);
-            const SkillUL = document.getElementById('capability');
-            SkillUL.innerHTML = '';
-            for (let j = 0; j < DummyStudent[i].skills.length; j++) {
-
-                const li = document.createElement('li');
-                li.className = 'profile_li';
-                li.textContent = DummyStudent[i].skills[j];
-                console.log(DummyStudent[i].skills[j]);
-                SkillUL.appendChild(li);
-            }
+    
+    
+    StudentName.innerHTML = DummyStudent.name;
+    StudentMajor.innerHTML = DummyStudent.major;
+    StduentContact.innerHTML = DummyStudent.contact;
+    StudentEmail.innerHTML = DummyStudent.email;
+    StduentBib.innerHTML = DummyStudent.bib;
+    // console.log(DummyStudent.skills.length);
+    // console.log(DummyStudent);
+    const SkillUL = document.getElementById('capability');
+    SkillUL.innerHTML = '';
+    if (DummyStudent.skills){
+        for (let j = 0; j < DummyStudent.skills.length; j++) {
+    
+            const li = document.createElement('li');
+            li.className = 'profile_li';
+            li.textContent = DummyStudent.skills[j];
+            console.log(DummyStudent.skills[j]);
+            SkillUL.appendChild(li);
         }
     }
+ 
+        
+    
     console.log("Done");
 }
 
@@ -357,11 +411,10 @@ function CreateStudentList(DummyStudent) {
         Studentli.innerHTML = StName;
         StuGroupUL.appendChild(Studentli);
     }
-    console.log("REMOVE SPINNER")
-    // StuGroupUL.removeChild(SpinnerContainer3);
 }
 
 async function ShowStudent(id) {
+    console.log("A");
     const endpoint1 = "http://localhost:8000/api/account/student/id/" + id;
     const endpoint2 = "http://localhost:8000/api/group/" + id;
 
