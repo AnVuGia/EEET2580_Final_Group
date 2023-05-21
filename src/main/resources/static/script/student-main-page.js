@@ -73,7 +73,7 @@ async function onLeave(ev) {
         body: JSON.stringify(group),
       });
       loadingModal.show();
-      
+
       await displayGroupInfo();
       await updateGroup(0);
       updateSuccessModal(
@@ -86,7 +86,6 @@ async function onLeave(ev) {
     }
   );
 }
-
 
 //click this button to join the group in search
 if (groupSubmitButton) {
@@ -141,7 +140,7 @@ async function getCurrentGroup() {
 
 const displayGroupInfo = async function () {
   await getCurrentGroup();
-
+  await updateStudentDashBoardUI();
   const groupInfoSection = document.querySelector('.group-info-section');
   groupInfoSection.innerHTML = '';
   groupInfoSection.appendChild(createSpinningAnimation());
@@ -228,5 +227,5 @@ const createGroup = async function () {
   await getCurrentGroup();
   await updateStudentDashBoardUI();
 };
-updateStudentDashBoardUI();
+
 displayGroupInfo();

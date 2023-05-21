@@ -45,7 +45,6 @@ function LoadData(result2) {
       ? currentGroupStudent.capstone.projectTitle
       : 'N/A'
     : 'N/A';
-  profile_img.src = getUser().imgId ? getUser().imgId : nullImagePlacehodler;
   name.innerHTML = getUser().name ? getUser().name : 'N/A';
   major.innerHTML = getUser().major ? getUser().major : 'N/A';
   studentInfoGroup.textContent = currentGroupStudent.id
@@ -66,7 +65,6 @@ function DeleteAllSkills() {
 }
 async function RewriteAllSkills() {
   const endpoint = user.username;
-  console.log(endpoint);
   const responsee = await fetch(`/api/account/student/username/${endpoint}`, {
     method: 'GET',
     headers: {
@@ -91,14 +89,12 @@ function LoadSkills(result2) {
 }
 
 function LoadModal(result2) {
-  console.log('Load Modal');
   const Modalname = document.getElementById('NewName');
   const Modalmajor = document.getElementById('NewMajor');
   const Modalcontact = document.getElementById('NewContact');
   const Modalemail = document.getElementById('NewEmail');
   const Modalpassword = document.getElementById('NewPassword');
   const ModalBib = document.getElementById('NewBib');
-  console.log(getUser());
   Modalname.value = getUser().name ? getUser().name : 'N/A';
   Modalmajor.value = getUser().major ? getUser().major : 'N/A';
   studentInfoGroup.textContent = currentGroupStudent.id
@@ -210,46 +206,44 @@ async function UpdateStudentPersona() {
 
   let newUser = getUser();
 
-  if(NewPassword.length > 8){
-    console.log("suc",NewPassword.length);
+  if (NewPassword.length > 8) {
     newUser.name = NewName;
-  newUser.major = NewMajor;
-  newUser.contact = NewContact;
-  newUser.email = NewEmail;
-  newUser.password = NewPassword;
-  newUser.bib = NewBib;
+    newUser.major = NewMajor;
+    newUser.contact = NewContact;
+    newUser.email = NewEmail;
+    newUser.password = NewPassword;
+    newUser.bib = NewBib;
 
-  sessionStorage.setItem('user', JSON.stringify(newUser));
-  try {
-    const response = await fetch(
-      `/api/student/update/${getUser().id}/persona`,
-      {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newUser),
-      }
-    );
-
-    if (response.ok) {
-      
-    } else {
-      console.error(
-        'Error updating capstone project. Response status:',
-        response.status
+    sessionStorage.setItem('user', JSON.stringify(newUser));
+    try {
+      const response = await fetch(
+        `/api/student/update/${getUser().id}/persona`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newUser),
+        }
       );
+
+      if (response.ok) {
+      } else {
+        console.error(
+          'Error updating capstone project. Response status:',
+          response.status
+        );
+      }
+    } catch (error) {
+      console.error('Error updating capstone project:', error);
     }
-  } catch (error) {
-    console.error('Error updating capstone project:', error);
+  } else {
+    updateDangerModal(
+      'Password should be at least 8 characters',
+      alertModalElStudent,
+      (ev) => {}
+    );
   }
-  }else{
-    console.log("fail",NewPassword.length);
-    updateDangerModal("Password should be at least 8 characters",
-    alertModalElStudent,
-    (ev)=>{});
-  }
-  
 }
 
 async function UpdateStudentSkills() {
@@ -264,7 +258,6 @@ async function UpdateStudentSkills() {
     const skill = text.substring(0, deleteIndex).trim();
     NewSkills.push(skill);
   }
-  console.log(NewSkills);
 
   const StudentNewSkills = {
     skills: NewSkills,
@@ -299,23 +292,19 @@ async function uploadProfileImage() {
     updateDangerModal('Please select a file to upload.', alertModalElStudent);
     return;
   }
-  console.log('change');
   const file = fileInput.files[0];
   const reader = new FileReader();
   reader.readAsDataURL(file);
-  console.log(reader);
   reader.addEventListener('load', async () => {
     const image = new Image();
     image.src = reader.result;
     image.addEventListener('load', () => {
-      console.log('image loaded');
       const canvas = document.createElement('canvas');
       canvas.width = 300;
       canvas.height = 300;
       const context = canvas.getContext('2d');
       context.drawImage(image, 0, 0, 300, 300);
       const compressedImageData = canvas.toDataURL('image/jpeg', 0.5);
-      console.log(compressedImageData);
       const formData = new FormData();
       formData.append('file', dataURItoBlob(compressedImageData));
       try {
@@ -391,7 +380,6 @@ async function setUserProfileImage(user) {
   if (user.imageId != null) {
     const imgURL = await getImage(user.imageId);
     imgProfileEl.src = imgURL;
-    console.log('in true');
     alertModalElStudent.querySelector('.btn-close').click();
     displayWelcomMessage();
   } else if (user.imageId === null) {
