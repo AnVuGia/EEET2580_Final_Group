@@ -43,7 +43,11 @@ async function getRejectCapstoneProject(page, size) {
 }
 async function updateApproveSectionUI() {
   const approveSectionEl = document.querySelector('.company-approved-list');
-  approveSectionEl.innerHTML = '';
+  approveSectionEl.innerHTML = `
+  <div class="spinner-border text-primary" role="status">
+  <span class="sr-only">Loading...</span>
+</div>
+  `;
 
   const approveCapstoneProject = await getApproveCapstoneProject(
     approveSectionPage.currPage,
@@ -54,6 +58,7 @@ async function updateApproveSectionUI() {
     approveSectionEl.innerHTML =
       '<p style="font-size: 1.6rem; text-align:center">No approved capstone project</p>';
   } else {
+    approveSectionEl.innerHTML = '';
     data.forEach((capstone) => {
       const capItem = createCapstoneCard(capstone);
       const capContainer = document.createElement('div');
@@ -80,7 +85,11 @@ async function updateApproveSectionUI() {
 async function updatePendingSectionUI() {
   const pendingSectionEl = document.querySelector('.company-pending-list');
 
-  pendingSectionEl.innerHTML = '';
+  pendingSectionEl.innerHTML = `
+  <div class="spinner-border text-primary" role="status">
+  <span class="sr-only">Loading...</span>
+</div>
+  `;
 
   const pendingCapstoneProject = await getPendingCapstoneProject(
     pendingSectionPage.currPage,
@@ -91,6 +100,7 @@ async function updatePendingSectionUI() {
     pendingSectionEl.innerHTML =
       '<p style="font-size: 1.6rem; text-align:center"> No pending capstone project</p>';
   } else {
+    pendingSectionEl.innerHTML = '';
     data.forEach((capstone) => {
       const capItem = createCapstoneCard(capstone);
       const capContainer = document.createElement('div');
@@ -180,12 +190,14 @@ function createDeleteCapstoneButton(capstone, updateUI) {
       'Are you sure you want to delete this capstone project?',
       alertModal,
       async () => {
-        try {
-          await deleteCapstone(capstone.id);
-          updateUI();
-        } catch (err) {
-          updateDangerModal(err.message, alertModal);
-        }
+        await deleteCapstone(capstone.id);
+        updateSuccessModal(
+          'Delete capstone project successfully',
+          alertModal,
+          () => {
+            window.location.reload();
+          }
+        );
       }
     );
   });
@@ -195,11 +207,9 @@ function createDeleteCapstoneButton(capstone, updateUI) {
 async function deleteCapstone(id) {
   const endpoint = `api/capstone-project?id=${id}`;
   const url = `${endpoint}`;
-  const response = await fetch(url, {
+  await fetch(url, {
     method: 'DELETE',
   });
-  const result = await response.json();
-  return result;
 }
 async function updateUI() {
   updatePendingSectionUI();

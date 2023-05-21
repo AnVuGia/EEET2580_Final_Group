@@ -111,20 +111,28 @@ async function setCapstoneProject() {
   };
   const res = await setCapstoneImage(capstoneProject);
 }
-// async function getSupervisors() {
-//   supervisorSelect.innerHTML = '';
-//   const response = await fetch('/api/account/supervisors');
-//   const supervisors = await response.json();
-//   console.log(supervisors);
-//   supervisors.forEach((supervisor) => {
-//     const option = document.createElement('option');
-//     option.value = supervisor.username;
-//     option.innerHTML = `${supervisor.name} - ${supervisor.email}`;
-//     supervisorSelect.appendChild(option);
-//   });
-// }
+
 submitBtn.addEventListener('click', async (event) => {
   event.preventDefault();
-  await setCapstoneProject();
+  const alertModal = document.querySelector('#alert-modal');
+  const createCapstoneModalEl = document.querySelector(
+    '.modal-dialog-scrollable'
+  );
+  createCapstoneModalEl.querySelector('.btn-close').click();
+  updateLoadingModal('Creating capstone project...', alertModal);
+
+  try {
+    await setCapstoneProject();
+    updateSuccessModal(
+      'Capstone project created successfully.',
+      alertModal,
+      () => {
+        window.location.reload();
+      }
+    );
+  } catch (error) {
+    updateDangerModal('Failed to create capstone project.', alertModal, () => {
+      window.location.reload();
+    });
+  }
 });
-// getSupervisors();
