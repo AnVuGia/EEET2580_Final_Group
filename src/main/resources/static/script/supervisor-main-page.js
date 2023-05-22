@@ -14,7 +14,7 @@ submitProfileBtn.addEventListener('click', async function (ev) {
         loadingModal.show();
         await updateProfile();
         loadSupModal();
-        displayWelcomMessage();
+        // displayWelcomMessage();
         updateProfileUI();
       }
     );
@@ -419,13 +419,8 @@ async function loadSupModal() {
   if (getUser().imageId) {
     const imgURL = await getImage(getUser().imageId);
     imgIdDiv.src = imgURL;
-    alertModalElStudent.querySelector('.btn-close').click();
   } else {
     imgIdDiv.src = nullImagePlacehodler;
-    setTimeout(() => {
-      alertModalElStudent.querySelector('.btn-close').click();
-      displayWelcomMessage();
-    }, 1000);
   }
 }
 

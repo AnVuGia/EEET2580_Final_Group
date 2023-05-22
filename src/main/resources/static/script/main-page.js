@@ -31,9 +31,9 @@ function displayWelcomMessage() {
   const greetingText = document.querySelector('.welcome-message');
   greetingText.textContent = `Welcome, ${user.name ? user.name : 'N/A'}!`;
 }
-if (JSON.parse(sessionStorage.getItem('role')) !== 'student') {
-  displayWelcomMessage();
-}
+// if (JSON.parse(sessionStorage.getItem('role')) !== 'student') {
+//   displayWelcomMessage();
+// }
 const groupInfoContainer = document.querySelector('.group-info-section');
 const role = sessionStorage.getItem('role');
 const studentCapstoneModal = new bootstrap.Modal(
@@ -90,11 +90,15 @@ function headerBar() {
 }
 async function setProfileImage() {
   let user = getUser();
+  console.log('in set profile image');
+  displayWelcomMessage();
   if (user.imageId != null) {
+    console.log('in true');
     const profileImageEl = document.querySelector('.img-thumbnail');
     updateLoadingModal('Loading...', alertModalElStudent, () => {});
     const imgURL = await getImage(user.imageId);
     profileImageEl.src = imgURL;
+    alertModalElStudent.querySelector('.btn-close').click();
   }
 }
 setProfileImage();

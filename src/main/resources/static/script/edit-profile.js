@@ -374,7 +374,6 @@ async function uploadProfileImage() {
       const formData = new FormData();
       formData.append('file', dataURItoBlob(compressedImageData));
       try {
-        updateLoadingModal('Uploading image...', alertModalElStudent);
         fetch('/api/images', {
           method: 'POST',
           body: formData,
@@ -397,7 +396,6 @@ async function uploadProfileImage() {
                 'Image uploaded successfully!',
                 alertModalElStudent,
                 async () => {
-                  alertModalElStudent.querySelector('.btn-close').click();
                   location.reload();
                 }
               );
@@ -437,25 +435,20 @@ function dataURItoBlob(dataURI) {
 }
 async function setUserProfileImage(user) {
   const imgProfileEl = document.querySelector('#profile_img');
-  updateLoadingModal('Loading...', alertModalElStudent);
+  // updateLoadingModal('Loading...', alertModalElStudent);
   if (user.imageId != null) {
     const imgURL = await getImage(user.imageId);
     // imgProfileEl.src = imgURL;
     nullImagePlacehodler = imgURL;
-    alertModalElStudent.querySelector('.btn-close').click();
-    displayWelcomMessage();
+    // alertModalElStudent.querySelector('.btn-close').click();
+    // displayWelcomMessage();
   } else if (user.imageId === null) {
     // imgProfileEl.src = nullImagePlacehodler;
     setTimeout(() => {
       alertModalElStudent.querySelector('.btn-close').click();
-      displayWelcomMessage();
+      // displayWelcomMessage();
     }, 1000);
   }
 }
-// document
-//   .querySelector('#EditPictureBtn')
-//   .addEventListener('click', async () => {
-//     await uploadProfileImage();
-//   });
 
 ViewAll();
