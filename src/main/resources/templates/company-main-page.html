@@ -191,21 +191,22 @@
       </div>
     </div>
     <!-- Company Profile -->
-    <div class="mt-5 container" hidden="hidden" id="account-profile">
-      <div id="companyTopSection">
-        <div class="d-flex justify-content-end"><button class="btn" id="editComanyInfo" data-bs-toggle="modal"
-            data-bs-target="#editCompanyProfile">Edit Profile</button></div>
-        <img src="" alt="" id="company-img">
-      </div>
-
-      <div class="controller-bottom d-flex justify-content-start align-content-center mt-5">
-        <div class="controller-bottom-section me-5 border">Company Overview</div>
-        <div class="controller-bottom-section">Company Basic Informtion</div>
-      </div>
-
-      <div class="company-info-container">
-
-      </div>
+    <div id="account-profile" class="container py-4 bg-light" hidden="hidden">
+      <header class="border-bottom">
+        <div class="p-3 rounded-3">
+          <div class="profile-header my-auto d-flex justify-content-between">
+            <h2 class="display-5 fw-bold">Profile</h2>
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#editCompanyProfile"
+            >
+              Edit
+            </button>
+          </div>
+      </header>
+      <div id="account-profile-main"></div>
     </div>
 
     <div class="modal fade" id="editCompanyProfile" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -222,6 +223,10 @@
           </div>
           <div class="modal-body">
             <div class="company_detail_container">
+              <div class="mb-4">
+                <label for="profile-image" class="d-block mb-2 fw-bold" style="font-size: 1.6rem;">Profile Image</label>
+                <input type="file" id="profile-image" class=" " style="font-size: 1.5rem; padding: 2px 8px; width: 100%;" accept="image/*" />
+              </div>
               <label for="company_name" class=" input-label information-section-element">Company Name</label>
               <input id="newCompanyName" class="modal_profile information-section-element" type="text"
                 placeholder="Company Name: ">

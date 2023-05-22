@@ -35,40 +35,88 @@ for (var i = 0; i < controlCompInfo.length; i++) {
   })
 }
 
-function LoadInformation() {
-  comapnyInfoConatiner.innerHTML = ""
-  comapnyInfoConatiner.innerHTML = `
-      <div class="p-5">
-      <div class="company-info1">
-        <p>Company Information: </p>
-        <ul class="companyInfoList">
-          <li class="company-info-item mb-2">Company Name: ${getUser().name ? getUser().name : "N/A"} </li>
-          <li class="company-info-item mb-2">Contact: ${getUser().contact ? getUser().contact : "N/A"}  </li>
-          <li class="company-info-item mb-2">Email: ${getUser().email ? getUser().email : "N/A"} </li>
-        </ul>
+function LoadProfile(result2) {
+  let sName = getUser().name ? getUser().name : 'N/A';
+  let contact = getUser().contact ? getUser().contact : 'N/A';
+  let email = getUser().email ? getUser().email : 'N/A';
+  let Bib = getUser().bio ? getUser().bio : 'N/A';
+
+  let holder = document.createElement("div");
+  const content = `
+  <div class="row mt-3">
+  <div class="col-12 col-lg-4 d-flex justify-content-center my-auto">
+      <div class="avatar-container d-flex flex-column">
+          <img id="#profile_img" src="${nullImagePlacehodler}" alt="" id="acc-ava">
+          <p class="user-namee mx-auto mt-2"  style="font-size: 1.7rem;">${sName}</p>
       </div>
-      <div class="company-info1 mt-2">
-        <p>Manager Information: </p>
-        <ul class="companyInfoList">
-          <li class="company-info-item mb-2">Manager's Name: ${getUser().manager ? getUser().manager : "N/A"}</li>
-          <li class="company-info-item mb-2">Contact: ${getUser().manager_contact ? getUser().manager_contact : "N/A"}</li>
-        </ul>
+  </div>
+  <div class="d-none d-lg-block col-lg-8 d-flex flex-column">
+      <div class="basic-info-container mx-auto">
+          <div class="basic-info-element d-flex mt-2">
+              <div class ="mt-2" style="width: 200px; display: flex;">
+                  <p class="lable" style="margin: auto 0px auto 30px; font-size: 1.8rem; font-weight: 800; ">Full Name</p>
+              </div>
+              <p class="lable my-auto" style="font-size: 1.6rem; margin-left: 250px;">${sName}</p>
+          </div>
+          <hr style="width: 95%;" class="mx-auto">
+          <div class="basic-info-element d-flex">
+              <div style="width: 200px; display: flex;">
+                  <p class="lable" style="margin: auto 0px auto 30px; font-size: 1.8rem; font-weight: 800; ">Email</p>
+              </div>
+              <p class="lable my-auto" style="font-size: 1.6rem; margin-left: 250px;">${email}</p>
+          </div>
+          <hr style="width: 95%;" class="mx-auto">
+          <div class="basic-info-element d-flex">
+              <div style="width: 200px; display: flex;">
+                  <p class="lable" style="margin: auto 0px auto 30px; font-size: 1.8rem; font-weight: 800; ">Contact</p>
+              </div>
+              <p class="lable my-auto" style="font-size: 1.6rem; margin-left: 250px;">${contact}</p>
+          </div>
+          <hr style="width: 95%;" class="mx-auto">
+          <div class="basic-info-element d-flex">
+              <div style="width: 200px; display: flex;">
+                  <p class="lable" style="margin: auto 0px auto 30px; font-size: 1.8rem; font-weight: 800; ">Password</p>
+              </div>
+              <p class="lable my-auto" style="font-size: 1.6rem; margin-left: 250px;">${getUser().password}</p>
+          </div>
+          <hr>
       </div>
-    </div>
-  `
+      <div class="special-info mx-auto p-2" style="font-size: 1.6rem;">
+          <div class="row">
+              <div class="bio-container col-6 d-flex flex-column me-auto">
+                  <div class="titlee mx-auto" style ="font-size: 1.9rem; font-weight;700">Overview</div>
+                  <p class="p-2"> ${getUser().companyDescription ? getUser().companyDescription : "N/A"}</p>
+              </div>
+          
+              <div class="bio-container col-5 d-flex flex-column">
+                  <div class="titlee mx-auto" style ="font-size: 1.9rem; font-weight;700">Manager Contact</div>
+                  <ul class="companyInfoList">
+                    <li class="company-info-item mb-2">Name: ${getUser().manager ? getUser().manager : "N/A"}</li>
+                    <li class="company-info-item mb-2">Contact: ${getUser().manager_contact ? getUser().manager_contact : "N/A"}</li>
+                  </ul>
+              </div>
+          </div>
+          
+      </div>
+  </div>
+</div> 
+`
+profileContainer.innerHTML ='';
+profileContainer.innerHTML += content;
+LoadModalCompany();
 }
 
 const defaultImg = "https://phutungnhapkhauchinhhang.com/wp-content/uploads/2020/06/default-thumbnail.jpg";
-function LoadOverView() {
-  const imgDiv = document.getElementById("company-img");
-  imgDiv.src = getUser().imgId ? getUser().imgId : defaultImg;
-  comapnyInfoConatiner.innerHTML = `
-    <div class="p-5">
-    <div class="company-info1">
-        <p>Description: ${getUser().companyDescription ? getUser().companyDescription : "N/A"}</p>
-    </div>
-  `
-}
+// function LoadOverView() {
+//   const imgDiv = document.getElementById("company-img");
+//   imgDiv.src = getUser().imgId ? getUser().imgId : defaultImg;
+//   comapnyInfoConatiner.innerHTML = `
+//     <div class="p-5">
+//     <div class="company-info1">
+//         <p>Description: ${getUser().companyDescription ? getUser().companyDescription : "N/A"}</p>
+//     </div>
+//   `
+// }
 
 const EditBtn = document.getElementById('profile-submit');
 EditBtn.addEventListener('click', () => {
@@ -118,21 +166,16 @@ async function updateCompanyInformation() {
     });
     if (response.ok) {
       sessionStorage.setItem("user", JSON.stringify(newUser));
-      LoadOverView();
-      LoadModalCompany();
+      LoadProfile();
       displayWelcomMessage();
       updateSuccessModal("You have successfully change you account info!",
         alertModalElStudent,
         (ev) => { });
-
     } else {
       console.error('Error updating capstone project. Response status:', response.status);
     }
   } catch (error) {
     console.error('Error updating capstone project:', error);
   }
-
-
 }
-LoadModalCompany();
-LoadOverView();
+LoadProfile(getUser());
