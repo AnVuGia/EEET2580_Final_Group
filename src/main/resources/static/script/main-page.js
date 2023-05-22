@@ -64,6 +64,7 @@ function listenProfileBehave() {
       if (ev.target.textContent === 'Log out') {
         window.location.href = '/sign-in-page';
       } else if (ev.target.textContent === 'Account Information') {
+        disSection.textContent = "Account Information";
         const Role = JSON.parse(role);
         accountProfileSection.removeAttribute('hidden');
         capstoneSearchSection.setAttribute('hidden', 'hidden');
