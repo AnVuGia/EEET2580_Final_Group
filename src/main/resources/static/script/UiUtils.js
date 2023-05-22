@@ -320,15 +320,6 @@ async function loadCompany(result2) {
               </div>
               <p class="lable my-auto" style="font-size: 1.6rem; margin-left: 250px;">${contact}</p>
           </div>
-          <hr style="width: 95%;" class="mx-auto">
-          <div class="basic-info-element d-flex">
-              <div style="width: 200px; display: flex;">
-                  <p class="lable" style="margin: auto 0px auto 30px; font-size: 1.8rem; font-weight: 800; ">Password</p>
-              </div>
-              <p class="lable my-auto" style="font-size: 1.6rem; margin-left: 250px;">${
-                getUser().password
-              }</p>
-          </div>
           <hr>
       </div>
       <div class="special-info mx-auto p-2" style="font-size: 1.6rem;">
@@ -406,15 +397,6 @@ async function loadSupervisor(result2) {
                     <p class="lable" style="margin: auto 0px auto 30px; font-size: 1.8rem; font-weight: 800; ">Contact</p>
                 </div>
                 <p class="lable my-auto" style="font-size: 1.6rem; margin-left: 250px;">${contact}</p>
-            </div>
-            <hr style="width: 95%;" class="mx-auto">
-            <div class="basic-info-element d-flex">
-                <div style="width: 200px; display: flex;">
-                    <p class="lable" style="margin: auto 0px auto 30px; font-size: 1.8rem; font-weight: 800; ">Password</p>
-                </div>
-                <p class="lable my-auto" style="font-size: 1.6rem; margin-left: 250px;">${
-                  getUser().password
-                }</p>
             </div>
             <hr>
         </div>
@@ -501,15 +483,6 @@ async function loadStudent(result2) {
                   <p class="lable" style="margin: auto 0px auto 30px; font-size: 1.8rem; font-weight: 800; ">Contact</p>
               </div>
               <p class="lable my-auto" style="font-size: 1.6rem; margin-left: 250px;">${contact}</p>
-          </div>
-          <hr style="width: 95%;" class="mx-auto">
-          <div class="basic-info-element d-flex">
-              <div style="width: 200px; display: flex;">
-                  <p class="lable" style="margin: auto 0px auto 30px; font-size: 1.8rem; font-weight: 800; ">Password</p>
-              </div>
-              <p class="lable my-auto" style="font-size: 1.6rem; margin-left: 250px;">${
-                getUser().password
-              }</p>
           </div>
           <hr>
       </div>
