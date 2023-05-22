@@ -384,8 +384,8 @@ async function uploadProfileImage() {
             const user = getUser();
             const newUser = {
               ...user,
-              imageId: data.id,
             };
+            newUser.imageId = data.id;
             sessionStorage.setItem('user', JSON.stringify(newUser));
             fetch(`/api/student/update/${newUser.id}/profile-pic`, {
               method: 'PUT',
@@ -393,18 +393,18 @@ async function uploadProfileImage() {
                 'Content-Type': 'application/json',
               },
               body: JSON.stringify(newUser),
+            }).then((response) => {
+              updateSuccessModal(
+                'Image uploaded successfully!',
+                alertModalElStudent,
+                async () => {
+                  alertModalElStudent.querySelector('.btn-close').click();
+                  location.reload();
+                }
+              );
             });
           });
         });
-
-        updateSuccessModal(
-          'Image uploaded successfully!',
-          alertModalElStudent,
-          async () => {
-            alertModalElStudent.querySelector('.btn-close').click();
-            location.reload();
-          }
-        );
       } catch {
         updateDangerModal('Error uploading image.', alertModalElStudent);
       }
