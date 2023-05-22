@@ -285,8 +285,7 @@ async function setCapstoneImage(capstoneProject) {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify(capstoneProject),
-          })
-        
+          });
         })
         .catch((error) => {
           console.error(error);
@@ -406,6 +405,7 @@ function updateProfileUI(result2) {
 updateProfileUI();
 
 async function loadSupModal() {
+  const supName = document.getElementById('sup-profile-name');
   const imgIdDiv = document.getElementById('profile_img');
   const subProfileBio = document.getElementById('sup-profile-bio');
   const subProfileContact = document.getElementById('sup-profile-contact');
@@ -415,7 +415,7 @@ async function loadSupModal() {
   subProfileContact.value = getUser().contact ? getUser().contact : 'N/A';
   subProfileEmail.value = getUser().email ? getUser().email : 'N/A';
   subPassword.value = getUser().password ? getUser().password : 'N/A';
-
+  supName.value = getUser().name ? getUser().name : 'N/A';
   if (getUser().imageId) {
     const imgURL = await getImage(getUser().imageId);
     imgIdDiv.src = imgURL;
@@ -428,13 +428,10 @@ async function loadSupModal() {
     }, 1000);
   }
 }
-async function onSupervisorLoad() {
-  updateLoadingModal('Loading...', document.querySelector('#alert-modal'));
-  await loadSupModal();
-}
-onSupervisorLoad();
+
 async function updateProfile(supervisorID) {
   let newUser = getUser();
+  newUser.name = document.querySelector('#sup-profile-name').value;
   newUser.bio = document.querySelector('#sup-profile-bio').value;
   newUser.email = document.querySelector('#sup-profile-email').value;
   newUser.contact = document.querySelector('#sup-profile-contact').value;

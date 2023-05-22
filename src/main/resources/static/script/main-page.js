@@ -15,6 +15,7 @@ const studentCapstoneModalEl = document.querySelector(
 );
 function displayWelcomMessage() {
   const user = getUser();
+
   if (!user.name) {
     updateInfoModal(
       'Please complete your account profile!',
@@ -22,9 +23,11 @@ function displayWelcomMessage() {
       () => {
         accountProfileSection.removeAttribute('hidden', 'hidden');
         dashboardView.setAttribute('hidden', 'hidden');
+        alertModalElStudent.querySelector('.btn-close').click();
       }
     );
   }
+
   const greetingText = document.querySelector('.welcome-message');
   greetingText.textContent = `Welcome, ${user.name ? user.name : 'N/A'}!`;
 }
@@ -64,7 +67,7 @@ function listenProfileBehave() {
       if (ev.target.textContent === 'Log out') {
         window.location.href = '/sign-in-page';
       } else if (ev.target.textContent === 'Account Information') {
-        disSection.textContent = "Account Information";
+        disSection.textContent = 'Account Information';
         const Role = JSON.parse(role);
         accountProfileSection.removeAttribute('hidden');
         capstoneSearchSection.setAttribute('hidden', 'hidden');
@@ -89,6 +92,7 @@ async function setProfileImage() {
   let user = getUser();
   if (user.imageId != null) {
     const profileImageEl = document.querySelector('.img-thumbnail');
+    updateLoadingModal('Loading...', alertModalElStudent, () => {});
     const imgURL = await getImage(user.imageId);
     profileImageEl.src = imgURL;
   }
@@ -263,7 +267,7 @@ async function getAccList(name, type, page, size, sort) {
   let endpoint = url + temp;
   response = await fetch(endpoint);
   result = await response.json();
-  
+
   await updateCompanyUI(type, result.content);
   await displayPagination(result);
 }
@@ -282,7 +286,7 @@ async function updateCompanyUI(type, accList) {
         const card = await createCompanyCard(acc);
         compContainer.removeChild(spinning);
         compContainer.appendChild(card);
-      }else{
+      } else {
         const card = await createCompanyCard(acc);
         compContainer.appendChild(card);
         displayResult.appendChild(compContainer);
@@ -319,58 +323,50 @@ async function createCompanyCard(companyInfo) {
   }
   placeholder.classList.add('icon');
 
-
   const div = document.createElement('div');
   div.classList.add('card');
   div.classList.add('p-3');
   div.classList.add('mb-3');
   div.classList.add('mt-3');
 
-  
   div.innerHTML += `
        <i class="company-banner fas fa-pennant"></i>
             <div class="d-flex justify-content-between mt-2">
                 <div class="d-flex flex-row align-items-center">
                   ${placeholder.outerHTML}
                     <div class="ms-2 c-details">
-                        <h5 class="company-title">${
-                          companyInfo.name
-                        }</h5> <span>1 days ago</span>
+                        <h5 class="company-title">${companyInfo.name}</h5> <span>1 days ago</span>
                     </div>
                 </div>
             </div>
     `;
-   
 
-    const div1 = document.createElement("div");
-    div1.className = "mt-2";
-    div1.innerHTML =`<div class="mt-2">
+  const div1 = document.createElement('div');
+  div1.className = 'mt-2';
+  div1.innerHTML = `<div class="mt-2">
       <div class="sub-overview">
           <i class="bi bi-briefcase"> <span><span>Contact Info: ${
             !!companyInfo.email ? companyInfo.email : 'N/A'
           }</span></span></i>
       </div>
   </div>
-  `
-  const div2 = document.createElement("div");
-  div2.className = "mt-2";
-  const button = document.createElement("button");
-  button.textContent = "Show Info";
-  button.classList.add("btn","read-more");
-  button.setAttribute("id",companyInfo.id);
-  button.setAttribute("data-bs-toggle","modal");
-  button.setAttribute("data-bs-target","#searchAccountInfo");
-  button.addEventListener("click",async function(ev){
-    await displaySearchInfo("company",ev.target.id);
-  })
+  `;
+  const div2 = document.createElement('div');
+  div2.className = 'mt-2';
+  const button = document.createElement('button');
+  button.textContent = 'Show Info';
+  button.classList.add('btn', 'read-more');
+  button.setAttribute('id', companyInfo.id);
+  button.setAttribute('data-bs-toggle', 'modal');
+  button.setAttribute('data-bs-target', '#searchAccountInfo');
+  button.addEventListener('click', async function (ev) {
+    await displaySearchInfo('company', ev.target.id);
+  });
   div2.appendChild(button);
   div1.appendChild(div2);
   div.appendChild(div1);
   return div;
-
 }
-
-
 
 async function createAccCard(accInfo) {
   let placeholder;
@@ -401,56 +397,55 @@ async function createAccCard(accInfo) {
             </div>
             </div>
     `;
-    const div1 = document.createElement("div");
-    div1.className = "mt-2";
-    div1.innerHTML =`<div class="mt-2">
+  const div1 = document.createElement('div');
+  div1.className = 'mt-2';
+  div1.innerHTML = `<div class="mt-2">
     <div class="sub-overview">
         <i class="bi bi-briefcase"> <span><span>Contact Info: ${
           !!accInfo.email ? accInfo.email : 'N/A'
         }</span></span></i>
     </div>
 </div>
-  `
-  const div2 = document.createElement("div");
-  div2.className = "mt-2";
-  const button = document.createElement("button");
-  button.textContent = "Show Info";
-  button.classList.add("btn","read-more");
-  button.setAttribute("id",accInfo.id);
-  button.setAttribute("data-bs-toggle","modal");
-  button.setAttribute("data-bs-target","#searchAccountInfo");
-  button.addEventListener("click",async function(ev){
-    if (searchSelection.value ==="student"){
-      await displaySearchInfo("student",ev.target.id);
+  `;
+  const div2 = document.createElement('div');
+  div2.className = 'mt-2';
+  const button = document.createElement('button');
+  button.textContent = 'Show Info';
+  button.classList.add('btn', 'read-more');
+  button.setAttribute('id', accInfo.id);
+  button.setAttribute('data-bs-toggle', 'modal');
+  button.setAttribute('data-bs-target', '#searchAccountInfo');
+  button.addEventListener('click', async function (ev) {
+    if (searchSelection.value === 'student') {
+      await displaySearchInfo('student', ev.target.id);
       return;
     }
-    await displaySearchInfo("supervisor",ev.target.id);
-  })
+    await displaySearchInfo('supervisor', ev.target.id);
+  });
   div2.appendChild(button);
   div1.appendChild(div2);
   div.appendChild(div1);
   return div;
 }
-async function displaySearchInfo(type,id){
-  const content = document.getElementById("search-account-body-id");
-    content.innerHTML =``;
-    content.appendChild(createSpinningAnimation());
-    let endpoint = `api/account/${type}/id/${id}`;
-    console.log(endpoint);
-    let response = await fetch(endpoint);
-    let info = await response.json();
-    console.log(info);
-    if (type === "company"){
-      let result = await loadCompany(info);
-      content.innerHTML=result;
-    }else if (type ==="student"){
-      let result = await loadStudent(info);
-      content.innerHTML=result;
-    }else {
-      let result = await loadSupervisor(info);
-      content.innerHTML=result;
-      
-    }
+async function displaySearchInfo(type, id) {
+  const content = document.getElementById('search-account-body-id');
+  content.innerHTML = ``;
+  content.appendChild(createSpinningAnimation());
+  let endpoint = `api/account/${type}/id/${id}`;
+  console.log(endpoint);
+  let response = await fetch(endpoint);
+  let info = await response.json();
+  console.log(info);
+  if (type === 'company') {
+    let result = await loadCompany(info);
+    content.innerHTML = result;
+  } else if (type === 'student') {
+    let result = await loadStudent(info);
+    content.innerHTML = result;
+  } else {
+    let result = await loadSupervisor(info);
+    content.innerHTML = result;
+  }
 }
 
 function createSpinningAccCard() {
@@ -966,7 +961,7 @@ function createApplyButton(capstone) {
         const currentGroupInProjectResult =
           await currentGroupInProjectResponse.json();
         let groupMemberCount = 0;
- 
+
         for (let i = 0; i < currentGroupInProjectResult.content.length; i++) {
           if (currentGroupInProjectResult.content[i].id === currentGroup.id) {
             updateDangerModal(
