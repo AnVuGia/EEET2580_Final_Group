@@ -28,7 +28,7 @@ GroupEntity {
 
     @OneToOne()
     @JoinColumn(name = "capstone_id", referencedColumnName = "id")
-    private CapstoneProject capstoneId;
+    private CapstoneProject capstoneId; 
 
 
     public GroupEntity (GroupDto groupDto){
