@@ -130,7 +130,6 @@ async function RewriteAllSkills() {
   LoadSkills(result2);
 }
 
-
 function LoadModal(result2) {
   const Modalname = document.getElementById('NewName');
   const Modalmajor = document.getElementById('NewMajor');
@@ -222,7 +221,7 @@ SaveChangeBtn.addEventListener('click', () => {
         await UpdateStudentPersona();
         await UpdateStudentSkills();
         await uploadProfileImage();
-        await setUserProfileImage(getUser());
+
         displayWelcomMessage();
         LoadData(getUser());
         LoadSkills(getUser());
@@ -323,7 +322,6 @@ async function UpdateStudentSkills() {
   const StudentNewSkills = {
     skills: NewSkills,
   };
-
 
   try {
     const response = await fetch(`/api/student/update/${user.id}/skills`, {
