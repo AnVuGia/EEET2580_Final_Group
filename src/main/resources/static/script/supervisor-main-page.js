@@ -344,19 +344,19 @@ const imgPlacHolder = document.querySelector('.rounded-circle');
 
 const nullImagePlacehodler =
   'https://t4.ftcdn.net/jpg/03/59/58/91/360_F_359589186_JDLl8dIWoBNf1iqEkHxhUeeOulx0wOC5.jpg';
-  
+
 function updateProfileUI(result2) {
   let sName = getUser().name ? getUser().name : 'N/A';
   let contact = getUser().contact ? getUser().contact : 'N/A';
   let email = getUser().email ? getUser().email : 'N/A';
   let Bib = getUser().bio ? getUser().bio : 'N/A';
 
-  let holder = document.createElement("div");
+  let holder = document.createElement('div');
   const content = `
   <div class="row mt-3">
   <div class="col-12 col-lg-4 d-flex justify-content-center my-auto">
       <div class="avatar-container d-flex flex-column">
-          <img id="#profile_img" src="${nullImagePlacehodler}" alt="" id="acc-ava">
+          <img id="profile_img" src="${nullImagePlacehodler}" alt="" id="acc-ava">
           <p class="user-namee mx-auto mt-2"  style="font-size: 1.7rem;">${sName}</p>
       </div>
   </div>
@@ -387,7 +387,9 @@ function updateProfileUI(result2) {
               <div style="width: 200px; display: flex;">
                   <p class="lable" style="margin: auto 0px auto 30px; font-size: 1.8rem; font-weight: 800; ">Password</p>
               </div>
-              <p class="lable my-auto" style="font-size: 1.6rem; margin-left: 250px;">${getUser().password}</p>
+              <p class="lable my-auto" style="font-size: 1.6rem; margin-left: 250px;">${
+                getUser().password
+              }</p>
           </div>
           <hr>
       </div>
@@ -402,15 +404,15 @@ function updateProfileUI(result2) {
       </div>
   </div>
 </div> 
-`
-profileContainer.innerHTML ='';
-profileContainer.innerHTML += content;
-loadSupModal();
+`;
+  profileContainer.innerHTML = '';
+  profileContainer.innerHTML += content;
+  loadSupModal();
 }
 updateProfileUI();
 
 async function loadSupModal() {
-  const imgIdDiv = document.getElementById('profile-image');
+  const imgIdDiv = document.getElementById('profile_img');
   console.log(imgIdDiv);
   const subProfileBio = document.getElementById('sup-profile-bio');
   const subProfileContact = document.getElementById('sup-profile-contact');
@@ -505,7 +507,9 @@ async function UpdateSupervisorInfo(newUser) {
       updateSuccessModal(
         'You have successfully updated the account information!',
         alertModalElStudent,
-        () => {}
+        () => {
+          window.location.reload();
+        }
       );
     } else {
       console.error(
