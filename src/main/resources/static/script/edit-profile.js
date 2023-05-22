@@ -130,20 +130,6 @@ async function RewriteAllSkills() {
   LoadSkills(result2);
 }
 
-function LoadSkills(result2) {
-  // const Capabilityul = document.getElementById('capability');
-  const skills = document.createElement('ul');
-  // Capabilityul.innerHTML = '';
-  if (result2.skills) {
-    for (let i = 0; i < result2.skills.length; i++) {
-      const li = document.createElement('li');
-      li.className = 'profile_li';
-      li.textContent = result2.skills[i];
-      skills.appendChild(li);
-    }
-  }
-  return skills;
-}
 
 function LoadModal(result2) {
   const Modalname = document.getElementById('NewName');

@@ -208,7 +208,6 @@
       </header>
       <div id="account-profile-main"></div>
     </div>
-
     <div class="modal fade" id="editCompanyProfile" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
       aria-labelledby="staticBackdropLabel" aria-hidden="true">
 
@@ -273,7 +272,30 @@
         </div>
       </div>
     </div>
+    <!-- modal to display specific account for search -->
+    <div class="modal fade" id="searchAccountInfo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
 
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id ="display-search-modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-2 group-form-heading" id="searchAccountInfo">
+            Account Information
+          </h1>
+          <br>
+          <button type="button" class="btn-close fs-5 me-1" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id = "search-account-body-id">
+        </div>
+        <div class="modal-footer">
+          <button id="cancel-btn" type="button" class="btn modal-button-controller" data-bs-dismiss="modal">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
     <!--  -->
     <div class="search-section" hidden="hidden">
       <div class="search-container">

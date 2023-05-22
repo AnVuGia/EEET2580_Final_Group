@@ -256,9 +256,255 @@ function getUser() {
 function getCurrentGroup() {
   return JSON.parse(sessionStorage.getItem('current-group'));
 }
-async function getCurrentGroupUti() {
-  let url = `api/group/${getUser().id}`;
+async function getCurrentGroupUti(id) {
+  let url = `api/group/${id}`;
   const response = await fetch(url);
   const groupInfo = await response.json();
-  sessionStorage.setItem('current-group', JSON.stringify(groupInfo));
+  sessionStorage.setItem('group-display', JSON.stringify(groupInfo));
+}
+function LoadSkills(result2) {
+  // const Capabilityul = document.getElementById('capability');
+  const skills = document.createElement('ul');
+  // Capabilityul.innerHTML = '';
+  if (result2.skills) {
+    for (let i = 0; i < result2.skills.length; i++) {
+      const li = document.createElement('li');
+      li.className = 'profile_li';
+      li.textContent = result2.skills[i];
+      skills.appendChild(li);
+    }
+  }
+  return skills;
+}
+async function loadCompany(result2) {
+  let imageContent ="";
+  if (result2.imageId){
+    imageContent = await getImage(result2.imageId);
+  }else {
+    imageContent = nullImagePlacehodler
+  }
+  let sName = result2.name ? result2.name : 'N/A';
+  let contact = result2.contact ? result2.contact : 'N/A';
+  let email = result2.email ? result2.email : 'N/A';
+  let Bib = result2.bio ? result2.bio : 'N/A';
+
+  let holder = document.createElement("div");
+  const content = `
+  <div class="row mt-3">
+  <div class="col-12 col-lg-4 d-flex justify-content-center my-auto">
+      <div class="avatar-container d-flex flex-column">
+          <img id="#profile_img" src="${imageContent}" alt="" id="acc-ava">
+          <p class="user-namee mx-auto mt-2"  style="font-size: 1.7rem;">${sName}</p>
+      </div>
+  </div>
+  <div class="d-none d-lg-block col-lg-8 d-flex flex-column">
+      <div class="basic-info-container mx-auto">
+          <div class="basic-info-element d-flex mt-2">
+              <div class ="mt-2" style="width: 200px; display: flex;">
+                  <p class="lable" style="margin: auto 0px auto 30px; font-size: 1.8rem; font-weight: 800; ">Full Name</p>
+              </div>
+              <p class="lable my-auto" style="font-size: 1.6rem; margin-left: 250px;">${sName}</p>
+          </div>
+          <hr style="width: 95%;" class="mx-auto">
+          <div class="basic-info-element d-flex">
+              <div style="width: 200px; display: flex;">
+                  <p class="lable" style="margin: auto 0px auto 30px; font-size: 1.8rem; font-weight: 800; ">Email</p>
+              </div>
+              <p class="lable my-auto" style="font-size: 1.6rem; margin-left: 250px;">${email}</p>
+          </div>
+          <hr style="width: 95%;" class="mx-auto">
+          <div class="basic-info-element d-flex">
+              <div style="width: 200px; display: flex;">
+                  <p class="lable" style="margin: auto 0px auto 30px; font-size: 1.8rem; font-weight: 800; ">Contact</p>
+              </div>
+              <p class="lable my-auto" style="font-size: 1.6rem; margin-left: 250px;">${contact}</p>
+          </div>
+          <hr style="width: 95%;" class="mx-auto">
+          <div class="basic-info-element d-flex">
+              <div style="width: 200px; display: flex;">
+                  <p class="lable" style="margin: auto 0px auto 30px; font-size: 1.8rem; font-weight: 800; ">Password</p>
+              </div>
+              <p class="lable my-auto" style="font-size: 1.6rem; margin-left: 250px;">${getUser().password}</p>
+          </div>
+          <hr>
+      </div>
+      <div class="special-info mx-auto p-2" style="font-size: 1.6rem;">
+          <div class="row">
+              <div class="bio-container col-6 d-flex flex-column me-auto">
+                  <div class="titlee mx-auto" style ="font-size: 1.9rem; font-weight;700">Overview</div>
+                  <p class="p-2"> ${getUser().companyDescription ? getUser().companyDescription : "N/A"}</p>
+              </div>
+          
+              <div class="bio-container col-5 d-flex flex-column">
+                  <div class="titlee mx-auto" style ="font-size: 1.9rem; font-weight;700">Manager Contact</div>
+                  <ul class="companyInfoList">
+                    <li class="company-info-item mb-2">Name: ${getUser().manager ? getUser().manager : "N/A"}</li>
+                    <li class="company-info-item mb-2">Contact: ${getUser().manager_contact ? getUser().manager_contact : "N/A"}</li>
+                  </ul>
+              </div>
+          </div>
+          
+      </div>
+  </div>
+</div> 
+`
+  return content;
+}
+async function loadSupervisor(result2){
+  let imageContent ="";
+  if (result2.imageId){
+    imageContent = await getImage(result2.imageId);
+  }else {
+    imageContent = nullImagePlacehodler;
+  }
+  let sName = result2.name ? result2.name : 'N/A';
+  let contact = result2.contact ? result2.contact : 'N/A';
+  let email = result2.email ? result2.email : 'N/A';
+  let Bib = result2.bio ? result2.bio : 'N/A';
+
+  let holder = document.createElement("div");
+  const content = `
+    <div class="row mt-3">
+    <div class="col-12 col-lg-4 d-flex justify-content-center my-auto">
+        <div class="avatar-container d-flex flex-column">
+            <img id="#profile_img" src="${imageContent}" alt="" id="acc-ava">
+            <p class="user-namee mx-auto mt-2"  style="font-size: 1.7rem;">${sName}</p>
+        </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-8 d-flex flex-column">
+        <div class="basic-info-container mx-auto">
+            <div class="basic-info-element d-flex mt-2">
+                <div class ="mt-2" style="width: 200px; display: flex;">
+                    <p class="lable" style="margin: auto 0px auto 30px; font-size: 1.8rem; font-weight: 800; ">Full Name</p>
+                </div>
+                <p class="lable my-auto" style="font-size: 1.6rem; margin-left: 250px;">${sName}</p>
+            </div>
+            <hr style="width: 95%;" class="mx-auto">
+            <div class="basic-info-element d-flex">
+                <div style="width: 200px; display: flex;">
+                    <p class="lable" style="margin: auto 0px auto 30px; font-size: 1.8rem; font-weight: 800; ">Email</p>
+                </div>
+                <p class="lable my-auto" style="font-size: 1.6rem; margin-left: 250px;">${email}</p>
+            </div>
+            <hr style="width: 95%;" class="mx-auto">
+            <div class="basic-info-element d-flex">
+                <div style="width: 200px; display: flex;">
+                    <p class="lable" style="margin: auto 0px auto 30px; font-size: 1.8rem; font-weight: 800; ">Contact</p>
+                </div>
+                <p class="lable my-auto" style="font-size: 1.6rem; margin-left: 250px;">${contact}</p>
+            </div>
+            <hr style="width: 95%;" class="mx-auto">
+            <div class="basic-info-element d-flex">
+                <div style="width: 200px; display: flex;">
+                    <p class="lable" style="margin: auto 0px auto 30px; font-size: 1.8rem; font-weight: 800; ">Password</p>
+                </div>
+                <p class="lable my-auto" style="font-size: 1.6rem; margin-left: 250px;">${getUser().password}</p>
+            </div>
+            <hr>
+        </div>
+        <div class="special-info mx-auto p-2" style="font-size: 1.6rem;">
+            <div class="row">
+                <div class="bio-container col-12 d-flex flex-column me-auto">
+                    <div class="titlee mx-auto" style ="font-size: 1.9rem; font-weight;700">Biography</div>
+                    <p class="p-2">${Bib}</p>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+  </div> 
+`
+  return content;
+}
+async function loadStudent(result2) {
+  console.log(result2);
+  let imageContent = nullImagePlacehodler;
+  if (result2.imageId){
+    imageContent = await getImage(result2.imageId);
+  }
+  await getCurrentGroupUti(result2.id);
+  let group_to_display = sessionStorage.getItem("group-display");
+  let company = group_to_display.capstone
+    ? group_to_display.capstone.company.name
+      ? group_to_display.capstone.company.name
+      : 'N/A'
+    : 'N/A';
+  let projectTitle = group_to_display.capstone
+    ? group_to_display.capstone.projectTitle
+      ? group_to_display.capstone.projectTitle
+      : 'N/A'
+    : 'N/A';
+  let sName = result2.name ? result2.name : 'N/A';
+  let major = result2.major ? result2.major : 'N/A';
+  let studentInfoGroup = group_to_display.id
+    ? group_to_display.groupName
+    : 'N/A';
+  let contact = result2.contact ? result2.contact : 'N/A';
+  let email = result2.email ? result2.email : 'N/A';
+  let Bib = result2.bib ? result2.bib : 'N/A';
+
+  let holder = document.createElement('div');
+  holder.appendChild(LoadSkills(result2));
+  const content = `
+  <div class="row mt-3">
+  <div class="col-12 col-lg-4 d-flex justify-content-center my-auto">
+      <div class="avatar-container d-flex flex-column">
+          <img id="#profile_img" src="${imageContent}" alt="" id="acc-ava">
+          <p class="user-namee mx-auto mt-2"  style="font-size: 1.7rem;">${sName}</p>
+          <p class="user-namee mx-auto"  style="font-size: 1.7rem;">Group: ${studentInfoGroup}</p>
+          <p class="user-namee mx-auto"  style="font-size: 1.7rem;">Company: ${company}</p>
+          <p class="user-namee mx-auto"  style="font-size: 1.7rem;">Capstone: ${projectTitle}</p>
+          <p class="user-namee mx-auto"  style="font-size: 1.7rem;">Major: ${major}</p>
+      </div>
+  </div>
+  <div class="d-none d-lg-block col-lg-8 d-flex flex-column">
+      <div class="basic-info-container mx-auto">
+          <div class="basic-info-element d-flex mt-2">
+              <div class ="mt-2" style="width: 200px; display: flex;">
+                  <p class="lable" style="margin: auto 0px auto 30px; font-size: 1.8rem; font-weight: 800; ">Full Name</p>
+              </div>
+              <p class="lable my-auto" style="font-size: 1.6rem; margin-left: 250px;">${sName}</p>
+          </div>
+          <hr style="width: 95%;" class="mx-auto">
+          <div class="basic-info-element d-flex">
+              <div style="width: 200px; display: flex;">
+                  <p class="lable" style="margin: auto 0px auto 30px; font-size: 1.8rem; font-weight: 800; ">Email</p>
+              </div>
+              <p class="lable my-auto" style="font-size: 1.6rem; margin-left: 250px;">${email}</p>
+          </div>
+          <hr style="width: 95%;" class="mx-auto">
+          <div class="basic-info-element d-flex">
+              <div style="width: 200px; display: flex;">
+                  <p class="lable" style="margin: auto 0px auto 30px; font-size: 1.8rem; font-weight: 800; ">Contact</p>
+              </div>
+              <p class="lable my-auto" style="font-size: 1.6rem; margin-left: 250px;">${contact}</p>
+          </div>
+          <hr style="width: 95%;" class="mx-auto">
+          <div class="basic-info-element d-flex">
+              <div style="width: 200px; display: flex;">
+                  <p class="lable" style="margin: auto 0px auto 30px; font-size: 1.8rem; font-weight: 800; ">Password</p>
+              </div>
+              <p class="lable my-auto" style="font-size: 1.6rem; margin-left: 250px;">${
+                getUser().password
+              }</p>
+          </div>
+          <hr>
+      </div>
+      <div class="special-info mx-auto p-2" style="font-size: 1.6rem;">
+          <div class="row">
+              <div class="bio-container col-6 d-flex flex-column me-auto">
+                  <div class="titlee mx-auto" style ="font-size: 1.9rem; font-weight;700">Biography</div>
+                  <p class="p-2">${Bib}</p>
+              </div>
+              <div class="bio-container col-5 d-flex flex-column">
+                  <div class="titlee mx-auto" style ="font-size: 1.9rem; font-weight;700" >Skills</div>
+                  <p class="p-2">${holder.innerHTML}</p>
+              </div>
+          </div>
+          
+      </div>
+  </div>
+</div> 
+`;
+  return content;
 }

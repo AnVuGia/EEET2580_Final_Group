@@ -51,10 +51,10 @@ public class AccountController {
         return dtoConvert;
     }
 
-    @GetMapping("/company/{id}")
-    Account getAccountById(@PathVariable Long id) {
+    @GetMapping("/company/id/{id}")
+    CompanyAccDto getAccountById(@PathVariable Long id) {
         Account account = accountService.getAccountById(id, "company");
-        return account;
+        return new CompanyAccDto((CompanyAcc)account);
     }
 
     @GetMapping("/company/username/{username}")

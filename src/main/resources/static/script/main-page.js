@@ -272,6 +272,14 @@ async function updateCompanyUI(type, accList) {
     const acc = accList[i];
     if (type === 'company') {
       const companyCard = createCompanyCard(acc);
+      // companyCard.setAttribute("id",acc.id)
+      // companyCard.addEventListener("click",async function(ev){
+      //     let url = `api/account/id/${ev.target}`;
+      //     console.log(url);
+      //     // const response = await fetch();
+      //     // const info = await response.json();
+      //     // loadCompany(info);
+      // })
       const compContainer = document.createElement('div');
       compContainer.classList.add('col-xl-4', 'col-md-6', 'col-md-12');
       compContainer.appendChild(companyCard);
@@ -316,21 +324,37 @@ function createCompanyCard(companyInfo) {
                     </div>
                 </div>
             </div>
-            <div class="mt-2">
-                <div class="mt-2">
-                    <div class="sub-overview">
-                        <i class="bi bi-briefcase"> <span><span>Contact Info: ${
-                          !!companyInfo.email ? companyInfo.email : 'N/A'
-                        }</span></span></i>
-                    </div>
-                </div>
-                <div class="mt-2">
-                    <button class="btn read-more">Read more</button>
-                </div>
-            </div>
     `;
+    const div1 = document.createElement("div");
+    div1.className = "mt-2";
+    div1.innerHTML =`<div class="mt-2">
+      <div class="sub-overview">
+          <i class="bi bi-briefcase"> <span><span>Contact Info: ${
+            !!companyInfo.email ? companyInfo.email : 'N/A'
+          }</span></span></i>
+      </div>
+  </div>
+  `
+  const div2 = document.createElement("div");
+  div2.className = "mt-2";
+  const button = document.createElement("button");
+  button.textContent = "Show Info";
+  button.classList.add("btn","read-more");
+  button.setAttribute("id",companyInfo.id);
+  button.setAttribute("data-bs-toggle","modal");
+  button.setAttribute("data-bs-target","#searchAccountInfo");
+  button.addEventListener("click",async function(ev){
+    await displaySearchInfo("company",ev.target.id);
+  })
+  div2.appendChild(button);
+  div1.appendChild(div2);
+  div.appendChild(div1);
   return div;
+
 }
+
+
+
 async function createAccCard(accInfo) {
   let placeholder;
   placeholder = document.createElement('i');
@@ -358,27 +382,60 @@ async function createAccCard(accInfo) {
                     </div>
                 </div>
             </div>
-            <div class="mt-2">
-                <div class="mt-2">
-                    <div class="sub-overview">
-                        <i class="bi bi-briefcase"> <span><span>Contact Info: ${
-                          !!accInfo.email ? accInfo.email : 'N/A'
-                        }</span></span></i>
-                    </div>
-                </div>
-                <div class="mt-2">
-                    <button class="btn read-more">Show info</button>
-                </div>
             </div>
     `;
-
-  div.addEventListener('click', function (ev) {
-    console.log('Hello' + accInfo.name);
-    const temp = OpenStudent(ev.target.id);
-    temp();
-  });
+    const div1 = document.createElement("div");
+    div1.className = "mt-2";
+    div1.innerHTML =`<div class="mt-2">
+    <div class="sub-overview">
+        <i class="bi bi-briefcase"> <span><span>Contact Info: ${
+          !!accInfo.email ? accInfo.email : 'N/A'
+        }</span></span></i>
+    </div>
+</div>
+  `
+  const div2 = document.createElement("div");
+  div2.className = "mt-2";
+  const button = document.createElement("button");
+  button.textContent = "Show Info";
+  button.classList.add("btn","read-more");
+  button.setAttribute("id",accInfo.id);
+  button.setAttribute("data-bs-toggle","modal");
+  button.setAttribute("data-bs-target","#searchAccountInfo");
+  button.addEventListener("click",async function(ev){
+    if (searchSelection.value ==="student"){
+      await displaySearchInfo("student",ev.target.id);
+      return;
+    }
+    await displaySearchInfo("supervisor",ev.target.id);
+  })
+  div2.appendChild(button);
+  div1.appendChild(div2);
+  div.appendChild(div1);
   return div;
 }
+async function displaySearchInfo(type,id){
+  const content = document.getElementById("search-account-body-id");
+    content.innerHTML =``;
+    content.appendChild(createSpinningAnimation());
+    let endpoint = `api/account/${type}/id/${id}`;
+    console.log(endpoint);
+    let response = await fetch(endpoint);
+    let info = await response.json();
+    console.log(info);
+    if (type === "company"){
+      let result = await loadCompany(info);
+      content.innerHTML=result;
+    }else if (type ==="student"){
+      let result = await loadStudent(info);
+      content.innerHTML=result;
+    }else {
+      let result = await loadSupervisor(info);
+      content.innerHTML=result;
+      
+    }
+}
+
 function createSpinningAccCard() {
   const div = document.createElement('div');
   div.classList.add('card');
