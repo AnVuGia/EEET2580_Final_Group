@@ -272,19 +272,21 @@ async function updateCompanyUI(type, accList) {
   for (let i = 0; i < accList.length; i++) {
     const acc = accList[i];
     if (type === 'company') {
-      const companyCard = createCompanyCard(acc);
-      // companyCard.setAttribute("id",acc.id)
-      // companyCard.addEventListener("click",async function(ev){
-      //     let url = `api/account/id/${ev.target}`;
-      //     console.log(url);
-      //     // const response = await fetch();
-      //     // const info = await response.json();
-      //     // loadCompany(info);
-      // })
       const compContainer = document.createElement('div');
       compContainer.classList.add('col-xl-4', 'col-md-6', 'col-md-12');
-      compContainer.appendChild(companyCard);
-      displayResult.appendChild(compContainer);
+      if (acc.imageId != null) {
+        const spinning = createSpinningAccCard();
+        compContainer.appendChild(spinning);
+        displayResult.appendChild(compContainer);
+
+        const card = await createCompanyCard(acc);
+        compContainer.removeChild(spinning);
+        compContainer.appendChild(card);
+      }else{
+        const card = await createCompanyCard(acc);
+        compContainer.appendChild(card);
+        displayResult.appendChild(compContainer);
+      }
     } else {
       const accContainer = document.createElement('div');
       accContainer.classList.add('col-xl-4', 'col-md-6', 'col-md-12');
@@ -292,10 +294,9 @@ async function updateCompanyUI(type, accList) {
         const spinning = createSpinningAccCard();
         accContainer.appendChild(spinning);
         displayResult.appendChild(accContainer);
-        
+
         const card = await createAccCard(acc);
         accContainer.removeChild(spinning);
-
         accContainer.appendChild(card);
         // displayResult.appendChild(accContainer);
       } else {
@@ -306,18 +307,31 @@ async function updateCompanyUI(type, accList) {
     }
   }
 }
-function createCompanyCard(companyInfo) {
+async function createCompanyCard(companyInfo) {
+  let placeholder;
+  placeholder = document.createElement('i');
+  placeholder.className = 'fas fa-building';
+  if (companyInfo.imageId !== null) {
+    const placeholderURL = await getImage(companyInfo.imageId);
+    placeholder = document.createElement('img');
+    placeholder.src = placeholderURL;
+    placeholder.className = 'tag-icon my-auto ms-4';
+  }
+  placeholder.classList.add('icon');
+
+
   const div = document.createElement('div');
   div.classList.add('card');
   div.classList.add('p-3');
   div.classList.add('mb-3');
   div.classList.add('mt-3');
-  div.innerHTML = `
 
-            <i class="company-banner fas fa-pennant"></i>
+  
+  div.innerHTML += `
+       <i class="company-banner fas fa-pennant"></i>
             <div class="d-flex justify-content-between mt-2">
                 <div class="d-flex flex-row align-items-center">
-                <div class="icon"><i class="fas fa-building"></i></div>
+                  ${placeholder.outerHTML}
                     <div class="ms-2 c-details">
                         <h5 class="company-title">${
                           companyInfo.name
@@ -326,6 +340,8 @@ function createCompanyCard(companyInfo) {
                 </div>
             </div>
     `;
+   
+
     const div1 = document.createElement("div");
     div1.className = "mt-2";
     div1.innerHTML =`<div class="mt-2">

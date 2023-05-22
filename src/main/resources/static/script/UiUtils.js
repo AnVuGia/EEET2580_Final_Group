@@ -444,7 +444,8 @@ async function loadStudent(result2) {
   }
   console.log(imageContent);
   await getCurrentGroupUti(result2.id);
-  let group_to_display = sessionStorage.getItem('group-display');
+  let group_to_display =JSON.parse (sessionStorage.getItem('group-display'));
+  console.log(group_to_display);
   let company = group_to_display.capstone
     ? group_to_display.capstone.company.name
       ? group_to_display.capstone.company.name
