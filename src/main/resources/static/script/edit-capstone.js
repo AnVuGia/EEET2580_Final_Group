@@ -50,7 +50,7 @@ async function updateCapstoneProject(event) {
             body: JSON.stringify(updatedData),
         });
 
-        console.log('Capstone project updated successfully');
+     
     } catch (error) {
         console.error('Error updating capstone project:', error);
     }

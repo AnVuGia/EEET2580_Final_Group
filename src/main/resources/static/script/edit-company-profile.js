@@ -29,7 +29,7 @@ for (var i = 0; i < controlCompInfo.length; i++) {
     if (e.target.textContent === 'Company Overview') {
       LoadOverView();
     } else {
-      console.log('a');
+
       LoadInformation();
     }
   });
@@ -188,7 +188,7 @@ async function updateCompanyInformation() {
             body: formData,
           })
             .then((response) => {
-              console.log('Image uploaded successfully.');
+           
               return response.json();
             })
             .then((data) => {

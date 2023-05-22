@@ -337,7 +337,7 @@ async function UpdateStudentSkills() {
   const StudentNewSkills = {
     skills: NewSkills,
   };
-  console.log(StudentNewSkills);
+
 
   try {
     const response = await fetch(`/api/student/update/${user.id}/skills`, {

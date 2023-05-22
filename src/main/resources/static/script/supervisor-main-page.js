@@ -271,7 +271,6 @@ async function setCapstoneImage(capstoneProject) {
         body: formData,
       })
         .then((response) => {
-          console.log('Image uploaded successfully.');
           return response.json();
         })
         .then((data) => {
@@ -287,12 +286,7 @@ async function setCapstoneImage(capstoneProject) {
             },
             body: JSON.stringify(capstoneProject),
           })
-            .then((response) => {
-              console.log('Capstone project update successfully.');
-            })
-            .then((data) => {
-              console.log(data);
-            });
+        
         })
         .catch((error) => {
           console.error(error);
@@ -413,7 +407,6 @@ updateProfileUI();
 
 async function loadSupModal() {
   const imgIdDiv = document.getElementById('profile_img');
-  console.log(imgIdDiv);
   const subProfileBio = document.getElementById('sup-profile-bio');
   const subProfileContact = document.getElementById('sup-profile-contact');
   const subPassword = document.getElementById('sup-profile-password');
@@ -442,7 +435,6 @@ async function onSupervisorLoad() {
 onSupervisorLoad();
 async function updateProfile(supervisorID) {
   let newUser = getUser();
-  console.log(newUser);
   newUser.bio = document.querySelector('#sup-profile-bio').value;
   newUser.email = document.querySelector('#sup-profile-email').value;
   newUser.contact = document.querySelector('#sup-profile-contact').value;
@@ -468,7 +460,6 @@ async function updateProfile(supervisorID) {
           body: formData,
         })
           .then((response) => {
-            console.log('Image uploaded successfully.');
             return response.json();
           })
           .then((data) => {

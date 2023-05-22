@@ -61,9 +61,6 @@ async function onLeave(ev) {
       loadingModal.show();
       let group = JSON.parse(sessionStorage.getItem('current-group'));
       let index = findObjectIndex(group.studentList, getUser());
-      console.log(group);
-      console.log(getUser());
-      console.log(index);
       group.studentList.splice(index, 1);
       await fetch('api/group', {
         method: 'PUT',
@@ -127,7 +124,6 @@ async function getAllApprovedCapstones(page, size) {
   const url = `/api/capstone-projects/approved?page=${page}&size=${size}`;
   const response = await fetch(url);
   const result = await response.json();
-  console.log(result);
   return result;
 }
 
@@ -201,13 +197,11 @@ const createGroup = async function () {
   // updateSessionStorage();
   let studentList = [];
   studentList.push(getUser());
-  console.log(groupNameInput);
   let groupObject = {
     groupName: groupNameInput.value,
     studentList: studentList,
     capstone: null,
   };
-  console.log(groupObject);
   const url = 'api/group';
 
   await fetch(url, {
