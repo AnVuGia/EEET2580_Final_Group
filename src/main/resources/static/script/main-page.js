@@ -277,8 +277,23 @@ async function updateCompanyUI(type, accList) {
       compContainer.appendChild(companyCard);
       displayResult.appendChild(compContainer);
     } else {
-      const card = await createAccCard(acc);
-      displayResult.appendChild(card);
+      const accContainer = document.createElement('div');
+      accContainer.classList.add('col-xl-4', 'col-md-6', 'col-md-12');
+      if (acc.imageId != null) {
+        const spinning = createSpinningAccCard();
+        accContainer.appendChild(spinning);
+        displayResult.appendChild(accContainer);
+        console.log('in spinning');
+        const card = await createAccCard(acc);
+        accContainer.removeChild(spinning);
+
+        accContainer.appendChild(card);
+        // displayResult.appendChild(accContainer);
+      } else {
+        const card = await createAccCard(acc);
+        accContainer.appendChild(card);
+        displayResult.appendChild(accContainer);
+      }
     }
   }
 }
@@ -317,31 +332,67 @@ function createCompanyCard(companyInfo) {
   return div;
 }
 async function createAccCard(accInfo) {
-  placeholder =
-    'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/240px-Default_pfp.svg.png';
+  let placeholder;
+  placeholder = document.createElement('i');
+  placeholder.className = 'fas fa-user-graduate';
   if (accInfo.imageId !== null) {
-    placeholder = await getImage(accInfo.imageId);
+    const placeholderURL = await getImage(accInfo.imageId);
+    placeholder = document.createElement('img');
+    placeholder.src = placeholderURL;
+    placeholder.className = 'tag-icon my-auto ms-4';
   }
+  placeholder.classList.add('icon');
   const div = document.createElement('div');
+
   div.setAttribute('id', accInfo.id);
+  div.classList.add('card');
+  div.classList.add('p-3');
+  div.classList.add('mb-3');
+  div.classList.add('mt-3');
   div.innerHTML = `
-  <div class="acc_info_container d-none d-lg-flex mx-auto mb-3" style="width: 80%; padding: 0px 30px 0px 0px; height: 60px; border-radius: 10px; ">
-      <img src="${placeholder}" alt="Null Avatar" class="tag-icon my-auto ms-4">
-      <div class = "my-auto acc-name" id ="acc-${
-        accInfo.id
-      }" style ="width: 180px;margin-left:120px"><p class="acc_name my-auto" style="font-size: 1.6rem;">${
-    accInfo.name ? accInfo.name : 'N/A'
-  }</p></div>
-      <p class="gmail" style="font-size: 1.6rem; margin: auto auto auto 200px;">${
-        accInfo.email ? accInfo.email : 'N/A'
-      }</p>
-  </div>
-  `;
+            <div class="d-flex justify-content-between mt-2">
+                <div class="d-flex flex-row align-items-center">
+                    ${placeholder.outerHTML}
+                    <div class="ms-2 c-details">
+                        <h5 class="company-title">${accInfo.name}</h5> 
+                    </div>
+                </div>
+            </div>
+            <div class="mt-2">
+                <div class="mt-2">
+                    <div class="sub-overview">
+                        <i class="bi bi-briefcase"> <span><span>Contact Info: ${
+                          !!accInfo.email ? accInfo.email : 'N/A'
+                        }</span></span></i>
+                    </div>
+                </div>
+                <div class="mt-2">
+                    <button class="btn read-more">Show info</button>
+                </div>
+            </div>
+    `;
+
   div.addEventListener('click', function (ev) {
     console.log('Hello' + accInfo.name);
     const temp = OpenStudent(ev.target.id);
     temp();
   });
+  return div;
+}
+function createSpinningAccCard() {
+  const div = document.createElement('div');
+  div.classList.add('card');
+  div.classList.add('p-3');
+  div.classList.add('mb-3');
+  div.classList.add('mt-3');
+  div.classList.add('d-flex');
+  div.classList.add('justify-content-center');
+  div.classList.add('align-items-center');
+  div.style.height = '154px';
+  div.innerHTML = `
+    <div class="loading-spinner">
+  </div>
+          `;
   return div;
 }
 //Group Search
