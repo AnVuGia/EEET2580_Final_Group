@@ -493,29 +493,6 @@
         </div>
       </div>
 
-      <div class="modal fade" id="searchAccountInfo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id ="display-search-modal">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-2 group-form-heading" id="searchAccountInfo">
-              Account Information
-            </h1>
-            <br>
-            <button type="button" class="btn-close fs-5 me-1" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body" id = "search-account-body-id">
-          </div>
-          <div class="modal-footer">
-            <button id="cancel-btn" type="button" class="btn modal-button-controller" data-bs-dismiss="modal">
-              Close
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
       <!-- Student Profile -->
       <div id="account-profile" class="container studentProfile py-4" hidden="hidden">
         <div class="ColseBar">
@@ -595,8 +572,9 @@
           </div>
         </div>
       </div>
+      
       <!-- Company Profile -->
-      <div id="CompanyProfile" class="container CompanyProfile col-lg-10 col-md-10 col-sm-10" hidden="hidden">
+      <!-- <div id="CompanyProfile" class="container CompanyProfile col-lg-10 col-md-10 col-sm-10" hidden="hidden">
         <div class="ColseBar">
           <button id="CPcloseBTN" type="button" class="btn-close"></button>
         </div>
@@ -700,12 +678,32 @@
             </div>
           </div>
         </div>
-      </div>
-
-
+      </div> -->
 
 
     </div>
+    <div class="modal fade" id="searchAccountInfo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+      aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id ="display-search-modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-2 group-form-heading" id="searchAccountInfo">
+              Account Information
+            </h1>
+            <br>
+            <button type="button" class="btn-close fs-5 me-1" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" id = "search-account-body-id">
+          </div>
+          <div class="modal-footer">
+            <button id="cancel-btn" type="button" class="btn modal-button-controller" data-bs-dismiss="modal">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+      </div>
   </main>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="script/UiUtils.js"></script>
