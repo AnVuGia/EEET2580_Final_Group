@@ -277,6 +277,8 @@ function LoadSkills(result2) {
   return skills;
 }
 async function loadCompany(result2) {
+  let nullImagePlacehodler =
+    'https://t4.ftcdn.net/jpg/03/59/58/91/360_F_359589186_JDLl8dIWoBNf1iqEkHxhUeeOulx0wOC5.jpg';
   let imageContent = `<img src="${nullImagePlacehodler}" alt="" id="acc-ava">`;
   if (result2.imageId != null) {
     const imageURL = await getImage(result2.imageId);
@@ -362,6 +364,8 @@ async function loadCompany(result2) {
   return content;
 }
 async function loadSupervisor(result2) {
+  let nullImagePlacehodler =
+    'https://t4.ftcdn.net/jpg/03/59/58/91/360_F_359589186_JDLl8dIWoBNf1iqEkHxhUeeOulx0wOC5.jpg';
   let imageContent = `<img src="${nullImagePlacehodler}" alt="" id="acc-ava">`;
   if (result2.imageId != null) {
     const imageURL = await getImage(result2.imageId);
@@ -429,9 +433,12 @@ async function loadSupervisor(result2) {
   return content;
 }
 async function loadStudent(result2) {
+  let nullImagePlacehodler =
+    'https://t4.ftcdn.net/jpg/03/59/58/91/360_F_359589186_JDLl8dIWoBNf1iqEkHxhUeeOulx0wOC5.jpg';
   console.log(result2);
   let imageContent = `<img src="${nullImagePlacehodler}" alt="" id="acc-ava">`;
-  if (result2.imageId != null) {
+  if (result2.imageId !== null) {
+    console.log('in true');
     const imageURL = await getImage(result2.imageId);
     imageContent = `<img src="${imageURL}" alt="" id="acc-ava">`;
   }
