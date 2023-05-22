@@ -1,3 +1,4 @@
+const profileContainer = document.getElementById("account-profile-main");
 const loadingModal = new bootstrap.Modal(
   document.getElementById('loading-modal'),
   {

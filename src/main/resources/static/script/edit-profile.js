@@ -1,5 +1,4 @@
 const SaveChangeBtn = document.getElementById('submit-btn');
-const profileContainer = document.getElementById("account-profile-main");
 const SaveBib = document.getElementById('SaveBib');
 const currentGroupStudent = JSON.parse(sessionStorage.getItem('current-group'));
 const CapabilityCreateBtn = document.getElementById('CapabilityCreateBtn');
@@ -246,12 +245,12 @@ SaveChangeBtn.addEventListener('click', () => {
 });
 
 async function UpdateStudentPersona() {
-  const profile_image = document.getElementById('profile_img');
-  const profile_name = document.getElementById('profile_name');
-  const profile_major = document.getElementById('profile_major');
-  const profile_contact = document.getElementById('profile_contact');
-  const profile_email = document.getElementById('profile_email');
-  const profile_bib = document.getElementById('Bib');
+  // const profile_image = document.getElementById('profile_img');
+  // const profile_name = document.getElementById('profile_name');
+  // const profile_major = document.getElementById('profile_major');
+  // const profile_contact = document.getElementById('profile_contact');
+  // const profile_email = document.getElementById('profile_email');
+  // const profile_bib = document.getElementById('Bib');
 
   let NewName = document.getElementById('NewName').value;
   let NewMajor = document.getElementById('NewMajor').value;

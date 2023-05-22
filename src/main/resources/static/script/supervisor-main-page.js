@@ -344,16 +344,73 @@ const imgPlacHolder = document.querySelector('.rounded-circle');
 
 const nullImagePlacehodler =
   'https://t4.ftcdn.net/jpg/03/59/58/91/360_F_359589186_JDLl8dIWoBNf1iqEkHxhUeeOulx0wOC5.jpg';
-function updateProfileUI(updatedProfile) {
-  supervisorName.textContent = getUser().name ? getUser().name : 'N/A';
-  supervisorBio.textContent = getUser().bio ? getUser().bio : 'N/A';
-  supervisorEmail.textContent = getUser().email ? getUser().email : 'N/A';
-  supervisorContact.textContent = getUser().contact ? getUser().contact : 'N/A';
+  
+function updateProfileUI(result2) {
+  let sName = getUser().name ? getUser().name : 'N/A';
+  let contact = getUser().contact ? getUser().contact : 'N/A';
+  let email = getUser().email ? getUser().email : 'N/A';
+  let Bib = getUser().bio ? getUser().bio : 'N/A';
+
+  let holder = document.createElement("div");
+  const content = `
+  <div class="row mt-3">
+  <div class="col-12 col-lg-4 d-flex justify-content-center my-auto">
+      <div class="avatar-container d-flex flex-column">
+          <img id="#profile_img" src="${nullImagePlacehodler}" alt="" id="acc-ava">
+          <p class="user-namee mx-auto mt-2"  style="font-size: 1.7rem;">${sName}</p>
+      </div>
+  </div>
+  <div class="d-none d-lg-block col-lg-8 d-flex flex-column">
+      <div class="basic-info-container mx-auto">
+          <div class="basic-info-element d-flex mt-2">
+              <div class ="mt-2" style="width: 200px; display: flex;">
+                  <p class="lable" style="margin: auto 0px auto 30px; font-size: 1.8rem; font-weight: 800; ">Full Name</p>
+              </div>
+              <p class="lable my-auto" style="font-size: 1.6rem; margin-left: 250px;">${sName}</p>
+          </div>
+          <hr style="width: 95%;" class="mx-auto">
+          <div class="basic-info-element d-flex">
+              <div style="width: 200px; display: flex;">
+                  <p class="lable" style="margin: auto 0px auto 30px; font-size: 1.8rem; font-weight: 800; ">Email</p>
+              </div>
+              <p class="lable my-auto" style="font-size: 1.6rem; margin-left: 250px;">${email}</p>
+          </div>
+          <hr style="width: 95%;" class="mx-auto">
+          <div class="basic-info-element d-flex">
+              <div style="width: 200px; display: flex;">
+                  <p class="lable" style="margin: auto 0px auto 30px; font-size: 1.8rem; font-weight: 800; ">Contact</p>
+              </div>
+              <p class="lable my-auto" style="font-size: 1.6rem; margin-left: 250px;">${contact}</p>
+          </div>
+          <hr style="width: 95%;" class="mx-auto">
+          <div class="basic-info-element d-flex">
+              <div style="width: 200px; display: flex;">
+                  <p class="lable" style="margin: auto 0px auto 30px; font-size: 1.8rem; font-weight: 800; ">Password</p>
+              </div>
+              <p class="lable my-auto" style="font-size: 1.6rem; margin-left: 250px;">${getUser().password}</p>
+          </div>
+          <hr>
+      </div>
+      <div class="special-info mx-auto p-2" style="font-size: 1.6rem;">
+          <div class="row">
+              <div class="bio-container col-12 d-flex flex-column me-auto">
+                  <div class="titlee mx-auto" style ="font-size: 1.9rem; font-weight;700">Biography</div>
+                  <p class="p-2">${Bib}</p>
+              </div>
+          </div>
+          
+      </div>
+  </div>
+</div> 
+`
+profileContainer.innerHTML ='';
+profileContainer.innerHTML += content;
+loadSupModal();
 }
 updateProfileUI();
 
 async function loadSupModal() {
-  const imgIdDiv = document.querySelector('.rounded-circle');
+  const imgIdDiv = document.getElementById('profile-image');
   console.log(imgIdDiv);
   const subProfileBio = document.getElementById('sup-profile-bio');
   const subProfileContact = document.getElementById('sup-profile-contact');

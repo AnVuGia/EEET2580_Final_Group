@@ -378,45 +378,23 @@
         </div>
       </div>
     </div>
-      <div id="account-profile" class="supervisorContainer mx-auto" hidden ="hidden">
-        <div class=" rounded  bg-white mt-5 mb-5">
-          <div class="d-flex justify-content-end">
-           <button class="edit-profile-button btn btn-primary edit-profile-button" data-bs-toggle="modal" data-bs-target="#editSupProfile" type="button">Edit Profile</button>
+    <div id="account-profile" class="container py-4 bg-light" hidden="hidden">
+      <header class="border-bottom">
+        <div class="p-3 rounded-3">
+          <div class="profile-header my-auto d-flex justify-content-between">
+            <h2 class="display-5 fw-bold">Profile</h2>
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#editSupProfile"
+            >
+              Edit
+            </button>
           </div>
-          <div class="row">
-            <div class="col-md-3  border-right">
-              <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
-                <span class="font-weight-bold" id="profile-supervisor-name">Edogaru</span>
-                <span> </span>
-              </div>
-            </div>
-            <div class="col-md-5 mx-auto border-right"  style="height: 100%;">
-              <div class="p-3 py-5">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h1 id="profile-heading" style="font-size: 2rem;" class="text-right">Profile</h1>
-                </div>
-
-                <div class="row mt-3">
-                  <div class="col-md-12 profile-item" style="font-size: 1.8rem;">
-                    <label class="labels ms-4" style="font-size: 1.6rem;">Email</label>
-                    <p id="profile-supervisor-email" class=" ms-4" type="text"></p>
-                  </div>
-
-                  <div class="col-md-12 profile-item" style="font-size: 1.8rem;">
-                    <label class="labels ms-4" style="font-size: 1.6rem;">Contact: </label>
-                    <p id="profile-supervisor-contact" class=" ms-4"></p>
-                  </div>
-                  <div class="col-md-12 profile-item" style="font-size: 1.8rem;">
-                    <label class="labels ms-4" style="font-size: 1.6rem;">Biography: </label>
-                    <p id="profile-supervisor-bio" class=" ms-4"></p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      </header>
+      <div id="account-profile-main"></div>
+    </div>
       <div class="modal fade" id="editSupProfile" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
      aria-labelledby="staticBackdropLabel" aria-hidden="true">
 
