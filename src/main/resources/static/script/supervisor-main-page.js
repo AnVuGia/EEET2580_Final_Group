@@ -426,14 +426,18 @@ async function loadSupModal() {
   if (getUser().imageId) {
     const imgURL = await getImage(getUser().imageId);
     imgIdDiv.src = imgURL;
+    alertModalElStudent.querySelector('.btn-close').click();
   } else {
     imgIdDiv.src = nullImagePlacehodler;
+    setTimeout(() => {
+      alertModalElStudent.querySelector('.btn-close').click();
+      displayWelcomMessage();
+    }, 1000);
   }
 }
 async function onSupervisorLoad() {
   updateLoadingModal('Loading...', document.querySelector('#alert-modal'));
   await loadSupModal();
-  document.querySelector('#alert-modal').querySelector('.btn-close').click();
 }
 onSupervisorLoad();
 async function updateProfile(supervisorID) {

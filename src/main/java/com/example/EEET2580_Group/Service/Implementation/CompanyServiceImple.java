@@ -19,7 +19,7 @@ public class CompanyServiceImple implements CompanyService {
     CompanyAccRepository companyAccRepository;
 
     public void updateCompany(CompanyAcc oldCompany, CompanyAccDto newCompany){
-        System.out.println("INside update student");
+        System.out.println("INside update company");
         oldCompany.setName(newCompany.getName());
         oldCompany.setContact(newCompany.getContact());
         oldCompany.setEmail(newCompany.getEmail());
@@ -27,6 +27,7 @@ public class CompanyServiceImple implements CompanyService {
         oldCompany.setPassword(newCompany.getPassword());
         oldCompany.setManager(newCompany.getManager());
         oldCompany.setManager_contact(newCompany.getManager_contact());
+        oldCompany.setImageId(newCompany.getImageId());
     }
 
     @Override
