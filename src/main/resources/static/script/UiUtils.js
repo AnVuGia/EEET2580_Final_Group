@@ -1,4 +1,4 @@
-const profileContainer = document.getElementById("account-profile-main");
+const profileContainer = document.getElementById('account-profile-main');
 let nullImagePlacehodler =
   'https://t4.ftcdn.net/jpg/03/59/58/91/360_F_359589186_JDLl8dIWoBNf1iqEkHxhUeeOulx0wOC5.jpg';
 const loadingModal = new bootstrap.Modal(
@@ -14,10 +14,10 @@ alertModalElStudent.addEventListener('shown.bs.modal', function (ev) {
 });
 
 function findObjectIndex(list, object) {
-  for (var i =0 ;i < list.length;i++){
-      if (list[i].id === object.id){
-          return i;
-      }
+  for (var i = 0; i < list.length; i++) {
+    if (list[i].id === object.id) {
+      return i;
+    }
   }
 }
 function createCapstoneCard(capstone) {
@@ -277,23 +277,22 @@ function LoadSkills(result2) {
   return skills;
 }
 async function loadCompany(result2) {
-  let imageContent ="";
-  if (result2.imageId){
-    imageContent = await getImage(result2.imageId);
-  }else {
-    imageContent = nullImagePlacehodler
+  let imageContent = `<img src="${nullImagePlacehodler}" alt="" id="acc-ava">`;
+  if (result2.imageId != null) {
+    const imageURL = await getImage(result2.imageId);
+    imageContent = `<img src="${imageURL}" alt="" id="acc-ava">`;
   }
   let sName = result2.name ? result2.name : 'N/A';
   let contact = result2.contact ? result2.contact : 'N/A';
   let email = result2.email ? result2.email : 'N/A';
   let Bib = result2.bio ? result2.bio : 'N/A';
 
-  let holder = document.createElement("div");
+  let holder = document.createElement('div');
   const content = `
   <div class="row mt-3">
   <div class="col-12 col-lg-4 d-flex justify-content-center my-auto">
       <div class="avatar-container d-flex flex-column">
-          <img id="#profile_img" src="${imageContent}" alt="" id="acc-ava">
+         ${imageContent}
           <p class="user-namee mx-auto mt-2"  style="font-size: 1.7rem;">${sName}</p>
       </div>
   </div>
@@ -324,7 +323,9 @@ async function loadCompany(result2) {
               <div style="width: 200px; display: flex;">
                   <p class="lable" style="margin: auto 0px auto 30px; font-size: 1.8rem; font-weight: 800; ">Password</p>
               </div>
-              <p class="lable my-auto" style="font-size: 1.6rem; margin-left: 250px;">${getUser().password}</p>
+              <p class="lable my-auto" style="font-size: 1.6rem; margin-left: 250px;">${
+                getUser().password
+              }</p>
           </div>
           <hr>
       </div>
@@ -332,14 +333,24 @@ async function loadCompany(result2) {
           <div class="row">
               <div class="bio-container col-6 d-flex flex-column me-auto">
                   <div class="titlee mx-auto" style ="font-size: 1.9rem; font-weight;700">Overview</div>
-                  <p class="p-2"> ${getUser().companyDescription ? getUser().companyDescription : "N/A"}</p>
+                  <p class="p-2"> ${
+                    getUser().companyDescription
+                      ? getUser().companyDescription
+                      : 'N/A'
+                  }</p>
               </div>
           
               <div class="bio-container col-5 d-flex flex-column">
                   <div class="titlee mx-auto" style ="font-size: 1.9rem; font-weight;700">Manager Contact</div>
                   <ul class="companyInfoList">
-                    <li class="company-info-item mb-2">Name: ${getUser().manager ? getUser().manager : "N/A"}</li>
-                    <li class="company-info-item mb-2">Contact: ${getUser().manager_contact ? getUser().manager_contact : "N/A"}</li>
+                    <li class="company-info-item mb-2">Name: ${
+                      getUser().manager ? getUser().manager : 'N/A'
+                    }</li>
+                    <li class="company-info-item mb-2">Contact: ${
+                      getUser().manager_contact
+                        ? getUser().manager_contact
+                        : 'N/A'
+                    }</li>
                   </ul>
               </div>
           </div>
@@ -347,27 +358,26 @@ async function loadCompany(result2) {
       </div>
   </div>
 </div> 
-`
+`;
   return content;
 }
-async function loadSupervisor(result2){
-  let imageContent ="";
-  if (result2.imageId){
-    imageContent = await getImage(result2.imageId);
-  }else {
-    imageContent = nullImagePlacehodler;
+async function loadSupervisor(result2) {
+  let imageContent = `<img src="${nullImagePlacehodler}" alt="" id="acc-ava">`;
+  if (result2.imageId != null) {
+    const imageURL = await getImage(result2.imageId);
+    imageContent = `<img src="${imageURL}" alt="" id="acc-ava">`;
   }
   let sName = result2.name ? result2.name : 'N/A';
   let contact = result2.contact ? result2.contact : 'N/A';
   let email = result2.email ? result2.email : 'N/A';
   let Bib = result2.bio ? result2.bio : 'N/A';
 
-  let holder = document.createElement("div");
+  let holder = document.createElement('div');
   const content = `
     <div class="row mt-3">
     <div class="col-12 col-lg-4 d-flex justify-content-center my-auto">
         <div class="avatar-container d-flex flex-column">
-            <img id="#profile_img" src="${imageContent}" alt="" id="acc-ava">
+            ${imageContent}
             <p class="user-namee mx-auto mt-2"  style="font-size: 1.7rem;">${sName}</p>
         </div>
     </div>
@@ -398,7 +408,9 @@ async function loadSupervisor(result2){
                 <div style="width: 200px; display: flex;">
                     <p class="lable" style="margin: auto 0px auto 30px; font-size: 1.8rem; font-weight: 800; ">Password</p>
                 </div>
-                <p class="lable my-auto" style="font-size: 1.6rem; margin-left: 250px;">${getUser().password}</p>
+                <p class="lable my-auto" style="font-size: 1.6rem; margin-left: 250px;">${
+                  getUser().password
+                }</p>
             </div>
             <hr>
         </div>
@@ -413,17 +425,19 @@ async function loadSupervisor(result2){
         </div>
     </div>
   </div> 
-`
+`;
   return content;
 }
 async function loadStudent(result2) {
   console.log(result2);
-  let imageContent = nullImagePlacehodler;
-  if (result2.imageId){
-    imageContent = await getImage(result2.imageId);
+  let imageContent = `<img src="${nullImagePlacehodler}" alt="" id="acc-ava">`;
+  if (result2.imageId != null) {
+    const imageURL = await getImage(result2.imageId);
+    imageContent = `<img src="${imageURL}" alt="" id="acc-ava">`;
   }
+  console.log(imageContent);
   await getCurrentGroupUti(result2.id);
-  let group_to_display = sessionStorage.getItem("group-display");
+  let group_to_display = sessionStorage.getItem('group-display');
   let company = group_to_display.capstone
     ? group_to_display.capstone.company.name
       ? group_to_display.capstone.company.name
@@ -445,11 +459,12 @@ async function loadStudent(result2) {
 
   let holder = document.createElement('div');
   holder.appendChild(LoadSkills(result2));
+
   const content = `
   <div class="row mt-3">
   <div class="col-12 col-lg-4 d-flex justify-content-center my-auto">
       <div class="avatar-container d-flex flex-column">
-          <img id="#profile_img" src="${imageContent}" alt="" id="acc-ava">
+          ${imageContent}
           <p class="user-namee mx-auto mt-2"  style="font-size: 1.7rem;">${sName}</p>
           <p class="user-namee mx-auto"  style="font-size: 1.7rem;">Group: ${studentInfoGroup}</p>
           <p class="user-namee mx-auto"  style="font-size: 1.7rem;">Company: ${company}</p>
