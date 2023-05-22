@@ -1,10 +1,6 @@
 let currCompany = sessionStorage.getItem('user');
 currCompany = JSON.parse(currCompany);
-//loading spinner
-const spinner1 = createSpinningAnimation();
-const spinner2 = createSpinningAnimation();
-const spinner3 = createSpinningAnimation();
-//
+
 const approveSectionPage = {
   currPage: 0,
   currSize: 3,

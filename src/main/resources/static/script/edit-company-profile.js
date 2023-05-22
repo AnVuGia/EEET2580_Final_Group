@@ -29,7 +29,6 @@ for (var i = 0; i < controlCompInfo.length; i++) {
     if (e.target.textContent === 'Company Overview') {
       LoadOverView();
     } else {
-
       LoadInformation();
     }
   });
@@ -188,7 +187,6 @@ async function updateCompanyInformation() {
             body: formData,
           })
             .then((response) => {
-           
               return response.json();
             })
             .then((data) => {
@@ -261,8 +259,6 @@ async function setCompanyProfileImage() {
 }
 async function onCompanyLoad() {
   LoadProfile(getUser());
-  updateLoadingModal('Loading profile information...', alertModalElStudent);
   await setCompanyProfileImage();
-  alertModalElStudent.querySelector('.btn-close').click();
 }
 onCompanyLoad();
