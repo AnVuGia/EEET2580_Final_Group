@@ -25,6 +25,7 @@ public class SupervisorAccServiceImp implements SupervisorAccService {
         oldSupervisor.setEmail(newSupervisor.getEmail());
         oldSupervisor.setBio(newSupervisor.getBio());
         oldSupervisor.setPassword(newSupervisor.getPassword());
+        oldSupervisor.setImageId(newSupervisor.getImageId());
     }
     @Override
     public List<SupervisorAcc> getAllSupervisor() {

@@ -12,10 +12,11 @@ public class SupervisorAccDto extends AccountDto {
 
     private String bio;
     private Long contact;
+    private Long imageId;
     public SupervisorAccDto(SupervisorAcc supervisorAcc) {
         super(supervisorAcc);
         this.bio = supervisorAcc.getBio();
         this.contact = supervisorAcc.getContact();
-
+        this.imageId = supervisorAcc.getImageId();
     }
 }

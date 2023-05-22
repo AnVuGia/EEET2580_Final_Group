@@ -1,13 +1,14 @@
 const currUser = JSON.parse(sessionStorage.getItem('user'));
 const paginationSection = document.querySelector('#sup-pagination');
 const capstoneContainer = document.querySelector('.request-capstone');
-const submitProfileBtn = document.getElementById("submit-sup-porfile");
+const submitProfileBtn = document.getElementById('submit-sup-porfile');
 const loadingSpinner = createSpinningAnimation();
 const newPassword = document.querySelector('#sup-profile-password');
 
-submitProfileBtn.addEventListener("click", async function (ev) {
+submitProfileBtn.addEventListener('click', async function (ev) {
   if (newPassword.value.length >= 8) {
-    updateInfoModal("Are you sure you want to save change this information?",
+    updateInfoModal(
+      'Are you sure you want to save change this information?',
       alertModalElStudent,
       async () => {
         loadingModal.show();
@@ -15,13 +16,18 @@ submitProfileBtn.addEventListener("click", async function (ev) {
         loadSupModal();
         displayWelcomMessage();
         updateProfileUI();
-      })
+      }
+    );
   } else {
-    updateDangerModal("Password should be at least 8 characters",
+    updateDangerModal(
+      'Password should be at least 8 characters',
       alertModalElStudent,
-      (ev) => {loadSupModal();});
+      (ev) => {
+        loadSupModal();
+      }
+    );
   }
-})
+});
 const superviseCapstoneSection = {
   currPage: 0,
   currSize: 3,
@@ -62,8 +68,9 @@ function createCapstoneCardWithEditButton(capstone) {
   const capItem = document.createElement('div');
   capItem.classList.add('capstone-item');
   capItem.innerHTML = `  
-        <div style ="background-color: ${!!capstone.capstoneColor ? capstone.capstoneColor : '#BD3C14'
-    }" class="capstone-item-color"></div>
+        <div style ="background-color: ${
+          !!capstone.capstoneColor ? capstone.capstoneColor : '#BD3C14'
+        }" class="capstone-item-color"></div>
           <div class="capstone-item-info">
           <p class="item-name">${capstone.projectTitle}</p>
           <p class="course-code">${capstone.company.name}</p>
@@ -135,58 +142,71 @@ function createEditCapstoneForm(capstone) {
         <input type="file" id="project-image" accept="image/*" />
 
         <label for="project-title">Capstone Project Title</label>
-        <input type="text" id="project-title" value="${capstone.projectTitle
-    }" />
+        <input type="text" id="project-title" value="${
+          capstone.projectTitle
+        }" />
         
         <label for="project-introduction"> Capstone Project Introduction</label>
-        <textarea type="text" id="project-introduction">${capstone.projectIntroduction
-    }</textarea>
+        <textarea type="text" id="project-introduction">${
+          capstone.projectIntroduction
+        }</textarea>
 
         <label for="project-objectives">Capstone Project Objectives</label>
-        <textarea type="text" id="project-objectives">${capstone.projectObjectives
-    }</textarea>
+        <textarea type="text" id="project-objectives">${
+          capstone.projectObjectives
+        }</textarea>
 
         <label for="project-interview-requirements">Interview Requirements</label>
-        <input type="text" id="project-interview-requirements" value="${capstone.interviewReqs
-    }" />
+        <input type="text" id="project-interview-requirements" value="${
+          capstone.interviewReqs
+        }" />
 
         <label for="project-multi-team">Allow Multiteam?</label>
         <select id="project-multi-team">
-           <option value="true" ${capstone.multiTeamAllow ? 'selected' : ''
-    }>Yes</option>
-           <option value="false" ${!capstone.multiTeamAllow ? 'selected' : ''
-    }>No</option>
+           <option value="true" ${
+             capstone.multiTeamAllow ? 'selected' : ''
+           }>Yes</option>
+           <option value="false" ${
+             !capstone.multiTeamAllow ? 'selected' : ''
+           }>No</option>
         </select>
         
         <label for="project-academic-background">Academic Background</label>
-        <input type="text" id="project-academic-background" value="${capstone.academicBackground
-    }"/>
+        <input type="text" id="project-academic-background" value="${
+          capstone.academicBackground
+        }"/>
         
         <label for="project-no-students">Number of Members in a Group</label>
-        <input type="number" id="project-no-students" value="${capstone.noStudents
-    }"/>
+        <input type="number" id="project-no-students" value="${
+          capstone.noStudents
+        }"/>
 
         <label for="project-success-criteria">Success criteria</label>
-        <input type="text" id="project-success-criteria" value="${capstone.projectSuccessCriteria
-    }"/>
+        <input type="text" id="project-success-criteria" value="${
+          capstone.projectSuccessCriteria
+        }"/>
 
         <label for="project-description">Capstone Description</label>
-        <textarea type="text" id="project-description">${capstone.projectDescription
-    }</textarea>
+        <textarea type="text" id="project-description">${
+          capstone.projectDescription
+        }</textarea>
         
         <label for="project-requirements">Capstone Requirements</label>
-        <textarea type="text" id="project-requirements">${capstone.technicalRequirements
-    }</textarea>
+        <textarea type="text" id="project-requirements">${
+          capstone.technicalRequirements
+        }</textarea>
         
         <label for="supervisor-name">Company Name</label>
-        <input readonly type="text" id="supervisor-name" value="${capstone.supervisor.name
-    }"/>
+        <input readonly type="text" id="supervisor-name" value="${
+          capstone.supervisor.name
+        }"/>
         
       
         
         <label for="company-name">Company Name</label>
-        <input readonly type="text" id="company-name" value="${capstone.company.name
-    }"/>
+        <input readonly type="text" id="company-name" value="${
+          capstone.company.name
+        }"/>
         
        
         <button type="submit">Save</button>
@@ -255,7 +275,6 @@ async function setCapstoneImage(capstoneProject) {
           return response.json();
         })
         .then((data) => {
-
           capstoneProject.imageId = data.id;
 
           return capstoneProject;
@@ -323,49 +342,100 @@ const supervisorContact = document.querySelector('#profile-supervisor-contact');
 
 const imgPlacHolder = document.querySelector('.rounded-circle');
 
-const nullImagePlacehodler = "https://t4.ftcdn.net/jpg/03/59/58/91/360_F_359589186_JDLl8dIWoBNf1iqEkHxhUeeOulx0wOC5.jpg";
+const nullImagePlacehodler =
+  'https://t4.ftcdn.net/jpg/03/59/58/91/360_F_359589186_JDLl8dIWoBNf1iqEkHxhUeeOulx0wOC5.jpg';
 function updateProfileUI(updatedProfile) {
-  imgPlacHolder.src = getUser().imgId ? getUser().imgID : nullImagePlacehodler;
-  supervisorName.textContent = getUser().name ? getUser().name : "N/A";
-  supervisorBio.textContent = getUser().bio ? getUser().bio : "N/A";
-  supervisorEmail.textContent = getUser().email ? getUser().email : "N/A";
-  supervisorContact.textContent = getUser().contact ? getUser().contact : "N/A";
+  supervisorName.textContent = getUser().name ? getUser().name : 'N/A';
+  supervisorBio.textContent = getUser().bio ? getUser().bio : 'N/A';
+  supervisorEmail.textContent = getUser().email ? getUser().email : 'N/A';
+  supervisorContact.textContent = getUser().contact ? getUser().contact : 'N/A';
 }
 updateProfileUI();
 
-function loadSupModal() {
-  const imgIdDiv = document.querySelector("profile-image");
-  const subProfileBio = document.getElementById("sup-profile-bio");
-  const subProfileContact = document.getElementById("sup-profile-contact");
-  const subPassword = document.getElementById("sup-profile-password");
-  const subProfileEmail = document.getElementById("sup-profile-email");
-  subProfileBio.value = getUser().bio ? getUser().bio : "N/A";
-  subProfileContact.value = getUser().contact ? getUser().contact : "N/A";
-  subProfileEmail.value = getUser().email ? getUser().email : "N/A";
-  subPassword.value = getUser().password ? getUser().password : "N/A";
+async function loadSupModal() {
+  const imgIdDiv = document.querySelector('.rounded-circle');
+  console.log(imgIdDiv);
+  const subProfileBio = document.getElementById('sup-profile-bio');
+  const subProfileContact = document.getElementById('sup-profile-contact');
+  const subPassword = document.getElementById('sup-profile-password');
+  const subProfileEmail = document.getElementById('sup-profile-email');
+  subProfileBio.value = getUser().bio ? getUser().bio : 'N/A';
+  subProfileContact.value = getUser().contact ? getUser().contact : 'N/A';
+  subProfileEmail.value = getUser().email ? getUser().email : 'N/A';
+  subPassword.value = getUser().password ? getUser().password : 'N/A';
 
-  if (getUser().imgId) {
-    imgIdDiv.value = getUser().imgId;
+  if (getUser().imageId) {
+    const imgURL = await getImage(getUser().imageId);
+    imgIdDiv.src = imgURL;
+  } else {
+    imgIdDiv.src = nullImagePlacehodler;
   }
 }
-
-loadSupModal();
-
+async function onSupervisorLoad() {
+  updateLoadingModal('Loading...', document.querySelector('#alert-modal'));
+  await loadSupModal();
+  document.querySelector('#alert-modal').querySelector('.btn-close').click();
+}
+onSupervisorLoad();
 async function updateProfile(supervisorID) {
   let newUser = getUser();
-  if (document.getElementById("profile-image").files.length != 0) {
-    newUser.imgID = document.querySelector("profile-image").files[0].name;
-  }
-
+  console.log(newUser);
   newUser.bio = document.querySelector('#sup-profile-bio').value;
   newUser.email = document.querySelector('#sup-profile-email').value;
   newUser.contact = document.querySelector('#sup-profile-contact').value;
   newUser.password = document.querySelector('#sup-profile-password').value;
+  sessionStorage.setItem('user', JSON.stringify(newUser));
+  if (document.getElementById('profile-image').files.length != 0) {
+    const image = new Image();
+    const file = document.getElementById('profile-image').files[0];
+    const reader = new FileReader();
+    reader.onload = () => {
+      image.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = 300;
+        canvas.height = 300;
+        const context = canvas.getContext('2d');
+        context.drawImage(image, 0, 0, 300, 300);
+        const compressedImageData = canvas.toDataURL('image/jpeg', 0.5);
+        const formData = new FormData();
+        formData.append('file', dataURItoBlob(compressedImageData));
 
-  sessionStorage.setItem("user", JSON.stringify(newUser));
+        fetch('/api/images', {
+          method: 'POST',
+          body: formData,
+        })
+          .then((response) => {
+            console.log('Image uploaded successfully.');
+            return response.json();
+          })
+          .then((data) => {
+            newUser.imageId = data.id;
+            sessionStorage.setItem('user', JSON.stringify(newUser));
+            try {
+              UpdateSupervisorInfo(newUser);
+            } catch (error) {
+              console.error('Error updating supervisor information:', error);
+            }
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      };
+      image.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  } else {
+    try {
+      UpdateSupervisorInfo(newUser);
+    } catch (error) {
+      console.error('Error updating supervisor information:', error);
+    }
+  }
+}
+async function UpdateSupervisorInfo(newUser) {
   try {
     const response = await fetch(
-      `/api/supervisor/update-profile/${getUser().id}`,
+      `/api/supervisor/update-profile/${newUser.id}`,
       {
         method: 'PUT',
         headers: {
@@ -375,20 +445,20 @@ async function updateProfile(supervisorID) {
       }
     );
     if (response.ok) {
-      updateSuccessModal("You have successfully updated the account information!",
+      updateSuccessModal(
+        'You have successfully updated the account information!',
         alertModalElStudent,
-        () => { });
+        () => {}
+      );
     } else {
       console.error(
-        'Error updating capstone project. Response status:',
+        'Error updating account information. Response status:',
         response.status
       );
     }
   } catch (error) {
     console.error('Error updating capstone project:', error);
   }
-
-
 }
 function dataURItoBlob(dataURI) {
   const byteString = atob(dataURI.split(',')[1]);
