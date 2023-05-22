@@ -218,10 +218,10 @@ SaveChangeBtn.addEventListener('click', () => {
       try {
         ev.preventDefault();
         updateLoadingModal('Updating your information...', alertModalElStudent);
+
+        await uploadProfileImage();
         await UpdateStudentPersona();
         await UpdateStudentSkills();
-        await uploadProfileImage();
-
         displayWelcomMessage();
         LoadData(getUser());
         LoadSkills(getUser());
@@ -353,7 +353,7 @@ async function UpdateStudentSkills() {
 
 async function uploadProfileImage() {
   const fileInput = document.querySelector('#profile-image');
-
+  const newUser = getUser();
   if (fileInput.files.length === 0) {
     // updateDangerModal('Please select a file to upload.', alertModalElStudent);
     return;
@@ -379,11 +379,9 @@ async function uploadProfileImage() {
           body: formData,
         }).then((response) => {
           response.json().then((data) => {
-            const user = getUser();
-            const newUser = {
-              ...user,
-            };
+            console.log(data.id);
             newUser.imageId = data.id;
+            console.log(newUser);
             sessionStorage.setItem('user', JSON.stringify(newUser));
             fetch(`/api/student/update/${newUser.id}/profile-pic`, {
               method: 'PUT',
@@ -391,15 +389,7 @@ async function uploadProfileImage() {
                 'Content-Type': 'application/json',
               },
               body: JSON.stringify(newUser),
-            }).then((response) => {
-              updateSuccessModal(
-                'Image uploaded successfully!',
-                alertModalElStudent,
-                async () => {
-                  location.reload();
-                }
-              );
-            });
+            })
           });
         });
       } catch {
@@ -444,10 +434,6 @@ async function setUserProfileImage(user) {
     // displayWelcomMessage();
   } else if (user.imageId === null) {
     // imgProfileEl.src = nullImagePlacehodler;
-    setTimeout(() => {
-      alertModalElStudent.querySelector('.btn-close').click();
-      // displayWelcomMessage();
-    }, 1000);
   }
 }
 
