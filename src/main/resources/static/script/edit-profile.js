@@ -1,5 +1,5 @@
 const SaveChangeBtn = document.getElementById('submit-btn');
-const profileContainer = document.getElementById("account-profile-main");
+const profileContainer = document.getElementById('account-profile-main');
 const SaveBib = document.getElementById('SaveBib');
 const currentGroupStudent = JSON.parse(sessionStorage.getItem('current-group'));
 const CapabilityCreateBtn = document.getElementById('CapabilityCreateBtn');
@@ -40,14 +40,14 @@ function LoadData(result2) {
     : 'N/A';
   let sName = getUser().name ? getUser().name : 'N/A';
   let major = getUser().major ? getUser().major : 'N/A';
-  let studentInfoGroup  = currentGroupStudent.id
+  let studentInfoGroup = currentGroupStudent.id
     ? currentGroupStudent.groupName
     : 'N/A';
   let contact = getUser().contact ? getUser().contact : 'N/A';
   let email = getUser().email ? getUser().email : 'N/A';
   let Bib = getUser().bib ? getUser().bib : 'N/A';
 
-  let holder = document.createElement("div");
+  let holder = document.createElement('div');
   holder.appendChild(LoadSkills(getUser()));
   const content = `
   <div class="row mt-3">
@@ -88,7 +88,9 @@ function LoadData(result2) {
               <div style="width: 200px; display: flex;">
                   <p class="lable" style="margin: auto 0px auto 30px; font-size: 1.8rem; font-weight: 800; ">Password</p>
               </div>
-              <p class="lable my-auto" style="font-size: 1.6rem; margin-left: 250px;">${getUser().password}</p>
+              <p class="lable my-auto" style="font-size: 1.6rem; margin-left: 250px;">${
+                getUser().password
+              }</p>
           </div>
           <hr>
       </div>
@@ -107,9 +109,9 @@ function LoadData(result2) {
       </div>
   </div>
 </div> 
-`
-profileContainer.innerHTML ='';
-profileContainer.innerHTML += content;
+`;
+  profileContainer.innerHTML = '';
+  profileContainer.innerHTML += content;
   LoadModal(result2);
 }
 
@@ -133,7 +135,7 @@ async function RewriteAllSkills() {
 
 function LoadSkills(result2) {
   // const Capabilityul = document.getElementById('capability');
-  const skills = document.createElement("ul");
+  const skills = document.createElement('ul');
   // Capabilityul.innerHTML = '';
   if (result2.skills) {
     for (let i = 0; i < result2.skills.length; i++) {
@@ -165,14 +167,13 @@ function LoadModal(result2) {
   // const liCount = ul.querySelectorAll('li').length;
 
   const modalUl = document.querySelector('#ModalCapability');
-  modalUl.innerHTML =``;
+  modalUl.innerHTML = ``;
   const ModalLi = modalUl.getElementsByTagName('li');
 
   for (let i = ModalLi.length - 1; i >= 0; i--) {
     modalUl.removeChild(ModalLi[i]);
   }
-  if (getUser().skills){
-
+  if (getUser().skills) {
     for (let i = 0; i < getUser().skills.length; i++) {
       skill = getUser().skills[i];
       const modalLi = document.createElement('li');
@@ -236,6 +237,7 @@ SaveChangeBtn.addEventListener('click', () => {
       await UpdateStudentPersona();
       await UpdateStudentSkills();
       await uploadProfileImage();
+      await setUserProfileImage(getUser());
       displayWelcomMessage();
       LoadData(getUser());
       LoadSkills(getUser());
@@ -335,11 +337,11 @@ async function UpdateStudentSkills() {
     if (response.ok) {
       // DeleteAllSkills();
       // RewriteAllSkills();
-      const data = await fetch(`api/account/student/id/${getUser().id}`)
+      const data = await fetch(`api/account/student/id/${getUser().id}`);
       const info = await data.json();
-      sessionStorage.setItem("user",JSON.stringify(info));
+      sessionStorage.setItem('user', JSON.stringify(info));
       LoadData(info);
-      LoadModal(info)
+      LoadModal(info);
     } else {
       console.error(
         'Error updating capstone project. Response status:',
@@ -353,7 +355,7 @@ async function UpdateStudentSkills() {
 
 async function uploadProfileImage() {
   const fileInput = document.querySelector('#profile-image');
-  
+
   if (fileInput.files.length === 0) {
     // updateDangerModal('Please select a file to upload.', alertModalElStudent);
     return;
@@ -379,27 +381,21 @@ async function uploadProfileImage() {
           method: 'POST',
           body: formData,
         }).then((response) => {
-          response
-            .json()
-            .then((data) => {
-              const user = getUser();
-              const newUser = {
-                ...user,
-                imageId: data.id,
-              };
-              sessionStorage.setItem('user', JSON.stringify(newUser));
-            })
-            .then(() => {
-              const newUser = getUser();
-              console.log(newUser);
-              fetch(`/api/student/update/${newUser.id}/profile-pic`, {
-                method: 'PUT',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(newUser),
-              });
+          response.json().then((data) => {
+            const user = getUser();
+            const newUser = {
+              ...user,
+              imageId: data.id,
+            };
+            sessionStorage.setItem('user', JSON.stringify(newUser));
+            fetch(`/api/student/update/${newUser.id}/profile-pic`, {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(newUser),
             });
+          });
         });
 
         updateSuccessModal(
