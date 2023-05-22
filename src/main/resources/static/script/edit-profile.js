@@ -1,5 +1,5 @@
 const SaveChangeBtn = document.getElementById('submit-btn');
-
+const profileContainer = document.getElementById("account-profile-main");
 const SaveBib = document.getElementById('SaveBib');
 const currentGroupStudent = JSON.parse(sessionStorage.getItem('current-group'));
 const CapabilityCreateBtn = document.getElementById('CapabilityCreateBtn');
@@ -9,7 +9,7 @@ const contact = document.getElementById('profile_contact');
 const profileComStudent = document.getElementById('profile_company');
 const profileCapInfo = document.getElementById('profile_capstoneinfo');
 const email = document.getElementById('profile_email');
-const studentInfoGroup = document.getElementById('profile_group');
+// const studentInfoGroup = document.getElementById('profile_group');
 const session = sessionStorage.getItem('user');
 const user = JSON.parse(session);
 
@@ -20,7 +20,7 @@ let StudentContact;
 let StudentEmail;
 let StudentBib;
 
-const nullImagePlacehodler =
+let nullImagePlacehodler =
   'https://t4.ftcdn.net/jpg/03/59/58/91/360_F_359589186_JDLl8dIWoBNf1iqEkHxhUeeOulx0wOC5.jpg';
 async function ViewAll() {
   await setUserProfileImage(getUser());
@@ -28,32 +28,88 @@ async function ViewAll() {
 }
 
 function LoadData(result2) {
-  const profile_img = document.getElementById('profile_img');
-  const name = document.getElementById('profile_name');
-  const major = document.getElementById('profile_major');
-  const contact = document.getElementById('profile_contact');
-  const email = document.getElementById('profile_email');
-  const Bib = document.getElementById('Bib');
-
-  profileComStudent.textContent = currentGroupStudent.capstone
+  let company = currentGroupStudent.capstone
     ? currentGroupStudent.capstone.company.name
       ? currentGroupStudent.capstone.company.name
       : 'N/A'
     : 'N/A';
-  profileCapInfo.textContent = currentGroupStudent.capstone
+  let projectTitle = currentGroupStudent.capstone
     ? currentGroupStudent.capstone.projectTitle
       ? currentGroupStudent.capstone.projectTitle
       : 'N/A'
     : 'N/A';
-  name.innerHTML = getUser().name ? getUser().name : 'N/A';
-  major.innerHTML = getUser().major ? getUser().major : 'N/A';
-  studentInfoGroup.textContent = currentGroupStudent.id
+  let sName = getUser().name ? getUser().name : 'N/A';
+  let major = getUser().major ? getUser().major : 'N/A';
+  let studentInfoGroup  = currentGroupStudent.id
     ? currentGroupStudent.groupName
     : 'N/A';
-  contact.innerHTML = getUser().contact ? getUser().contact : 'N/A';
-  email.innerHTML = getUser().email ? getUser().email : 'N/A';
-  Bib.innerHTML = getUser().bib ? getUser().bib : 'N/A';
-  LoadSkills(result2);
+  let contact = getUser().contact ? getUser().contact : 'N/A';
+  let email = getUser().email ? getUser().email : 'N/A';
+  let Bib = getUser().bib ? getUser().bib : 'N/A';
+
+  let holder = document.createElement("div");
+  holder.appendChild(LoadSkills(getUser()));
+  const content = `
+  <div class="row mt-3">
+  <div class="col-12 col-lg-4 d-flex justify-content-center my-auto">
+      <div class="avatar-container d-flex flex-column">
+          <img id="#profile_img" src="${nullImagePlacehodler}" alt="" id="acc-ava">
+          <p class="user-namee mx-auto mt-2"  style="font-size: 1.7rem;">${sName}</p>
+          <p class="user-namee mx-auto"  style="font-size: 1.7rem;">Group: ${studentInfoGroup}</p>
+          <p class="user-namee mx-auto"  style="font-size: 1.7rem;">Company: ${company}</p>
+          <p class="user-namee mx-auto"  style="font-size: 1.7rem;">Capstone: ${projectTitle}</p>
+          <p class="user-namee mx-auto"  style="font-size: 1.7rem;">Major: ${major}</p>
+      </div>
+  </div>
+  <div class="d-none d-lg-block col-lg-8 d-flex flex-column">
+      <div class="basic-info-container mx-auto">
+          <div class="basic-info-element d-flex mt-2">
+              <div class ="mt-2" style="width: 200px; display: flex;">
+                  <p class="lable" style="margin: auto 0px auto 30px; font-size: 1.8rem; font-weight: 800; ">Full Name</p>
+              </div>
+              <p class="lable my-auto" style="font-size: 1.6rem; margin-left: 250px;">${sName}</p>
+          </div>
+          <hr style="width: 95%;" class="mx-auto">
+          <div class="basic-info-element d-flex">
+              <div style="width: 200px; display: flex;">
+                  <p class="lable" style="margin: auto 0px auto 30px; font-size: 1.8rem; font-weight: 800; ">Email</p>
+              </div>
+              <p class="lable my-auto" style="font-size: 1.6rem; margin-left: 250px;">${email}</p>
+          </div>
+          <hr style="width: 95%;" class="mx-auto">
+          <div class="basic-info-element d-flex">
+              <div style="width: 200px; display: flex;">
+                  <p class="lable" style="margin: auto 0px auto 30px; font-size: 1.8rem; font-weight: 800; ">Contact</p>
+              </div>
+              <p class="lable my-auto" style="font-size: 1.6rem; margin-left: 250px;">${contact}</p>
+          </div>
+          <hr style="width: 95%;" class="mx-auto">
+          <div class="basic-info-element d-flex">
+              <div style="width: 200px; display: flex;">
+                  <p class="lable" style="margin: auto 0px auto 30px; font-size: 1.8rem; font-weight: 800; ">Password</p>
+              </div>
+              <p class="lable my-auto" style="font-size: 1.6rem; margin-left: 250px;">${getUser().password}</p>
+          </div>
+          <hr>
+      </div>
+      <div class="special-info mx-auto p-2" style="font-size: 1.6rem;">
+          <div class="row">
+              <div class="bio-container col-6 d-flex flex-column me-auto">
+                  <div class="titlee mx-auto" style ="font-size: 1.9rem; font-weight;700">Biography</div>
+                  <p class="p-2">${Bib}</p>
+              </div>
+              <div class="bio-container col-5 d-flex flex-column">
+                  <div class="titlee mx-auto" style ="font-size: 1.9rem; font-weight;700" >Skills</div>
+                  <p class="p-2">${holder.innerHTML}</p>
+              </div>
+          </div>
+          
+      </div>
+  </div>
+</div> 
+`
+profileContainer.innerHTML ='';
+profileContainer.innerHTML += content;
   LoadModal(result2);
 }
 
@@ -76,16 +132,18 @@ async function RewriteAllSkills() {
 }
 
 function LoadSkills(result2) {
-  const Capabilityul = document.getElementById('capability');
-  Capabilityul.innerHTML = '';
+  // const Capabilityul = document.getElementById('capability');
+  const skills = document.createElement("ul");
+  // Capabilityul.innerHTML = '';
   if (result2.skills) {
     for (let i = 0; i < result2.skills.length; i++) {
       const li = document.createElement('li');
       li.className = 'profile_li';
       li.textContent = result2.skills[i];
-      Capabilityul.appendChild(li);
+      skills.appendChild(li);
     }
   }
+  return skills;
 }
 
 function LoadModal(result2) {
@@ -97,37 +155,37 @@ function LoadModal(result2) {
   const ModalBib = document.getElementById('NewBib');
   Modalname.value = getUser().name ? getUser().name : 'N/A';
   Modalmajor.value = getUser().major ? getUser().major : 'N/A';
-  studentInfoGroup.textContent = currentGroupStudent.id
-    ? currentGroupStudent.groupName
-    : 'N/A';
   Modalpassword.value = getUser().password ? getUser().password : 'N/A';
   Modalcontact.value = getUser().contact ? getUser().contact : 'N/A';
   Modalemail.value = getUser().email ? getUser().email : 'N/A';
   ModalBib.value = getUser().bib ? getUser().bib : 'N/A';
 
-  const ul = document.querySelector('#capability');
-  const li = ul.querySelectorAll('li');
-  const liCount = ul.querySelectorAll('li').length;
+  // const ul = document.querySelector('#capability');
+  // const li = ul.querySelectorAll('li');
+  // const liCount = ul.querySelectorAll('li').length;
 
   const modalUl = document.querySelector('#ModalCapability');
+  modalUl.innerHTML =``;
   const ModalLi = modalUl.getElementsByTagName('li');
 
   for (let i = ModalLi.length - 1; i >= 0; i--) {
     modalUl.removeChild(ModalLi[i]);
   }
+  if (getUser().skills){
 
-  for (let i = 0; i < liCount; i++) {
-    const skill = li[i].textContent;
-    const modalLi = document.createElement('li');
-    modalLi.textContent = skill;
-    modalLi.className = 'list-group-item';
-    const DelteBtn = document.createElement('Button');
-    DelteBtn.id = 'deleteBtn';
-    DelteBtn.classList.add('btn', 'btn-danger');
-    DelteBtn.innerHTML = 'Delete';
-    DelteBtn.addEventListener('click', DeleteSkill(skill));
-    modalLi.appendChild(DelteBtn);
-    modalUl.appendChild(modalLi);
+    for (let i = 0; i < getUser().skills.length; i++) {
+      skill = getUser().skills[i];
+      const modalLi = document.createElement('li');
+      modalLi.textContent = skill;
+      modalLi.className = 'list-group-item';
+      const DelteBtn = document.createElement('Button');
+      DelteBtn.id = 'deleteBtn';
+      DelteBtn.classList.add('btn', 'btn-danger');
+      DelteBtn.innerHTML = 'Delete';
+      DelteBtn.addEventListener('click', DeleteSkill(skill));
+      modalLi.appendChild(DelteBtn);
+      modalUl.appendChild(modalLi);
+    }
   }
 }
 
@@ -177,6 +235,7 @@ SaveChangeBtn.addEventListener('click', () => {
       loadingModal.show();
       await UpdateStudentPersona();
       await UpdateStudentSkills();
+      await uploadProfileImage();
       displayWelcomMessage();
       LoadData(getUser());
       LoadSkills(getUser());
@@ -262,6 +321,7 @@ async function UpdateStudentSkills() {
   const StudentNewSkills = {
     skills: NewSkills,
   };
+  console.log(StudentNewSkills);
 
   try {
     const response = await fetch(`/api/student/update/${user.id}/skills`, {
@@ -273,8 +333,13 @@ async function UpdateStudentSkills() {
     });
 
     if (response.ok) {
-      DeleteAllSkills();
-      RewriteAllSkills();
+      // DeleteAllSkills();
+      // RewriteAllSkills();
+      const data = await fetch(`api/account/student/id/${getUser().id}`)
+      const info = await data.json();
+      sessionStorage.setItem("user",JSON.stringify(info));
+      LoadData(info);
+      LoadModal(info)
     } else {
       console.error(
         'Error updating capstone project. Response status:',
@@ -287,9 +352,10 @@ async function UpdateStudentSkills() {
 }
 
 async function uploadProfileImage() {
-  const fileInput = document.querySelector('#EditPictureInput');
+  const fileInput = document.querySelector('#profile-image');
+  
   if (fileInput.files.length === 0) {
-    updateDangerModal('Please select a file to upload.', alertModalElStudent);
+    // updateDangerModal('Please select a file to upload.', alertModalElStudent);
     return;
   }
   const file = fileInput.files[0];
@@ -325,6 +391,7 @@ async function uploadProfileImage() {
             })
             .then(() => {
               const newUser = getUser();
+              console.log(newUser);
               fetch(`/api/student/update/${newUser.id}/profile-pic`, {
                 method: 'PUT',
                 headers: {
@@ -379,21 +446,22 @@ async function setUserProfileImage(user) {
   updateLoadingModal('Loading...', alertModalElStudent);
   if (user.imageId != null) {
     const imgURL = await getImage(user.imageId);
-    imgProfileEl.src = imgURL;
+    // imgProfileEl.src = imgURL;
+    nullImagePlacehodler = imgURL;
     alertModalElStudent.querySelector('.btn-close').click();
     displayWelcomMessage();
   } else if (user.imageId === null) {
-    imgProfileEl.src = nullImagePlacehodler;
+    // imgProfileEl.src = nullImagePlacehodler;
     setTimeout(() => {
       alertModalElStudent.querySelector('.btn-close').click();
       displayWelcomMessage();
     }, 1000);
   }
 }
-document
-  .querySelector('#EditPictureBtn')
-  .addEventListener('click', async () => {
-    await uploadProfileImage();
-  });
+// document
+//   .querySelector('#EditPictureBtn')
+//   .addEventListener('click', async () => {
+//     await uploadProfileImage();
+//   });
 
 ViewAll();

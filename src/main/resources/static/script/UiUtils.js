@@ -253,3 +253,9 @@ function getUser() {
 function getCurrentGroup() {
   return JSON.parse(sessionStorage.getItem('current-group'));
 }
+async function getCurrentGroupUti() {
+  let url = `api/group/${getUser().id}`;
+  const response = await fetch(url);
+  const groupInfo = await response.json();
+  sessionStorage.setItem('current-group', JSON.stringify(groupInfo));
+}

@@ -281,31 +281,23 @@
         </ul>
       </div>
 
-      <div id="account-profile" class="container py-4" hidden="hidden">
-        <header class="pb-3 mb-4 border-bottom">
-          <svg
-            width="40"
-            height="32"
-            class="me-2"
-            viewBox="0 0 118 94"
-            role="img"
-          ></svg>
+      <div id="account-profile" class="container py-4 bg-light" hidden="hidden">
+        <header class="border-bottom">
+          <div class="p-3 rounded-3">
+            <div class="profile-header my-auto d-flex justify-content-between">
+              <h2 class="display-5 fw-bold">Profile</h2>
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#editProfileModal"
+              >
+                Edit
+              </button>
+            </div>
         </header>
-
-        <div class="p-5 mb-4 bg-light rounded-3">
-          <div class="profile-header">
-            <h2 class="display-5 fw-bold">Profile</h2>
-
-            <button
-              type="button"
-              class="btn btn-primary"
-              data-bs-toggle="modal"
-              data-bs-target="#editProfileModal"
-            >
-              Edit
-            </button>
-          </div>
-          <div id="container" class="row align-items-md-stretch">
+        <div id="account-profile-main"></div>
+          <!-- <div id="container" class="row align-items-md-stretch">
             <div class="col-md-4">
               <div class="d-flex justify-content-center">
                 <img
@@ -380,157 +372,163 @@
               </p>
             </div>
           </div>
-        </div>
-        <div
-          class="modal fade"
-          id="editProfileModal"
-          data-bs-backdrop="static"
-          data-bs-keyboard="false"
-          tabindex="-1"
-          aria-labelledby="staticBackdropLabel"
-          aria-hidden="true"
-        >
-          <div
-            class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-          >
-            <div class="modal-content">
-              <div class="modal-header">
-                <h1
-                  class="modal-title fs-1 group-form-heading"
-                  id="staticBackdropLabel"
-                >
-                  Edit Profile
-                </h1>
-                <br />
+        </div> -->
+      </div>
+    </div>
+      <div
+      class="modal fade"
+      id="editProfileModal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div
+        class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+      >
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1
+              class="modal-title fs-1 group-form-heading"
+              id="staticBackdropLabel"
+            >
+              Edit Profile
+            </h1>
+            <br />
+            <button
+              type="button"
+              class="btn-close fs-5 me-1"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+         
+          <div class="modal-body">
+            <div>
+              <label for="profile-image" class="d-block mb-2 fw-bold" style="font-size: 1.6rem;">Profile Image</label>
+              <input type="file" id="profile-image" class=" " style="font-size: 1.5rem; padding: 2px 8px; width: 100%;" accept="image/*" />
+            </div>
+            <div>
+              <label
+                for="profile_name"
+                class="input-label information-section-element"
+              >
+                Name</label
+              >
+              <input
+                id="NewName"
+                class="modal_profile information-section-element"
+                type="text"
+                required
+                placeholder="Name : "
+              />
+
+              <label
+                for="profile_major"
+                class="input-label information-section-element"
+                >Major</label
+              >
+
+              <input
+                id="NewMajor"
+                class="modal_profile information-section-element"
+                type="text"
+                placeholder="Major : "
+              />
+
+              <label
+                for="profile_contact"
+                class="input-label information-section-element"
+                >Contact</label
+              >
+              <input
+                id="NewContact"
+                class="modal_profile information-section-element"
+                type="text"
+                placeholder="Contact : "
+              />
+
+              <label
+                for="profile_email"
+                class="input-label information-section-element"
+                >Email</label
+              >
+              <input
+                id="NewEmail"
+                class="modal_profile information-section-element"
+                type="text"
+                placeholder="Email :"
+              />
+
+              <label class="input-label information-section-element"
+                >Password</label
+              >
+              <input
+                id="NewPassword"
+                class="modal_profile information-section-element"
+                type="number"
+                placeholder="Password :"
+              />
+            </div>
+
+            <hr />
+            <div>
+              <h3>Capabilities</h3>
+              <br />
+              <div id="CapabilitiesCreateContainer" class="temp">
+                <input
+                  id="CapabilitiesCreateInput"
+                  style="font-size: 1.7rem; outline: none; padding: 2px 8px"
+                  type="text"
+                />
+                <!-- <button id="CapabilityCreateBtn"
+                    type="button" class="Capabilities_add btn">Add
+                  </button> -->
                 <button
-                  type="button"
-                  class="btn-close fs-5 me-1"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
+                  id="CapabilityCreateBtn"
+                  class="Capabilities_add btn"
+                >
+                  Add
+                </button>
               </div>
-              <div class="modal-body">
-                <div>
-                  <label
-                    for="profile_name"
-                    class="input-label information-section-element"
-                  >
-                    Name</label
-                  >
-                  <input
-                    id="NewName"
-                    class="modal_profile information-section-element"
-                    type="text"
-                    required
-                    placeholder="Name : "
-                  />
+              <br />
+              <ul id="ModalCapability" class="list-group"></ul>
+            </div>
 
-                  <label
-                    for="profile_major"
-                    class="input-label information-section-element"
-                    >Major</label
-                  >
+            <hr />
+            <div>
+              <h3>Bibliography</h3>
+              <textarea
+                type="text"
+                class="information-section-textarea input-modal"
+                id="NewBib"
+                required
+              ></textarea>
+            </div>
 
-                  <input
-                    id="NewMajor"
-                    class="modal_profile information-section-element"
-                    type="text"
-                    placeholder="Major : "
-                  />
-
-                  <label
-                    for="profile_contact"
-                    class="input-label information-section-element"
-                    >Contact</label
-                  >
-                  <input
-                    id="NewContact"
-                    class="modal_profile information-section-element"
-                    type="text"
-                    placeholder="Contact : "
-                  />
-
-                  <label
-                    for="profile_email"
-                    class="input-label information-section-element"
-                    >Email</label
-                  >
-                  <input
-                    id="NewEmail"
-                    class="modal_profile information-section-element"
-                    type="text"
-                    placeholder="Email :"
-                  />
-
-                  <label class="input-label information-section-element"
-                    >Password</label
-                  >
-                  <input
-                    id="NewPassword"
-                    class="modal_profile information-section-element"
-                    type="number"
-                    placeholder="Password :"
-                  />
-                </div>
-
-                <hr />
-                <div>
-                  <h3>Capabilities</h3>
-                  <br />
-                  <div id="CapabilitiesCreateContainer" class="temp">
-                    <input
-                      id="CapabilitiesCreateInput"
-                      style="font-size: 1.7rem; outline: none; padding: 2px 8px"
-                      type="text"
-                    />
-                    <!-- <button id="CapabilityCreateBtn"
-                        type="button" class="Capabilities_add btn">Add
-                      </button> -->
-                    <button
-                      id="CapabilityCreateBtn"
-                      class="Capabilities_add btn"
-                    >
-                      Add
-                    </button>
-                  </div>
-                  <br />
-                  <ul id="ModalCapability" class="list-group"></ul>
-                </div>
-
-                <hr />
-                <div>
-                  <h3>Bibliography</h3>
-                  <textarea
-                    type="text"
-                    class="information-section-textarea input-modal"
-                    id="NewBib"
-                    required
-                  ></textarea>
-                </div>
-
-                <div class="modal-footer">
-                  <button
-                    id="cancel-btn"
-                    type="button"
-                    class="btn modal-button-controller"
-                    data-bs-dismiss="modal"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    id="submit-btn"
-                    type="button"
-                    class="btn modal-button-controller"
-                    data-bs-dismiss="modal"
-                  >
-                    Submit
-                  </button>
-                </div>
-              </div>
+            <div class="modal-footer">
+              <button
+                id="cancel-btn"
+                type="button"
+                class="btn modal-button-controller"
+                data-bs-dismiss="modal"
+              >
+                Cancel
+              </button>
+              <button
+                id="submit-btn"
+                type="button"
+                class="btn modal-button-controller"
+                data-bs-dismiss="modal"
+              >
+                Submit
+              </button>
             </div>
           </div>
         </div>
       </div>
+    </div>
       <!-- student-capstone-modal -->
       <div
         class="modal fade"

@@ -483,3 +483,29 @@ main {
   cursor: pointer;
   text-decoration: underline;
 }
+/* personal profile info */
+.avatar-container{
+  background-color: var(--text-color);
+  box-shadow: 0px 0px 4px ;
+  width: 300px;
+  /* height: 350px; */
+  border-radius: 8px;
+}
+.basic-info-container{
+  border-radius: 8px;
+  box-shadow: 0px 0px 4px ;
+  width: 100%;
+}
+.basic-info-element{
+  height: 40px;
+}
+#acc-ava{
+  margin: 25px auto 10px auto;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
+.bio-container{
+  border-radius: 8px;
+  box-shadow: 0px 0px 4px ;
+}
