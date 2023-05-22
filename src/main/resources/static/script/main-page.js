@@ -262,7 +262,7 @@ async function getAccList(name, type, page, size, sort) {
   let endpoint = url + temp;
   response = await fetch(endpoint);
   result = await response.json();
-  console.log(result.content);
+  
   await updateCompanyUI(type, result.content);
   await displayPagination(result);
 }
@@ -291,7 +291,7 @@ async function updateCompanyUI(type, accList) {
         const spinning = createSpinningAccCard();
         accContainer.appendChild(spinning);
         displayResult.appendChild(accContainer);
-        console.log('in spinning');
+        
         const card = await createAccCard(acc);
         accContainer.removeChild(spinning);
 
@@ -949,7 +949,7 @@ function createApplyButton(capstone) {
         const currentGroupInProjectResult =
           await currentGroupInProjectResponse.json();
         let groupMemberCount = 0;
-        console.log(currentGroupInProjectResult);
+ 
         for (let i = 0; i < currentGroupInProjectResult.content.length; i++) {
           if (currentGroupInProjectResult.content[i].id === currentGroup.id) {
             updateDangerModal(

@@ -27,7 +27,6 @@ async function setCapstoneImage(capstoneProject) {
     return;
   }
 
-  console.log('change');
   const file = fileInput.files[0];
   const reader = new FileReader();
 
@@ -41,7 +40,7 @@ async function setCapstoneImage(capstoneProject) {
       const context = canvas.getContext('2d');
       context.drawImage(image, 0, 0, 300, 300);
       const compressedImageData = canvas.toDataURL('image/jpeg', 0.5);
-      console.log(compressedImageData);
+
       const formData = new FormData();
       formData.append('file', dataURItoBlob(compressedImageData));
 
@@ -50,13 +49,11 @@ async function setCapstoneImage(capstoneProject) {
         body: formData,
       })
         .then((response) => {
-          console.log('Image uploaded successfully.');
           return response.json();
         })
         .then((data) => {
-          console.log(data);
           capstoneProject.imageId = data.id;
-          console.log(capstoneProject);
+
           return capstoneProject;
         })
         .then((capstoneProject) => {
@@ -67,11 +64,8 @@ async function setCapstoneImage(capstoneProject) {
             },
             body: JSON.stringify(capstoneProject),
           })
-            .then((response) => {
-              console.log('Capstone project created successfully.');
-            })
+            .then((response) => {})
             .then((data) => {
-              console.log(data);
               window.location.href = 'company-main-page.html';
             });
         })

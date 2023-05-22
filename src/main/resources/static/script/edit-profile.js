@@ -216,16 +216,33 @@ SaveChangeBtn.addEventListener('click', () => {
     'Are you sure that you want to save change this information?',
     alertModalElStudent,
     async (ev) => {
-      loadingModal.show();
-      await UpdateStudentPersona();
-      await UpdateStudentSkills();
-      await uploadProfileImage();
-      await setUserProfileImage(getUser());
-      displayWelcomMessage();
-      LoadData(getUser());
-      LoadSkills(getUser());
-      LoadModal();
-      loadingModal.hide();
+      try {
+        ev.preventDefault();
+        updateLoadingModal('Updating your information...', alertModalElStudent);
+        await UpdateStudentPersona();
+        await UpdateStudentSkills();
+        await uploadProfileImage();
+        await setUserProfileImage(getUser());
+        displayWelcomMessage();
+        LoadData(getUser());
+        LoadSkills(getUser());
+        LoadModal();
+        updateSuccessModal(
+          'Your information has been updated!',
+          alertModalElStudent,
+          () => {
+            window.location.reload();
+          }
+        );
+      } catch (err) {
+        updateDangerModal(
+          'Failed to update your information!',
+          alertModalElStudent,
+          () => {
+            window.location.reload();
+          }
+        );
+      }
     }
   );
 });
@@ -306,7 +323,7 @@ async function UpdateStudentSkills() {
   const StudentNewSkills = {
     skills: NewSkills,
   };
-  console.log(StudentNewSkills);
+
 
   try {
     const response = await fetch(`/api/student/update/${user.id}/skills`, {

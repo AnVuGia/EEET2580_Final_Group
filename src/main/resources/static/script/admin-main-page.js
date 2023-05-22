@@ -295,7 +295,7 @@ rejectButton.addEventListener('click', async function (ev) {
 });
 const setCapstoneStatus = async function (id, status) {
   let url = `/api/capstone-project/id/${id}`;
-  // console.log(url);
+ 
   let reponse = await fetch(url);
   let capstone = await reponse.json();
 

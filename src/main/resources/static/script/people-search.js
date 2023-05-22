@@ -78,7 +78,7 @@ function createSpinningAnimation() {
 async function GetAllgroup() {
 
     const response = await fetch('/api/account/groups');
-    console.log(response);
+    
     result = await response.json();
     for (let i = 0; i < result.length; i++) {
         DummyGroup.push(result[i]);
@@ -114,7 +114,7 @@ function updateLoadingModal(msg, modal) {
     newModal.show();
 }
 function OpenStudent(id) {
-    console.log("DummyStudent");
+  
     return function () {
         findStudent(id);
         SearchDiv.setAttribute('hidden', 'hidden');
@@ -136,7 +136,7 @@ async function findStudent(id) {
     await response.json().then((data) => {
         DummyStudent = data;
     });
-    console.log(DummyStudent);
+   
     for (let i = 0; i < DummyStudent.length; i++) {
         if (DummyStudent[i].name == SStudentName) {
             StudentName.innerHTML = DummyStudent[i].name;
@@ -144,8 +144,6 @@ async function findStudent(id) {
             StduentContact.innerHTML = DummyStudent[i].contact;
             StudentEmail.innerHTML = DummyStudent[i].email;
             StduentBib.innerHTML = DummyStudent[i].bib;
-            console.log(DummyStudent[i].skills.length);
-            console.log(DummyStudent[i]);
             const SkillUL = document.getElementById('capability');
             SkillUL.innerHTML = '';
             for (let j = 0; j < DummyStudent[i].skills.length; j++) {
@@ -153,13 +151,13 @@ async function findStudent(id) {
                 const li = document.createElement('li');
                 li.className = 'profile_li';
                 li.textContent = DummyStudent[i].skills[j];
-                console.log(DummyStudent[i].skills[j]);
+               
                 SkillUL.appendChild(li);
             }
         }
     }
     StudentDiv.removeAttribute('hidden');
-    console.log("Done");
+  
 }
 
 
@@ -196,8 +194,6 @@ async function findStudent(GroupName, SStudentName) {
     StduentContact.innerHTML = DummyStudent.contact;
     StudentEmail.innerHTML = DummyStudent.email;
     StduentBib.innerHTML = DummyStudent.bib;
-    // console.log(DummyStudent.skills.length);
-    // console.log(DummyStudent);
     const SkillUL = document.getElementById('capability');
     SkillUL.innerHTML = '';
     if (DummyStudent.skills){
@@ -206,14 +202,14 @@ async function findStudent(GroupName, SStudentName) {
             const li = document.createElement('li');
             li.className = 'profile_li';
             li.textContent = DummyStudent.skills[j];
-            console.log(DummyStudent.skills[j]);
+        
             SkillUL.appendChild(li);
         }
     }
  
         
     
-    console.log("Done");
+
 }
 
 let DummyGroup = [];
@@ -223,7 +219,6 @@ let DummySpervisor = [];
 
 function CreateGroupList(DummyGroup) {
 
-    console.log(DummyGroup);
     for (let i = 0; i < DummyGroup.length; i++) {
         const div = document.createElement("div");
         div.className = 'btn-group';
@@ -265,7 +260,6 @@ function CreateGroupList(DummyGroup) {
         div.appendChild(ul);
         groupList.appendChild(div);
     }
-    console.log("REMOVE SPINNER")
     // groupList.removeChild(SpinnerContainer);
 }
 
@@ -274,22 +268,19 @@ async function getAllCompany() {
     const ComEndPoint = "http://localhost:8000/api/account/companies";
 
     const response = await fetch(ComEndPoint);
-    console.log(response);
     result = await response.json();
     for (let i = 0; i < result.length; i++) {
         DummyCompany.push(result[i]);
 
     }
-    console.log("Dummy", DummyCompany[0]);
     CreateCompanyList(DummyCompany);
 }
 
 
 function CreateCompanyList(DummyCompany) {
 
-    console.log("COMPANYLIST");
     const CompanyGroupUL = document.getElementById('CompanybigList');
-    console.log(DummyCompany);
+    
     for (let i = 0; i < DummyCompany.length; i++) {
         const Companyli = document.createElement("li");
         Companyli.className = 'list-group-item';
@@ -299,7 +290,6 @@ function CreateCompanyList(DummyCompany) {
 
         CompanyGroupUL.appendChild(Companyli);
     }
-    console.log("REMOVE SPINNER")
     // CompanyGroupUL.removeChild(SpinnerContainer2);
 }
 
@@ -331,19 +321,15 @@ getAllSupervisor();
 async function getAllSupervisor() {
     const superEnd = "http://localhost:8000/api/account/supervisors";
     const response = await fetch(superEnd);
-    console.log(response);
     result = await response.json();
     for (let i = 0; i < result.length; i++) {
         DummySpervisor.push(result[i]);
     }
     CreateSupervisorList(DummySpervisor);
-    console.log("DummyStudent", DummySpervisor);
 }
 
 function CreateSupervisorList(DummySpervisor) {
-    console.log("COMPANYLIST");
     const SuperUl = document.getElementById('SupervisorBigUl');
-    console.log("leng", DummySpervisor.length);
     for (let i = 0; i < DummySpervisor.length; i++) {
         const Superli = document.createElement("li");
 
@@ -351,23 +337,18 @@ function CreateSupervisorList(DummySpervisor) {
         Superli.setAttribute('id', "Studentli");
         Superli.addEventListener('click', ShowSupervis.bind(null, DummySpervisor[i].username));
         let StName = DummySpervisor[i].name;
-        console.log(DummySpervisor[i].name);
         if (StName == null) {
             StName = "N/A";
         }
         Superli.innerHTML = StName;
         SuperUl.appendChild(Superli);
     }
-    console.log("REMOVE SPINNER")
-    // StuGroupUL.removeChild(SpinnerContainer3);
 }
 
 async function ShowSupervis(username){
-    console.log(username);
     const superEnd = "http://localhost:8000/api/account/supervisor/username/"+username;
     const response = await fetch(superEnd);
     result = await response.json();
-    console.log(result);
 
     const Supername= document.getElementById('profile-supervisor-name');
     const superEmain= document.getElementById('profile-supervisor-email');
@@ -386,19 +367,15 @@ async function getAllStudent() {
     const StuEndPoint = "http://localhost:8000/api/account/students";
 
     const response = await fetch(StuEndPoint);
-    console.log(response);
     result = await response.json();
     for (let i = 0; i < result.length; i++) {
         DummyStudent.push(result[i]);
     }
     CreateStudentList(DummyStudent);
-    console.log("DummyStudent", DummyStudent);
 }
 
 function CreateStudentList(DummyStudent) {
-    console.log("COMPANYLIST");
     const StuGroupUL = document.getElementById('StudentbigList');
-    console.log(DummyStudent);
     for (let i = 0; i < DummyStudent.length; i++) {
         const Studentli = document.createElement("li");
         Studentli.className = 'list-group-item';
@@ -414,13 +391,11 @@ function CreateStudentList(DummyStudent) {
 }
 
 async function ShowStudent(id) {
-    console.log("A");
     const endpoint1 = "http://localhost:8000/api/account/student/id/" + id;
     const endpoint2 = "http://localhost:8000/api/group/" + id;
 
     const response2 = await fetch(endpoint2);
     result2 = await response2.json();
-    console.log(result2);
     const response = await fetch(endpoint1);
     result = await response.json();
     StudentName.innerHTML = result.name ? result.name : "N/A";
@@ -443,7 +418,6 @@ async function ShowStudent(id) {
     const SkillUL = document.getElementById('capability');
     SkillUL.innerHTML = '';
     if (result.skills.length > 0) {
-        console.log("if", result.skills.length);
         for (let j = 0; j < result.skills.length; j++) {
             const li = document.createElement('li');
             li.className = 'profile_li';
@@ -451,7 +425,6 @@ async function ShowStudent(id) {
             SkillUL.appendChild(li);
         }
     } else {
-        console.log("else", result.skills.length);
         const li = document.createElement('li');
         li.className = 'profile_li';
         li.textContent = "N/A";
@@ -480,8 +453,6 @@ SearchBtn.addEventListener('click', () => {
         if (searchGroup !== "") {
             let buttons = document.querySelectorAll(".dropdown-toggle");
             for (let i = 0; i < buttons.length; i++) {
-                console.log(buttons[i].textContent.trim());
-                console.log(searchGroup);
                 if (buttons[i].textContent.trim().toLowerCase() === searchGroup.toLowerCase()) {
                     cnt = 1;
                     break;
@@ -504,7 +475,6 @@ SearchBtn.addEventListener('click', () => {
         modalLi.className = 'list-group-item'
         modalLi.setAttribute('id', "modalli");
         modalUl.appendChild(modalLi);
-        console.log("MUST STH IN INPUT");
     }
 
 })
@@ -522,7 +492,6 @@ function writeModalByID(searchGroup) {
             const ModalLi = modalUl.getElementsByTagName('li');
 
             for (let j = 0; j < lis.length; j++) {
-                console.log(lis[j].textContent);
                 const modalLi = document.createElement('li');
                 modalLi.textContent = lis[j].textContent;
                 modalLi.className = 'list-group-item'
@@ -560,7 +529,6 @@ StudentSearchBtn.addEventListener('click', () => {
             }
         }
         if (cnt == 0) {
-            console.log("found");
         }
 
     } else {
@@ -570,7 +538,6 @@ StudentSearchBtn.addEventListener('click', () => {
                 modalLi.className = 'list-group-item'
                 modalLi.setAttribute('id', "modalli");
                 modalUl.appendChild(modalLi);
-        console.log("MORE THAN 0")
     }
 })
 
@@ -599,11 +566,7 @@ SuperSearchBtn.addEventListener('click', () => {
             }
         }
 
-        if (cnt != 0) {
-            console.log("found");
-        } else {
-            console.log("not found");
-        }
+        
 
     } else {
         const modalUl = document.querySelector('#ResultSuperUL');
@@ -612,7 +575,6 @@ SuperSearchBtn.addEventListener('click', () => {
         modalLi.className = 'list-group-item'
         modalLi.setAttribute('id', "modalli");
         modalUl.appendChild(modalLi);
-        console.log("MORE THAN 0")
     }
 })
 
@@ -643,11 +605,6 @@ CompanySearchBtn.addEventListener('click', () => {
             }
         }
 
-        if (cnt != 0) {
-            console.log("found");
-        } else {
-            console.log("not found");
-        }
 
     } else {
         const modalUl = document.querySelector('#ResultCompanyUL');
@@ -656,7 +613,6 @@ CompanySearchBtn.addEventListener('click', () => {
         modalLi.className = 'list-group-item'
         modalLi.setAttribute('id', "modalli");
         modalUl.appendChild(modalLi);
-        console.log("MORE THAN 0")
     }
 })
 // show supervisor profile

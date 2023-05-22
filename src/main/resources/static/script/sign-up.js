@@ -103,10 +103,8 @@ async function onSignUpSubmit(userName, password,type) {
         ()=>{window.location.href="sign-in-page"});
           }
     } else {
-      console.log('Request failed with status:', res.status);
     }
   } catch (error) {
-    console.log('Request failed with error:', error);
   }
   
 }
