@@ -269,7 +269,7 @@ function LoadSkills(result2) {
   if (result2.skills) {
     for (let i = 0; i < result2.skills.length; i++) {
       const li = document.createElement('li');
-      li.className = 'profile_li';
+      // li.className = 'profile_li';
       li.textContent = result2.skills[i];
       skills.appendChild(li);
     }
