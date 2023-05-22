@@ -336,8 +336,8 @@ const supervisorContact = document.querySelector('#profile-supervisor-contact');
 
 const imgPlacHolder = document.querySelector('.rounded-circle');
 
-const nullImagePlacehodler =
-  'https://t4.ftcdn.net/jpg/03/59/58/91/360_F_359589186_JDLl8dIWoBNf1iqEkHxhUeeOulx0wOC5.jpg';
+// let nullImagePlacehodler =
+//   'https://t4.ftcdn.net/jpg/03/59/58/91/360_F_359589186_JDLl8dIWoBNf1iqEkHxhUeeOulx0wOC5.jpg';
 
 function updateProfileUI(result2) {
   let sName = getUser().name ? getUser().name : 'N/A';
